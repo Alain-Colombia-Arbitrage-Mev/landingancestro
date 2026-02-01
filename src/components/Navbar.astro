@@ -15,22 +15,26 @@ const navItems: NavItem[] = [
 ];
 ---
 
-<nav class="navbar">
+<nav class="navbar" role="navigation" aria-label="Navegación principal">
   <div class="navbar-inner">
-    <a href="/" class="logo">
-      <img src="/logo.svg" alt="Ancestro" class="logo-img" />
+    <a href="/" class="logo" aria-label="Ancestro - Ir al inicio">
+      <img src="/logo.svg" alt="Ancestro Logo" class="logo-img" width="200" height="40" />
     </a>
 
-    <div class="nav-links">
+    <div class="nav-links" role="menubar">
       {navItems.map((item) => (
-        <a href={item.href} class:list={['nav-link', { 'nav-link-highlight': item.label === 'Presale' }]}>
+        <a 
+          href={item.href} 
+          class:list={['nav-link', { 'nav-link-highlight': item.label === 'Presale' }]}
+          role="menuitem"
+        >
           {item.label}
         </a>
       ))}
     </div>
 
     <div class="nav-cta">
-      <CTA variant="secondary" text="Login" href="/login" />
+      <CTA variant="secondary" text="Login" href="/login" ariaLabel="Iniciar sesión" />
     </div>
   </div>
 </nav>

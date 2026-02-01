@@ -4,20 +4,26 @@ interface Props {
   text: string;
   href?: string;
   size?: 'default' | 'large';
+  ariaLabel?: string;
 }
 
 const { 
   variant = 'secondary', 
   text, 
   href = '#',
-  size = 'default'
+  size = 'default',
+  ariaLabel
 } = Astro.props;
 
 const isPrimary = variant === 'primary';
 const isGhost = variant === 'ghost';
 ---
 
-<a href={href} class:list={['cta', variant, size]}>
+<a 
+  href={href} 
+  class:list={['cta', variant, size]}
+  aria-label={ariaLabel || text}
+>
   <span class="cta-text">{text}</span>
 </a>
 
@@ -37,6 +43,17 @@ const isGhost = variant === 'ghost';
     text-decoration: none;
     cursor: pointer;
     transition: all var(--transition-fast);
+  }
+
+  /* Focus state for accessibility */
+  .cta:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  .cta:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
   }
 
   .cta.large {

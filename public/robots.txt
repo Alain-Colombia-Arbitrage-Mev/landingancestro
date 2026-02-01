@@ -1,0 +1,15 @@
+# Robots.txt for Ancestro
+# https://ancestro.com
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://ancestro.com/sitemap-index.xml
+
+# Disallow admin/private paths
+Disallow: /api/
+Disallow: /_astro/
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1

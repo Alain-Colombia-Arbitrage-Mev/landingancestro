@@ -4,36 +4,193 @@ import '@styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  image?: string;
+  canonicalURL?: string;
+  type?: 'website' | 'article';
 }
 
 const { 
   title, 
-  description = 'Ancestro - Join LATAM\'s Fastest Growing Solar + Battery Subscription Network' 
+  description = 'Join LATAM\'s fastest growing solar + battery subscription network. $0 upfront, day-one savings, available in 18 countries.',
+  image = '/images/og-image.png',
+  canonicalURL = Astro.url.href,
+  type = 'website'
 } = Astro.props;
+
+const siteName = 'Ancestro';
+const siteUrl = 'https://ancestro.com';
+const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
+
+// Structured Data - Organization
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Ancestro",
+  "url": siteUrl,
+  "logo": `${siteUrl}/logo.svg`,
+  "description": "LATAM's fastest growing solar + battery subscription network",
+  "foundingDate": "2024",
+  "areaServed": [
+    "Colombia", "Panama", "Dominican Republic", "Mexico", "Peru", 
+    "Guatemala", "El Salvador", "Uruguay", "Costa Rica", "Brazil",
+    "Nicaragua", "Honduras", "Chile", "Argentina", "Bolivia",
+    "Belize", "Ecuador", "Paraguay"
+  ],
+  "sameAs": [
+    "https://twitter.com/ancestro",
+    "https://linkedin.com/company/ancestro",
+    "https://instagram.com/ancestro"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "availableLanguage": ["Spanish", "English", "Portuguese"]
+  }
+};
+
+// Structured Data - WebSite with SearchAction
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": siteName,
+  "url": siteUrl,
+  "description": description,
+  "publisher": {
+    "@type": "Organization",
+    "name": siteName
+  }
+};
+
+// Structured Data - Product/Service
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Solar Energy Subscription",
+  "provider": {
+    "@type": "Organization",
+    "name": "Ancestro"
+  },
+  "areaServed": {
+    "@type": "Place",
+    "name": "Latin America"
+  },
+  "description": "Solar panels, battery storage, and EV charging subscription service with $0 upfront cost",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD",
+    "description": "$0 upfront, subscription-based solar energy"
+  }
+};
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
+    <!-- Primary Meta Tags -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="title" content={fullTitle} />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#000000" />
+    <meta name="keywords" content="solar panels, battery storage, EV charging, electric vehicles, renewable energy, LATAM, Colombia, Mexico, Brazil, subscription, clean energy, sustainable" />
+    <meta name="author" content="Ancestro" />
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalURL} />
+    
+    <!-- Theme & Favicons -->
+    <meta name="theme-color" content="#f8b03b" />
+    <meta name="msapplication-TileColor" content="#000000" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon.svg" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image.startsWith('http') ? image : `${siteUrl}${image}`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content="es_LA" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image.startsWith('http') ? image : `${siteUrl}${image}`} />
+    <meta name="twitter:site" content="@ancestro" />
+    <meta name="twitter:creator" content="@ancestro" />
+    
+    <!-- Preconnect to external origins -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <title>{title}</title>
+    <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+    
+    <title>{fullTitle}</title>
   </head>
   <body>
     <slot />
+    
+    <!-- Accessibility: Skip to main content link -->
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
   </body>
 </html>
 
 <style is:global>
+  /* Skip link for accessibility */
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--color-primary);
+    color: #000;
+    padding: 8px 16px;
+    z-index: 10000;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 0 0 8px 0;
+    transition: top 0.3s ease;
+  }
+  
+  .skip-link:focus {
+    top: 0;
+  }
+
   /* Page-level global styles */
   .page-wrapper {
     position: relative;
     min-height: 100vh;
     background-color: var(--color-black);
+  }
+  
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+  
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    :root {
+      --color-primary: #ffcc00;
+      --color-gray: #ffffff;
+    }
   }
 </style>
