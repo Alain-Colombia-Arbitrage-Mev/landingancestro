@@ -1,0 +1,56 @@
+---
+import ProductCard from './ProductCard.astro';
+
+interface Product {
+  title: string;
+  description: string;
+  backgroundImage: string;
+}
+
+interface Props {
+  products: Product[];
+}
+
+const { products } = Astro.props;
+---
+
+<section class="shop-section" id="shop">
+  <div class="shop-inner">
+    {products.map((product) => (
+      <ProductCard 
+        title={product.title}
+        description={product.description}
+        backgroundImage={product.backgroundImage}
+      />
+    ))}
+  </div>
+</section>
+
+<style>
+  .shop-section {
+    width: 100%;
+    max-width: 1920px;
+    margin: 0 auto;
+  }
+
+  .shop-inner {
+    display: flex;
+    width: 100%;
+    gap: 20px;
+  }
+
+  /* Responsive */
+  @media (max-width: 1200px) {
+    .shop-inner {
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .shop-inner {
+      flex-direction: column;
+      gap: 16px;
+    }
+  }
+</style>

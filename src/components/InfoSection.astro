@@ -1,0 +1,123 @@
+---
+import CTA from './CTA.astro';
+
+interface Props {
+  title: string;
+  subtitle: string;
+  ctaVariant?: 'primary' | 'secondary';
+  ctaText: string;
+  imageUrl: string;
+  imageAlt?: string;
+}
+
+const { 
+  title, 
+  subtitle, 
+  ctaVariant = 'secondary', 
+  ctaText, 
+  imageUrl,
+  imageAlt = ''
+} = Astro.props;
+---
+
+<div class="info-section">
+  <div class="info-content">
+    <div class="info-text">
+      <h3 class="info-title">{title}</h3>
+      <p class="info-subtitle">{subtitle}</p>
+    </div>
+    <div class="info-cta">
+      <CTA variant={ctaVariant} text={ctaText} />
+    </div>
+  </div>
+  <div class="info-image">
+    <img src={imageUrl} alt={imageAlt} loading="lazy" />
+  </div>
+</div>
+
+<style>
+  .info-section {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding: 30px;
+    background-color: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--color-white-20);
+    border-radius: 10px;
+    width: 100%;
+  }
+
+  .info-content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .info-text {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .info-title {
+    font-size: clamp(24px, 2.5vw, 34px);
+    font-weight: 600;
+    text-transform: capitalize;
+    color: var(--color-white);
+  }
+
+  .info-subtitle {
+    font-size: clamp(16px, 1.5vw, 20px);
+    font-weight: 400;
+    color: var(--color-gray);
+  }
+
+  .info-cta {
+    display: flex;
+    align-items: center;
+  }
+
+  .info-image {
+    width: clamp(200px, 25vw, 289px);
+    height: clamp(230px, 28vw, 329px);
+    border-radius: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .info-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Tablet */
+  @media (max-width: 1024px) {
+    .info-section {
+      padding: 20px;
+      gap: 20px;
+    }
+
+    .info-image {
+      width: 180px;
+      height: 220px;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 600px) {
+    .info-section {
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    .info-image {
+      width: 100%;
+      height: 200px;
+    }
+  }
+</style>

@@ -1,0 +1,34 @@
+---
+interface Props {
+  country: string;
+  imageUrl: string;
+}
+
+const { country, imageUrl } = Astro.props;
+---
+
+<div class="flag" title={country}>
+  <img src={imageUrl} alt={`${country} flag`} loading="lazy" />
+</div>
+
+<style>
+  .flag {
+    /* Dimensiones de Figma: 100px x 67px - serán sobrescritas por el padre si es necesario */
+    width: 100px;
+    height: 67px;
+    border-radius: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
+    transition: transform var(--transition-fast);
+  }
+
+  .flag:hover {
+    transform: scale(1.05);
+  }
+
+  .flag img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>

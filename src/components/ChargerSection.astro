@@ -1,0 +1,204 @@
+---
+import CTA from './CTA.astro';
+
+interface Props {
+  chargerImage: string;
+  vehicleImage: string;
+}
+
+const { chargerImage, vehicleImage } = Astro.props;
+---
+
+<section class="charger-section">
+  <div class="charger-card charger-main">
+    <div class="charger-bg">
+      <img src={chargerImage} alt="Level 3 Fast Charger" loading="lazy" />
+      <div class="charger-overlay"></div>
+    </div>
+    <div class="charger-content">
+      <div class="charger-text">
+        <h3 class="charger-title">Level 3 Fast Chargers</h3>
+        <p class="charger-subtitle">Charge in 30-40 Minutes</p>
+        <div class="charger-actions">
+          <CTA variant="secondary" text="Find a Charger" />
+          <CTA variant="secondary" text="Download App" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="charger-card vehicle-card">
+    <div class="vehicle-content">
+      <div class="vehicle-text">
+        <h3 class="vehicle-title">Chevrolet Spark</h3>
+        <CTA variant="primary" text="Shop Now" />
+      </div>
+    </div>
+    <div class="vehicle-image">
+      <img src={vehicleImage} alt="Chevrolet Spark" loading="lazy" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .charger-section {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    max-width: 1797px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-2xl);
+  }
+
+  .charger-card {
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .charger-main {
+    width: 1070px;
+    height: 545px;
+    border: 1px solid var(--color-white-10);
+    flex-shrink: 0;
+  }
+
+  .charger-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .charger-bg img {
+    width: 100%;
+    height: 130.89%;
+    object-fit: cover;
+    opacity: 0.5;
+  }
+
+  .charger-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, #000 100%);
+  }
+
+  .charger-content {
+    position: absolute;
+    bottom: 41px;
+    left: 50px;
+    right: 50px;
+  }
+
+  .charger-text {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 398px;
+  }
+
+  .charger-title {
+    font-size: 34px;
+    font-weight: 600;
+    text-transform: capitalize;
+    color: var(--color-white);
+  }
+
+  .charger-subtitle {
+    font-size: 20px;
+    font-weight: 400;
+    text-transform: capitalize;
+    color: var(--color-gray);
+  }
+
+  .charger-actions {
+    display: flex;
+    gap: 15px;
+  }
+
+  .vehicle-card {
+    width: 687px;
+    height: 545px;
+    background-color: var(--color-dark-gray);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 41px 50px;
+    flex-shrink: 0;
+  }
+
+  .vehicle-content {
+    display: flex;
+    flex-direction: column;
+    gap: 37px;
+    align-items: flex-end;
+    width: 100%;
+  }
+
+  .vehicle-text {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+
+  .vehicle-title {
+    font-size: 34px;
+    font-weight: 600;
+    text-transform: capitalize;
+    color: var(--color-white);
+  }
+
+  .vehicle-image {
+    width: 587px;
+    height: 314px;
+    align-self: flex-end;
+    margin-top: 20px;
+  }
+
+  .vehicle-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  /* Responsive */
+  @media (max-width: 1200px) {
+    .charger-section {
+      flex-direction: column;
+      padding: 0 var(--spacing-md);
+    }
+
+    .charger-main,
+    .vehicle-card {
+      width: 100%;
+    }
+
+    .vehicle-image {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .charger-main {
+      height: 400px;
+    }
+
+    .vehicle-card {
+      height: auto;
+      padding: 30px;
+    }
+
+    .charger-title,
+    .vehicle-title {
+      font-size: 28px;
+    }
+
+    .charger-subtitle {
+      font-size: 18px;
+    }
+
+    .vehicle-image {
+      height: 200px;
+    }
+  }
+</style>

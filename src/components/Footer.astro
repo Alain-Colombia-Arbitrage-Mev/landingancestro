@@ -1,0 +1,414 @@
+---
+interface Props {
+  backgroundImage?: string;
+}
+
+const { backgroundImage = '/images/footer-bg.png' } = Astro.props;
+
+const companyLinks = [
+  { label: 'Become a Distributor', href: '#distributor' },
+  { label: 'Become an Installer', href: '#installer' },
+  { label: 'Become an Investor', href: '#investor' },
+  { label: 'Become a Host', href: '#host' },
+];
+
+const productLinks = [
+  { label: 'Solar Panels', href: '#solar' },
+  { label: 'Battery Storage', href: '#battery' },
+  { label: 'EV Charging', href: '#charging' },
+  { label: 'Electric Vehicles', href: '#vehicles' },
+];
+
+const supportLinks = [
+  { label: 'Help Center', href: '#help' },
+  { label: 'Contact Us', href: '#contact' },
+  { label: 'FAQs', href: '#faq' },
+];
+
+const legalLinks = [
+  { label: 'Terms of Service', href: '/terms' },
+  { label: 'Privacy Policy', href: '/privacy' },
+];
+
+const socialLinks = [
+  { label: 'Twitter', href: '#', icon: 'X' },
+  { label: 'LinkedIn', href: '#', icon: 'in' },
+  { label: 'Instagram', href: '#', icon: 'IG' },
+];
+---
+
+<section class="footer-section">
+  <!-- Background Image -->
+  <div class="footer-bg">
+    <img src={backgroundImage} alt="" loading="lazy" />
+    <div class="footer-overlay"></div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <!-- Main Footer Content -->
+      <div class="footer-top">
+        <!-- Brand Column -->
+        <div class="footer-brand">
+          <a href="/" class="footer-logo">
+            <img src="/logo.svg" alt="Ancestro" class="footer-logo-img" />
+          </a>
+          <p class="footer-tagline">
+            Powering LATAM's sustainable future with solar energy, battery storage, and electric mobility.
+          </p>
+          <div class="social-links">
+            {socialLinks.map((social) => (
+              <a href={social.href} class="social-link" aria-label={social.label}>
+                <span>{social.icon}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <!-- Links Columns -->
+        <div class="footer-links">
+          <div class="footer-column">
+            <h4 class="footer-heading">Products</h4>
+            <ul class="footer-list">
+              {productLinks.map((link) => (
+                <li><a href={link.href} class="footer-link">{link.label}</a></li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h4 class="footer-heading">Partner With Us</h4>
+            <ul class="footer-list">
+              {companyLinks.map((link) => (
+                <li><a href={link.href} class="footer-link">{link.label}</a></li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h4 class="footer-heading">Support</h4>
+            <ul class="footer-list">
+              {supportLinks.map((link) => (
+                <li><a href={link.href} class="footer-link">{link.label}</a></li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h4 class="footer-heading">Find a Charger</h4>
+            <p class="footer-description">Locate the nearest charging station in your area.</p>
+            <a href="#find-charger" class="cta-button">
+              <span>Open Map</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="footer-bottom">
+        <p class="copyright">© 2026 Ancestro. All rights reserved.</p>
+        <div class="legal-links">
+          {legalLinks.map((link) => (
+            <a href={link.href} class="legal-link">{link.label}</a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </footer>
+</section>
+
+<style>
+  .footer-section {
+    position: relative;
+    width: 100%;
+    min-height: 600px;
+    margin-top: 100px;
+  }
+
+  /* Background */
+  .footer-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .footer-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .footer-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.95) 0%,
+      rgba(0, 0, 0, 0.7) 30%,
+      rgba(0, 0, 0, 0.5) 60%,
+      rgba(0, 0, 0, 0.8) 100%
+    );
+  }
+
+  /* Footer Container */
+  .footer {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+  }
+
+  .footer-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 80px 50px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+  }
+
+  /* Top Section */
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+  }
+
+  /* Brand Column */
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .footer-logo {
+    text-decoration: none;
+    display: inline-block;
+    transition: opacity 0.2s ease;
+  }
+
+  .footer-logo:hover {
+    opacity: 0.9;
+  }
+
+  .footer-logo-img {
+    height: 60px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .footer-tagline {
+    font-size: 16px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 300px;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+  }
+
+  .social-link {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .social-link:hover {
+    background: rgba(248, 176, 59, 0.2);
+    border-color: rgba(248, 176, 59, 0.4);
+    color: #f8b03b;
+    transform: translateY(-2px);
+  }
+
+  /* Links Section */
+  .footer-links {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+  }
+
+  .footer-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .footer-heading {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .footer-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .footer-link {
+    font-size: 15px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .footer-link:hover {
+    color: #f8b03b;
+    transform: translateX(4px);
+  }
+
+  .footer-description {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.5;
+  }
+
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: #f8b03b;
+    color: #000;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    width: fit-content;
+  }
+
+  .cta-button:hover {
+    background: #ffbe4d;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(248, 176, 59, 0.3);
+  }
+
+  .cta-button svg {
+    transition: transform 0.3s ease;
+  }
+
+  .cta-button:hover svg {
+    transform: translateX(4px);
+  }
+
+  /* Bottom Bar */
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .copyright {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .legal-links {
+    display: flex;
+    gap: 32px;
+  }
+
+  .legal-link {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .legal-link:hover {
+    color: #fff;
+  }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 1200px) {
+    .footer-top {
+      grid-template-columns: 1fr;
+      gap: 50px;
+    }
+
+    .footer-links {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+    }
+
+    .footer-brand {
+      max-width: 400px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .footer-section {
+      margin-top: 60px;
+      min-height: auto;
+    }
+
+    .footer-container {
+      padding: 60px 24px 30px;
+      gap: 40px;
+    }
+
+    .footer-links {
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    .logo-text {
+      font-size: 28px;
+    }
+
+    .footer-tagline {
+      font-size: 14px;
+    }
+
+    .footer-bottom {
+      flex-direction: column;
+      gap: 20px;
+      text-align: center;
+    }
+
+    .legal-links {
+      gap: 20px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .footer-links {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+
+    .footer-container {
+      padding: 50px 20px 24px;
+    }
+
+    .social-links {
+      justify-content: flex-start;
+    }
+  }
+</style>

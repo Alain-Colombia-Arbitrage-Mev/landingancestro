@@ -1,0 +1,311 @@
+---
+import CTA from './CTA.astro';
+
+interface Props {
+  backgroundImage: string;
+}
+
+const { backgroundImage } = Astro.props;
+---
+
+<section class="hero">
+  <div class="hero-background">
+    <img src={backgroundImage} alt="" class="hero-bg-image" />
+    <div class="hero-gradient"></div>
+  </div>
+
+  <div class="hero-wrapper">
+    <div class="hero-content">
+      <div class="hero-text">
+        <p class="hero-subtitle">SOLAR SUBSCRIPTION</p>
+        <h1 class="hero-title">
+          <span>Lower Your Electric Bill</span>
+          <span>With Clean Energy.</span>
+        </h1>
+      </div>
+
+      <div class="hero-actions">
+        <CTA variant="secondary" text="Learn More" href="#learn-more" />
+        <CTA variant="primary" text="Get Started" href="#get-started" />
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-nav-arrows">
+    <button class="nav-arrow nav-arrow-left" aria-label="Previous slide">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 6L9 12L15 18" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <button class="nav-arrow nav-arrow-right" aria-label="Next slide">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 6L15 12L9 18" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="hero-dots">
+    <span class="dot active"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    max-height: 1080px;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .hero-background {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .hero-bg-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.7;
+  }
+
+  .hero-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 60.88%, #000 96.11%);
+  }
+
+  .hero-wrapper {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 79px 20px 100px;
+    box-sizing: border-box;
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    animation: fadeIn 1s ease-out forwards;
+  }
+
+  .hero-text {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(12px, 2vw, 16px);
+    font-weight: 600;
+    letter-spacing: clamp(3px, 0.5vw, 5px);
+    text-transform: uppercase;
+    color: var(--color-white);
+  }
+
+  .hero-title {
+    font-size: clamp(28px, 5vw, 50px);
+    font-weight: 600;
+    text-transform: capitalize;
+    color: var(--color-white);
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+  }
+
+  .hero-title span {
+    display: block;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .hero-nav-arrows {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    padding: 0 clamp(15px, 3vw, 50px);
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .nav-arrow {
+    width: clamp(32px, 5vw, 44px);
+    height: clamp(32px, 5vw, 44px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--color-white-20);
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: all var(--transition-fast);
+    pointer-events: auto;
+  }
+
+  .nav-arrow:hover {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.5);
+    transform: scale(1.1);
+  }
+
+  .nav-arrow svg {
+    width: clamp(16px, 2.5vw, 24px);
+    height: clamp(16px, 2.5vw, 24px);
+  }
+
+  .hero-dots {
+    position: absolute;
+    bottom: clamp(30px, 8vh, 93px);
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: clamp(8px, 1.5vw, 12px);
+    z-index: 10;
+  }
+
+  .dot {
+    width: clamp(8px, 1.2vw, 12px);
+    height: clamp(8px, 1.2vw, 12px);
+    border-radius: 50%;
+    background-color: rgba(248, 176, 59, 0.4);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .dot.active {
+    background-color: var(--color-primary);
+    transform: scale(1.2);
+  }
+
+  .dot:hover {
+    background-color: rgba(248, 176, 59, 0.7);
+  }
+
+  /* Mobile */
+  @media (max-width: 767px) {
+    .hero {
+      min-height: 100svh;
+      max-height: none;
+    }
+
+    .hero-wrapper {
+      padding: 100px 15px 80px;
+    }
+
+    .hero-title {
+      font-size: clamp(26px, 7vw, 36px);
+    }
+
+    .hero-subtitle {
+      font-size: 12px;
+      letter-spacing: 2px;
+    }
+
+    .hero-actions {
+      flex-direction: column;
+      width: 100%;
+      max-width: 280px;
+    }
+
+    .hero-actions :global(.cta) {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .hero-nav-arrows {
+      padding: 0 10px;
+    }
+
+    .nav-arrow {
+      width: 36px;
+      height: 36px;
+    }
+
+    .hero-dots {
+      bottom: 25px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+    }
+  }
+
+  /* Small Mobile */
+  @media (max-width: 374px) {
+    .hero-title {
+      font-size: 24px;
+    }
+
+    .hero-subtitle {
+      font-size: 11px;
+      letter-spacing: 1.5px;
+    }
+
+    .hero-content {
+      gap: 14px;
+    }
+  }
+
+  /* Landscape Mobile */
+  @media (max-height: 500px) and (orientation: landscape) {
+    .hero {
+      min-height: 100vh;
+    }
+
+    .hero-wrapper {
+      padding: 60px 15px 50px;
+    }
+
+    .hero-title {
+      font-size: clamp(20px, 5vh, 32px);
+    }
+
+    .hero-subtitle {
+      font-size: 10px;
+    }
+
+    .hero-actions {
+      flex-direction: row;
+      padding: 5px;
+    }
+
+    .hero-dots {
+      bottom: 15px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+    }
+  }
+</style>

@@ -1,0 +1,664 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Navbar from '@components/Navbar.astro';
+import CTA from '@components/CTA.astro';
+import Footer from '@components/Footer.astro';
+
+const benefits = [
+  {
+    icon: "💰",
+    title: "Save Up to 40%",
+    description: "Lock in today's rates and save on your electricity bill from day one."
+  },
+  {
+    icon: "🎁",
+    title: "3 Months Free",
+    description: "Early subscribers get their first 3 months completely free."
+  },
+  {
+    icon: "⚡",
+    title: "Priority Installation",
+    description: "Skip the queue with priority installation scheduling."
+  },
+  {
+    icon: "🔒",
+    title: "Price Lock Guarantee",
+    description: "Your rate is locked for the entire duration of your subscription."
+  }
+];
+
+const footerBg = "https://www.figma.com/api/mcp/asset/97ffe2ae-5987-4374-88d2-1a90aebc58c4";
+---
+
+<Layout title="Presale - Ancestro Solar Subscription">
+  <div class="presale-page">
+    <Navbar />
+    
+    <main>
+      <!-- Hero Section -->
+      <section class="presale-hero">
+        <div class="hero-content">
+          <span class="presale-badge">Limited Time Offer</span>
+          <h1 class="hero-title">
+            Be First to Experience
+            <span class="highlight">Clean Energy Freedom</span>
+          </h1>
+          <p class="hero-subtitle">
+            Join our exclusive presale and secure your solar subscription at the lowest price ever offered. Limited spots available.
+          </p>
+          
+          <!-- Countdown -->
+          <div class="countdown-wrapper">
+            <p class="countdown-label">Presale ends in:</p>
+            <div class="countdown">
+              <div class="countdown-item">
+                <span class="countdown-number" id="days">14</span>
+                <span class="countdown-text">Days</span>
+              </div>
+              <div class="countdown-item">
+                <span class="countdown-number" id="hours">23</span>
+                <span class="countdown-text">Hours</span>
+              </div>
+              <div class="countdown-item">
+                <span class="countdown-number" id="minutes">59</span>
+                <span class="countdown-text">Minutes</span>
+              </div>
+              <div class="countdown-item">
+                <span class="countdown-number" id="seconds">59</span>
+                <span class="countdown-text">Seconds</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Benefits Section -->
+      <section class="benefits-section">
+        <h2 class="section-title">Presale Benefits</h2>
+        <div class="benefits-grid">
+          {benefits.map((benefit) => (
+            <div class="benefit-card">
+              <span class="benefit-icon">{benefit.icon}</span>
+              <h3 class="benefit-title">{benefit.title}</h3>
+              <p class="benefit-description">{benefit.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+      
+      <!-- Signup Section -->
+      <section class="signup-section">
+        <div class="signup-container">
+          <div class="signup-content">
+            <h2 class="signup-title">Reserve Your Spot</h2>
+            <p class="signup-subtitle">
+              $0 down. Cancel anytime before installation. Be part of the clean energy revolution.
+            </p>
+            
+            <form class="signup-form" id="presale-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="firstName">First Name</label>
+                  <input type="text" id="firstName" name="firstName" required placeholder="John" />
+                </div>
+                <div class="form-group">
+                  <label for="lastName">Last Name</label>
+                  <input type="text" id="lastName" name="lastName" required placeholder="Doe" />
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required placeholder="john@example.com" />
+              </div>
+              
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" required placeholder="+1 (555) 000-0000" />
+              </div>
+              
+              <div class="form-group">
+                <label for="country">Country</label>
+                <select id="country" name="country" required>
+                  <option value="">Select your country</option>
+                  <option value="CO">Colombia</option>
+                  <option value="MX">Mexico</option>
+                  <option value="BR">Brazil</option>
+                  <option value="AR">Argentina</option>
+                  <option value="CL">Chile</option>
+                  <option value="PE">Peru</option>
+                  <option value="PA">Panama</option>
+                  <option value="CR">Costa Rica</option>
+                  <option value="EC">Ecuador</option>
+                  <option value="UY">Uruguay</option>
+                  <option value="GT">Guatemala</option>
+                  <option value="SV">El Salvador</option>
+                  <option value="HN">Honduras</option>
+                  <option value="NI">Nicaragua</option>
+                  <option value="DO">Dominican Republic</option>
+                  <option value="BO">Bolivia</option>
+                  <option value="PY">Paraguay</option>
+                  <option value="BZ">Belize</option>
+                </select>
+              </div>
+              
+              <div class="form-group checkbox-group">
+                <input type="checkbox" id="terms" name="terms" required />
+                <label for="terms">I agree to the <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a></label>
+              </div>
+              
+              <button type="submit" class="submit-btn">
+                Reserve My Spot
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </form>
+            
+            <p class="spots-left">
+              <span class="spots-number">127</span> spots remaining at this price
+            </p>
+          </div>
+          
+          <div class="signup-visual">
+            <div class="price-card">
+              <span class="price-label">Presale Price</span>
+              <div class="price-amount">
+                <span class="currency">$</span>
+                <span class="price">49</span>
+                <span class="period">/month</span>
+              </div>
+              <span class="price-original">Regular price: $79/month</span>
+              <div class="price-savings">Save 38%</div>
+            </div>
+            
+            <ul class="included-list">
+              <li>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17L4 12" stroke="#f8b03b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Solar panel installation
+              </li>
+              <li>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17L4 12" stroke="#f8b03b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                24/7 monitoring & support
+              </li>
+              <li>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17L4 12" stroke="#f8b03b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Free maintenance included
+              </li>
+              <li>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17L4 12" stroke="#f8b03b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Mobile app access
+              </li>
+              <li>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17L4 12" stroke="#f8b03b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                No long-term contract
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+    
+    <Footer backgroundImage={footerBg} />
+  </div>
+</Layout>
+
+<script>
+  // Countdown Timer
+  const endDate = new Date();
+  endDate.setDate(endDate.getDate() + 14);
+  
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = endDate.getTime() - now;
+    
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+    
+    if (daysEl) daysEl.textContent = days.toString().padStart(2, '0');
+    if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
+    if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
+    if (secondsEl) secondsEl.textContent = seconds.toString().padStart(2, '0');
+  }
+  
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+  
+  // Form submission
+  const form = document.getElementById('presale-form');
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Thank you for your reservation! We will contact you soon.');
+    });
+  }
+</script>
+
+<style>
+  .presale-page {
+    background-color: var(--color-black);
+    min-height: 100vh;
+  }
+
+  main {
+    padding-top: 79px;
+  }
+
+  /* Hero Section */
+  .presale-hero {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+    background: radial-gradient(ellipse at center top, rgba(248, 176, 59, 0.15) 0%, transparent 60%);
+  }
+
+  .hero-content {
+    max-width: 800px;
+    text-align: center;
+  }
+
+  .presale-badge {
+    display: inline-block;
+    padding: 8px 20px;
+    background: rgba(248, 176, 59, 0.2);
+    border: 1px solid var(--color-primary);
+    border-radius: 50px;
+    color: var(--color-primary);
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 30px;
+  }
+
+  .hero-title {
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 700;
+    color: var(--color-white);
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+
+  .hero-title .highlight {
+    display: block;
+    color: var(--color-primary);
+  }
+
+  .hero-subtitle {
+    font-size: clamp(16px, 2vw, 20px);
+    color: var(--color-gray);
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto 40px;
+  }
+
+  /* Countdown */
+  .countdown-wrapper {
+    margin-top: 40px;
+  }
+
+  .countdown-label {
+    font-size: 14px;
+    color: var(--color-gray);
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .countdown {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--color-dark-gray);
+    border: 1px solid var(--color-white-10);
+    border-radius: 10px;
+    padding: 20px 25px;
+    min-width: 80px;
+  }
+
+  .countdown-number {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--color-white);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .countdown-text {
+    font-size: 12px;
+    color: var(--color-gray);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 5px;
+  }
+
+  /* Benefits Section */
+  .benefits-section {
+    padding: 100px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 700;
+    color: var(--color-white);
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+  }
+
+  .benefit-card {
+    background: var(--color-dark-gray);
+    border: 1px solid var(--color-white-10);
+    border-radius: 15px;
+    padding: 35px;
+    text-align: center;
+    transition: all var(--transition-fast);
+  }
+
+  .benefit-card:hover {
+    border-color: var(--color-primary);
+    transform: translateY(-5px);
+  }
+
+  .benefit-icon {
+    font-size: 48px;
+    display: block;
+    margin-bottom: 20px;
+  }
+
+  .benefit-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--color-white);
+    margin-bottom: 12px;
+  }
+
+  .benefit-description {
+    font-size: 15px;
+    color: var(--color-gray);
+    line-height: 1.6;
+  }
+
+  /* Signup Section */
+  .signup-section {
+    padding: 100px 20px;
+    background: linear-gradient(to bottom, transparent, rgba(248, 176, 59, 0.05));
+  }
+
+  .signup-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .signup-title {
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 700;
+    color: var(--color-white);
+    margin-bottom: 16px;
+  }
+
+  .signup-subtitle {
+    font-size: 16px;
+    color: var(--color-gray);
+    margin-bottom: 40px;
+    line-height: 1.6;
+  }
+
+  .signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .form-group label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-white);
+  }
+
+  .form-group input,
+  .form-group select {
+    padding: 14px 18px;
+    background: var(--color-dark-gray);
+    border: 1px solid var(--color-white-10);
+    border-radius: 10px;
+    color: var(--color-white);
+    font-size: 16px;
+    font-family: inherit;
+    transition: border-color var(--transition-fast);
+  }
+
+  .form-group input::placeholder {
+    color: var(--color-gray);
+  }
+
+  .form-group input:focus,
+  .form-group select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+  }
+
+  .form-group select {
+    cursor: pointer;
+  }
+
+  .form-group select option {
+    background: var(--color-dark-gray);
+  }
+
+  .checkbox-group {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .checkbox-group input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--color-primary);
+    cursor: pointer;
+  }
+
+  .checkbox-group label {
+    font-size: 14px;
+    color: var(--color-gray);
+  }
+
+  .checkbox-group a {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+
+  .submit-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px 32px;
+    background: var(--color-primary);
+    border: none;
+    border-radius: 15px;
+    color: var(--color-black);
+    font-size: 16px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    margin-top: 10px;
+  }
+
+  .submit-btn:hover {
+    background: #e9a235;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(248, 176, 59, 0.3);
+  }
+
+  .spots-left {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: var(--color-gray);
+  }
+
+  .spots-number {
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+
+  /* Price Card */
+  .signup-visual {
+    position: sticky;
+    top: 100px;
+  }
+
+  .price-card {
+    background: var(--color-dark-gray);
+    border: 2px solid var(--color-primary);
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .price-label {
+    font-size: 14px;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+  }
+
+  .price-amount {
+    margin: 20px 0 15px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .currency {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--color-white);
+    margin-top: 10px;
+  }
+
+  .price {
+    font-size: 72px;
+    font-weight: 700;
+    color: var(--color-white);
+    line-height: 1;
+  }
+
+  .period {
+    font-size: 18px;
+    color: var(--color-gray);
+    align-self: flex-end;
+    margin-bottom: 15px;
+    margin-left: 5px;
+  }
+
+  .price-original {
+    font-size: 14px;
+    color: var(--color-gray);
+    text-decoration: line-through;
+  }
+
+  .price-savings {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 8px 16px;
+    background: rgba(248, 176, 59, 0.2);
+    border-radius: 50px;
+    color: var(--color-primary);
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .included-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .included-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 16px;
+    color: var(--color-white);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .signup-container {
+      grid-template-columns: 1fr;
+    }
+
+    .signup-visual {
+      position: static;
+      order: -1;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .countdown {
+      gap: 10px;
+    }
+
+    .countdown-item {
+      padding: 15px;
+      min-width: 60px;
+    }
+
+    .countdown-number {
+      font-size: 24px;
+    }
+
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+
+    .price {
+      font-size: 56px;
+    }
+  }
+</style>

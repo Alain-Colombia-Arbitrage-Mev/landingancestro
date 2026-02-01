@@ -1,0 +1,240 @@
+---
+import Flags from './Flags.astro';
+
+interface FlagData {
+  country: string;
+  imageUrl: string;
+}
+
+interface Props {
+  mapImage: string;
+  flags: FlagData[];
+}
+
+const { mapImage, flags } = Astro.props;
+---
+
+<section class="latam-section">
+  <div class="latam-grid">
+    <div class="latam-left">
+      <div class="latam-content">
+        <h2 class="latam-title">
+          Join LATAM's Fastest Growing Solar + Battery Subscription Network
+        </h2>
+        <p class="latam-subtitle">
+          $0 upfront. Day-one savings. Long-term stability. Available now in 18 countries.
+        </p>
+        
+        <div class="flags-grid">
+          {flags.map((flag) => (
+            <Flags country={flag.country} imageUrl={flag.imageUrl} />
+          ))}
+        </div>
+        
+        <a href="#get-started" class="cta-button">Get Started</a>
+      </div>
+    </div>
+
+    <div class="latam-right">
+      <img src={mapImage} alt="LATAM coverage map" class="map-image" loading="lazy" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .latam-section {
+    padding: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    max-width: 1797px;
+    margin: 0 auto;
+    background-color: rgba(20, 20, 20, 0.5);
+  }
+
+  .latam-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 500px;
+    align-items: center; /* clave: centrado vertical real */
+    column-gap: 40px;
+  }
+
+  .latam-left {
+    min-width: 0;
+  }
+
+  .latam-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100%;
+  }
+
+  .latam-content {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .latam-title {
+    font-size: clamp(36px, 4vw, 65px);
+    font-weight: 600;
+    text-transform: capitalize;
+    color: #fff;
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  .latam-subtitle {
+    font-size: clamp(14px, 1.2vw, 20px);
+    font-weight: 400;
+    color: #a3a3a3;
+    margin: 0;
+  }
+
+  .flags-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 700px;
+  }
+
+  .flags-grid :global(.flag) {
+    width: 90px;
+    height: 60px;
+    border-radius: 8px;
+  }
+
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    background-color: #f8b03b;
+    color: #000;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: fit-content;
+    transition: all 0.2s ease;
+  }
+
+  .cta-button:hover {
+    background-color: #e9a235;
+    transform: translateY(-2px);
+  }
+
+  .map-image {
+    width: 500px;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 0 80px rgba(248, 176, 59, 0.5));
+  }
+
+  /* ========== RESPONSIVE ========== */
+  
+  @media (max-width: 1500px) {
+    .latam-grid {
+      grid-template-columns: minmax(0, 1fr) 450px;
+    }
+    .map-image {
+      width: 450px;
+    }
+  }
+
+  @media (max-width: 1300px) {
+    .latam-grid {
+      grid-template-columns: minmax(0, 1fr) 380px;
+    }
+    .map-image {
+      width: 380px;
+    }
+    
+    .latam-content {
+      gap: 30px;
+    }
+    
+    .flags-grid {
+      gap: 15px;
+    }
+    
+    .flags-grid :global(.flag) {
+      width: 70px;
+      height: 47px;
+    }
+  }
+
+  @media (max-width: 1100px) {
+    .latam-section {
+      padding: 40px;
+    }
+
+    .latam-grid {
+      grid-template-columns: minmax(0, 1fr) 320px;
+      column-gap: 30px;
+    }
+    .map-image {
+      width: 320px;
+    }
+    
+    .flags-grid :global(.flag) {
+      width: 60px;
+      height: 40px;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .latam-grid {
+      grid-template-columns: 1fr;
+      row-gap: 40px;
+      column-gap: 0;
+    }
+
+    .latam-left {
+      text-align: center;
+    }
+
+    .latam-right {
+      justify-content: center;
+    }
+
+    .latam-content {
+      align-items: center;
+    }
+
+    .flags-grid {
+      justify-content: center;
+      max-width: 100%;
+    }
+
+    .map-image {
+      width: 350px;
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .latam-section {
+      padding: 30px 20px;
+    }
+
+    .latam-content {
+      gap: 25px;
+    }
+
+    .flags-grid {
+      gap: 10px;
+    }
+
+    .flags-grid :global(.flag) {
+      width: 50px;
+      height: 34px;
+      border-radius: 5px;
+    }
+
+    .map-image {
+      width: 280px;
+    }
+  }
+</style>

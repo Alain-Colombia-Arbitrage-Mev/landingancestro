@@ -1,0 +1,420 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Navbar from '@components/Navbar.astro';
+import HeroBanner from '@components/HeroBanner.astro';
+import AskBox from '@components/AskBox.astro';
+import InfoSection from '@components/InfoSection.astro';
+import LATAMSection from '@components/LATAMSection.astro';
+import ShopSection from '@components/ShopSection.astro';
+import Footer from '@components/Footer.astro';
+
+// Figma asset URLs (valid for 7 days)
+const images = {
+  heroBg: "https://www.figma.com/api/mcp/asset/720f6d3b-590a-4890-ad47-24c68eb4aff7",
+  infoSection1: "https://www.figma.com/api/mcp/asset/dd11b56a-aa4a-4f12-8c1b-e4979d1042cc",
+  infoSection2: "https://www.figma.com/api/mcp/asset/2a107519-e0f5-4ecc-b01e-2ee2c45f22b5",
+  charger: "https://www.figma.com/api/mcp/asset/9f24de84-b48d-4243-959c-887f16556d0a",
+  vehicle: "https://www.figma.com/api/mcp/asset/c65b8911-1573-4bd8-b7bd-370de95644dd",
+  latamMap: "/MAPA.svg",
+  footerBg: "/images/footer-bg.png",
+  backgroundSection: "https://www.figma.com/api/mcp/asset/a07cb751-d18b-4f3f-a054-6776ef642d2e",
+  // Product images
+  solarPanels: "https://www.figma.com/api/mcp/asset/8165816a-67fe-4bc5-801b-c3aa6d55a820",
+  battery: "https://www.figma.com/api/mcp/asset/ff576da5-4b66-4cbf-beac-484817b01fc1",
+  charging: "https://www.figma.com/api/mcp/asset/b84c6feb-b277-4b88-ad28-cfe1eeb7c8db",
+  vehicles: "https://www.figma.com/api/mcp/asset/51091e6b-bbb3-46d4-a9ac-d14014f98fc1",
+};
+
+// Flag images from Figma
+const flags = [
+  { country: "Colombia", imageUrl: "https://www.figma.com/api/mcp/asset/44f53409-6d11-4a7b-bd18-560b3a2e6b2f" },
+  { country: "Panama", imageUrl: "https://www.figma.com/api/mcp/asset/9191354e-b2ea-4064-affc-c016eb542549" },
+  { country: "Dominican Republic", imageUrl: "https://www.figma.com/api/mcp/asset/5bdac164-551b-4946-aef7-58a88b1e87cc" },
+  { country: "Mexico", imageUrl: "https://www.figma.com/api/mcp/asset/e63fe488-bf3d-41e5-b727-506aab77cb68" },
+  { country: "Peru", imageUrl: "https://www.figma.com/api/mcp/asset/9ed3bd9e-cfca-4e78-b3d3-578b768023f6" },
+  { country: "Guatemala", imageUrl: "https://www.figma.com/api/mcp/asset/953e4e76-2234-404d-b5f3-09f5ddaa689b" },
+  { country: "El Salvador", imageUrl: "https://www.figma.com/api/mcp/asset/97f6edbe-63f1-4265-83bd-2c59044e8d0c" },
+  { country: "Uruguay", imageUrl: "https://www.figma.com/api/mcp/asset/b915135a-a62c-4ec4-8c93-fee4ac56a502" },
+  { country: "Costa Rica", imageUrl: "https://www.figma.com/api/mcp/asset/770c85e1-80e6-41f2-813e-41c21c46c8c7" },
+  { country: "Brazil", imageUrl: "https://www.figma.com/api/mcp/asset/6d997df7-0680-4bf6-af2c-33e82077427b" },
+  { country: "Nicaragua", imageUrl: "https://www.figma.com/api/mcp/asset/abd87555-97a6-4c82-a82d-c1a1437a76c3" },
+  { country: "Honduras", imageUrl: "https://www.figma.com/api/mcp/asset/6d997df7-0680-4bf6-af2c-33e82077427b" },
+  { country: "Chile", imageUrl: "https://www.figma.com/api/mcp/asset/2cc5ba70-ebb0-429d-8abe-92b0de43f25c" },
+  { country: "Argentina", imageUrl: "https://www.figma.com/api/mcp/asset/3e2a8412-74f3-4354-9106-1fd7182d5a76" },
+  { country: "Bolivia", imageUrl: "https://www.figma.com/api/mcp/asset/29ddedaa-3fcb-4dc6-8c1a-c89211b8c7f7" },
+  { country: "Belize", imageUrl: "https://www.figma.com/api/mcp/asset/51e349b3-bb0d-40a3-8d7d-c4be091edf03" },
+  { country: "Ecuador", imageUrl: "https://www.figma.com/api/mcp/asset/122fb607-28a4-4d9f-adef-578e59a4a3a8" },
+  { country: "Paraguay", imageUrl: "https://www.figma.com/api/mcp/asset/5c3cd2a6-730c-4909-b4dc-52e42b07aa95" },
+];
+
+// Products for shop section
+const products = [
+  {
+    title: "Solar Panels",
+    description: "Power Your Home and Reduce Your Electricity Bill",
+    backgroundImage: images.solarPanels,
+  },
+  {
+    title: "Battery",
+    description: "Keep Your Lights On During Outages",
+    backgroundImage: images.battery,
+  },
+  {
+    title: "Charging",
+    description: "Recharge with the LATAM's fast-charging network.",
+    backgroundImage: images.charging,
+  },
+  {
+    title: "Vehicles",
+    description: "Power Your Home and Reduce Your Electricity Bill",
+    backgroundImage: images.vehicles,
+  },
+];
+---
+
+<Layout title="Ancestro - Solar + Battery Subscription Network">
+  <div class="page-wrapper">
+    <Navbar />
+    
+    <main>
+      <!-- Hero Section with AskBox -->
+      <div class="hero-section">
+        <HeroBanner backgroundImage={images.heroBg} />
+        <AskBox />
+      </div>
+      
+      <!-- Main Content Grid with Nature Background -->
+      <section class="main-content-section">
+        <div class="nature-bg">
+          <img src={images.backgroundSection} alt="" class="nature-bg-image" />
+          <div class="nature-bg-gradient"></div>
+        </div>
+        
+        <div class="content-grid">
+          <!-- Left Column -->
+          <div class="content-column">
+            <InfoSection
+              title="Reduce Your Electric Bill"
+              subtitle="Save 10-40%"
+              ctaVariant="secondary"
+              ctaText="Learn More"
+              imageUrl={images.infoSection1}
+            />
+            <div class="charger-card">
+              <div class="charger-card-bg">
+                <img src={images.charger} alt="Level 3 Fast Charger" />
+                <div class="charger-overlay"></div>
+              </div>
+              <div class="charger-card-content">
+                <h3 class="charger-title">Level 3 Fast Chargers</h3>
+                <p class="charger-subtitle">Charge In 30-40 Minutes</p>
+                <div class="charger-actions">
+                  <a href="#" class="cta-btn secondary">Host a Charger</a>
+                  <a href="#" class="cta-btn secondary">Download App</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Right Column -->
+          <div class="content-column">
+            <InfoSection
+              title="Get Three Months Free"
+              subtitle="Orders before March 31st, 2026."
+              ctaVariant="primary"
+              ctaText="Order Now"
+              imageUrl={images.infoSection2}
+            />
+            <div class="vehicle-card">
+              <div class="vehicle-card-content">
+                <h3 class="vehicle-title">Chevrolet Spark</h3>
+                <a href="#" class="cta-btn primary">Order Now</a>
+              </div>
+              <div class="vehicle-image">
+                <img src={images.vehicle} alt="Chevrolet Spark" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- LATAM Network Section -->
+      <section class="latam-wrapper">
+        <LATAMSection 
+          mapImage={images.latamMap}
+          flags={flags}
+        />
+      </section>
+      
+      <!-- Shop Section -->
+      <section class="shop-wrapper">
+        <ShopSection products={products} />
+      </section>
+    </main>
+    
+    <!-- Footer -->
+    <Footer backgroundImage={images.footerBg} />
+  </div>
+</Layout>
+
+<style>
+  .page-wrapper {
+    position: relative;
+    background-color: var(--color-black);
+    min-height: 100vh;
+  }
+
+  main {
+    position: relative;
+  }
+
+  /* Hero Section Container */
+  .hero-section {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    max-height: 1080px;
+  }
+
+  /* Main Content Section with Nature Background */
+  .main-content-section {
+    position: relative;
+    padding: 60px 0 0;
+  }
+
+  .nature-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 70%;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .nature-bg-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .nature-bg-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      #000 0%,
+      rgba(0, 0, 0, 0.4) 20%,
+      rgba(0, 0, 0, 0.4) 80%,
+      #000 100%
+    );
+  }
+
+  .content-grid {
+    position: relative;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(20px, 3vw, 40px);
+    padding: 0 var(--spacing-2xl);
+    max-width: 1800px;
+    margin: 0 auto;
+  }
+
+  .content-column {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(20px, 3vw, 40px);
+  }
+
+  /* Charger Card */
+  .charger-card {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 40px;
+    border: 1px solid var(--color-white-10);
+  }
+
+  .charger-card-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .charger-card-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .charger-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.8) 100%);
+  }
+
+  .charger-card-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .charger-title {
+    font-size: clamp(24px, 2.5vw, 34px);
+    font-weight: 600;
+    text-transform: capitalize;
+    color: var(--color-white);
+  }
+
+  .charger-subtitle {
+    font-size: clamp(16px, 1.5vw, 20px);
+    font-weight: 400;
+    color: var(--color-gray);
+  }
+
+  .charger-actions {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+
+  /* Vehicle Card */
+  .vehicle-card {
+    background-color: var(--color-dark-gray);
+    border-radius: 10px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+  }
+
+  .vehicle-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .vehicle-title {
+    font-size: clamp(24px, 2.5vw, 34px);
+    font-weight: 600;
+    text-transform: capitalize;
+    color: var(--color-white);
+  }
+
+  .vehicle-image {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .vehicle-image img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  /* CTA Buttons */
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    border-radius: 15px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    border: 1px solid var(--color-white-10);
+  }
+
+  .cta-btn.primary {
+    background-color: var(--color-primary);
+    color: var(--color-black);
+  }
+
+  .cta-btn.primary:hover {
+    background-color: #e9a235;
+    transform: translateY(-2px);
+  }
+
+  .cta-btn.secondary {
+    background-color: var(--color-white-10);
+    backdrop-filter: blur(15px);
+    color: var(--color-white);
+  }
+
+  .cta-btn.secondary:hover {
+    background-color: var(--color-white-20);
+    transform: translateY(-2px);
+  }
+
+  .latam-wrapper {
+    padding: 100px var(--spacing-2xl);
+  }
+
+  .shop-wrapper {
+    padding: 100px var(--spacing-2xl);
+  }
+
+  /* Responsive */
+  @media (max-width: 1100px) {
+    .content-grid {
+      grid-template-columns: 1fr;
+      max-width: 700px;
+    }
+
+    .nature-bg {
+      height: 50%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-section {
+      height: 100svh;
+      max-height: none;
+    }
+
+    .main-content-section {
+      padding: 40px 0 0;
+    }
+
+    .content-grid {
+      padding: 0 var(--spacing-md);
+    }
+
+    .charger-card,
+    .vehicle-card {
+      height: 400px;
+      padding: 30px;
+    }
+
+    .latam-wrapper {
+      padding: 50px var(--spacing-md);
+    }
+
+    .shop-wrapper {
+      padding: 50px var(--spacing-md);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .charger-actions {
+      flex-direction: column;
+    }
+
+    .cta-btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

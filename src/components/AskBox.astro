@@ -1,0 +1,162 @@
+---
+const suggestions = [
+  "What does Ancestro App do?",
+  "Compare BYD Dolphin with Nissan Leaf",
+  "Where can I take Test Drive?",
+];
+---
+
+<div class="ask-box">
+  <div class="ask-box-inner">
+    <div class="ask-icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21 11.5C21.0034 12.8199 20.6951 14.1219 20.1 15.3C19.3944 16.7118 18.3098 17.8992 16.9674 18.7293C15.6251 19.5594 14.0782 19.9994 12.5 20C11.1801 20.0035 9.87812 19.6951 8.7 19.1L3 21L4.9 15.3C4.30493 14.1219 3.99656 12.8199 4 11.5C4.00061 9.92179 4.44061 8.37488 5.27072 7.03258C6.10083 5.69028 7.28825 4.6056 8.7 3.90003C9.87812 3.30496 11.1801 2.99659 12.5 3.00003H13C15.0843 3.11502 17.053 3.99479 18.5291 5.47089C20.0052 6.94699 20.885 8.91568 21 11V11.5Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    
+    <div class="ask-content">
+      <span class="ask-label">Ask a Question</span>
+      <div class="ask-suggestions">
+        {suggestions.map((suggestion, index) => (
+          <span class="suggestion" data-index={index}>{`"${suggestion}"`}</span>
+        ))}
+      </div>
+    </div>
+    
+    <button class="ask-submit" aria-label="Submit question">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="3" y="3" width="18" height="18" rx="3" stroke="white" stroke-width="2"/>
+        <path d="M8 12L12 8L16 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 8V16" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<style>
+  .ask-box {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+  }
+
+  .ask-box-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    background-color: var(--color-black-50);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-top: 1px solid var(--color-white-30);
+    border-radius: 20px 20px 0 0;
+  }
+
+  .ask-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+  }
+
+  .ask-content {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .ask-label {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--color-white);
+  }
+
+  .ask-suggestions {
+    display: flex;
+    flex-direction: column;
+    height: 32px;
+    overflow: hidden;
+    position: relative;
+    width: 420px;
+  }
+
+  .suggestion {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--color-white-50);
+    position: absolute;
+    left: 10px;
+    opacity: 0;
+    animation: cycleSuggestion 9s infinite;
+    white-space: nowrap;
+  }
+
+  .suggestion[data-index="0"] {
+    animation-delay: 0s;
+  }
+
+  .suggestion[data-index="1"] {
+    animation-delay: 3s;
+  }
+
+  .suggestion[data-index="2"] {
+    animation-delay: 6s;
+  }
+
+  @keyframes cycleSuggestion {
+    0%, 100% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    5%, 28% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    33% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+  }
+
+  .ask-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity var(--transition-fast);
+  }
+
+  .ask-submit:hover {
+    opacity: 1;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .ask-suggestions {
+      display: none;
+    }
+
+    .ask-label {
+      font-size: 16px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .ask-box-inner {
+      padding: 8px 15px;
+    }
+
+    .ask-label {
+      font-size: 14px;
+    }
+  }
+</style>

@@ -1,0 +1,136 @@
+---
+import CTA from './CTA.astro';
+
+interface NavItem {
+  label: string;
+  href: string;
+}
+
+const navItems: NavItem[] = [
+  { label: 'Energy', href: '#energy' },
+  { label: 'Charging', href: '#charging' },
+  { label: 'Vehicles', href: '#vehicles' },
+  { label: 'Shop', href: '#shop' },
+  { label: 'Presale', href: '/presale' },
+];
+---
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="/" class="logo">
+      <img src="/logo.svg" alt="Ancestro" class="logo-img" />
+    </a>
+
+    <div class="nav-links">
+      {navItems.map((item) => (
+        <a href={item.href} class:list={['nav-link', { 'nav-link-highlight': item.label === 'Presale' }]}>
+          {item.label}
+        </a>
+      ))}
+    </div>
+
+    <div class="nav-cta">
+      <CTA variant="secondary" text="Login" href="/login" />
+    </div>
+  </div>
+</nav>
+
+<style>
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 79px;
+    background-color: var(--color-black-50);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    z-index: 1000;
+  }
+
+  .navbar-inner {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    height: 100%;
+    max-width: 1920px;
+    margin: 0 auto;
+    padding: 0 30px 15px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: flex-end;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .logo:hover {
+    opacity: 0.9;
+  }
+
+  .logo-img {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 15px;
+  }
+
+  .nav-link {
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-white);
+    text-decoration: none;
+    transition: opacity var(--transition-fast);
+  }
+
+  .nav-link:hover {
+    opacity: 0.8;
+  }
+
+  .nav-link-highlight {
+    color: var(--color-primary);
+    position: relative;
+  }
+
+  .nav-link-highlight::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 10px;
+    right: 10px;
+    height: 2px;
+    background-color: var(--color-primary);
+    border-radius: 1px;
+  }
+
+  .nav-cta {
+    display: flex;
+    align-items: flex-end;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .nav-links {
+      display: none;
+    }
+
+    .navbar-inner {
+      padding: 0 20px 12px;
+    }
+
+    .logo-img {
+      height: 35px;
+    }
+  }
+</style>

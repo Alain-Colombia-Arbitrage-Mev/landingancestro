@@ -1,0 +1,271 @@
+---
+import CTA from './CTA.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  backgroundImage: string;
+}
+
+const { title, description, backgroundImage } = Astro.props;
+---
+
+<div class="product-card">
+  <!-- Inner container for effects isolation -->
+  <div class="card-inner">
+    <!-- Background image with zoom effect -->
+    <div class="product-bg">
+      <img src={backgroundImage} alt={title} loading="lazy" />
+    </div>
+    
+    <!-- Shine effect on hover -->
+    <div class="product-shine"></div>
+    
+    <!-- Glass content panel -->
+    <div class="product-content">
+      <div class="glass-panel">
+        <div class="product-text">
+          <h3 class="product-title">{title}</h3>
+          <p class="product-description">{description}</p>
+        </div>
+        <div class="product-actions">
+          <CTA variant="secondary" text="Order Now" />
+          <CTA variant="primary" text="Learn More" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .product-card {
+    flex: 1;
+    min-width: 0;
+    height: 786px;
+    position: relative;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    isolation: isolate;
+  }
+
+  .product-card:hover {
+    border-color: rgba(248, 176, 59, 0.3);
+    box-shadow: 
+      0 20px 60px rgba(0, 0, 0, 0.4),
+      0 0 40px rgba(248, 176, 59, 0.1);
+  }
+
+  /* Inner container - isolates all effects */
+  .card-inner {
+    position: absolute;
+    inset: 0;
+    border-radius: 19px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 24px;
+    cursor: pointer;
+  }
+
+  /* Background image with zoom on hover */
+  .product-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .product-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.5s ease;
+  }
+
+  .product-card:hover .product-bg {
+    transform: scale(1.05);
+  }
+
+  .product-card:hover .product-bg img {
+    filter: brightness(1.1) saturate(1.15);
+  }
+
+  /* Shine sweep effect - contained within card-inner */
+  .product-shine {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      105deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.05) 45%,
+      rgba(255, 255, 255, 0.15) 50%,
+      rgba(255, 255, 255, 0.05) 55%,
+      transparent 60%
+    );
+    transform: translateX(-100%);
+    pointer-events: none;
+    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: 1;
+  }
+
+  .product-card:hover .product-shine {
+    transform: translateX(100%);
+  }
+
+  /* Glass panel for content */
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-height: 220px;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .product-card:hover .glass-panel {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(248, 176, 59, 0.4);
+    box-shadow: 
+      0 12px 40px rgba(0, 0, 0, 0.3),
+      0 0 30px rgba(248, 176, 59, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.25),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+    transform: translateY(-6px);
+  }
+
+  /* Content area */
+  .product-content {
+    position: relative;
+    z-index: 2;
+    max-width: 100%;
+  }
+
+  .product-text {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+  }
+
+  .product-title {
+    font-size: clamp(22px, 1.8vw, 32px);
+    font-weight: 700;
+    text-transform: capitalize;
+    color: #ffffff;
+    transition: all 0.3s ease;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+    letter-spacing: -0.02em;
+  }
+
+  .product-card:hover .product-title {
+    color: #f8b03b;
+    text-shadow: 0 2px 20px rgba(248, 176, 59, 0.5);
+  }
+
+  .product-description {
+    font-size: clamp(13px, 1vw, 16px);
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.5;
+    transition: color 0.3s ease;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+  }
+
+  .product-card:hover .product-description {
+    color: #ffffff;
+  }
+
+  .product-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: auto;
+  }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 1200px) {
+    .product-card {
+      min-width: calc(50% - 10px);
+      height: 500px;
+      border-radius: 16px;
+    }
+
+    .card-inner {
+      border-radius: 15px;
+      padding: 20px;
+    }
+
+    .glass-panel {
+      padding: 20px;
+      gap: 16px;
+      min-height: 200px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .product-card {
+      min-width: 100%;
+      height: 420px;
+      border-radius: 14px;
+    }
+
+    .card-inner {
+      border-radius: 13px;
+      padding: 16px;
+    }
+
+    .glass-panel {
+      padding: 18px;
+      gap: 14px;
+      border-radius: 12px;
+      min-height: 180px;
+    }
+
+    .product-title {
+      font-size: 22px;
+    }
+
+    .product-description {
+      font-size: 14px;
+    }
+
+    .product-actions {
+      gap: 10px;
+    }
+
+    /* Disable heavy effects on mobile for performance */
+    .product-shine {
+      display: none;
+    }
+
+    .product-card:hover .product-bg {
+      transform: scale(1.02);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .product-card {
+      height: 380px;
+    }
+
+    .card-inner {
+      padding: 14px;
+    }
+
+    .glass-panel {
+      padding: 16px;
+    }
+  }
+</style>

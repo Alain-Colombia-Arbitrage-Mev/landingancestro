@@ -1,0 +1,83 @@
+---
+interface Props {
+  variant?: 'primary' | 'secondary' | 'ghost';
+  text: string;
+  href?: string;
+  size?: 'default' | 'large';
+}
+
+const { 
+  variant = 'secondary', 
+  text, 
+  href = '#',
+  size = 'default'
+} = Astro.props;
+
+const isPrimary = variant === 'primary';
+const isGhost = variant === 'ghost';
+---
+
+<a href={href} class:list={['cta', variant, size]}>
+  <span class="cta-text">{text}</span>
+</a>
+
+<style>
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 20px;
+    border-radius: 15px;
+    border: 1px solid var(--color-white-10);
+    font-family: var(--font-family);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: normal;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .cta.large {
+    padding: 14px 28px;
+    font-size: 18px;
+  }
+
+  .cta.primary {
+    background-color: var(--color-primary);
+    color: var(--color-black);
+  }
+
+  .cta.primary:hover {
+    background-color: #e9a235;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(248, 176, 59, 0.3);
+  }
+
+  .cta.secondary {
+    background-color: var(--color-white-10);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    color: var(--color-white);
+  }
+
+  .cta.secondary:hover {
+    background-color: var(--color-white-20);
+    transform: translateY(-2px);
+  }
+
+  .cta.ghost {
+    background: transparent;
+    border-color: transparent;
+    color: var(--color-white);
+  }
+
+  .cta.ghost:hover {
+    background-color: var(--color-white-10);
+  }
+
+  .cta-text {
+    white-space: nowrap;
+  }
+</style>
