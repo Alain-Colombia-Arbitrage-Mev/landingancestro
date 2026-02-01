@@ -14,7 +14,7 @@ interface Props {
 const { products } = Astro.props;
 ---
 
-<section class="shop-section" id="shop">
+<section class="shop-section" id="shop" aria-label="Productos disponibles">
   <div class="shop-inner">
     {products.map((product) => (
       <ProductCard 
@@ -34,22 +34,32 @@ const { products } = Astro.props;
   }
 
   .shop-inner {
-    display: flex;
-    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: 20px;
+    width: 100%;
   }
 
-  /* Responsive */
+  /* Tablet large */
   @media (max-width: 1200px) {
     .shop-inner {
-      flex-wrap: wrap;
+      grid-template-columns: repeat(2, 1fr);
       gap: 16px;
     }
   }
 
+  /* Tablet */
   @media (max-width: 768px) {
     .shop-inner {
-      flex-direction: column;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 580px) {
+    .shop-inner {
+      grid-template-columns: 1fr;
       gap: 16px;
     }
   }
