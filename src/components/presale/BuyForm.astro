@@ -101,43 +101,71 @@ const {
     <div class="buy-info">
       <h3>¿Por qué comprar {tokenSymbol}?</h3>
       
-      <div class="info-item">
-        <div class="info-icon">🌍</div>
-        <div class="info-content">
+      <div class="info-cards">
+        <div class="info-card">
+          <div class="info-card-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+              <path d="M2 12H22M12 2C14.5 4.5 16 8 16 12C16 16 14.5 19.5 12 22C9.5 19.5 8 16 8 12C8 8 9.5 4.5 12 2Z" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
           <h4>Utilidad Real</h4>
           <p>{tokenSymbol} es el token de utilidad de la red Ancestro, usándose para pagos, recompensas y gobernanza en la plataforma de energía solar.</p>
         </div>
-      </div>
-      
-      <div class="info-item">
-        <div class="info-icon">📈</div>
-        <div class="info-content">
+        
+        <div class="info-card">
+          <div class="info-card-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+              <path d="M3 17L9 11L13 15L21 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M17 7H21V11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
           <h4>Potencial de Crecimiento</h4>
           <p>El mercado de energía solar en LATAM está proyectado a crecer 400% en los próximos 5 años. {tokenSymbol} está posicionado para capturar este crecimiento.</p>
         </div>
-      </div>
-      
-      <div class="info-item">
-        <div class="info-icon">🔒</div>
-        <div class="info-content">
+        
+        <div class="info-card">
+          <div class="info-card-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+              <path d="M12 22C12 22 20 18 20 12V5L12 2L4 5V12C4 18 12 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
           <h4>Seguridad</h4>
           <p>Smart contract auditado por firmas líderes. Equipo doxxeado y comprometido con la transparencia total.</p>
         </div>
       </div>
       
       <div class="roadmap-preview">
-        <h4>Próximos Hitos</h4>
-        <div class="milestone">
-          <span class="milestone-date">Q2 2026</span>
-          <span class="milestone-text">Listado en DEX + CEX Tier 2</span>
+        <div class="roadmap-header">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M12 8V12L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          <h4>Próximos Hitos</h4>
         </div>
-        <div class="milestone">
-          <span class="milestone-date">Q3 2026</span>
-          <span class="milestone-text">Lanzamiento App + Staking</span>
-        </div>
-        <div class="milestone">
-          <span class="milestone-date">Q4 2026</span>
-          <span class="milestone-text">Expansión a 5 países más</span>
+        <div class="milestones">
+          <div class="milestone">
+            <span class="milestone-dot"></span>
+            <div class="milestone-content">
+              <span class="milestone-date">Q2 2026</span>
+              <span class="milestone-text">Listado en DEX + CEX Tier 2</span>
+            </div>
+          </div>
+          <div class="milestone">
+            <span class="milestone-dot"></span>
+            <div class="milestone-content">
+              <span class="milestone-date">Q3 2026</span>
+              <span class="milestone-text">Lanzamiento App + Staking</span>
+            </div>
+          </div>
+          <div class="milestone">
+            <span class="milestone-dot"></span>
+            <div class="milestone-content">
+              <span class="milestone-date">Q4 2026</span>
+              <span class="milestone-text">Expansión a 5 países más</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -448,69 +476,137 @@ const {
 
   /* Buy Info */
   .buy-info h3 {
-    font-size: 24px;
-    color: var(--color-white);
-    margin-bottom: 30px;
-  }
-
-  .info-item {
-    display: flex;
-    gap: 16px;
-    margin-bottom: 24px;
-  }
-
-  .info-icon {
     font-size: 28px;
-    flex-shrink: 0;
-  }
-
-  .info-content h4 {
-    font-size: 17px;
+    font-weight: 700;
     color: var(--color-white);
-    margin-bottom: 6px;
+    margin-bottom: 32px;
   }
 
-  .info-content p {
-    font-size: 14px;
-    color: var(--color-gray);
-    line-height: 1.5;
+  .info-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
 
-  .roadmap-preview {
-    margin-top: 40px;
+  .info-card {
     padding: 24px;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid var(--color-white-10);
     border-radius: 16px;
+    transition: all 0.3s ease;
   }
 
-  .roadmap-preview h4 {
+  .info-card:hover {
+    border-color: rgba(248, 176, 59, 0.4);
+    background: rgba(248, 176, 59, 0.05);
+    transform: translateX(8px);
+  }
+
+  .info-card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: rgba(248, 176, 59, 0.15);
+    border-radius: 12px;
+    color: var(--color-primary);
+    margin-bottom: 16px;
+  }
+
+  .info-card h4 {
     font-size: 18px;
+    font-weight: 600;
     color: var(--color-white);
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+  }
+
+  .info-card p {
+    font-size: 14px;
+    color: var(--color-gray);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .roadmap-preview {
+    margin-top: 32px;
+    padding: 28px;
+    background: linear-gradient(135deg, rgba(248, 176, 59, 0.08) 0%, rgba(248, 176, 59, 0.02) 100%);
+    border: 1px solid rgba(248, 176, 59, 0.2);
+    border-radius: 20px;
+  }
+
+  .roadmap-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    color: var(--color-primary);
+  }
+
+  .roadmap-header h4 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-white);
+    margin: 0;
+  }
+
+  .milestones {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+    padding-left: 20px;
+  }
+
+  .milestones::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--color-primary) 0%, rgba(248, 176, 59, 0.2) 100%);
+    border-radius: 2px;
   }
 
   .milestone {
     display: flex;
+    align-items: flex-start;
     gap: 16px;
-    padding: 12px 0;
-    border-bottom: 1px solid var(--color-white-10);
+    padding: 14px 0;
+    position: relative;
   }
 
-  .milestone:last-child {
-    border-bottom: none;
+  .milestone-dot {
+    position: absolute;
+    left: -20px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(248, 176, 59, 0.2);
+  }
+
+  .milestone-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
   }
 
   .milestone-date {
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 13px;
+    font-weight: 700;
     color: var(--color-primary);
-    min-width: 80px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
 
   .milestone-text {
-    font-size: 14px;
+    font-size: 15px;
     color: var(--color-white);
+    font-weight: 500;
   }
 
   @media (max-width: 1024px) {

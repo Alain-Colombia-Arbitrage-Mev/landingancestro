@@ -44,12 +44,22 @@ const faqs = props.faqs && props.faqs.length > 0 ? props.faqs : defaultFaqs;
     <h2 class="section-title">Preguntas Frecuentes</h2>
   </div>
   
-  <div class="faq-grid">
-    {faqs && faqs.map((faq) => (
-      <div class="faq-item">
-        <h4>{faq.question}</h4>
-        <p>{faq.answer}</p>
-      </div>
+  <div class="faq-accordion">
+    {faqs && faqs.map((faq, index) => (
+      <details class="faq-item" data-index={index}>
+        <summary class="faq-question">
+          <span class="faq-number">{(index + 1).toString().padStart(2, '0')}</span>
+          <span class="faq-text">{faq.question}</span>
+          <span class="faq-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </span>
+        </summary>
+        <div class="faq-answer">
+          <p>{faq.answer}</p>
+        </div>
+      </details>
     ))}
   </div>
 </section>
@@ -57,7 +67,7 @@ const faqs = props.faqs && props.faqs.length > 0 ? props.faqs : defaultFaqs;
 <style>
   .faq-section {
     padding: 100px 20px;
-    max-width: 1000px;
+    max-width: 800px;
     margin: 0 auto;
   }
 
@@ -72,17 +82,17 @@ const faqs = props.faqs && props.faqs.length > 0 ? props.faqs : defaultFaqs;
     color: var(--color-white);
   }
 
-  .faq-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
+  .faq-accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
   }
 
   .faq-item {
-    padding: 24px;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid var(--color-white-10);
     border-radius: 16px;
+    overflow: hidden;
     transition: all 0.3s ease;
   }
 
@@ -90,22 +100,97 @@ const faqs = props.faqs && props.faqs.length > 0 ? props.faqs : defaultFaqs;
     border-color: rgba(248, 176, 59, 0.3);
   }
 
-  .faq-item h4 {
-    font-size: 16px;
+  .faq-item[open] {
+    background: rgba(248, 176, 59, 0.05);
+    border-color: rgba(248, 176, 59, 0.3);
+  }
+
+  .faq-question {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 24px;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-number {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--color-primary);
+    opacity: 0.5;
+    min-width: 24px;
+  }
+
+  .faq-text {
+    flex: 1;
+    font-size: 17px;
+    font-weight: 500;
     color: var(--color-white);
-    margin-bottom: 12px;
     line-height: 1.4;
   }
 
-  .faq-item p {
-    font-size: 14px;
+  .faq-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
     color: var(--color-gray);
-    line-height: 1.6;
+    transition: all 0.3s ease;
+  }
+
+  .faq-item[open] .faq-icon {
+    background: var(--color-primary);
+    color: var(--color-black);
+    transform: rotate(45deg);
+  }
+
+  .faq-answer {
+    padding: 0 24px 24px 64px;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .faq-answer p {
+    font-size: 15px;
+    color: var(--color-gray);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   @media (max-width: 768px) {
-    .faq-grid {
-      grid-template-columns: 1fr;
+    .faq-question {
+      padding: 20px;
+    }
+
+    .faq-answer {
+      padding: 0 20px 20px 20px;
+    }
+
+    .faq-number {
+      display: none;
+    }
+
+    .faq-text {
+      font-size: 16px;
     }
   }
 </style>

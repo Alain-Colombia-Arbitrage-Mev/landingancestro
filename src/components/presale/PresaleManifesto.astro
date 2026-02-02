@@ -1,5 +1,5 @@
 ---
-// Manifesto Section - Seth Godin style
+// Manifesto Section - Seth Godin style - Collapsible
 ---
 
 <section class="manifesto-section">
@@ -10,49 +10,60 @@
       No estamos aquí para convencerte.
     </h2>
     
-    <div class="manifesto-content">
-      <p class="manifesto-lead">
-        Si necesitas que te convenzan de que la energía solar es el futuro, 
-        este no es el lugar para ti. Ve con Dios.
-      </p>
-      
-      <p>
-        Pero si eres de los que ya saben—de los que ven un panel solar en un techo 
-        y sienten algo, de los que están cansados de pagar facturas de luz absurdas 
-        mientras el sol brilla gratis, de los que creen que Latinoamérica puede 
-        liderar en vez de seguir—entonces sigue leyendo.
-      </p>
-      
-      <p>
-        <strong>Ancestro existe porque el sistema actual está roto.</strong> 
-        Las empresas de energía no tienen incentivos para cambiar. Los gobiernos 
-        son lentos. Los bancos no prestan para paneles solares en barrios populares. 
-        Y mientras tanto, familias pagan el 20% de sus ingresos en electricidad.
-      </p>
-      
-      <p>
-        Nosotros construimos la alternativa. Una red descentralizada de energía solar 
-        que funciona con o sin el permiso del sistema tradicional. Ya hay paneles 
-        en techos. Ya hay familias ahorrando. Ya hay comunidades generando su propia 
-        electricidad.
-      </p>
-      
-      <p class="manifesto-highlight">
-        ANC es la invitación a participar en lo que ya construimos.
-      </p>
-      
-      <p>
-        No es "invierte y espera que algo pase". Es "únete a algo que ya está pasando". 
-        Cada token representa tu voz en cómo crece esta red. Tu participación en los 
-        beneficios. Tu lugar en esta historia.
-      </p>
-      
-      <div class="manifesto-question">
-        <p>La pregunta no es "¿debería invertir?"</p>
-        <p class="question-main">La pregunta es: ¿quién quieres ser cuando esto explote?</p>
-        <p class="question-sub">¿El que dijo "debí haber participado" o el que participó?</p>
+    <p class="manifesto-lead">
+      Si necesitas que te convenzan de que la energía solar es el futuro, 
+      este no es el lugar para ti. Ve con Dios.
+    </p>
+    
+    <!-- Collapsible Content -->
+    <div class="manifesto-collapsible" id="manifesto-content">
+      <div class="manifesto-content">
+        <p>
+          Pero si eres de los que ya saben—de los que ven un panel solar en un techo 
+          y sienten algo, de los que están cansados de pagar facturas de luz absurdas 
+          mientras el sol brilla gratis, de los que creen que Latinoamérica puede 
+          liderar en vez de seguir—entonces sigue leyendo.
+        </p>
+        
+        <p>
+          <strong>Ancestro existe porque el sistema actual está roto.</strong> 
+          Las empresas de energía no tienen incentivos para cambiar. Los gobiernos 
+          son lentos. Los bancos no prestan para paneles solares en barrios populares. 
+          Y mientras tanto, familias pagan el 20% de sus ingresos en electricidad.
+        </p>
+        
+        <p>
+          Nosotros construimos la alternativa. Una red descentralizada de energía solar 
+          que funciona con o sin el permiso del sistema tradicional. Ya hay paneles 
+          en techos. Ya hay familias ahorrando. Ya hay comunidades generando su propia 
+          electricidad.
+        </p>
+        
+        <p class="manifesto-highlight">
+          ANC es la invitación a participar en lo que ya construimos.
+        </p>
+        
+        <p>
+          No es "invierte y espera que algo pase". Es "únete a algo que ya está pasando". 
+          Cada token representa tu voz en cómo crece esta red. Tu participación en los 
+          beneficios. Tu lugar en esta historia.
+        </p>
+        
+        <div class="manifesto-question">
+          <p>La pregunta no es "¿debería invertir?"</p>
+          <p class="question-main">La pregunta es: ¿quién quieres ser cuando esto explote?</p>
+          <p class="question-sub">¿El que dijo "debí haber participado" o el que participó?</p>
+        </div>
       </div>
     </div>
+    
+    <!-- Expand Button -->
+    <button class="expand-btn" id="expand-manifesto" type="button">
+      <span class="expand-text">Leer más</span>
+      <svg class="expand-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <path d="M19 9L12 16L5 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
     
     <div class="manifesto-stats">
       <div class="stat-item">
@@ -74,6 +85,27 @@
     </div>
   </div>
 </section>
+
+<script>
+  const expandBtn = document.getElementById('expand-manifesto');
+  const content = document.getElementById('manifesto-content');
+  
+  if (expandBtn && content) {
+    expandBtn.addEventListener('click', () => {
+      const isExpanded = content.classList.contains('expanded');
+      
+      if (isExpanded) {
+        content.classList.remove('expanded');
+        expandBtn.classList.remove('expanded');
+        expandBtn.querySelector('.expand-text').textContent = 'Leer más';
+      } else {
+        content.classList.add('expanded');
+        expandBtn.classList.add('expanded');
+        expandBtn.querySelector('.expand-text').textContent = 'Leer menos';
+      }
+    });
+  }
+</script>
 
 <style>
   .manifesto-section {
@@ -104,23 +136,39 @@
     font-weight: 700;
     color: var(--color-white);
     line-height: 1.1;
-    margin-bottom: 50px;
-  }
-
-  .manifesto-content {
-    font-size: 18px;
-    line-height: 1.8;
-    color: var(--color-gray);
-  }
-
-  .manifesto-content p {
-    margin-bottom: 24px;
+    margin-bottom: 30px;
   }
 
   .manifesto-lead {
     font-size: 22px;
     color: var(--color-white);
     font-weight: 500;
+    line-height: 1.6;
+    margin-bottom: 30px;
+  }
+
+  /* Collapsible Content */
+  .manifesto-collapsible {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, opacity 0.3s ease;
+    opacity: 0;
+  }
+
+  .manifesto-collapsible.expanded {
+    max-height: 1500px;
+    opacity: 1;
+  }
+
+  .manifesto-content {
+    font-size: 18px;
+    line-height: 1.8;
+    color: var(--color-gray);
+    padding-top: 20px;
+  }
+
+  .manifesto-content p {
+    margin-bottom: 24px;
   }
 
   .manifesto-content strong {
@@ -164,11 +212,40 @@
     font-style: italic;
   }
 
+  /* Expand Button */
+  .expand-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: rgba(248, 176, 59, 0.1);
+    border: 1px solid rgba(248, 176, 59, 0.3);
+    border-radius: 30px;
+    color: var(--color-primary);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 40px;
+  }
+
+  .expand-btn:hover {
+    background: rgba(248, 176, 59, 0.2);
+  }
+
+  .expand-icon {
+    transition: transform 0.3s ease;
+  }
+
+  .expand-btn.expanded .expand-icon {
+    transform: rotate(180deg);
+  }
+
   .manifesto-stats {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 30px;
-    margin-top: 80px;
+    margin-top: 40px;
     padding-top: 60px;
     border-top: 1px solid var(--color-white-10);
   }
@@ -196,12 +273,12 @@
       padding: 80px 20px;
     }
 
-    .manifesto-content {
-      font-size: 16px;
-    }
-
     .manifesto-lead {
       font-size: 18px;
+    }
+
+    .manifesto-content {
+      font-size: 16px;
     }
 
     .manifesto-highlight {
