@@ -7,8 +7,8 @@ const currentRoute = getRouteFromUrl(Astro.url);
 const currentLanguage = languages[currentLang];
 ---
 
-<div class="lang-switcher" id="lang-switcher">
-  <button class="lang-trigger" id="lang-trigger" aria-expanded="false" aria-haspopup="listbox">
+<div class="lang-switcher">
+  <button class="lang-trigger" aria-expanded="false" aria-haspopup="listbox">
     <FlagIcon code={currentLang} size={20} />
     <span class="lang-code">{currentLang.toUpperCase()}</span>
     <svg class="lang-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none">
@@ -16,7 +16,7 @@ const currentLanguage = languages[currentLang];
     </svg>
   </button>
   
-  <div class="lang-dropdown" id="lang-dropdown" role="listbox">
+  <div class="lang-dropdown" role="listbox">
     {Object.entries(languages).map(([code, lang]) => {
       const translatePath = useTranslatedPath(code as keyof typeof languages);
       const href = translatePath(`/${currentRoute}`);
@@ -43,44 +43,75 @@ const currentLanguage = languages[currentLang];
 </div>
 
 <script>
-  const switcher = document.getElementById('lang-switcher');
-  const trigger = document.getElementById('lang-trigger');
-  const dropdown = document.getElementById('lang-dropdown');
-  
-  let isOpen = false;
-  
-  function toggleDropdown() {
-    isOpen = !isOpen;
-    switcher?.classList.toggle('open', isOpen);
-    trigger?.setAttribute('aria-expanded', isOpen.toString());
+  // Initialize all language switchers on the page
+  function initLanguageSwitchers() {
+    const switchers = document.querySelectorAll('.lang-switcher');
+    
+    switchers.forEach((switcher) => {
+      const trigger = switcher.querySelector('.lang-trigger') as HTMLButtonElement;
+      const dropdown = switcher.querySelector('.lang-dropdown');
+      
+      if (!trigger || !dropdown) return;
+      
+      // Toggle dropdown on trigger click
+      trigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const isOpen = switcher.classList.contains('open');
+        
+        // Close all other switchers first
+        switchers.forEach(s => {
+          s.classList.remove('open');
+          const t = s.querySelector('.lang-trigger');
+          t?.setAttribute('aria-expanded', 'false');
+        });
+        
+        // Toggle current switcher
+        if (!isOpen) {
+          switcher.classList.add('open');
+          trigger.setAttribute('aria-expanded', 'true');
+        }
+      });
+      
+      // Handle touch events for mobile
+      trigger.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        trigger.click();
+      }, { passive: false });
+    });
+    
+    // Close all dropdowns on click outside
+    document.addEventListener('click', (e) => {
+      const target = e.target as Node;
+      switchers.forEach(switcher => {
+        if (!switcher.contains(target)) {
+          switcher.classList.remove('open');
+          const trigger = switcher.querySelector('.lang-trigger');
+          trigger?.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+    
+    // Close all dropdowns on escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        switchers.forEach(switcher => {
+          switcher.classList.remove('open');
+          const trigger = switcher.querySelector('.lang-trigger');
+          trigger?.setAttribute('aria-expanded', 'false');
+        });
+      }
+    });
   }
   
-  function closeDropdown() {
-    if (isOpen) {
-      isOpen = false;
-      switcher?.classList.remove('open');
-      trigger?.setAttribute('aria-expanded', 'false');
-    }
+  // Initialize on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLanguageSwitchers);
+  } else {
+    initLanguageSwitchers();
   }
-  
-  trigger?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    toggleDropdown();
-  });
-  
-  // Close on click outside
-  document.addEventListener('click', (e) => {
-    if (!switcher?.contains(e.target as Node)) {
-      closeDropdown();
-    }
-  });
-  
-  // Close on escape
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      closeDropdown();
-    }
-  });
 </script>
 
 <style>
@@ -187,8 +218,16 @@ const currentLanguage = languages[currentLang];
 
   /* Mobile styles */
   @media (max-width: 768px) {
+    .lang-switcher {
+      z-index: 1001;
+    }
+
     .lang-trigger {
-      padding: 8px 10px;
+      padding: 10px 12px;
+      min-height: 44px;
+      min-width: 44px;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .lang-code {
@@ -196,13 +235,36 @@ const currentLanguage = languages[currentLang];
     }
 
     .lang-dropdown {
-      right: auto;
-      left: 50%;
-      transform: translateX(-50%) translateY(-10px) scale(0.95);
+      position: fixed;
+      top: auto;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      min-width: auto;
+      width: auto;
+      max-height: 60vh;
+      overflow-y: auto;
+      transform: translateY(20px);
+      z-index: 10000;
     }
 
     .lang-switcher.open .lang-dropdown {
-      transform: translateX(-50%) translateY(0) scale(1);
+      transform: translateY(0);
+    }
+
+    .lang-option {
+      padding: 16px 18px;
+      min-height: 56px;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .lang-option:active {
+      background: rgba(248, 176, 59, 0.2);
+    }
+
+    .lang-name {
+      font-size: 16px;
     }
   }
 </style>
