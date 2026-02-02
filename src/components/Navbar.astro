@@ -1,10 +1,11 @@
 ---
 import CTA from './CTA.astro';
 import LanguageSwitcher from './LanguageSwitcher.astro';
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
 
 interface NavItem {
   label: string;
@@ -17,14 +18,16 @@ const navItems: NavItem[] = [
   { label: t('nav.charging'), href: '#charging', key: 'charging' },
   { label: t('nav.vehicles'), href: '#vehicles', key: 'vehicles' },
   { label: t('nav.shop'), href: '#shop', key: 'shop' },
-  { label: t('nav.presale'), href: '/presale', key: 'presale' },
-  { label: t('nav.waitlist'), href: '/waitlist', key: 'waitlist' },
+  { label: t('nav.presale'), href: translatePath('/presale'), key: 'presale' },
+  { label: t('nav.waitlist'), href: translatePath('/waitlist'), key: 'waitlist' },
 ];
+
+const homeHref = translatePath('/');
 ---
 
 <nav class="navbar" role="navigation" aria-label="Navegación principal">
   <div class="navbar-inner">
-    <a href="/" class="logo" aria-label="Ancestro - Ir al inicio">
+    <a href={homeHref} class="logo" aria-label="Ancestro - Ir al inicio">
       <img src="/logo.svg" alt="Ancestro Logo" class="logo-img" width="200" height="40" />
     </a>
 

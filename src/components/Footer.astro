@@ -1,5 +1,5 @@
 ---
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
 
 interface Props {
   backgroundImage?: string;
@@ -8,12 +8,13 @@ interface Props {
 const { backgroundImage = '/images/footer-bg.png' } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
 
 const companyLinks = [
-  { label: 'Become a Distributor', href: '#distributor' },
-  { label: 'Become an Installer', href: '#installer' },
-  { label: 'Become an Investor', href: '#investor' },
-  { label: 'Become a Host', href: '#host' },
+  { label: t('footer.distributor'), href: '#distributor' },
+  { label: t('footer.installer'), href: '#installer' },
+  { label: t('footer.investor'), href: '#investor' },
+  { label: t('footer.host'), href: '#host' },
 ];
 
 const productLinks = [
@@ -24,14 +25,14 @@ const productLinks = [
 ];
 
 const supportLinks = [
-  { label: 'Help Center', href: '#help' },
-  { label: 'Contact Us', href: '#contact' },
-  { label: 'FAQs', href: '#faq' },
+  { label: t('footer.help'), href: '#help' },
+  { label: t('footer.contact'), href: '#contact' },
+  { label: t('footer.faq'), href: '#faq' },
 ];
 
 const legalLinks = [
-  { label: 'Terms of Service', href: '/terms' },
-  { label: 'Privacy Policy', href: '/privacy' },
+  { label: t('footer.terms'), href: translatePath('/terms') },
+  { label: t('footer.privacy'), href: translatePath('/privacy') },
 ];
 
 const socialLinks = [
@@ -39,6 +40,8 @@ const socialLinks = [
   { label: 'LinkedIn', href: '#', icon: 'in' },
   { label: 'Instagram', href: '#', icon: 'IG' },
 ];
+
+const homeHref = translatePath('/');
 ---
 
 <section class="footer-section">
@@ -54,7 +57,7 @@ const socialLinks = [
       <div class="footer-top">
         <!-- Brand Column -->
         <div class="footer-brand">
-          <a href="/" class="footer-logo">
+          <a href={homeHref} class="footer-logo">
             <img src="/logo.svg" alt="Ancestro" class="footer-logo-img" />
           </a>
           <p class="footer-tagline">
@@ -100,9 +103,9 @@ const socialLinks = [
 
           <div class="footer-column">
             <h4 class="footer-heading">{t('footer.findCharger')}</h4>
-            <p class="footer-description">{t('charger.subtitle')}</p>
+            <p class="footer-description">{t('footer.chargerDesc')}</p>
             <a href="#find-charger" class="cta-button">
-              <span>{t('charger.cta')}</span>
+              <span>{t('footer.openMap')}</span>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
               </svg>
