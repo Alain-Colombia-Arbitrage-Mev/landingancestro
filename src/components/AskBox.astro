@@ -16,7 +16,13 @@ const questions = [
     
     <span class="ask-label">Ask a Question</span>
     
-    <span class="question-text" id="question-text">"{questions[0]}"</span>
+    <div class="carousel-container">
+      <div class="carousel-track" id="carousel-track">
+        <span class="carousel-item">"{questions[0]}"</span>
+        <span class="carousel-item">"{questions[1]}"</span>
+        <span class="carousel-item">"{questions[2]}"</span>
+      </div>
+    </div>
     
     <div class="ask-icon-right">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -28,33 +34,37 @@ const questions = [
   </div>
 </div>
 
-<script define:vars={{ questions }}>
-  const questionText = document.getElementById('question-text');
+<script>
+  const track = document.getElementById('carousel-track');
+  const items = track?.querySelectorAll('.carousel-item');
+  const itemHeight = 24;
   let currentIndex = 0;
+  const totalItems = items?.length || 3;
 
-  function changeQuestion() {
-    if (!questionText) return;
+  function slideToNext() {
+    if (!track) return;
     
-    // Fade out
-    questionText.classList.add('fade-out');
+    currentIndex++;
     
-    setTimeout(() => {
-      // Change text
-      currentIndex = (currentIndex + 1) % questions.length;
-      questionText.textContent = `"${questions[currentIndex]}"`;
-      
-      // Reset animation
-      questionText.classList.remove('fade-out');
-      questionText.classList.add('fade-in');
-      
+    // Animate slide up
+    track.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+    track.style.transform = `translateY(-${currentIndex * itemHeight}px)`;
+    
+    // When we reach the end, reset position instantly
+    if (currentIndex >= totalItems) {
       setTimeout(() => {
-        questionText.classList.remove('fade-in');
-      }, 300);
-    }, 300);
+        track.style.transition = 'none';
+        track.style.transform = 'translateY(0)';
+        currentIndex = 0;
+        
+        // Force reflow
+        track.offsetHeight;
+      }, 500);
+    }
   }
 
-  // Change question every 3 seconds
-  setInterval(changeQuestion, 3000);
+  // Start carousel
+  setInterval(slideToNext, 3000);
 </script>
 
 <style>
@@ -92,32 +102,25 @@ const questions = [
     flex-shrink: 0;
   }
 
-  .question-text {
+  .carousel-container {
+    height: 24px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .carousel-track {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .carousel-item {
+    height: 24px;
+    line-height: 24px;
     font-size: 16px;
     font-weight: 400;
     color: rgba(255, 255, 255, 0.5);
     white-space: nowrap;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-  }
-
-  .question-text.fade-out {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-
-  .question-text.fade-in {
-    animation: fadeIn 0.3s ease;
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    flex-shrink: 0;
   }
 
   .ask-icon-right {
@@ -135,13 +138,22 @@ const questions = [
     }
 
     .ask-label,
-    .question-text {
+    .carousel-item {
       font-size: 14px;
+    }
+
+    .carousel-container {
+      height: 20px;
+    }
+
+    .carousel-item {
+      height: 20px;
+      line-height: 20px;
     }
   }
 
   @media (max-width: 520px) {
-    .question-text {
+    .carousel-container {
       display: none;
     }
   }
