@@ -17,13 +17,9 @@ const questions = [
     <span class="ask-label">Ask a Question</span>
     
     <div class="questions-wrapper">
-      <div class="questions-track">
-        <!-- Duplicamos la primera pregunta al final para transición suave -->
-        {questions.map((question) => (
-          <span class="question-item">"{question}"</span>
-        ))}
-        <span class="question-item">"{questions[0]}"</span>
-      </div>
+      {questions.map((question, index) => (
+        <span class="question-item" style={`animation-delay: ${index * 3}s`}>"{question}"</span>
+      ))}
     </div>
     
     <div class="ask-icon-right">
@@ -77,46 +73,42 @@ const questions = [
     position: relative;
   }
 
-  .questions-track {
-    display: flex;
-    flex-direction: column;
-    animation: slideTrack 12s linear infinite;
-  }
-
   .question-item {
+    position: absolute;
+    top: 0;
+    left: 0;
     height: 24px;
     line-height: 24px;
     font-size: 16px;
     font-weight: 400;
     color: rgba(255, 255, 255, 0.5);
     white-space: nowrap;
-    flex-shrink: 0;
+    opacity: 0;
+    transform: translateY(100%);
+    animation: showQuestion 9s infinite;
   }
 
-  @keyframes slideTrack {
+  /* 9s total = 3 preguntas x 3s cada una */
+  @keyframes showQuestion {
     0% {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    3% {
+      opacity: 1;
       transform: translateY(0);
     }
-    22% {
+    30% {
+      opacity: 1;
       transform: translateY(0);
     }
-    25% {
-      transform: translateY(-24px);
-    }
-    47% {
-      transform: translateY(-24px);
-    }
-    50% {
-      transform: translateY(-48px);
-    }
-    72% {
-      transform: translateY(-48px);
-    }
-    75% {
-      transform: translateY(-72px);
+    33% {
+      opacity: 0;
+      transform: translateY(-100%);
     }
     100% {
-      transform: translateY(-72px);
+      opacity: 0;
+      transform: translateY(-100%);
     }
   }
 
@@ -146,33 +138,6 @@ const questions = [
     .question-item {
       height: 20px;
       line-height: 20px;
-    }
-
-    @keyframes slideTrack {
-      0% {
-        transform: translateY(0);
-      }
-      22% {
-        transform: translateY(0);
-      }
-      25% {
-        transform: translateY(-20px);
-      }
-      47% {
-        transform: translateY(-20px);
-      }
-      50% {
-        transform: translateY(-40px);
-      }
-      72% {
-        transform: translateY(-40px);
-      }
-      75% {
-        transform: translateY(-60px);
-      }
-      100% {
-        transform: translateY(-60px);
-      }
     }
   }
 
