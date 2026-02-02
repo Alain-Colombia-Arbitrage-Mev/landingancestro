@@ -26,15 +26,20 @@ const {
     padding: 16px 20px;
     min-width: 320px;
     max-width: 380px;
-    background: rgba(30, 30, 35, 0.85);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(248, 176, 59, 0.4);
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.12) 0%,
+      rgba(255, 255, 255, 0.06) 50%,
+      rgba(255, 255, 255, 0.04) 100%
+    );
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: 16px;
     box-shadow: 
-      0 10px 40px rgba(0, 0, 0, 0.5),
-      0 0 20px rgba(248, 176, 59, 0.15),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      0 8px 32px rgba(0, 0, 0, 0.4),
+      0 0 0 1px rgba(255, 255, 255, 0.06) inset,
+      0 1px 0 rgba(255, 255, 255, 0.15) inset;
     opacity: 0;
     transform: translateX(-100%);
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -58,10 +63,17 @@ const {
     align-items: center;
     justify-content: center;
     font-size: 28px;
-    background: linear-gradient(135deg, rgba(248, 176, 59, 0.25), rgba(248, 176, 59, 0.1));
-    border: 2px solid rgba(248, 176, 59, 0.5);
+    background: linear-gradient(
+      135deg,
+      rgba(248, 176, 59, 0.2) 0%,
+      rgba(248, 176, 59, 0.06) 100%
+    );
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(248, 176, 59, 0.35);
     border-radius: 12px;
     flex-shrink: 0;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
   }
 
   .toast-details {
@@ -119,19 +131,24 @@ const {
     font-family: monospace;
   }
 
-  .toast-token-amount {
-    display: flex;
-    align-items: baseline;
-    gap: 6px;
+  .toast-message {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.3;
   }
 
-  .toast-token-amount strong {
-    font-size: 22px;
+  .toast-message .toast-token-amount {
+    font-weight: 700;
+  }
+
+  .toast-message .toast-token-amount strong {
+    font-size: 20px;
     font-weight: 800;
     color: #ffffff;
   }
 
-  .toast-token-amount span {
+  .toast-message .toast-token-amount em {
+    font-style: normal;
     font-size: 14px;
     font-weight: 700;
     color: #f8b03b;
@@ -186,14 +203,11 @@ const {
       <div class="toast-flag-box">${p.flag}</div>
       <div class="toast-details">
         <div class="toast-top-row">
-          <span class="toast-verified-badge">Verificado</span>
+          <span class="toast-verified-badge">Compra verificada</span>
           <span class="toast-time">hace ${mins} min</span>
         </div>
         <div class="toast-wallet-addr">${p.address}</div>
-        <div class="toast-token-amount">
-          <strong>${tokens.toLocaleString()}</strong>
-          <span>${tokenSymbol}</span>
-        </div>
+        <div class="toast-message">Compró <span class="toast-token-amount"><strong>${tokens.toLocaleString()}</strong> <em>${tokenSymbol}</em></span></div>
         <div class="toast-usd-value">≈ $${p.amount.toLocaleString()} USD</div>
       </div>
     `;

@@ -1,11 +1,16 @@
 ---
+import { useTranslations, getLangFromUrl } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
 interface Props {
   daysRemaining?: number;
   tokenSymbol?: string;
   progress?: number;
 }
 
-const { 
+const {
   daysRemaining = 150,
   tokenSymbol = 'ANC',
   progress = 67.3
@@ -17,7 +22,7 @@ const {
     <!-- Progress indicator -->
     <div class="bar-progress">
       <div class="progress-info">
-        <span class="progress-label">Progreso del Presale</span>
+        <span class="progress-label">{t('presale.bar.progressLabel')}</span>
         <span class="progress-value">{progress}%</span>
       </div>
       <div class="progress-track">
@@ -27,7 +32,7 @@ const {
 
     <!-- Countdown -->
     <div class="bar-countdown">
-      <span class="countdown-label">Termina en:</span>
+      <span class="countdown-label">{t('presale.bar.endsIn')}</span>
       <div class="countdown-numbers">
         <div class="countdown-box">
           <span class="countdown-value" id="bar-days">{daysRemaining}</span>
@@ -56,7 +61,7 @@ const {
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
         <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/>
       </svg>
-      Comprar {tokenSymbol}
+      {t('presale.bar.buyButton').replace('{token}', tokenSymbol)}
     </a>
   </div>
 </div>

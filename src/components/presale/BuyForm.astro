@@ -1,4 +1,9 @@
 ---
+import { useTranslations, getLangFromUrl } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
 interface Props {
   tokenSymbol?: string;
   tokenPrice?: number;
@@ -7,68 +12,68 @@ interface Props {
   config?: any;
 }
 
-const { 
-  tokenSymbol = 'ANC', 
-  tokenPrice = 0.88, 
-  minBuy = 50, 
-  maxBuy = 100000 
+const {
+  tokenSymbol = 'ANC',
+  tokenPrice = 0.88,
+  minBuy = 50,
+  maxBuy = 100000
 } = Astro.props;
 ---
 
 <section class="buy-section" id="buy">
   <div class="section-header">
-    <span class="section-badge">Comprar {tokenSymbol}</span>
-    <h2 class="section-title">Participa en el Presale</h2>
-    <p class="section-subtitle">Proceso simple y seguro</p>
+    <span class="section-badge">{tokenSymbol}</span>
+    <h2 class="section-title">{t('presale.buy.title')}</h2>
+    <p class="section-subtitle">{t('presale.buy.subtitle')}</p>
   </div>
-  
+
   <div class="buy-container">
     <div class="buy-card">
       <div class="buy-header">
         <div class="buy-price">
-          <span class="buy-price-label">Precio por token</span>
+          <span class="buy-price-label">{t('presale.buy.priceLabel')}</span>
           <span class="buy-price-value">${tokenPrice} USD</span>
         </div>
         <div class="buy-limits">
-          <span>Mín: ${minBuy} USD</span>
-          <span>Máx: ${maxBuy.toLocaleString()} USD</span>
+          <span>{t('presale.buy.min')}: ${minBuy} USD</span>
+          <span>{t('presale.buy.max')}: ${maxBuy.toLocaleString()} USD</span>
         </div>
       </div>
-      
+
       <form class="buy-form" id="buy-form">
         <div class="form-group">
-          <label>Cantidad en USD</label>
+          <label>{t('presale.buy.amountLabel')}</label>
           <div class="input-with-max">
-            <input 
-              type="number" 
-              id="buy-amount" 
-              name="amount" 
-              min={minBuy} 
-              max={maxBuy} 
-              value="1000" 
-              required 
+            <input
+              type="number"
+              id="buy-amount"
+              name="amount"
+              min={minBuy}
+              max={maxBuy}
+              value="1000"
+              required
             />
-            <button type="button" class="max-btn" id="max-btn">MAX</button>
+            <button type="button" class="max-btn" id="max-btn">{t('presale.buy.maxButton')}</button>
           </div>
         </div>
-        
+
         <div class="tokens-preview">
-          <span>Recibirás aproximadamente</span>
+          <span>{t('presale.buy.receiveLabel')}</span>
           <span class="tokens-amount" id="tokens-preview">1,136.36 {tokenSymbol}</span>
         </div>
-        
+
         <div class="form-group">
-          <label>Wallet Address</label>
+          <label>{t('presale.buy.walletLabel')}</label>
           <input type="text" id="wallet" name="wallet" placeholder="0x..." required />
         </div>
-        
+
         <div class="form-group">
-          <label>Email (para notificaciones)</label>
-          <input type="email" id="email" name="email" placeholder="tu@email.com" required />
+          <label>{t('presale.buy.emailLabel')}</label>
+          <input type="email" id="email" name="email" placeholder={t('presale.buy.emailPlaceholder')} required />
         </div>
-        
+
         <div class="payment-methods">
-          <span class="payment-label">Métodos de pago:</span>
+          <span class="payment-label">{t('presale.buy.paymentLabel')}</span>
           <div class="payment-options">
             <button type="button" class="payment-btn active" data-method="usdt">USDT</button>
             <button type="button" class="payment-btn" data-method="usdc">USDC</button>
@@ -76,30 +81,32 @@ const {
             <button type="button" class="payment-btn" data-method="card">Card</button>
           </div>
         </div>
-        
+
         <div class="form-group checkbox-group">
           <input type="checkbox" id="terms" name="terms" required />
-          <label for="terms">Acepto los <a href="/terms">Términos</a> y <a href="/privacy">Política de Privacidad</a></label>
+          <label for="terms">
+            {t('presale.buy.termsAccept')} <a href="/terms">{t('presale.buy.termsLink')}</a> {t('presale.buy.termsAnd')} <a href="/privacy">{t('presale.buy.privacyLink')}</a>
+          </label>
         </div>
-        
+
         <button type="submit" class="buy-submit">
-          Comprar {tokenSymbol}
+          {t('presale.buy.buyButton').replace('{token}', tokenSymbol)}
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
             <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
       </form>
-      
+
       <div class="buy-security">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2"/>
         </svg>
-        <span>Transacción segura • Smart Contract auditado</span>
+        <span>{t('presale.buy.secureTransaction')}</span>
       </div>
     </div>
-    
+
     <div class="buy-info">
-      <h3>¿Por qué comprar {tokenSymbol}?</h3>
+      <h3>{t('presale.buy.whyBuyTitle').replace('{token}', tokenSymbol)}</h3>
       
       <div class="info-cards">
         <div class="info-card">
@@ -109,10 +116,10 @@ const {
               <path d="M2 12H22M12 2C14.5 4.5 16 8 16 12C16 16 14.5 19.5 12 22C9.5 19.5 8 16 8 12C8 8 9.5 4.5 12 2Z" stroke="currentColor" stroke-width="2"/>
             </svg>
           </div>
-          <h4>Utilidad Real</h4>
-          <p>{tokenSymbol} es el token de utilidad de la red Ancestro, usándose para pagos, recompensas y gobernanza en la plataforma de energía solar.</p>
+          <h4>{t('presale.buy.utilityTitle')}</h4>
+          <p>{t('presale.buy.utilityDesc').replace('{token}', tokenSymbol)}</p>
         </div>
-        
+
         <div class="info-card">
           <div class="info-card-icon">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
@@ -120,10 +127,10 @@ const {
               <path d="M17 7H21V11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <h4>Potencial de Crecimiento</h4>
-          <p>El mercado de energía solar en LATAM está proyectado a crecer 400% en los próximos 5 años. {tokenSymbol} está posicionado para capturar este crecimiento.</p>
+          <h4>{t('presale.buy.growthTitle')}</h4>
+          <p>{t('presale.buy.growthDesc').replace('{token}', tokenSymbol)}</p>
         </div>
-        
+
         <div class="info-card">
           <div class="info-card-icon">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
@@ -131,39 +138,39 @@ const {
               <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <h4>Seguridad</h4>
-          <p>Smart contract auditado por firmas líderes. Equipo doxxeado y comprometido con la transparencia total.</p>
+          <h4>{t('presale.buy.securityTitle')}</h4>
+          <p>{t('presale.buy.securityDesc')}</p>
         </div>
       </div>
-      
+
       <div class="roadmap-preview">
         <div class="roadmap-header">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
             <path d="M12 8V12L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
           </svg>
-          <h4>Próximos Hitos</h4>
+          <h4>{t('presale.buy.milestonesTitle')}</h4>
         </div>
         <div class="milestones">
           <div class="milestone">
             <span class="milestone-dot"></span>
             <div class="milestone-content">
-              <span class="milestone-date">Q2 2026</span>
-              <span class="milestone-text">Listado en DEX + CEX Tier 2</span>
+              <span class="milestone-date">{t('presale.buy.milestone1Date')}</span>
+              <span class="milestone-text">{t('presale.buy.milestone1Text')}</span>
             </div>
           </div>
           <div class="milestone">
             <span class="milestone-dot"></span>
             <div class="milestone-content">
-              <span class="milestone-date">Q3 2026</span>
-              <span class="milestone-text">Lanzamiento App + Staking</span>
+              <span class="milestone-date">{t('presale.buy.milestone2Date')}</span>
+              <span class="milestone-text">{t('presale.buy.milestone2Text')}</span>
             </div>
           </div>
           <div class="milestone">
             <span class="milestone-dot"></span>
             <div class="milestone-content">
-              <span class="milestone-date">Q4 2026</span>
-              <span class="milestone-text">Expansión a 5 países más</span>
+              <span class="milestone-date">{t('presale.buy.milestone3Date')}</span>
+              <span class="milestone-text">{t('presale.buy.milestone3Text')}</span>
             </div>
           </div>
         </div>

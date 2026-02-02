@@ -1,4 +1,9 @@
 ---
+import { useTranslations, getLangFromUrl } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
 interface FAQItem {
   question: string;
   answer: string;
@@ -41,7 +46,7 @@ const faqs = props.faqs && props.faqs.length > 0 ? props.faqs : defaultFaqs;
 
 <section class="faq-section">
   <div class="section-header">
-    <h2 class="section-title">Preguntas Frecuentes</h2>
+    <h2 class="section-title">{t('presale.faq.title')}</h2>
   </div>
   
   <div class="faq-accordion">

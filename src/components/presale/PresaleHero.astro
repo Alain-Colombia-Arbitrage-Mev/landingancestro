@@ -1,4 +1,9 @@
 ---
+import { useTranslations, getLangFromUrl } from '../../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
 interface PresaleConfig {
   tokenSymbol: string;
   tokenName: string;
@@ -48,79 +53,77 @@ const savings = Math.round((1 - presalePrice / listingPrice) * 100);
     <div class="token-badge">
       <span class="token-icon">◈</span>
       <span class="token-symbol">{tokenSymbol}</span>
-      <span class="token-status">PARA LOS QUE ACTÚAN PRIMERO</span>
+      <span class="token-status">{t('presale.hero.badge')}</span>
     </div>
     
     <h1 class="hero-title">
-      Esto no es una inversión.
-      <span class="highlight">Es una declaración.</span>
+      {t('presale.hero.title')}
+      <span class="highlight">{t('presale.hero.titleHighlight')}</span>
     </h1>
     
     <p class="hero-subtitle">
-      Las personas como nosotros no esperamos a que alguien más cambie el sistema energético de Latinoamérica. 
-      Actuamos. {tokenSymbol} no es solo un token—es tu asiento en la mesa donde se decide 
-      el futuro de la energía limpia para 650 millones de personas.
+      {t('presale.hero.subtitle').replace('{token}', tokenSymbol)}
     </p>
     
     <!-- Price Display -->
     <div class="price-display">
       <div class="current-price">
-        <span class="price-label">Precio Presale</span>
+        <span class="price-label">{t('presale.hero.priceLabel')}</span>
         <span class="price-value">${presalePrice}</span>
         <span class="price-unit">USD</span>
       </div>
       <div class="price-divider"></div>
       <div class="listing-price">
-        <span class="price-label">Precio Listado</span>
+        <span class="price-label">{t('presale.hero.listingLabel')}</span>
         <span class="price-value-striked">${listingPrice}</span>
-        <span class="price-savings">Ahorra {savings}%</span>
+        <span class="price-savings">{t('presale.hero.savingsLabel').replace('{percent}', String(savings))}</span>
       </div>
     </div>
     
     <!-- Progress Bar -->
     <div class="progress-section">
       <div class="progress-header">
-        <span>Progreso del Presale</span>
+        <span>{t('presale.hero.progressLabel')}</span>
         <span class="progress-percent">{progress}%</span>
       </div>
       <div class="progress-bar">
         <div class="progress-fill" style={`width: ${progress}%`}></div>
       </div>
       <div class="progress-stats">
-        <span><strong>{raised}</strong> recaudados</span>
-        <span>Hard Cap: <strong>{hardCap}</strong></span>
+        <span><strong>{raised}</strong> {t('presale.hero.raised')}</span>
+        <span>{t('presale.hero.hardCap')}: <strong>{hardCap}</strong></span>
       </div>
     </div>
     
     <!-- Countdown -->
     <div class="countdown-wrapper">
-      <p class="countdown-label">El presale termina en:</p>
+      <p class="countdown-label">{t('presale.hero.countdownLabel')}</p>
       <div class="countdown">
         <div class="countdown-item">
           <span class="countdown-number" id="days">{daysRemaining}</span>
-          <span class="countdown-text">Días</span>
+          <span class="countdown-text">{t('presale.hero.days')}</span>
         </div>
         <div class="countdown-item">
           <span class="countdown-number" id="hours">00</span>
-          <span class="countdown-text">Horas</span>
+          <span class="countdown-text">{t('presale.hero.hours')}</span>
         </div>
         <div class="countdown-item">
           <span class="countdown-number" id="minutes">00</span>
-          <span class="countdown-text">Min</span>
+          <span class="countdown-text">{t('presale.hero.minutes')}</span>
         </div>
         <div class="countdown-item">
           <span class="countdown-number" id="seconds">00</span>
-          <span class="countdown-text">Seg</span>
+          <span class="countdown-text">{t('presale.hero.seconds')}</span>
         </div>
       </div>
     </div>
     
     <div class="hero-ctas">
       <a href="#buy" class="cta-primary">
-        Comprar {tokenSymbol}
+        {t('presale.hero.buyButton').replace('{token}', tokenSymbol)}
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
-      <a href="#tokenomics" class="cta-secondary">Ver Tokenomics</a>
+      <a href="#tokenomics" class="cta-secondary">{t('presale.hero.tokenomicsButton')}</a>
     </div>
   </div>
 </section>
