@@ -1,10 +1,11 @@
 ---
 interface Props {
-  tokenPrice: number;
+  tokenPrice?: number;
   defaultAmount?: number;
+  config?: any;
 }
 
-const { tokenPrice, defaultAmount = 10000 } = Astro.props;
+const { tokenPrice = 0.88, defaultAmount = 10000 } = Astro.props;
 ---
 
 <div class="staking-calculator">

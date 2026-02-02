@@ -10,10 +10,41 @@ interface StakingTier {
 }
 
 interface Props {
-  tiers: StakingTier[];
+  tiers?: StakingTier[];
 }
 
-const { tiers } = Astro.props;
+const defaultTiers: StakingTier[] = [
+  {
+    name: "Flexible",
+    apy: 12,
+    bonus: 5,
+    lock: "Sin bloqueo",
+    description: "Retira cuando quieras",
+    features: ["Sin período mínimo", "Retiro instantáneo", "Recompensas diarias"],
+    recommended: false
+  },
+  {
+    name: "Holder",
+    apy: 18,
+    bonus: 5,
+    lock: "30 días",
+    description: "Balance perfecto",
+    features: ["Bloqueo de 30 días", "APY aumentado", "Recompensas diarias", "Acceso a airdrops"],
+    recommended: true
+  },
+  {
+    name: "Diamond",
+    apy: 28,
+    bonus: 5,
+    lock: "90 días",
+    description: "Máximas recompensas",
+    features: ["Bloqueo de 90 días", "APY máximo", "Recompensas diarias", "Acceso a airdrops", "Gobernanza DAO"],
+    recommended: false
+  }
+];
+
+const props = Astro.props;
+const tiers = props.tiers && props.tiers.length > 0 ? props.tiers : defaultTiers;
 ---
 
 <section class="staking-section" id="staking">

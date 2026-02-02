@@ -1,0 +1,65 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Navbar from '@components/Navbar.astro';
+import Footer from '@components/Footer.astro';
+import PresaleHero from '@components/presale/PresaleHero.astro';
+import PresaleBenefits from '@components/presale/PresaleBenefits.astro';
+import Tokenomics from '@components/presale/Tokenomics.astro';
+import VestingSchedule from '@components/presale/VestingSchedule.astro';
+import StakingTiers from '@components/presale/StakingTiers.astro';
+import StakingCalculator from '@components/presale/StakingCalculator.astro';
+import BuyForm from '@components/presale/BuyForm.astro';
+import PresaleFAQ from '@components/presale/PresaleFAQ.astro';
+import { getLanguagePaths } from '../../i18n/config';
+import { useTranslations, type Lang } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  return getLanguagePaths();
+}
+
+const { lang } = Astro.params as { lang: Lang };
+const t = useTranslations(lang);
+
+// Presale configuration
+const presaleConfig = {
+  tokenSymbol: 'ANC',
+  tokenName: 'Ancestro Token',
+  initialPrice: 0.88,
+  targetRaise: 5000000,
+  currentRaised: 1250000,
+  deadline: 150,
+  totalSupply: 100000000,
+  presaleAllocation: 15,
+};
+---
+
+<Layout title={`${t('nav.presale')} | Ancestro`}>
+  <div class="page-wrapper">
+    <Navbar />
+    
+    <main id="main-content" role="main" class="presale-page">
+      <PresaleHero config={presaleConfig} />
+      <PresaleBenefits />
+      <Tokenomics config={presaleConfig} />
+      <VestingSchedule />
+      <StakingTiers />
+      <StakingCalculator config={presaleConfig} />
+      <BuyForm config={presaleConfig} />
+      <PresaleFAQ />
+    </main>
+    
+    <Footer backgroundImage="/images/footer-bg.png" />
+  </div>
+</Layout>
+
+<style>
+  .page-wrapper {
+    position: relative;
+    background-color: var(--color-black);
+    min-height: 100vh;
+  }
+
+  .presale-page {
+    padding-top: 79px;
+  }
+</style>

@@ -1,0 +1,707 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Navbar from '@components/Navbar.astro';
+import Footer from '@components/Footer.astro';
+import { getLanguagePaths } from '../../i18n/config';
+import { useTranslations, type Lang } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  return getLanguagePaths();
+}
+
+const { lang } = Astro.params as { lang: Lang };
+const t = useTranslations(lang);
+
+// Country codes for phone input
+const countryCodes = [
+  { code: '+57', country: 'Colombia', flag: '🇨🇴' },
+  { code: '+507', country: 'Panamá', flag: '🇵🇦' },
+  { code: '+1', country: 'República Dominicana', flag: '🇩🇴' },
+  { code: '+52', country: 'México', flag: '🇲🇽' },
+  { code: '+51', country: 'Perú', flag: '🇵🇪' },
+  { code: '+502', country: 'Guatemala', flag: '🇬🇹' },
+  { code: '+503', country: 'El Salvador', flag: '🇸🇻' },
+  { code: '+598', country: 'Uruguay', flag: '🇺🇾' },
+  { code: '+506', country: 'Costa Rica', flag: '🇨🇷' },
+  { code: '+55', country: 'Brasil', flag: '🇧🇷' },
+  { code: '+505', country: 'Nicaragua', flag: '🇳🇮' },
+  { code: '+504', country: 'Honduras', flag: '🇭🇳' },
+  { code: '+56', country: 'Chile', flag: '🇨🇱' },
+  { code: '+54', country: 'Argentina', flag: '🇦🇷' },
+  { code: '+591', country: 'Bolivia', flag: '🇧🇴' },
+  { code: '+501', country: 'Belice', flag: '🇧🇿' },
+  { code: '+593', country: 'Ecuador', flag: '🇪🇨' },
+  { code: '+595', country: 'Paraguay', flag: '🇵🇾' },
+  { code: '+1', country: 'Estados Unidos', flag: '🇺🇸' },
+  { code: '+34', country: 'España', flag: '🇪🇸' },
+];
+---
+
+<Layout title={`${t('nav.waitlist')} | Ancestro`}>
+  <div class="page-wrapper">
+    <Navbar />
+    
+    <main id="main-content" role="main" class="waitlist-page">
+      <div class="waitlist-bg">
+        <div class="bg-gradient"></div>
+        <div class="bg-grid"></div>
+        <div class="floating-orb orb-1"></div>
+        <div class="floating-orb orb-2"></div>
+        <div class="floating-orb orb-3"></div>
+      </div>
+      
+      <div class="waitlist-container">
+        <div class="waitlist-content">
+          <div class="waitlist-header">
+            <span class="waitlist-badge">Early Access</span>
+            <h1 class="waitlist-title">{t('nav.waitlist')}</h1>
+            <p class="waitlist-subtitle">
+              Sé de los primeros en acceder a la red de energía solar más grande de Latinoamérica. 
+              Beneficios exclusivos para los primeros miembros.
+            </p>
+          </div>
+
+          <form class="waitlist-form" id="waitlist-form">
+            <div class="form-group">
+              <label for="fullName">Nombre Completo</label>
+              <div class="input-wrapper">
+                <svg class="input-icon" viewBox="0 0 24 24" fill="none">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <input 
+                  type="text" 
+                  id="fullName" 
+                  name="fullName" 
+                  placeholder="Tu nombre completo"
+                  required 
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Correo Electrónico</label>
+              <div class="input-wrapper">
+                <svg class="input-icon" viewBox="0 0 24 24" fill="none">
+                  <rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="2"/>
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <input 
+                  type="email" 
+                  id="email" 
+                  name="email" 
+                  placeholder="tu@email.com"
+                  required 
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Teléfono</label>
+              <div class="phone-input-group">
+                <div class="country-select-wrapper">
+                  <select id="countryCode" name="countryCode" class="country-select">
+                    {countryCodes.map((c) => (
+                      <option value={c.code}>{c.flag} {c.code}</option>
+                    ))}
+                  </select>
+                </div>
+                <div class="input-wrapper phone-input">
+                  <input 
+                    type="tel" 
+                    id="phone" 
+                    name="phone" 
+                    placeholder="300 123 4567"
+                    required 
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="country">País</label>
+              <div class="input-wrapper select-wrapper">
+                <svg class="input-icon" viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                  <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <select id="country" name="country" required>
+                  <option value="">Selecciona tu país</option>
+                  {countryCodes.map((c) => (
+                    <option value={c.country}>{c.flag} {c.country}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group checkbox-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="terms" name="terms" required />
+                <span class="checkbox-custom"></span>
+                <span class="checkbox-text">
+                  Acepto los <a href="/terms">términos y condiciones</a> y la <a href="/privacy">política de privacidad</a>
+                </span>
+              </label>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submit-btn">
+              <span class="btn-text">Unirme a la Lista</span>
+              <span class="btn-loading">
+                <svg class="spinner" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="31.4 31.4" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <span class="btn-success">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </button>
+          </form>
+
+          <div class="success-message" id="success-message">
+            <div class="success-icon">
+              <svg viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                <path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>¡Bienvenido a Ancestro!</h3>
+            <p>Te hemos añadido a la lista de espera. Te contactaremos pronto con novedades exclusivas.</p>
+            <div class="position-badge">
+              Tu posición: <span id="position-number">#1,247</span>
+            </div>
+          </div>
+
+          <div class="waitlist-counter">
+            <div class="counter-item">
+              <span class="counter-number" id="counter">12,847</span>
+              <span class="counter-label">personas en la lista</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    
+    <Footer backgroundImage="/images/footer-bg.png" />
+  </div>
+</Layout>
+
+<script>
+  const form = document.getElementById('waitlist-form') as HTMLFormElement;
+  const submitBtn = document.getElementById('submit-btn');
+  const successMessage = document.getElementById('success-message');
+  const counter = document.getElementById('counter');
+  const positionNumber = document.getElementById('position-number');
+
+  // Animate counter
+  function animateCounter() {
+    const target = 12847;
+    const duration = 2000;
+    const start = Date.now();
+    const startValue = 0;
+
+    function update() {
+      const elapsed = Date.now() - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+      const current = Math.floor(startValue + (target - startValue) * easeOut);
+      
+      if (counter) {
+        counter.textContent = current.toLocaleString();
+      }
+
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      }
+    }
+
+    requestAnimationFrame(update);
+  }
+
+  // Intersection Observer for counter animation
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCounter();
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.5 });
+
+  if (counter) {
+    observer.observe(counter);
+  }
+
+  // Form submission
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    submitBtn?.classList.add('loading');
+    
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    submitBtn?.classList.remove('loading');
+    submitBtn?.classList.add('success');
+    
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    form.style.display = 'none';
+    successMessage?.classList.add('show');
+    
+    // Random position
+    const position = Math.floor(Math.random() * 500) + 12848;
+    if (positionNumber) {
+      positionNumber.textContent = `#${position.toLocaleString()}`;
+    }
+  });
+</script>
+
+<style>
+  .page-wrapper {
+    position: relative;
+    background-color: var(--color-black);
+    min-height: 100vh;
+  }
+
+  .waitlist-page {
+    padding-top: 79px;
+    min-height: calc(100vh - 79px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Background Effects */
+  .waitlist-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .bg-gradient {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(248, 176, 59, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(248, 176, 59, 0.1) 0%, transparent 40%);
+  }
+
+  .bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  }
+
+  .floating-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    animation: float 20s ease-in-out infinite;
+  }
+
+  .orb-1 {
+    width: 400px;
+    height: 400px;
+    background: var(--color-primary);
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+  }
+
+  .orb-2 {
+    width: 300px;
+    height: 300px;
+    background: #ff6b35;
+    bottom: 20%;
+    right: 15%;
+    animation-delay: -7s;
+  }
+
+  .orb-3 {
+    width: 250px;
+    height: 250px;
+    background: #4ecdc4;
+    top: 50%;
+    right: 30%;
+    animation-delay: -14s;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -30px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+  }
+
+  /* Content */
+  .waitlist-container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 500px;
+    padding: 40px 20px;
+  }
+
+  .waitlist-content {
+    background: rgba(15, 15, 15, 0.8);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 48px;
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+  }
+
+  .waitlist-header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .waitlist-badge {
+    display: inline-block;
+    padding: 8px 16px;
+    background: rgba(248, 176, 59, 0.15);
+    border: 1px solid rgba(248, 176, 59, 0.3);
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+
+  .waitlist-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--color-white);
+    margin-bottom: 12px;
+  }
+
+  .waitlist-subtitle {
+    font-size: 15px;
+    color: var(--color-gray);
+    line-height: 1.6;
+  }
+
+  /* Form Styles */
+  .waitlist-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .form-group label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-white);
+  }
+
+  .input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .input-icon {
+    position: absolute;
+    left: 16px;
+    width: 20px;
+    height: 20px;
+    color: var(--color-gray);
+    pointer-events: none;
+  }
+
+  .input-wrapper input,
+  .input-wrapper select {
+    width: 100%;
+    padding: 14px 16px 14px 48px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    font-size: 15px;
+    color: var(--color-white);
+    transition: all 0.3s ease;
+  }
+
+  .input-wrapper input::placeholder {
+    color: var(--color-gray);
+  }
+
+  .input-wrapper input:focus,
+  .input-wrapper select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .phone-input-group {
+    display: flex;
+    gap: 12px;
+  }
+
+  .country-select-wrapper {
+    flex-shrink: 0;
+  }
+
+  .country-select {
+    padding: 14px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    font-size: 15px;
+    color: var(--color-white);
+    cursor: pointer;
+    min-width: 100px;
+  }
+
+  .phone-input {
+    flex: 1;
+  }
+
+  .phone-input input {
+    padding-left: 16px;
+  }
+
+  .select-wrapper select {
+    appearance: none;
+    cursor: pointer;
+  }
+
+  /* Checkbox */
+  .checkbox-group {
+    margin-top: 8px;
+  }
+
+  .checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+  }
+
+  .checkbox-label input {
+    display: none;
+  }
+
+  .checkbox-custom {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .checkbox-label input:checked + .checkbox-custom {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+  }
+
+  .checkbox-label input:checked + .checkbox-custom::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 6px;
+    width: 5px;
+    height: 10px;
+    border: solid #000;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+
+  .checkbox-text {
+    font-size: 13px;
+    color: var(--color-gray);
+    line-height: 1.5;
+  }
+
+  .checkbox-text a {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  .checkbox-text a:hover {
+    text-decoration: underline;
+  }
+
+  /* Submit Button */
+  .submit-btn {
+    position: relative;
+    width: 100%;
+    padding: 16px;
+    background: var(--color-primary);
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    margin-top: 8px;
+  }
+
+  .submit-btn:hover {
+    background: #e9a235;
+    transform: translateY(-2px);
+  }
+
+  .btn-loading,
+  .btn-success {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .submit-btn.loading .btn-text {
+    opacity: 0;
+  }
+
+  .submit-btn.loading .btn-loading {
+    opacity: 1;
+  }
+
+  .submit-btn.success .btn-text {
+    opacity: 0;
+  }
+
+  .submit-btn.success .btn-success {
+    opacity: 1;
+  }
+
+  .spinner {
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+  }
+
+  .btn-success svg {
+    width: 24px;
+    height: 24px;
+    color: #000;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Success Message */
+  .success-message {
+    display: none;
+    text-align: center;
+    padding: 20px 0;
+  }
+
+  .success-message.show {
+    display: block;
+    animation: fadeIn 0.5s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .success-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 24px;
+    background: rgba(34, 197, 94, 0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .success-icon svg {
+    width: 40px;
+    height: 40px;
+    color: #22c55e;
+  }
+
+  .success-message h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-white);
+    margin-bottom: 12px;
+  }
+
+  .success-message p {
+    font-size: 15px;
+    color: var(--color-gray);
+    margin-bottom: 24px;
+  }
+
+  .position-badge {
+    display: inline-block;
+    padding: 12px 24px;
+    background: rgba(248, 176, 59, 0.15);
+    border: 1px solid rgba(248, 176, 59, 0.3);
+    border-radius: 30px;
+    font-size: 16px;
+    color: var(--color-white);
+  }
+
+  .position-badge span {
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  /* Counter */
+  .waitlist-counter {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+  }
+
+  .counter-number {
+    display: block;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 4px;
+  }
+
+  .counter-label {
+    font-size: 14px;
+    color: var(--color-gray);
+  }
+
+  @media (max-width: 480px) {
+    .waitlist-content {
+      padding: 32px 24px;
+    }
+
+    .waitlist-title {
+      font-size: 26px;
+    }
+
+    .phone-input-group {
+      flex-direction: column;
+    }
+
+    .country-select {
+      width: 100%;
+    }
+  }
+</style>

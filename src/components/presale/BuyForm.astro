@@ -1,12 +1,18 @@
 ---
 interface Props {
-  tokenSymbol: string;
-  tokenPrice: number;
-  minBuy: number;
-  maxBuy: number;
+  tokenSymbol?: string;
+  tokenPrice?: number;
+  minBuy?: number;
+  maxBuy?: number;
+  config?: any;
 }
 
-const { tokenSymbol, tokenPrice, minBuy, maxBuy } = Astro.props;
+const { 
+  tokenSymbol = 'ANC', 
+  tokenPrice = 0.88, 
+  minBuy = 50, 
+  maxBuy = 100000 
+} = Astro.props;
 ---
 
 <section class="buy-section" id="buy">

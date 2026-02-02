@@ -6,12 +6,24 @@ interface VestingPhase {
 }
 
 interface Props {
-  schedule: VestingPhase[];
-  tgePercent: number;
-  vestingMonths: number;
+  schedule?: VestingPhase[];
+  tgePercent?: number;
+  vestingMonths?: number;
 }
 
-const { schedule, tgePercent, vestingMonths } = Astro.props;
+const defaultSchedule: VestingPhase[] = [
+  { phase: "TGE", percent: 15, description: "Liberación inmediata al listar" },
+  { phase: "Mes 1-2", percent: 17, description: "8.5% mensual" },
+  { phase: "Mes 3-4", percent: 17, description: "8.5% mensual" },
+  { phase: "Mes 5-6", percent: 17, description: "8.5% mensual" },
+  { phase: "Mes 7-8", percent: 17, description: "8.5% mensual" },
+  { phase: "Mes 9-10", percent: 17, description: "8.5% mensual + final" },
+];
+
+const props = Astro.props;
+const schedule = props.schedule && props.schedule.length > 0 ? props.schedule : defaultSchedule;
+const tgePercent = props.tgePercent ?? 15;
+const vestingMonths = props.vestingMonths ?? 10;
 ---
 
 <section class="vesting-section" id="vesting">

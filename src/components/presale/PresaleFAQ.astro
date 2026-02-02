@@ -5,10 +5,38 @@ interface FAQItem {
 }
 
 interface Props {
-  faqs: FAQItem[];
+  faqs?: FAQItem[];
 }
 
-const { faqs } = Astro.props;
+const defaultFaqs: FAQItem[] = [
+  {
+    question: "¿Qué es el token ANC?",
+    answer: "ANC es el token nativo de Ancestro, utilizado para acceder a servicios de energía solar, recompensas de staking y gobernanza del ecosistema."
+  },
+  {
+    question: "¿Cómo funciona el vesting?",
+    answer: "Los tokens comprados en presale se liberan gradualmente: 25% al inicio, y el resto en 6 meses con liberaciones mensuales."
+  },
+  {
+    question: "¿Cuáles son los métodos de pago?",
+    answer: "Aceptamos criptomonedas (USDT, USDC, ETH), tarjetas de crédito/débito y transferencias bancarias en países seleccionados."
+  },
+  {
+    question: "¿Hay un mínimo de compra?",
+    answer: "El mínimo de compra es de $50 USD. No hay máximo, pero compras mayores a $10,000 requieren verificación KYC."
+  },
+  {
+    question: "¿Cuándo puedo hacer staking?",
+    answer: "El staking estará disponible inmediatamente después del lanzamiento oficial. Los tokens en vesting también pueden ser stakeados."
+  },
+  {
+    question: "¿Cómo reclamo mis tokens?",
+    answer: "Los tokens se enviarán automáticamente a tu wallet registrada según el calendario de vesting. Recibirás notificaciones por email."
+  },
+];
+
+const props = Astro.props;
+const faqs = props.faqs && props.faqs.length > 0 ? props.faqs : defaultFaqs;
 ---
 
 <section class="faq-section">
@@ -17,7 +45,7 @@ const { faqs } = Astro.props;
   </div>
   
   <div class="faq-grid">
-    {faqs.map((faq) => (
+    {faqs && faqs.map((faq) => (
       <div class="faq-item">
         <h4>{faq.question}</h4>
         <p>{faq.answer}</p>

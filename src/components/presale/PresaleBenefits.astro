@@ -6,10 +6,34 @@ interface Benefit {
 }
 
 interface Props {
-  benefits: Benefit[];
+  benefits?: Benefit[];
 }
 
-const { benefits } = Astro.props;
+const defaultBenefits: Benefit[] = [
+  {
+    icon: "⚡",
+    title: "Precio Exclusivo",
+    description: "Compra ANC a $0.88, 30% menos que el precio de listado de $1.25"
+  },
+  {
+    icon: "🔓",
+    title: "Vesting Justo",
+    description: "15% liberado al listar, resto en 10 meses. Sin cliff period."
+  },
+  {
+    icon: "💎",
+    title: "Staking Bonus",
+    description: "+5% APY extra durante el primer año para participantes del presale"
+  },
+  {
+    icon: "🌱",
+    title: "Utilidad Real",
+    description: "ANC impulsa la red de energía solar más grande de LATAM"
+  }
+];
+
+const props = Astro.props;
+const benefits = props.benefits && props.benefits.length > 0 ? props.benefits : defaultBenefits;
 ---
 
 <section class="benefits-section">

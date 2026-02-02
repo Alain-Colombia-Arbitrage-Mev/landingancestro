@@ -1,23 +1,39 @@
 ---
-interface Props {
+interface PresaleConfig {
   tokenSymbol: string;
-  presalePrice: number;
-  listingPrice: number;
-  hardCap: string;
-  raised: string;
-  progress: number;
-  daysRemaining: number;
+  tokenName: string;
+  initialPrice: number;
+  targetRaise: number;
+  currentRaised: number;
+  deadline: number;
+  totalSupply: number;
+  presaleAllocation: number;
 }
 
-const { 
-  tokenSymbol, 
-  presalePrice, 
-  listingPrice, 
-  hardCap, 
-  raised, 
-  progress,
-  daysRemaining 
-} = Astro.props;
+interface Props {
+  config?: PresaleConfig;
+}
+
+const defaultConfig: PresaleConfig = {
+  tokenSymbol: 'ANC',
+  tokenName: 'Ancestro Token',
+  initialPrice: 0.88,
+  targetRaise: 5000000,
+  currentRaised: 1250000,
+  deadline: 150,
+  totalSupply: 100000000,
+  presaleAllocation: 15,
+};
+
+const { config = defaultConfig } = Astro.props;
+
+const tokenSymbol = config.tokenSymbol;
+const presalePrice = config.initialPrice;
+const listingPrice = config.initialPrice * 1.5; // 50% higher at listing
+const hardCap = `$${(config.targetRaise / 1000000).toFixed(0)}M`;
+const raised = `$${(config.currentRaised / 1000000).toFixed(2)}M`;
+const progress = Math.round((config.currentRaised / config.targetRaise) * 100);
+const daysRemaining = config.deadline;
 
 const savings = Math.round((1 - presalePrice / listingPrice) * 100);
 ---

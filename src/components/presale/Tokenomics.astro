@@ -7,11 +7,21 @@ interface Allocation {
 }
 
 interface Props {
-  totalSupply: string;
-  allocations: Allocation[];
+  totalSupply?: string;
+  allocations?: Allocation[];
+  config?: any;
 }
 
-const { totalSupply, allocations } = Astro.props;
+const defaultAllocations: Allocation[] = [
+  { name: 'Presale', percent: 15, amount: '15,000,000', color: '#f8b03b' },
+  { name: 'Liquidity', percent: 20, amount: '20,000,000', color: '#4ecdc4' },
+  { name: 'Team', percent: 15, amount: '15,000,000', color: '#ff6b6b' },
+  { name: 'Ecosystem', percent: 25, amount: '25,000,000', color: '#45b7d1' },
+  { name: 'Marketing', percent: 10, amount: '10,000,000', color: '#96ceb4' },
+  { name: 'Reserve', percent: 15, amount: '15,000,000', color: '#dda0dd' },
+];
+
+const { totalSupply = '100,000,000', allocations = defaultAllocations } = Astro.props;
 
 // Calculate stroke-dasharray for donut chart
 const circumference = 2 * Math.PI * 80; // r=80
