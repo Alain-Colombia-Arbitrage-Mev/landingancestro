@@ -112,8 +112,8 @@ const products = [
                 <h3 class="charger-title">{t('charger.title')}</h3>
                 <p class="charger-subtitle">{t('charger.subtitle')}</p>
                 <div class="charger-actions">
-                  <a href="#" class="cta-btn secondary">Host a Charger</a>
-                  <a href="#" class="cta-btn secondary">Download App</a>
+                  <a href="#" class="cta-btn secondary">{t('charger.hostBtn')}</a>
+                  <a href="#" class="cta-btn secondary">{t('charger.downloadBtn')}</a>
                 </div>
               </div>
             </div>
@@ -121,19 +121,19 @@ const products = [
           
           <div class="content-column">
             <InfoSection
-              title="Get Three Months Free"
-              subtitle="Orders before March 31st, 2026."
+              title={t('promo.title')}
+              subtitle={t('promo.subtitle')}
               ctaVariant="primary"
               ctaText={t('shop.order')}
               imageUrl={images.infoSection2}
             />
             <div class="vehicle-card">
               <div class="vehicle-card-content">
-                <h3 class="vehicle-title">Chevrolet Spark</h3>
+                <h3 class="vehicle-title">{t('promo.vehicle')}</h3>
                 <a href="#" class="cta-btn primary">{t('shop.order')}</a>
               </div>
               <div class="vehicle-image">
-                <img src={images.vehicle} alt="Chevrolet Spark" />
+                <img src={images.vehicle} alt={t('promo.vehicle')} />
               </div>
             </div>
           </div>

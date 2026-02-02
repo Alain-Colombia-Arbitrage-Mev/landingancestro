@@ -30,8 +30,15 @@ export const translations = {
     
     // Charger Section
     'charger.title': 'Cargadores Rápidos Nivel 3',
-    'charger.subtitle': 'La Red de Carga de EV Más Grande de LATAM',
+    'charger.subtitle': 'Carga en 30-40 Minutos',
     'charger.cta': 'Encontrar Cargador',
+    'charger.hostBtn': 'Ser Anfitrión de Cargador',
+    'charger.downloadBtn': 'Descargar App',
+    
+    // Promo Section
+    'promo.title': 'Obtén Tres Meses Gratis',
+    'promo.subtitle': 'Pedidos antes del 31 de marzo, 2026.',
+    'promo.vehicle': 'Chevrolet Spark',
     
     // LATAM Section
     'latam.title': 'Únete a la Red de Suscripción Solar + Batería',
@@ -102,8 +109,15 @@ export const translations = {
     
     // Charger Section
     'charger.title': 'Level 3 Fast Chargers',
-    'charger.subtitle': 'LATAM\'s Largest EV Charging Network',
+    'charger.subtitle': 'Charge in 30-40 Minutes',
     'charger.cta': 'Find a Charger',
+    'charger.hostBtn': 'Host a Charger',
+    'charger.downloadBtn': 'Download App',
+    
+    // Promo Section
+    'promo.title': 'Get Three Months Free',
+    'promo.subtitle': 'Orders before March 31st, 2026.',
+    'promo.vehicle': 'Chevrolet Spark',
     
     // LATAM Section
     'latam.title': 'Join LATAM\'s Fastest Growing',
@@ -174,8 +188,15 @@ export const translations = {
     
     // Charger Section
     'charger.title': 'Carregadores Rápidos Nível 3',
-    'charger.subtitle': 'A Maior Rede de Carregamento de VE da América Latina',
+    'charger.subtitle': 'Carregue em 30-40 Minutos',
     'charger.cta': 'Encontrar Carregador',
+    'charger.hostBtn': 'Hospedar um Carregador',
+    'charger.downloadBtn': 'Baixar App',
+    
+    // Promo Section
+    'promo.title': 'Ganhe Três Meses Grátis',
+    'promo.subtitle': 'Pedidos antes de 31 de março de 2026.',
+    'promo.vehicle': 'Chevrolet Spark',
     
     // LATAM Section
     'latam.title': 'Junte-se à Rede de Assinatura Solar + Bateria',
@@ -246,8 +267,15 @@ export const translations = {
     
     // Charger Section
     'charger.title': '3级快速充电器',
-    'charger.subtitle': '拉丁美洲最大的电动汽车充电网络',
+    'charger.subtitle': '30-40分钟充满',
     'charger.cta': '寻找充电站',
+    'charger.hostBtn': '成为充电站主机',
+    'charger.downloadBtn': '下载应用',
+    
+    // Promo Section
+    'promo.title': '免费获得三个月',
+    'promo.subtitle': '2026年3月31日前下单。',
+    'promo.vehicle': 'Chevrolet Spark',
     
     // LATAM Section
     'latam.title': '加入拉丁美洲增长最快的',
@@ -318,8 +346,15 @@ export const translations = {
     
     // Charger Section
     'charger.title': 'شواحن سريعة المستوى 3',
-    'charger.subtitle': 'أكبر شبكة شحن للسيارات الكهربائية في أمريكا اللاتينية',
+    'charger.subtitle': 'اشحن في 30-40 دقيقة',
     'charger.cta': 'ابحث عن شاحن',
+    'charger.hostBtn': 'استضف شاحناً',
+    'charger.downloadBtn': 'تحميل التطبيق',
+    
+    // Promo Section
+    'promo.title': 'احصل على ثلاثة أشهر مجاناً',
+    'promo.subtitle': 'الطلبات قبل 31 مارس 2026.',
+    'promo.vehicle': 'Chevrolet Spark',
     
     // LATAM Section
     'latam.title': 'انضم إلى أسرع شبكة اشتراك للطاقة الشمسية',

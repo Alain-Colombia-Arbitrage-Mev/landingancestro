@@ -7,6 +7,10 @@ import InfoSection from '@components/InfoSection.astro';
 import LATAMSection from '@components/LATAMSection.astro';
 import ShopSection from '@components/ShopSection.astro';
 import Footer from '@components/Footer.astro';
+import { useTranslations } from '../i18n/utils';
+import { defaultLang } from '../i18n/languages';
+
+const t = useTranslations(defaultLang);
 
 // Figma asset URLs (valid for 7 days)
 const images = {
@@ -50,23 +54,23 @@ const flags = [
 // Products for shop section
 const products = [
   {
-    title: "Solar Panels",
-    description: "Power Your Home and Reduce Your Electricity Bill",
+    title: t('shop.solar.title'),
+    description: t('shop.solar.desc'),
     backgroundImage: images.solarPanels,
   },
   {
-    title: "Battery",
-    description: "Keep Your Lights On During Outages",
+    title: t('shop.battery.title'),
+    description: t('shop.battery.desc'),
     backgroundImage: images.battery,
   },
   {
-    title: "Charging",
-    description: "Recharge with the LATAM's fast-charging network.",
+    title: t('shop.charging.title'),
+    description: t('shop.charging.desc'),
     backgroundImage: images.charging,
   },
   {
-    title: "Vehicles",
-    description: "Power Your Home and Reduce Your Electricity Bill",
+    title: t('shop.vehicles.title'),
+    description: t('shop.vehicles.desc'),
     backgroundImage: images.vehicles,
   },
 ];
@@ -94,23 +98,23 @@ const products = [
           <!-- Left Column -->
           <div class="content-column">
             <InfoSection
-              title="Reduce Your Electric Bill"
-              subtitle="Save 10-40%"
+              title={t('info.title')}
+              subtitle={t('info.subtitle')}
               ctaVariant="secondary"
-              ctaText="Learn More"
+              ctaText={t('info.cta')}
               imageUrl={images.infoSection1}
             />
             <div class="charger-card">
               <div class="charger-card-bg">
-                <img src={images.charger} alt="Level 3 Fast Charger" />
+                <img src={images.charger} alt={t('charger.title')} />
                 <div class="charger-overlay"></div>
               </div>
               <div class="charger-card-content">
-                <h3 class="charger-title">Level 3 Fast Chargers</h3>
-                <p class="charger-subtitle">Charge In 30-40 Minutes</p>
+                <h3 class="charger-title">{t('charger.title')}</h3>
+                <p class="charger-subtitle">{t('charger.subtitle')}</p>
                 <div class="charger-actions">
-                  <a href="#" class="cta-btn secondary">Host a Charger</a>
-                  <a href="#" class="cta-btn secondary">Download App</a>
+                  <a href="#" class="cta-btn secondary">{t('charger.hostBtn')}</a>
+                  <a href="#" class="cta-btn secondary">{t('charger.downloadBtn')}</a>
                 </div>
               </div>
             </div>
@@ -119,19 +123,19 @@ const products = [
           <!-- Right Column -->
           <div class="content-column">
             <InfoSection
-              title="Get Three Months Free"
-              subtitle="Orders before March 31st, 2026."
+              title={t('promo.title')}
+              subtitle={t('promo.subtitle')}
               ctaVariant="primary"
-              ctaText="Order Now"
+              ctaText={t('shop.order')}
               imageUrl={images.infoSection2}
             />
             <div class="vehicle-card">
               <div class="vehicle-card-content">
-                <h3 class="vehicle-title">Chevrolet Spark</h3>
-                <a href="#" class="cta-btn primary">Order Now</a>
+                <h3 class="vehicle-title">{t('promo.vehicle')}</h3>
+                <a href="#" class="cta-btn primary">{t('shop.order')}</a>
               </div>
               <div class="vehicle-image">
-                <img src={images.vehicle} alt="Chevrolet Spark" />
+                <img src={images.vehicle} alt={t('promo.vehicle')} />
               </div>
             </div>
           </div>
