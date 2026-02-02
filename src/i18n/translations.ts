@@ -11,8 +11,8 @@ export const translations = {
     
     // Hero
     'hero.badge': 'SUSCRIPCIÓN SOLAR',
-    'hero.title': 'Reduce tu Factura',
-    'hero.title2': 'de Electricidad',
+    'hero.title': 'Reduce tu Factura Eléctrica',
+    'hero.title2': 'Con Energía Limpia.',
     'hero.subtitle': 'Únete a la red de suscripción de energía solar y baterías de más rápido crecimiento en LATAM. $0 inicial, ahorro desde el día uno.',
     'hero.cta': 'Comenzar',
     'hero.cta2': 'Más Información',
@@ -34,9 +34,9 @@ export const translations = {
     'charger.cta': 'Encontrar Cargador',
     
     // LATAM Section
-    'latam.title': 'Disponible en',
-    'latam.title2': '18 Países',
-    'latam.subtitle': 'La red de energía solar más grande de Latinoamérica',
+    'latam.title': 'Únete a la Red de Suscripción Solar + Batería',
+    'latam.title2': 'de Mayor Crecimiento en LATAM',
+    'latam.subtitle': '$0 inicial. Ahorro desde el día uno. Estabilidad a largo plazo. Disponible en 18 países.',
     'latam.countries': 'Colombia, Panamá, República Dominicana, México, Perú, Guatemala, El Salvador, Uruguay, Costa Rica, Brasil, Nicaragua, Honduras, Chile, Argentina, Bolivia, Belice, Ecuador, Paraguay',
     
     // Shop Section
@@ -72,8 +72,8 @@ export const translations = {
     
     // Hero
     'hero.badge': 'SOLAR SUBSCRIPTION',
-    'hero.title': 'Lower Your',
-    'hero.title2': 'Electric Bill',
+    'hero.title': 'Lower Your Electric Bill',
+    'hero.title2': 'With Clean Energy.',
     'hero.subtitle': 'Join LATAM\'s fastest growing solar + battery subscription network. $0 upfront, day-one savings.',
     'hero.cta': 'Get Started',
     'hero.cta2': 'Learn More',
@@ -95,9 +95,9 @@ export const translations = {
     'charger.cta': 'Find a Charger',
     
     // LATAM Section
-    'latam.title': 'Available in',
-    'latam.title2': '18 Countries',
-    'latam.subtitle': 'The largest solar energy network in Latin America',
+    'latam.title': 'Join LATAM\'s Fastest Growing',
+    'latam.title2': 'Solar + Battery Subscription Network',
+    'latam.subtitle': '$0 upfront. Day-one savings. Long-term stability. Available now in 18 countries.',
     'latam.countries': 'Colombia, Panama, Dominican Republic, Mexico, Peru, Guatemala, El Salvador, Uruguay, Costa Rica, Brazil, Nicaragua, Honduras, Chile, Argentina, Bolivia, Belize, Ecuador, Paraguay',
     
     // Shop Section
@@ -133,8 +133,8 @@ export const translations = {
     
     // Hero
     'hero.badge': 'ASSINATURA SOLAR',
-    'hero.title': 'Reduza sua Conta',
-    'hero.title2': 'de Energia',
+    'hero.title': 'Reduza sua Conta de Energia',
+    'hero.title2': 'Com Energia Limpa.',
     'hero.subtitle': 'Junte-se à rede de assinatura de energia solar e baterias que mais cresce na América Latina. $0 inicial, economia desde o primeiro dia.',
     'hero.cta': 'Começar',
     'hero.cta2': 'Saiba Mais',
@@ -156,9 +156,9 @@ export const translations = {
     'charger.cta': 'Encontrar Carregador',
     
     // LATAM Section
-    'latam.title': 'Disponível em',
-    'latam.title2': '18 Países',
-    'latam.subtitle': 'A maior rede de energia solar da América Latina',
+    'latam.title': 'Junte-se à Rede de Assinatura Solar + Bateria',
+    'latam.title2': 'que Mais Cresce na América Latina',
+    'latam.subtitle': '$0 inicial. Economia desde o primeiro dia. Estabilidade a longo prazo. Disponível em 18 países.',
     'latam.countries': 'Colômbia, Panamá, República Dominicana, México, Peru, Guatemala, El Salvador, Uruguai, Costa Rica, Brasil, Nicarágua, Honduras, Chile, Argentina, Bolívia, Belize, Equador, Paraguai',
     
     // Shop Section
@@ -194,8 +194,8 @@ export const translations = {
     
     // Hero
     'hero.badge': '太阳能订阅',
-    'hero.title': '降低您的',
-    'hero.title2': '电费账单',
+    'hero.title': '用清洁能源',
+    'hero.title2': '降低您的电费账单',
     'hero.subtitle': '加入拉丁美洲增长最快的太阳能+电池订阅网络。零首付，首日即省钱。',
     'hero.cta': '开始使用',
     'hero.cta2': '了解更多',
@@ -217,9 +217,9 @@ export const translations = {
     'charger.cta': '寻找充电站',
     
     // LATAM Section
-    'latam.title': '覆盖',
-    'latam.title2': '18个国家',
-    'latam.subtitle': '拉丁美洲最大的太阳能网络',
+    'latam.title': '加入拉丁美洲增长最快的',
+    'latam.title2': '太阳能+电池订阅网络',
+    'latam.subtitle': '零首付。首日即省钱。长期稳定。现已覆盖18个国家。',
     'latam.countries': '哥伦比亚、巴拿马、多米尼加共和国、墨西哥、秘鲁、危地马拉、萨尔瓦多、乌拉圭、哥斯达黎加、巴西、尼加拉瓜、洪都拉斯、智利、阿根廷、玻利维亚、伯利兹、厄瓜多尔、巴拉圭',
     
     // Shop Section
@@ -255,8 +255,8 @@ export const translations = {
     
     // Hero
     'hero.badge': 'اشتراك الطاقة الشمسية',
-    'hero.title': 'خفض فاتورة',
-    'hero.title2': 'الكهرباء',
+    'hero.title': 'خفض فاتورة الكهرباء',
+    'hero.title2': 'بالطاقة النظيفة',
     'hero.subtitle': 'انضم إلى أسرع شبكة اشتراك للطاقة الشمسية والبطاريات نمواً في أمريكا اللاتينية. صفر مقدم، توفير من اليوم الأول.',
     'hero.cta': 'ابدأ الآن',
     'hero.cta2': 'اعرف المزيد',
@@ -278,9 +278,9 @@ export const translations = {
     'charger.cta': 'ابحث عن شاحن',
     
     // LATAM Section
-    'latam.title': 'متوفر في',
-    'latam.title2': '18 دولة',
-    'latam.subtitle': 'أكبر شبكة للطاقة الشمسية في أمريكا اللاتينية',
+    'latam.title': 'انضم إلى أسرع شبكة اشتراك للطاقة الشمسية',
+    'latam.title2': 'والبطاريات نمواً في أمريكا اللاتينية',
+    'latam.subtitle': 'صفر مقدم. توفير من اليوم الأول. استقرار طويل الأمد. متوفر الآن في 18 دولة.',
     'latam.countries': 'كولومبيا، بنما، جمهورية الدومينيكان، المكسيك، بيرو، غواتيمالا، السلفادور، أوروغواي، كوستاريكا، البرازيل، نيكاراغوا، هندوراس، تشيلي، الأرجنتين، بوليفيا، بليز، الإكوادور، باراغواي',
     
     // Shop Section
