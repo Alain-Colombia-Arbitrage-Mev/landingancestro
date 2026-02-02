@@ -1,5 +1,6 @@
 ---
 import '@styles/global.css';
+import ToastContainer from '@components/ToastContainer.astro';
 
 interface Props {
   title: string;
@@ -141,6 +142,9 @@ const serviceSchema = {
   </head>
   <body>
     <slot />
+    
+    <!-- Toast Notifications -->
+    <ToastContainer />
     
     <!-- Accessibility: Skip to main content link -->
     <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
