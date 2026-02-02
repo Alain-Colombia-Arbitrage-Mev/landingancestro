@@ -1,18 +1,24 @@
 ---
 import CTA from './CTA.astro';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
 interface NavItem {
   label: string;
   href: string;
+  key: string;
 }
 
 const navItems: NavItem[] = [
-  { label: 'Energy', href: '#energy' },
-  { label: 'Charging', href: '#charging' },
-  { label: 'Vehicles', href: '#vehicles' },
-  { label: 'Shop', href: '#shop' },
-  { label: 'Presale', href: '/presale' },
-  { label: 'Waitlist', href: '/waitlist' },
+  { label: t('nav.energy'), href: '#energy', key: 'energy' },
+  { label: t('nav.charging'), href: '#charging', key: 'charging' },
+  { label: t('nav.vehicles'), href: '#vehicles', key: 'vehicles' },
+  { label: t('nav.shop'), href: '#shop', key: 'shop' },
+  { label: t('nav.presale'), href: '/presale', key: 'presale' },
+  { label: t('nav.waitlist'), href: '/waitlist', key: 'waitlist' },
 ];
 ---
 
@@ -27,28 +33,32 @@ const navItems: NavItem[] = [
       {navItems.map((item) => (
         <a 
           href={item.href} 
-          class:list={['nav-link', { 'nav-link-highlight': item.label === 'Presale' }]}
+          class:list={['nav-link', { 'nav-link-highlight': item.key === 'presale' }]}
         >
           {item.label}
         </a>
       ))}
     </div>
 
-    <div class="nav-cta-desktop">
-      <CTA variant="secondary" text="Login" href="/login" ariaLabel="Iniciar sesión" />
+    <div class="nav-right-desktop">
+      <LanguageSwitcher />
+      <CTA variant="secondary" text={t('nav.login')} href="/login" ariaLabel={t('nav.login')} />
     </div>
 
     <!-- Mobile Hamburger Button -->
-    <button 
-      class="hamburger" 
-      id="hamburger-btn" 
-      aria-label="Abrir menú"
-      aria-expanded="false"
-    >
-      <span class="hamburger-line"></span>
-      <span class="hamburger-line"></span>
-      <span class="hamburger-line"></span>
-    </button>
+    <div class="nav-right-mobile">
+      <LanguageSwitcher />
+      <button 
+        class="hamburger" 
+        id="hamburger-btn" 
+        aria-label="Abrir menú"
+        aria-expanded="false"
+      >
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
   </div>
 
   <!-- Mobile Menu Overlay -->
@@ -61,7 +71,7 @@ const navItems: NavItem[] = [
         {navItems.map((item) => (
           <a 
             href={item.href} 
-            class:list={['mobile-nav-link', { 'mobile-nav-link-highlight': item.label === 'Presale' }]}
+            class:list={['mobile-nav-link', { 'mobile-nav-link-highlight': item.key === 'presale' }]}
           >
             {item.label}
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -72,7 +82,7 @@ const navItems: NavItem[] = [
       </div>
       
       <div class="mobile-cta">
-        <CTA variant="primary" text="Login" href="/login" ariaLabel="Iniciar sesión" />
+        <CTA variant="primary" text={t('nav.login')} href="/login" ariaLabel={t('nav.login')} />
       </div>
       
       <div class="mobile-footer">
@@ -168,18 +178,18 @@ const navItems: NavItem[] = [
 
   .navbar-inner {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: space-between;
     height: 100%;
     max-width: 1920px;
     margin: 0 auto;
-    padding: 0 30px 15px;
+    padding: 0 30px;
   }
 
   /* ===== LOGO ===== */
   .logo {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     text-decoration: none;
     transition: opacity 0.2s ease;
     position: relative;
@@ -199,21 +209,21 @@ const navItems: NavItem[] = [
   /* ===== DESKTOP NAVIGATION ===== */
   .nav-links-desktop {
     display: flex;
-    align-items: flex-end;
-    gap: 10px;
+    align-items: center;
+    gap: 8px;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 15px;
   }
 
   .nav-link {
-    padding: 10px;
-    font-size: 16px;
+    padding: 10px 12px;
+    font-size: 15px;
     font-weight: 600;
     color: var(--color-white);
     text-decoration: none;
     transition: opacity var(--transition-fast);
+    border-radius: 8px;
   }
 
   .nav-link:hover {
@@ -222,23 +232,16 @@ const navItems: NavItem[] = [
 
   .nav-link-highlight {
     color: var(--color-primary);
-    position: relative;
   }
 
-  .nav-link-highlight::after {
-    content: '';
-    position: absolute;
-    bottom: 5px;
-    left: 10px;
-    right: 10px;
-    height: 2px;
-    background-color: var(--color-primary);
-    border-radius: 1px;
-  }
-
-  .nav-cta-desktop {
+  .nav-right-desktop {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .nav-right-mobile {
+    display: none;
   }
 
   /* ===== HAMBURGER - HIDDEN ON DESKTOP ===== */
@@ -259,12 +262,7 @@ const navItems: NavItem[] = [
   /* ===== RESPONSIVE - MOBILE ===== */
   @media (max-width: 768px) {
     .navbar-inner {
-      padding: 0 20px;
-      align-items: center;
-    }
-
-    .logo {
-      align-items: center;
+      padding: 0 16px;
     }
 
     .logo-img {
@@ -273,8 +271,16 @@ const navItems: NavItem[] = [
 
     /* Hide desktop nav */
     .nav-links-desktop,
-    .nav-cta-desktop {
+    .nav-right-desktop {
       display: none;
+    }
+
+    /* Show mobile right section */
+    .nav-right-mobile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 1002;
     }
 
     /* Show hamburger */
@@ -290,8 +296,6 @@ const navItems: NavItem[] = [
       border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 12px;
       cursor: pointer;
-      position: relative;
-      z-index: 1002;
       transition: all 0.3s ease;
     }
 

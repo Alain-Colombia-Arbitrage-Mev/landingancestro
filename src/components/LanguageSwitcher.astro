@@ -1,0 +1,216 @@
+---
+import { languages, getLangFromUrl, useTranslatedPath, getRouteFromUrl } from '../i18n/utils';
+
+const currentLang = getLangFromUrl(Astro.url);
+const currentRoute = getRouteFromUrl(Astro.url);
+const currentLanguage = languages[currentLang];
+---
+
+<div class="lang-switcher" id="lang-switcher">
+  <button class="lang-trigger" id="lang-trigger" aria-expanded="false" aria-haspopup="listbox">
+    <span class="lang-flag">{currentLanguage.flag}</span>
+    <span class="lang-code">{currentLang.toUpperCase()}</span>
+    <svg class="lang-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none">
+      <path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+  
+  <div class="lang-dropdown" id="lang-dropdown" role="listbox">
+    {Object.entries(languages).map(([code, lang]) => {
+      const translatePath = useTranslatedPath(code as keyof typeof languages);
+      const href = translatePath(`/${currentRoute}`);
+      const isActive = code === currentLang;
+      
+      return (
+        <a 
+          href={href}
+          class:list={['lang-option', { active: isActive }]}
+          role="option"
+          aria-selected={isActive}
+        >
+          <span class="lang-flag">{lang.flag}</span>
+          <span class="lang-name">{lang.name}</span>
+          {isActive && (
+            <svg class="lang-check" width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          )}
+        </a>
+      );
+    })}
+  </div>
+</div>
+
+<script>
+  const switcher = document.getElementById('lang-switcher');
+  const trigger = document.getElementById('lang-trigger');
+  const dropdown = document.getElementById('lang-dropdown');
+  
+  let isOpen = false;
+  
+  function toggleDropdown() {
+    isOpen = !isOpen;
+    switcher?.classList.toggle('open', isOpen);
+    trigger?.setAttribute('aria-expanded', isOpen.toString());
+  }
+  
+  function closeDropdown() {
+    if (isOpen) {
+      isOpen = false;
+      switcher?.classList.remove('open');
+      trigger?.setAttribute('aria-expanded', 'false');
+    }
+  }
+  
+  trigger?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleDropdown();
+  });
+  
+  // Close on click outside
+  document.addEventListener('click', (e) => {
+    if (!switcher?.contains(e.target as Node)) {
+      closeDropdown();
+    }
+  });
+  
+  // Close on escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeDropdown();
+    }
+  });
+</script>
+
+<style>
+  .lang-switcher {
+    position: relative;
+    z-index: 100;
+  }
+
+  .lang-trigger {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    color: var(--color-white);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .lang-trigger:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .lang-switcher.open .lang-trigger {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(248, 176, 59, 0.4);
+  }
+
+  .lang-flag {
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  .lang-code {
+    font-size: 13px;
+    letter-spacing: 0.5px;
+  }
+
+  .lang-arrow {
+    transition: transform 0.3s ease;
+    opacity: 0.7;
+  }
+
+  .lang-switcher.open .lang-arrow {
+    transform: rotate(180deg);
+  }
+
+  .lang-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 180px;
+    background: rgba(20, 20, 20, 0.95);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    padding: 8px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px) scale(0.95);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 
+      0 20px 50px rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  }
+
+  .lang-switcher.open .lang-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+  }
+
+  .lang-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    color: var(--color-white);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .lang-option:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .lang-option.active {
+    background: rgba(248, 176, 59, 0.15);
+  }
+
+  .lang-option .lang-flag {
+    font-size: 22px;
+  }
+
+  .lang-name {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .lang-check {
+    color: var(--color-primary);
+  }
+
+  /* Mobile styles */
+  @media (max-width: 768px) {
+    .lang-trigger {
+      padding: 8px 10px;
+    }
+
+    .lang-code {
+      display: none;
+    }
+
+    .lang-dropdown {
+      right: auto;
+      left: 50%;
+      transform: translateX(-50%) translateY(-10px) scale(0.95);
+    }
+
+    .lang-switcher.open .lang-dropdown {
+      transform: translateX(-50%) translateY(0) scale(1);
+    }
+  }
+</style>

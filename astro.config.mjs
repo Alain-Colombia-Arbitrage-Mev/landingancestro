@@ -6,6 +6,14 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://ancestro.com',
   
+  i18n: {
+    defaultLocale: 'es',
+    locales: ['es', 'en', 'pt', 'zh', 'ar'],
+    routing: {
+      prefixDefaultLocale: false
+    }
+  },
+  
   integrations: [
     sitemap({
       changefreq: 'weekly',
@@ -16,40 +24,26 @@ export default defineConfig({
         locales: {
           es: 'es-LA',
           en: 'en-US',
-          pt: 'pt-BR'
+          pt: 'pt-BR',
+          zh: 'zh-CN',
+          ar: 'ar-SA'
         }
       }
     })
   ],
   
   build: {
-    // Inline small CSS for better performance
     inlineStylesheets: 'auto'
   },
   
   vite: {
     build: {
-      // Optimize CSS
       cssMinify: true,
-      // Split chunks for better caching
-      rollupOptions: {
-        output: {
-          manualChunks: {
-            // Group vendor code
-          }
-        }
-      }
-    },
-    // Optimize dependencies
-    optimizeDeps: {
-      exclude: []
     }
   },
   
-  // Compress HTML output
   compressHTML: true,
   
-  // Prefetch links for faster navigation
   prefetch: {
     prefetchAll: true,
     defaultStrategy: 'viewport'
