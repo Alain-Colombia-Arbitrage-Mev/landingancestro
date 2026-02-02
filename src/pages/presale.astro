@@ -4,78 +4,180 @@ import Navbar from '@components/Navbar.astro';
 import CTA from '@components/CTA.astro';
 import Footer from '@components/Footer.astro';
 
-const benefits = [
+// Token info
+const tokenSymbol = "ANC";
+const tokenName = "Ancestro";
+const presalePrice = 0.88;
+const listingPrice = 1.25;
+const totalSupply = "100,000,000";
+const presaleAllocation = "15,000,000";
+const hardCap = "$13,200,000";
+const minBuy = 100;
+const maxBuy = 50000;
+
+// Vesting schedule
+const vestingSchedule = [
+  { phase: "TGE", percent: 15, description: "Liberación inmediata al listar" },
+  { phase: "Mes 1-2", percent: 17, description: "8.5% mensual" },
+  { phase: "Mes 3-4", percent: 17, description: "8.5% mensual" },
+  { phase: "Mes 5-6", percent: 17, description: "8.5% mensual" },
+  { phase: "Mes 7-8", percent: 17, description: "8.5% mensual" },
+  { phase: "Mes 9-10", percent: 17, description: "8.5% mensual + final" },
+];
+
+// Staking tiers
+const stakingTiers = [
   {
-    icon: "💰",
-    title: "Save Up to 40%",
-    description: "Lock in today's rates and save on your electricity bill from day one."
+    name: "Flexible",
+    apy: 12,
+    bonus: 5,
+    lock: "Sin bloqueo",
+    description: "Retira cuando quieras",
+    features: ["Sin período mínimo", "Retiro instantáneo", "Recompensas diarias"],
+    recommended: false
   },
   {
-    icon: "🎁",
-    title: "3 Months Free",
-    description: "Early subscribers get their first 3 months completely free."
+    name: "Holder",
+    apy: 18,
+    bonus: 5,
+    lock: "30 días",
+    description: "Balance perfecto",
+    features: ["Bloqueo de 30 días", "APY aumentado", "Recompensas diarias", "Acceso a airdrops"],
+    recommended: true
   },
   {
-    icon: "⚡",
-    title: "Priority Installation",
-    description: "Skip the queue with priority installation scheduling."
-  },
-  {
-    icon: "🔒",
-    title: "Price Lock Guarantee",
-    description: "Your rate is locked for the entire duration of your subscription."
+    name: "Diamond",
+    apy: 28,
+    bonus: 5,
+    lock: "90 días",
+    description: "Máximas recompensas",
+    features: ["Bloqueo de 90 días", "APY máximo", "Recompensas diarias", "Acceso a airdrops", "Gobernanza DAO"],
+    recommended: false
   }
 ];
 
-const footerBg = "https://www.figma.com/api/mcp/asset/97ffe2ae-5987-4374-88d2-1a90aebc58c4";
+// Benefits
+const benefits = [
+  {
+    icon: "⚡",
+    title: "Precio Exclusivo",
+    description: "Compra ANC a $0.88, 30% menos que el precio de listado de $1.25"
+  },
+  {
+    icon: "🔓",
+    title: "Vesting Justo",
+    description: "15% liberado al listar, resto en 10 meses. Sin cliff period."
+  },
+  {
+    icon: "💎",
+    title: "Staking Bonus",
+    description: "+5% APY extra durante el primer año para participantes del presale"
+  },
+  {
+    icon: "🌱",
+    title: "Utilidad Real",
+    description: "ANC impulsa la red de energía solar más grande de LATAM"
+  }
+];
+
+const footerBg = "/images/footer-bg.png";
 ---
 
-<Layout title="Presale - Ancestro Solar Subscription">
+<Layout title="Presale ANC Token" description="Participa en el presale del token ANC de Ancestro. Precio exclusivo de $0.88, vesting justo y staking con hasta 33% APY.">
   <div class="presale-page">
     <Navbar />
     
-    <main>
+    <main id="main-content">
       <!-- Hero Section -->
       <section class="presale-hero">
+        <div class="hero-bg">
+          <div class="hero-glow"></div>
+          <div class="hero-grid"></div>
+        </div>
+        
         <div class="hero-content">
-          <span class="presale-badge">Limited Time Offer</span>
+          <div class="token-badge">
+            <span class="token-icon">◈</span>
+            <span class="token-symbol">{tokenSymbol}</span>
+            <span class="token-status">PRESALE ACTIVO</span>
+          </div>
+          
           <h1 class="hero-title">
-            Be First to Experience
-            <span class="highlight">Clean Energy Freedom</span>
+            El Token que Impulsa la
+            <span class="highlight">Revolución Solar</span>
           </h1>
+          
           <p class="hero-subtitle">
-            Join our exclusive presale and secure your solar subscription at the lowest price ever offered. Limited spots available.
+            Únete al presale de ANC y sé parte de la red de energía renovable más grande de Latinoamérica. 
+            Precio exclusivo, vesting transparente y staking con recompensas reales.
           </p>
+          
+          <!-- Price Display -->
+          <div class="price-display">
+            <div class="current-price">
+              <span class="price-label">Precio Presale</span>
+              <span class="price-value">${presalePrice}</span>
+              <span class="price-unit">USD</span>
+            </div>
+            <div class="price-divider"></div>
+            <div class="listing-price">
+              <span class="price-label">Precio Listado</span>
+              <span class="price-value-striked">${listingPrice}</span>
+              <span class="price-savings">Ahorra 30%</span>
+            </div>
+          </div>
+          
+          <!-- Progress Bar -->
+          <div class="progress-section">
+            <div class="progress-header">
+              <span>Progreso del Presale</span>
+              <span class="progress-percent">67.3%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 67.3%"></div>
+            </div>
+            <div class="progress-stats">
+              <span><strong>$8,883,600</strong> recaudados</span>
+              <span>Hard Cap: <strong>{hardCap}</strong></span>
+            </div>
+          </div>
           
           <!-- Countdown -->
           <div class="countdown-wrapper">
-            <p class="countdown-label">Presale ends in:</p>
+            <p class="countdown-label">El presale termina en:</p>
             <div class="countdown">
               <div class="countdown-item">
-                <span class="countdown-number" id="days">14</span>
-                <span class="countdown-text">Days</span>
+                <span class="countdown-number" id="days">150</span>
+                <span class="countdown-text">Días</span>
               </div>
               <div class="countdown-item">
-                <span class="countdown-number" id="hours">23</span>
-                <span class="countdown-text">Hours</span>
+                <span class="countdown-number" id="hours">00</span>
+                <span class="countdown-text">Horas</span>
               </div>
               <div class="countdown-item">
-                <span class="countdown-number" id="minutes">59</span>
-                <span class="countdown-text">Minutes</span>
+                <span class="countdown-number" id="minutes">00</span>
+                <span class="countdown-text">Min</span>
               </div>
               <div class="countdown-item">
-                <span class="countdown-number" id="seconds">59</span>
-                <span class="countdown-text">Seconds</span>
+                <span class="countdown-number" id="seconds">00</span>
+                <span class="countdown-text">Seg</span>
               </div>
             </div>
+          </div>
+          
+          <div class="hero-ctas">
+            <a href="#buy" class="cta-primary">
+              Comprar ANC
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="#tokenomics" class="cta-secondary">Ver Tokenomics</a>
           </div>
         </div>
       </section>
       
       <!-- Benefits Section -->
       <section class="benefits-section">
-        <h2 class="section-title">Presale Benefits</h2>
-        <div class="benefits-grid">
+        <div class="benefits-container">
           {benefits.map((benefit) => (
             <div class="benefit-card">
               <span class="benefit-icon">{benefit.icon}</span>
@@ -86,114 +188,385 @@ const footerBg = "https://www.figma.com/api/mcp/asset/97ffe2ae-5987-4374-88d2-1a
         </div>
       </section>
       
-      <!-- Signup Section -->
-      <section class="signup-section">
-        <div class="signup-container">
-          <div class="signup-content">
-            <h2 class="signup-title">Reserve Your Spot</h2>
-            <p class="signup-subtitle">
-              $0 down. Cancel anytime before installation. Be part of the clean energy revolution.
-            </p>
+      <!-- Tokenomics Section -->
+      <section class="tokenomics-section" id="tokenomics">
+        <div class="section-header">
+          <span class="section-badge">Tokenomics</span>
+          <h2 class="section-title">Distribución del Token ANC</h2>
+          <p class="section-subtitle">Diseñado para el crecimiento sostenible y la comunidad</p>
+        </div>
+        
+        <div class="tokenomics-grid">
+          <div class="tokenomics-chart">
+            <div class="chart-visual">
+              <svg viewBox="0 0 200 200" class="donut-chart">
+                <circle cx="100" cy="100" r="80" fill="none" stroke="#1a1a1a" stroke-width="30"/>
+                <circle cx="100" cy="100" r="80" fill="none" stroke="#f8b03b" stroke-width="30" 
+                  stroke-dasharray="75.4 427.3" stroke-dashoffset="0" class="chart-segment"/>
+                <circle cx="100" cy="100" r="80" fill="none" stroke="#e9a235" stroke-width="30" 
+                  stroke-dasharray="100.5 402.1" stroke-dashoffset="-75.4" class="chart-segment"/>
+                <circle cx="100" cy="100" r="80" fill="none" stroke="#d4912e" stroke-width="30" 
+                  stroke-dasharray="100.5 402.1" stroke-dashoffset="-175.9" class="chart-segment"/>
+                <circle cx="100" cy="100" r="80" fill="none" stroke="#bf8027" stroke-width="30" 
+                  stroke-dasharray="75.4 427.3" stroke-dashoffset="-276.5" class="chart-segment"/>
+                <circle cx="100" cy="100" r="80" fill="none" stroke="#8b5a1b" stroke-width="30" 
+                  stroke-dasharray="50.3 452.4" stroke-dashoffset="-351.9" class="chart-segment"/>
+                <circle cx="100" cy="100" r="80" fill="none" stroke="#5c3d12" stroke-width="30" 
+                  stroke-dasharray="100.5 402.1" stroke-dashoffset="-402.1" class="chart-segment"/>
+              </svg>
+              <div class="chart-center">
+                <span class="chart-total">{totalSupply}</span>
+                <span class="chart-label">Total Supply</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="tokenomics-breakdown">
+            <div class="token-allocation">
+              <div class="allocation-item">
+                <div class="allocation-color" style="background: #f8b03b"></div>
+                <div class="allocation-info">
+                  <span class="allocation-name">Presale</span>
+                  <span class="allocation-percent">15%</span>
+                </div>
+                <span class="allocation-amount">15M ANC</span>
+              </div>
+              <div class="allocation-item">
+                <div class="allocation-color" style="background: #e9a235"></div>
+                <div class="allocation-info">
+                  <span class="allocation-name">Liquidez</span>
+                  <span class="allocation-percent">20%</span>
+                </div>
+                <span class="allocation-amount">20M ANC</span>
+              </div>
+              <div class="allocation-item">
+                <div class="allocation-color" style="background: #d4912e"></div>
+                <div class="allocation-info">
+                  <span class="allocation-name">Staking Rewards</span>
+                  <span class="allocation-percent">20%</span>
+                </div>
+                <span class="allocation-amount">20M ANC</span>
+              </div>
+              <div class="allocation-item">
+                <div class="allocation-color" style="background: #bf8027"></div>
+                <div class="allocation-info">
+                  <span class="allocation-name">Equipo</span>
+                  <span class="allocation-percent">15%</span>
+                </div>
+                <span class="allocation-amount">15M ANC</span>
+              </div>
+              <div class="allocation-item">
+                <div class="allocation-color" style="background: #8b5a1b"></div>
+                <div class="allocation-info">
+                  <span class="allocation-name">Reserva</span>
+                  <span class="allocation-percent">10%</span>
+                </div>
+                <span class="allocation-amount">10M ANC</span>
+              </div>
+              <div class="allocation-item">
+                <div class="allocation-color" style="background: #5c3d12"></div>
+                <div class="allocation-info">
+                  <span class="allocation-name">Ecosistema & Marketing</span>
+                  <span class="allocation-percent">20%</span>
+                </div>
+                <span class="allocation-amount">20M ANC</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Vesting Section -->
+      <section class="vesting-section" id="vesting">
+        <div class="section-header">
+          <span class="section-badge">Vesting</span>
+          <h2 class="section-title">Calendario de Liberación</h2>
+          <p class="section-subtitle">Transparente, justo y sin sorpresas</p>
+        </div>
+        
+        <div class="vesting-container">
+          <div class="vesting-info">
+            <div class="vesting-highlight">
+              <div class="highlight-icon">🔓</div>
+              <div class="highlight-content">
+                <h3>15% Disponible al Listar</h3>
+                <p>Recibe tokens inmediatamente cuando ANC se liste en exchanges. Sin esperas iniciales.</p>
+              </div>
+            </div>
             
-            <form class="signup-form" id="presale-form">
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="firstName">First Name</label>
-                  <input type="text" id="firstName" name="firstName" required placeholder="John" />
+            <div class="vesting-highlight">
+              <div class="highlight-icon">📅</div>
+              <div class="highlight-content">
+                <h3>10 Meses de Liberación Lineal</h3>
+                <p>El 85% restante se libera gradualmente cada mes. Predecible y transparente.</p>
+              </div>
+            </div>
+            
+            <div class="vesting-highlight">
+              <div class="highlight-icon">✨</div>
+              <div class="highlight-content">
+                <h3>Sin Cliff Period</h3>
+                <p>No hay período de espera forzado. Comienza a recibir desde el día 1.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="vesting-timeline">
+            <div class="timeline-header">
+              <span>Cronograma de Vesting</span>
+            </div>
+            {vestingSchedule.map((item, index) => (
+              <div class="timeline-item">
+                <div class="timeline-phase">{item.phase}</div>
+                <div class="timeline-bar">
+                  <div class="timeline-fill" style={`width: ${item.percent}%`}></div>
                 </div>
-                <div class="form-group">
-                  <label for="lastName">Last Name</label>
-                  <input type="text" id="lastName" name="lastName" required placeholder="Doe" />
+                <div class="timeline-percent">{item.percent}%</div>
+              </div>
+            ))}
+            <div class="timeline-total">
+              <span>Total liberado después de 10 meses</span>
+              <span class="total-percent">100%</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Staking Section -->
+      <section class="staking-section" id="staking">
+        <div class="section-header">
+          <span class="section-badge">Staking</span>
+          <h2 class="section-title">Gana Mientras Sostienes</h2>
+          <p class="section-subtitle">Planes de staking simples y recompensas alcanzables</p>
+        </div>
+        
+        <div class="staking-bonus-banner">
+          <span class="bonus-icon">🎁</span>
+          <span class="bonus-text">Participantes del presale reciben <strong>+5% APY bonus</strong> durante el primer año</span>
+        </div>
+        
+        <div class="staking-grid">
+          {stakingTiers.map((tier) => (
+            <div class:list={["staking-card", { recommended: tier.recommended }]}>
+              {tier.recommended && <span class="recommended-badge">Más Popular</span>}
+              <div class="staking-header">
+                <h3 class="staking-name">{tier.name}</h3>
+                <p class="staking-desc">{tier.description}</p>
+              </div>
+              
+              <div class="staking-apy">
+                <span class="apy-value">{tier.apy}%</span>
+                <span class="apy-label">APY Base</span>
+              </div>
+              
+              <div class="staking-bonus">
+                <span class="bonus-badge">+{tier.bonus}% Presale Bonus</span>
+                <span class="total-apy">= {tier.apy + tier.bonus}% APY Total</span>
+              </div>
+              
+              <div class="staking-lock">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" stroke-width="2"/>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <span>{tier.lock}</span>
+              </div>
+              
+              <ul class="staking-features">
+                {tier.features.map((feature) => (
+                  <li>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                      <path d="M20 6L9 17L4 12" stroke="#f8b03b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+              
+              <button class="staking-cta">
+                Seleccionar Plan
+              </button>
+            </div>
+          ))}
+        </div>
+        
+        <div class="staking-calculator">
+          <h4>Calculadora de Recompensas</h4>
+          <div class="calc-inputs">
+            <div class="calc-group">
+              <label>Cantidad de ANC</label>
+              <input type="number" id="stake-amount" value="10000" min="100" />
+            </div>
+            <div class="calc-group">
+              <label>Plan de Staking</label>
+              <select id="stake-plan">
+                <option value="17">Flexible (17% APY con bonus)</option>
+                <option value="23" selected>Holder (23% APY con bonus)</option>
+                <option value="33">Diamond (33% APY con bonus)</option>
+              </select>
+            </div>
+          </div>
+          <div class="calc-results">
+            <div class="calc-result">
+              <span class="result-label">Recompensa Mensual</span>
+              <span class="result-value" id="monthly-reward">191.67 ANC</span>
+            </div>
+            <div class="calc-result">
+              <span class="result-label">Recompensa Anual</span>
+              <span class="result-value" id="yearly-reward">2,300 ANC</span>
+            </div>
+            <div class="calc-result highlight">
+              <span class="result-label">Valor en USD (al precio actual)</span>
+              <span class="result-value" id="usd-value">$2,024</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Buy Section -->
+      <section class="buy-section" id="buy">
+        <div class="section-header">
+          <span class="section-badge">Comprar ANC</span>
+          <h2 class="section-title">Participa en el Presale</h2>
+          <p class="section-subtitle">Proceso simple y seguro</p>
+        </div>
+        
+        <div class="buy-container">
+          <div class="buy-card">
+            <div class="buy-header">
+              <div class="buy-price">
+                <span class="buy-price-label">Precio por token</span>
+                <span class="buy-price-value">${presalePrice} USD</span>
+              </div>
+              <div class="buy-limits">
+                <span>Mín: ${minBuy} USD</span>
+                <span>Máx: ${maxBuy.toLocaleString()} USD</span>
+              </div>
+            </div>
+            
+            <form class="buy-form" id="buy-form">
+              <div class="form-group">
+                <label>Cantidad en USD</label>
+                <div class="input-with-max">
+                  <input type="number" id="buy-amount" name="amount" min={minBuy} max={maxBuy} value="1000" required />
+                  <button type="button" class="max-btn" id="max-btn">MAX</button>
                 </div>
               </div>
               
-              <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" required placeholder="john@example.com" />
+              <div class="tokens-preview">
+                <span>Recibirás aproximadamente</span>
+                <span class="tokens-amount" id="tokens-preview">1,136.36 ANC</span>
               </div>
               
               <div class="form-group">
-                <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" name="phone" required placeholder="+1 (555) 000-0000" />
+                <label>Wallet Address</label>
+                <input type="text" id="wallet" name="wallet" placeholder="0x..." required />
               </div>
               
               <div class="form-group">
-                <label for="country">Country</label>
-                <select id="country" name="country" required>
-                  <option value="">Select your country</option>
-                  <option value="CO">Colombia</option>
-                  <option value="MX">Mexico</option>
-                  <option value="BR">Brazil</option>
-                  <option value="AR">Argentina</option>
-                  <option value="CL">Chile</option>
-                  <option value="PE">Peru</option>
-                  <option value="PA">Panama</option>
-                  <option value="CR">Costa Rica</option>
-                  <option value="EC">Ecuador</option>
-                  <option value="UY">Uruguay</option>
-                  <option value="GT">Guatemala</option>
-                  <option value="SV">El Salvador</option>
-                  <option value="HN">Honduras</option>
-                  <option value="NI">Nicaragua</option>
-                  <option value="DO">Dominican Republic</option>
-                  <option value="BO">Bolivia</option>
-                  <option value="PY">Paraguay</option>
-                  <option value="BZ">Belize</option>
-                </select>
+                <label>Email (para notificaciones)</label>
+                <input type="email" id="email" name="email" placeholder="tu@email.com" required />
+              </div>
+              
+              <div class="payment-methods">
+                <span class="payment-label">Métodos de pago:</span>
+                <div class="payment-options">
+                  <button type="button" class="payment-btn active" data-method="usdt">USDT</button>
+                  <button type="button" class="payment-btn" data-method="usdc">USDC</button>
+                  <button type="button" class="payment-btn" data-method="eth">ETH</button>
+                  <button type="button" class="payment-btn" data-method="card">Card</button>
+                </div>
               </div>
               
               <div class="form-group checkbox-group">
                 <input type="checkbox" id="terms" name="terms" required />
-                <label for="terms">I agree to the <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a></label>
+                <label for="terms">Acepto los <a href="/terms">Términos</a> y <a href="/privacy">Política de Privacidad</a></label>
               </div>
               
-              <button type="submit" class="submit-btn">
-                Reserve My Spot
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <button type="submit" class="buy-submit">
+                Comprar ANC
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                   <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </button>
             </form>
             
-            <p class="spots-left">
-              <span class="spots-number">127</span> spots remaining at this price
-            </p>
+            <div class="buy-security">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2"/>
+              </svg>
+              <span>Transacción segura • Smart Contract auditado</span>
+            </div>
           </div>
           
-          <div class="signup-visual">
-            <div class="price-card">
-              <span class="price-label">Presale Price</span>
-              <div class="price-amount">
-                <span class="currency">$</span>
-                <span class="price">49</span>
-                <span class="period">/month</span>
+          <div class="buy-info">
+            <h3>¿Por qué comprar ANC?</h3>
+            
+            <div class="info-item">
+              <div class="info-icon">🌍</div>
+              <div class="info-content">
+                <h4>Utilidad Real</h4>
+                <p>ANC es el token de utilidad de la red Ancestro, usándose para pagos, recompensas y gobernanza en la plataforma de energía solar.</p>
               </div>
-              <span class="price-original">Regular price: $79/month</span>
-              <div class="price-savings">Save 38%</div>
             </div>
             
-            <ul class="included-list">
-              <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17L4 12" stroke="#f8b03b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Solar panel installation
-              </li>
-              <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17L4 12" stroke="#f8b03b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                24/7 monitoring & support
-              </li>
-              <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17L4 12" stroke="#f8b03b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Free maintenance included
-              </li>
-              <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17L4 12" stroke="#f8b03b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Mobile app access
-              </li>
-              <li>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17L4 12" stroke="#f8b03b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                No long-term contract
-              </li>
-            </ul>
+            <div class="info-item">
+              <div class="info-icon">📈</div>
+              <div class="info-content">
+                <h4>Potencial de Crecimiento</h4>
+                <p>El mercado de energía solar en LATAM está proyectado a crecer 400% en los próximos 5 años. ANC está posicionado para capturar este crecimiento.</p>
+              </div>
+            </div>
+            
+            <div class="info-item">
+              <div class="info-icon">🔒</div>
+              <div class="info-content">
+                <h4>Seguridad</h4>
+                <p>Smart contract auditado por firmas líderes. Equipo doxxeado y comprometido con la transparencia total.</p>
+              </div>
+            </div>
+            
+            <div class="roadmap-preview">
+              <h4>Próximos Hitos</h4>
+              <div class="milestone">
+                <span class="milestone-date">Q2 2026</span>
+                <span class="milestone-text">Listado en DEX + CEX Tier 2</span>
+              </div>
+              <div class="milestone">
+                <span class="milestone-date">Q3 2026</span>
+                <span class="milestone-text">Lanzamiento App + Staking</span>
+              </div>
+              <div class="milestone">
+                <span class="milestone-date">Q4 2026</span>
+                <span class="milestone-text">Expansión a 5 países más</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- FAQ Section -->
+      <section class="faq-section">
+        <div class="section-header">
+          <h2 class="section-title">Preguntas Frecuentes</h2>
+        </div>
+        
+        <div class="faq-grid">
+          <div class="faq-item">
+            <h4>¿Cuándo recibiré mis tokens?</h4>
+            <p>El 15% de tus tokens se liberará inmediatamente al listarse ANC en exchanges. El resto se libera mensualmente durante 10 meses.</p>
+          </div>
+          <div class="faq-item">
+            <h4>¿Puedo hacer staking durante el vesting?</h4>
+            <p>Sí, puedes hacer staking con los tokens que ya estén liberados. No necesitas esperar a tener el 100%.</p>
+          </div>
+          <div class="faq-item">
+            <h4>¿Cuál es el mínimo para participar?</h4>
+            <p>El mínimo es de $100 USD y el máximo por wallet es de $50,000 USD.</p>
+          </div>
+          <div class="faq-item">
+            <h4>¿Cuándo se lista ANC?</h4>
+            <p>El listado está programado para Q2 2026, después de finalizar el presale y completar las auditorías.</p>
           </div>
         </div>
       </section>
@@ -203,14 +576,19 @@ const footerBg = "https://www.figma.com/api/mcp/asset/97ffe2ae-5987-4374-88d2-1a
   </div>
 </Layout>
 
-<script>
-  // Countdown Timer
+<script define:vars={{ presalePrice }}>
+  // Countdown Timer - 150 days from now
   const endDate = new Date();
-  endDate.setDate(endDate.getDate() + 14);
+  endDate.setDate(endDate.getDate() + 150);
   
   function updateCountdown() {
     const now = new Date().getTime();
     const distance = endDate.getTime() - now;
+    
+    if (distance < 0) {
+      document.querySelectorAll('.countdown-number').forEach(el => el.textContent = '00');
+      return;
+    }
     
     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
     const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -231,14 +609,65 @@ const footerBg = "https://www.figma.com/api/mcp/asset/97ffe2ae-5987-4374-88d2-1a
   updateCountdown();
   setInterval(updateCountdown, 1000);
   
-  // Form submission
-  const form = document.getElementById('presale-form');
-  if (form) {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      alert('Thank you for your reservation! We will contact you soon.');
-    });
+  // Staking Calculator
+  const stakeAmount = document.getElementById('stake-amount');
+  const stakePlan = document.getElementById('stake-plan');
+  const monthlyReward = document.getElementById('monthly-reward');
+  const yearlyReward = document.getElementById('yearly-reward');
+  const usdValue = document.getElementById('usd-value');
+  
+  function updateCalculator() {
+    const amount = parseFloat(stakeAmount?.value || '10000');
+    const apy = parseFloat(stakePlan?.value || '23');
+    
+    const yearly = amount * (apy / 100);
+    const monthly = yearly / 12;
+    const usd = yearly * presalePrice;
+    
+    if (monthlyReward) monthlyReward.textContent = monthly.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' ANC';
+    if (yearlyReward) yearlyReward.textContent = yearly.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' ANC';
+    if (usdValue) usdValue.textContent = '$' + usd.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
+  
+  stakeAmount?.addEventListener('input', updateCalculator);
+  stakePlan?.addEventListener('change', updateCalculator);
+  
+  // Buy form - token preview
+  const buyAmount = document.getElementById('buy-amount');
+  const tokensPreview = document.getElementById('tokens-preview');
+  const maxBtn = document.getElementById('max-btn');
+  
+  function updateTokensPreview() {
+    const amount = parseFloat(buyAmount?.value || '1000');
+    const tokens = amount / presalePrice;
+    if (tokensPreview) {
+      tokensPreview.textContent = tokens.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' ANC';
+    }
+  }
+  
+  buyAmount?.addEventListener('input', updateTokensPreview);
+  maxBtn?.addEventListener('click', () => {
+    if (buyAmount) {
+      buyAmount.value = '50000';
+      updateTokensPreview();
+    }
+  });
+  
+  // Payment method selection
+  const paymentBtns = document.querySelectorAll('.payment-btn');
+  paymentBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      paymentBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+  
+  // Form submission
+  const buyForm = document.getElementById('buy-form');
+  buyForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    alert('¡Gracias por tu interés! La funcionalidad de compra se habilitará pronto.');
+  });
 </script>
 
 <style>
@@ -251,33 +680,112 @@ const footerBg = "https://www.figma.com/api/mcp/asset/97ffe2ae-5987-4374-88d2-1a
     padding-top: 79px;
   }
 
-  /* Hero Section */
-  .presale-hero {
-    min-height: 70vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 80px 20px;
-    background: radial-gradient(ellipse at center top, rgba(248, 176, 59, 0.15) 0%, transparent 60%);
-  }
-
-  .hero-content {
-    max-width: 800px;
+  /* Section Styles */
+  .section-header {
     text-align: center;
+    margin-bottom: 60px;
   }
 
-  .presale-badge {
+  .section-badge {
     display: inline-block;
     padding: 8px 20px;
-    background: rgba(248, 176, 59, 0.2);
-    border: 1px solid var(--color-primary);
+    background: rgba(248, 176, 59, 0.15);
+    border: 1px solid rgba(248, 176, 59, 0.3);
     border-radius: 50px;
     color: var(--color-primary);
     font-size: 14px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+
+  .section-title {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 700;
+    color: var(--color-white);
+    margin-bottom: 16px;
+  }
+
+  .section-subtitle {
+    font-size: clamp(16px, 2vw, 18px);
+    color: var(--color-gray);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Hero Section */
+  .presale-hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, rgba(248, 176, 59, 0.15) 0%, transparent 50%);
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(248, 176, 59, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(248, 176, 59, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  }
+
+  .hero-content {
+    max-width: 900px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .token-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 24px;
+    background: rgba(248, 176, 59, 0.1);
+    border: 1px solid rgba(248, 176, 59, 0.3);
+    border-radius: 50px;
     margin-bottom: 30px;
+  }
+
+  .token-icon {
+    font-size: 20px;
+    color: var(--color-primary);
+  }
+
+  .token-symbol {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-white);
+  }
+
+  .token-status {
+    font-size: 12px;
+    font-weight: 600;
+    color: #4ade80;
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
 
   .hero-title {
@@ -297,13 +805,117 @@ const footerBg = "https://www.figma.com/api/mcp/asset/97ffe2ae-5987-4374-88d2-1a
     font-size: clamp(16px, 2vw, 20px);
     color: var(--color-gray);
     line-height: 1.6;
-    max-width: 600px;
+    max-width: 700px;
     margin: 0 auto 40px;
+  }
+
+  /* Price Display */
+  .price-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+
+  .current-price, .listing-price {
+    text-align: center;
+  }
+
+  .price-label {
+    display: block;
+    font-size: 14px;
+    color: var(--color-gray);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .price-value {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .price-unit {
+    font-size: 18px;
+    color: var(--color-gray);
+    margin-left: 5px;
+  }
+
+  .price-divider {
+    width: 1px;
+    height: 60px;
+    background: var(--color-white-10);
+  }
+
+  .price-value-striked {
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--color-gray);
+    text-decoration: line-through;
+  }
+
+  .price-savings {
+    display: block;
+    margin-top: 8px;
+    padding: 4px 12px;
+    background: rgba(74, 222, 128, 0.2);
+    border-radius: 20px;
+    color: #4ade80;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  /* Progress Bar */
+  .progress-section {
+    max-width: 500px;
+    margin: 0 auto 40px;
+  }
+
+  .progress-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: var(--color-gray);
+  }
+
+  .progress-percent {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  .progress-bar {
+    height: 12px;
+    background: var(--color-dark-gray);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-primary), #e9a235);
+    border-radius: 10px;
+    transition: width 0.5s ease;
+  }
+
+  .progress-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--color-gray);
+  }
+
+  .progress-stats strong {
+    color: var(--color-white);
   }
 
   /* Countdown */
   .countdown-wrapper {
-    margin-top: 40px;
+    margin-bottom: 40px;
   }
 
   .countdown-label {
@@ -317,17 +929,17 @@ const footerBg = "https://www.figma.com/api/mcp/asset/97ffe2ae-5987-4374-88d2-1a
   .countdown {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 15px;
   }
 
   .countdown-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: var(--color-dark-gray);
+    background: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--color-white-10);
-    border-radius: 10px;
-    padding: 20px 25px;
+    border-radius: 12px;
+    padding: 20px;
     min-width: 80px;
   }
 
@@ -346,67 +958,559 @@ const footerBg = "https://www.figma.com/api/mcp/asset/97ffe2ae-5987-4374-88d2-1a
     margin-top: 5px;
   }
 
+  /* Hero CTAs */
+  .hero-ctas {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .cta-primary, .cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 32px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .cta-primary {
+    background: var(--color-primary);
+    color: var(--color-black);
+  }
+
+  .cta-primary:hover {
+    background: #e9a235;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(248, 176, 59, 0.3);
+  }
+
+  .cta-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--color-white-20);
+    color: var(--color-white);
+  }
+
+  .cta-secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--color-primary);
+  }
+
   /* Benefits Section */
   .benefits-section {
+    padding: 80px 20px;
+    background: rgba(248, 176, 59, 0.03);
+  }
+
+  .benefits-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  .benefit-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--color-white-10);
+    border-radius: 16px;
+    padding: 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .benefit-card:hover {
+    border-color: rgba(248, 176, 59, 0.3);
+    transform: translateY(-5px);
+  }
+
+  .benefit-icon {
+    font-size: 40px;
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .benefit-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-white);
+    margin-bottom: 10px;
+  }
+
+  .benefit-description {
+    font-size: 14px;
+    color: var(--color-gray);
+    line-height: 1.5;
+  }
+
+  /* Tokenomics Section */
+  .tokenomics-section {
     padding: 100px 20px;
     max-width: 1200px;
     margin: 0 auto;
   }
 
-  .section-title {
-    font-size: clamp(28px, 4vw, 42px);
+  .tokenomics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .chart-visual {
+    position: relative;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .donut-chart {
+    width: 100%;
+    transform: rotate(-90deg);
+  }
+
+  .chart-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  .chart-total {
+    display: block;
+    font-size: 20px;
     font-weight: 700;
     color: var(--color-white);
-    text-align: center;
-    margin-bottom: 60px;
   }
 
-  .benefits-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
+  .chart-label {
+    font-size: 12px;
+    color: var(--color-gray);
+    text-transform: uppercase;
   }
 
-  .benefit-card {
-    background: var(--color-dark-gray);
-    border: 1px solid var(--color-white-10);
-    border-radius: 15px;
-    padding: 35px;
-    text-align: center;
-    transition: all var(--transition-fast);
+  .token-allocation {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
 
-  .benefit-card:hover {
-    border-color: var(--color-primary);
-    transform: translateY(-5px);
+  .allocation-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
   }
 
-  .benefit-icon {
-    font-size: 48px;
+  .allocation-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  .allocation-info {
+    flex: 1;
+  }
+
+  .allocation-name {
     display: block;
+    font-size: 15px;
+    color: var(--color-white);
+    font-weight: 500;
+  }
+
+  .allocation-percent {
+    font-size: 13px;
+    color: var(--color-gray);
+  }
+
+  .allocation-amount {
+    font-size: 14px;
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  /* Vesting Section */
+  .vesting-section {
+    padding: 100px 20px;
+    background: rgba(248, 176, 59, 0.03);
+  }
+
+  .vesting-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .vesting-highlight {
+    display: flex;
+    gap: 20px;
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--color-white-10);
+    border-radius: 16px;
     margin-bottom: 20px;
   }
 
-  .benefit-title {
-    font-size: 20px;
+  .highlight-icon {
+    font-size: 32px;
+    flex-shrink: 0;
+  }
+
+  .highlight-content h3 {
+    font-size: 18px;
+    color: var(--color-white);
+    margin-bottom: 8px;
+  }
+
+  .highlight-content p {
+    font-size: 14px;
+    color: var(--color-gray);
+    line-height: 1.5;
+  }
+
+  .vesting-timeline {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--color-white-10);
+    border-radius: 20px;
+    padding: 30px;
+  }
+
+  .timeline-header {
+    font-size: 16px;
     font-weight: 600;
     color: var(--color-white);
-    margin-bottom: 12px;
+    margin-bottom: 24px;
   }
 
-  .benefit-description {
-    font-size: 15px;
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 80px 1fr 50px;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .timeline-phase {
+    font-size: 14px;
     color: var(--color-gray);
-    line-height: 1.6;
   }
 
-  /* Signup Section */
-  .signup-section {
+  .timeline-bar {
+    height: 24px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .timeline-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-primary), #e9a235);
+    border-radius: 12px;
+  }
+
+  .timeline-percent {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-primary);
+    text-align: right;
+  }
+
+  .timeline-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--color-white-10);
+    font-size: 15px;
+    color: var(--color-white);
+  }
+
+  .total-percent {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  /* Staking Section */
+  .staking-section {
     padding: 100px 20px;
-    background: linear-gradient(to bottom, transparent, rgba(248, 176, 59, 0.05));
+    max-width: 1200px;
+    margin: 0 auto;
   }
 
-  .signup-container {
+  .staking-bonus-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 16px 24px;
+    background: linear-gradient(90deg, rgba(248, 176, 59, 0.15), rgba(248, 176, 59, 0.05));
+    border: 1px solid rgba(248, 176, 59, 0.3);
+    border-radius: 12px;
+    margin-bottom: 40px;
+  }
+
+  .bonus-icon {
+    font-size: 24px;
+  }
+
+  .bonus-text {
+    font-size: 16px;
+    color: var(--color-white);
+  }
+
+  .staking-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 60px;
+  }
+
+  .staking-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--color-white-10);
+    border-radius: 20px;
+    padding: 32px;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .staking-card:hover {
+    border-color: rgba(248, 176, 59, 0.3);
+    transform: translateY(-5px);
+  }
+
+  .staking-card.recommended {
+    border-color: var(--color-primary);
+    background: rgba(248, 176, 59, 0.05);
+  }
+
+  .recommended-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 6px 16px;
+    background: var(--color-primary);
+    color: var(--color-black);
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 20px;
+    text-transform: uppercase;
+  }
+
+  .staking-header {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .staking-name {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-white);
+    margin-bottom: 6px;
+  }
+
+  .staking-desc {
+    font-size: 14px;
+    color: var(--color-gray);
+  }
+
+  .staking-apy {
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  .apy-value {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .apy-label {
+    display: block;
+    font-size: 14px;
+    color: var(--color-gray);
+  }
+
+  .staking-bonus {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .bonus-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(74, 222, 128, 0.2);
+    color: #4ade80;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 20px;
+  }
+
+  .total-apy {
+    display: block;
+    margin-top: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-white);
+  }
+
+  .staking-lock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    color: var(--color-gray);
+    font-size: 14px;
+  }
+
+  .staking-features {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 24px;
+  }
+
+  .staking-features li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    font-size: 14px;
+    color: var(--color-white);
+    border-bottom: 1px solid var(--color-white-10);
+  }
+
+  .staking-features li:last-child {
+    border-bottom: none;
+  }
+
+  .staking-cta {
+    width: 100%;
+    padding: 14px;
+    background: var(--color-primary);
+    border: none;
+    border-radius: 12px;
+    color: var(--color-black);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .staking-cta:hover {
+    background: #e9a235;
+  }
+
+  /* Staking Calculator */
+  .staking-calculator {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--color-white-10);
+    border-radius: 20px;
+    padding: 32px;
+  }
+
+  .staking-calculator h4 {
+    font-size: 20px;
+    color: var(--color-white);
+    margin-bottom: 24px;
+    text-align: center;
+  }
+
+  .calc-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+
+  .calc-group label {
+    display: block;
+    font-size: 14px;
+    color: var(--color-gray);
+    margin-bottom: 8px;
+  }
+
+  .calc-group input,
+  .calc-group select {
+    width: 100%;
+    padding: 14px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--color-white-10);
+    border-radius: 10px;
+    color: var(--color-white);
+    font-size: 16px;
+    font-family: inherit;
+  }
+
+  .calc-group select {
+    cursor: pointer;
+  }
+
+  .calc-group input:focus,
+  .calc-group select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+  }
+
+  .calc-results {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .calc-result {
+    text-align: center;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+  }
+
+  .calc-result.highlight {
+    background: rgba(248, 176, 59, 0.1);
+    border: 1px solid rgba(248, 176, 59, 0.3);
+  }
+
+  .result-label {
+    display: block;
+    font-size: 13px;
+    color: var(--color-gray);
+    margin-bottom: 8px;
+  }
+
+  .result-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-white);
+  }
+
+  .calc-result.highlight .result-value {
+    color: var(--color-primary);
+  }
+
+  /* Buy Section */
+  .buy-section {
+    padding: 100px 20px;
+    background: rgba(248, 176, 59, 0.03);
+  }
+
+  .buy-container {
     max-width: 1100px;
     margin: 0 auto;
     display: grid;
@@ -415,76 +1519,151 @@ const footerBg = "https://www.figma.com/api/mcp/asset/97ffe2ae-5987-4374-88d2-1a
     align-items: start;
   }
 
-  .signup-title {
-    font-size: clamp(28px, 4vw, 42px);
-    font-weight: 700;
-    color: var(--color-white);
-    margin-bottom: 16px;
+  .buy-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 2px solid var(--color-primary);
+    border-radius: 24px;
+    padding: 32px;
   }
 
-  .signup-subtitle {
-    font-size: 16px;
+  .buy-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--color-white-10);
+  }
+
+  .buy-price-label {
+    display: block;
+    font-size: 13px;
     color: var(--color-gray);
-    margin-bottom: 40px;
-    line-height: 1.6;
+    margin-bottom: 4px;
   }
 
-  .signup-form {
+  .buy-price-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .buy-limits {
+    text-align: right;
+    font-size: 13px;
+    color: var(--color-gray);
+  }
+
+  .buy-limits span {
+    display: block;
+  }
+
+  .buy-form {
     display: flex;
     flex-direction: column;
     gap: 20px;
   }
 
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-  }
-
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .form-group label {
+  .buy-form .form-group label {
+    display: block;
     font-size: 14px;
-    font-weight: 500;
     color: var(--color-white);
+    margin-bottom: 8px;
   }
 
-  .form-group input,
-  .form-group select {
-    padding: 14px 18px;
-    background: var(--color-dark-gray);
+  .buy-form .form-group input {
+    width: 100%;
+    padding: 14px 16px;
+    background: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--color-white-10);
     border-radius: 10px;
     color: var(--color-white);
     font-size: 16px;
     font-family: inherit;
-    transition: border-color var(--transition-fast);
   }
 
-  .form-group input::placeholder {
-    color: var(--color-gray);
-  }
-
-  .form-group input:focus,
-  .form-group select:focus {
+  .buy-form .form-group input:focus {
     outline: none;
     border-color: var(--color-primary);
   }
 
-  .form-group select {
+  .input-with-max {
+    position: relative;
+  }
+
+  .input-with-max input {
+    padding-right: 70px !important;
+  }
+
+  .max-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 6px 12px;
+    background: var(--color-primary);
+    border: none;
+    border-radius: 6px;
+    color: var(--color-black);
+    font-size: 12px;
+    font-weight: 700;
     cursor: pointer;
   }
 
-  .form-group select option {
-    background: var(--color-dark-gray);
+  .tokens-preview {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background: rgba(248, 176, 59, 0.1);
+    border-radius: 10px;
+    font-size: 14px;
+    color: var(--color-gray);
+  }
+
+  .tokens-amount {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .payment-methods {
+    padding: 16px 0;
+  }
+
+  .payment-label {
+    display: block;
+    font-size: 14px;
+    color: var(--color-gray);
+    margin-bottom: 12px;
+  }
+
+  .payment-options {
+    display: flex;
+    gap: 10px;
+  }
+
+  .payment-btn {
+    flex: 1;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--color-white-10);
+    border-radius: 10px;
+    color: var(--color-gray);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .payment-btn.active {
+    background: rgba(248, 176, 59, 0.2);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
   }
 
   .checkbox-group {
-    flex-direction: row;
+    display: flex;
     align-items: center;
     gap: 12px;
   }
@@ -497,7 +1676,7 @@ const footerBg = "https://www.figma.com/api/mcp/asset/97ffe2ae-5987-4374-88d2-1a
   }
 
   .checkbox-group label {
-    font-size: 14px;
+    font-size: 13px;
     color: var(--color-gray);
   }
 
@@ -506,159 +1685,244 @@ const footerBg = "https://www.figma.com/api/mcp/asset/97ffe2ae-5987-4374-88d2-1a
     text-decoration: underline;
   }
 
-  .submit-btn {
+  .buy-submit {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    padding: 16px 32px;
+    width: 100%;
+    padding: 18px;
     background: var(--color-primary);
     border: none;
-    border-radius: 15px;
+    border-radius: 14px;
     color: var(--color-black);
-    font-size: 16px;
-    font-weight: 600;
-    font-family: inherit;
+    font-size: 18px;
+    font-weight: 700;
     cursor: pointer;
-    transition: all var(--transition-fast);
-    margin-top: 10px;
+    transition: all 0.3s ease;
   }
 
-  .submit-btn:hover {
+  .buy-submit:hover {
     background: #e9a235;
     transform: translateY(-2px);
     box-shadow: 0 10px 30px rgba(248, 176, 59, 0.3);
   }
 
-  .spots-left {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 14px;
+  .buy-security {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+    font-size: 13px;
     color: var(--color-gray);
   }
 
-  .spots-number {
-    color: var(--color-primary);
-    font-weight: 700;
-  }
-
-  /* Price Card */
-  .signup-visual {
-    position: sticky;
-    top: 100px;
-  }
-
-  .price-card {
-    background: var(--color-dark-gray);
-    border: 2px solid var(--color-primary);
-    border-radius: 20px;
-    padding: 40px;
-    text-align: center;
+  /* Buy Info */
+  .buy-info h3 {
+    font-size: 24px;
+    color: var(--color-white);
     margin-bottom: 30px;
   }
 
-  .price-label {
-    font-size: 14px;
-    color: var(--color-primary);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-weight: 600;
-  }
-
-  .price-amount {
-    margin: 20px 0 15px;
+  .info-item {
     display: flex;
-    align-items: flex-start;
-    justify-content: center;
+    gap: 16px;
+    margin-bottom: 24px;
   }
 
-  .currency {
+  .info-icon {
     font-size: 28px;
-    font-weight: 600;
-    color: var(--color-white);
-    margin-top: 10px;
+    flex-shrink: 0;
   }
 
-  .price {
-    font-size: 72px;
-    font-weight: 700;
+  .info-content h4 {
+    font-size: 17px;
     color: var(--color-white);
-    line-height: 1;
+    margin-bottom: 6px;
   }
 
-  .period {
+  .info-content p {
+    font-size: 14px;
+    color: var(--color-gray);
+    line-height: 1.5;
+  }
+
+  .roadmap-preview {
+    margin-top: 40px;
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--color-white-10);
+    border-radius: 16px;
+  }
+
+  .roadmap-preview h4 {
     font-size: 18px;
-    color: var(--color-gray);
-    align-self: flex-end;
-    margin-bottom: 15px;
-    margin-left: 5px;
+    color: var(--color-white);
+    margin-bottom: 20px;
   }
 
-  .price-original {
-    font-size: 14px;
-    color: var(--color-gray);
-    text-decoration: line-through;
+  .milestone {
+    display: flex;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--color-white-10);
   }
 
-  .price-savings {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 8px 16px;
-    background: rgba(248, 176, 59, 0.2);
-    border-radius: 50px;
-    color: var(--color-primary);
+  .milestone:last-child {
+    border-bottom: none;
+  }
+
+  .milestone-date {
     font-size: 14px;
     font-weight: 600;
+    color: var(--color-primary);
+    min-width: 80px;
   }
 
-  .included-list {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+  .milestone-text {
+    font-size: 14px;
+    color: var(--color-white);
   }
 
-  .included-list li {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  /* FAQ Section */
+  .faq-section {
+    padding: 100px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .faq-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .faq-item {
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--color-white-10);
+    border-radius: 16px;
+  }
+
+  .faq-item h4 {
     font-size: 16px;
     color: var(--color-white);
+    margin-bottom: 12px;
+  }
+
+  .faq-item p {
+    font-size: 14px;
+    color: var(--color-gray);
+    line-height: 1.6;
   }
 
   /* Responsive */
-  @media (max-width: 900px) {
-    .signup-container {
+  @media (max-width: 1024px) {
+    .benefits-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .tokenomics-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .vesting-container {
       grid-template-columns: 1fr;
     }
 
-    .signup-visual {
-      position: static;
+    .staking-grid {
+      grid-template-columns: 1fr;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .buy-container {
+      grid-template-columns: 1fr;
+    }
+
+    .buy-info {
       order: -1;
     }
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
+    .benefits-container {
+      grid-template-columns: 1fr;
+    }
+
+    .price-display {
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .price-divider {
+      width: 60px;
+      height: 1px;
+    }
+
     .countdown {
       gap: 10px;
     }
 
     .countdown-item {
-      padding: 15px;
-      min-width: 60px;
+      padding: 15px 12px;
+      min-width: 65px;
+    }
+
+    .countdown-number {
+      font-size: 28px;
+    }
+
+    .calc-inputs {
+      grid-template-columns: 1fr;
+    }
+
+    .calc-results {
+      grid-template-columns: 1fr;
+    }
+
+    .faq-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .payment-options {
+      flex-wrap: wrap;
+    }
+
+    .payment-btn {
+      flex: 1 1 calc(50% - 5px);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-ctas {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .cta-primary, .cta-secondary {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .countdown-item {
+      padding: 12px 8px;
+      min-width: 55px;
     }
 
     .countdown-number {
       font-size: 24px;
     }
 
-    .form-row {
-      grid-template-columns: 1fr;
+    .price-value {
+      font-size: 40px;
     }
 
-    .price {
-      font-size: 56px;
+    .apy-value {
+      font-size: 40px;
     }
   }
 </style>
