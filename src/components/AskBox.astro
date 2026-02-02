@@ -16,11 +16,7 @@ const questions = [
     
     <span class="ask-label">Ask a Question</span>
     
-    <div class="questions-wrapper">
-      {questions.map((question, index) => (
-        <span class="question-item" style={`animation-delay: ${index * 3}s`}>"{question}"</span>
-      ))}
-    </div>
+    <span class="question-text" id="question-text">"{questions[0]}"</span>
     
     <div class="ask-icon-right">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -31,6 +27,35 @@ const questions = [
     </div>
   </div>
 </div>
+
+<script define:vars={{ questions }}>
+  const questionText = document.getElementById('question-text');
+  let currentIndex = 0;
+
+  function changeQuestion() {
+    if (!questionText) return;
+    
+    // Fade out
+    questionText.classList.add('fade-out');
+    
+    setTimeout(() => {
+      // Change text
+      currentIndex = (currentIndex + 1) % questions.length;
+      questionText.textContent = `"${questions[currentIndex]}"`;
+      
+      // Reset animation
+      questionText.classList.remove('fade-out');
+      questionText.classList.add('fade-in');
+      
+      setTimeout(() => {
+        questionText.classList.remove('fade-in');
+      }, 300);
+    }, 300);
+  }
+
+  // Change question every 3 seconds
+  setInterval(changeQuestion, 3000);
+</script>
 
 <style>
   .ask-box {
@@ -67,48 +92,31 @@ const questions = [
     flex-shrink: 0;
   }
 
-  .questions-wrapper {
-    height: 24px;
-    overflow: hidden;
-    position: relative;
-  }
-
-  .question-item {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 24px;
-    line-height: 24px;
+  .question-text {
     font-size: 16px;
     font-weight: 400;
     color: rgba(255, 255, 255, 0.5);
     white-space: nowrap;
-    opacity: 0;
-    transform: translateY(100%);
-    animation: showQuestion 9s infinite;
+    transition: opacity 0.3s ease, transform 0.3s ease;
   }
 
-  /* 9s total = 3 preguntas x 3s cada una */
-  @keyframes showQuestion {
-    0% {
+  .question-text.fade-out {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  .question-text.fade-in {
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from {
       opacity: 0;
-      transform: translateY(100%);
+      transform: translateY(10px);
     }
-    3% {
+    to {
       opacity: 1;
       transform: translateY(0);
-    }
-    30% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    33% {
-      opacity: 0;
-      transform: translateY(-100%);
-    }
-    100% {
-      opacity: 0;
-      transform: translateY(-100%);
     }
   }
 
@@ -127,22 +135,13 @@ const questions = [
     }
 
     .ask-label,
-    .question-item {
+    .question-text {
       font-size: 14px;
-    }
-
-    .questions-wrapper {
-      height: 20px;
-    }
-
-    .question-item {
-      height: 20px;
-      line-height: 20px;
     }
   }
 
   @media (max-width: 520px) {
-    .questions-wrapper {
+    .question-text {
       display: none;
     }
   }
