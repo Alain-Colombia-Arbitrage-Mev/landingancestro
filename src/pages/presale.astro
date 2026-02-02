@@ -13,6 +13,14 @@ import StakingTiers from '@components/presale/StakingTiers.astro';
 import StakingCalculator from '@components/presale/StakingCalculator.astro';
 import BuyForm from '@components/presale/BuyForm.astro';
 import PresaleFAQ from '@components/presale/PresaleFAQ.astro';
+import PresaleBar from '@components/presale/PresaleBar.astro';
+import PurchaseToasts from '@components/presale/PurchaseToasts.astro';
+
+// i18n
+import { useTranslations } from '../i18n/utils';
+import { defaultLang } from '../i18n/languages';
+
+const t = useTranslations(defaultLang);
 
 // ============================================
 // CONFIGURATION - Easy to modify
@@ -41,74 +49,89 @@ const PRESALE = {
 // Benefits - Seth Godin style: about change, not features
 const BENEFITS = [
   {
-    icon: "🔥",
-    title: "No es para todos",
-    description: "Esto es para quienes entienden que el cambio no sucede solo—se construye. Los primeros siempre llevan la antorcha."
+    icon: t('presale.benefit1.icon'),
+    title: t('presale.benefit1.title'),
+    description: t('presale.benefit1.description')
   },
   {
-    icon: "🤝",
-    title: "Confianza, no promesas",
-    description: "Vesting transparente porque creemos en relaciones largas. 15% al listar, el resto en 10 meses. Sin trucos."
+    icon: t('presale.benefit2.icon'),
+    title: t('presale.benefit2.title'),
+    description: t('presale.benefit2.description')
   },
   {
-    icon: "⚡",
-    title: "Impacto medible",
-    description: "Cada ANC representa paneles solares reales en techos reales. Tu inversión tiene nombre, apellido y dirección."
+    icon: t('presale.benefit3.icon'),
+    title: t('presale.benefit3.title'),
+    description: t('presale.benefit3.description')
   },
   {
-    icon: "🌎",
-    title: "La tribu correcta",
-    description: "650 millones de latinoamericanos merecen energía limpia. Estás eligiendo el lado correcto de la historia."
+    icon: t('presale.benefit4.icon'),
+    title: t('presale.benefit4.title'),
+    description: t('presale.benefit4.description')
   }
 ];
 
 // Tokenomics Allocations
 const ALLOCATIONS = [
-  { name: "Presale", percent: 15, amount: "15M ANC", color: "#f8b03b" },
-  { name: "Liquidez", percent: 20, amount: "20M ANC", color: "#e9a235" },
-  { name: "Staking Rewards", percent: 20, amount: "20M ANC", color: "#d4912e" },
-  { name: "Equipo", percent: 15, amount: "15M ANC", color: "#bf8027" },
-  { name: "Reserva", percent: 10, amount: "10M ANC", color: "#8b5a1b" },
-  { name: "Ecosistema & Marketing", percent: 20, amount: "20M ANC", color: "#5c3d12" },
+  { name: t('presale.tokenomics.presale'), percent: 15, amount: "15M ANC", color: "#f8b03b" },
+  { name: t('presale.tokenomics.liquidity'), percent: 20, amount: "20M ANC", color: "#e9a235" },
+  { name: t('presale.tokenomics.staking'), percent: 20, amount: "20M ANC", color: "#d4912e" },
+  { name: t('presale.tokenomics.team'), percent: 15, amount: "15M ANC", color: "#bf8027" },
+  { name: t('presale.tokenomics.reserve'), percent: 10, amount: "10M ANC", color: "#8b5a1b" },
+  { name: t('presale.tokenomics.ecosystem'), percent: 20, amount: "20M ANC", color: "#5c3d12" },
 ];
 
 // Vesting Schedule
 const VESTING_SCHEDULE = [
-  { phase: "TGE", percent: 15, description: "Liberación inmediata al listar" },
-  { phase: "Mes 1-2", percent: 17, description: "8.5% mensual" },
-  { phase: "Mes 3-4", percent: 17, description: "8.5% mensual" },
-  { phase: "Mes 5-6", percent: 17, description: "8.5% mensual" },
-  { phase: "Mes 7-8", percent: 17, description: "8.5% mensual" },
-  { phase: "Mes 9-10", percent: 17, description: "8.5% mensual + final" },
+  { phase: t('presale.vesting.tge'), percent: 15, description: t('presale.vesting.tgeDesc') },
+  { phase: t('presale.vesting.month12'), percent: 17, description: t('presale.vesting.month12Desc') },
+  { phase: t('presale.vesting.month34'), percent: 17, description: t('presale.vesting.month34Desc') },
+  { phase: t('presale.vesting.month56'), percent: 17, description: t('presale.vesting.month56Desc') },
+  { phase: t('presale.vesting.month78'), percent: 17, description: t('presale.vesting.month78Desc') },
+  { phase: t('presale.vesting.month910'), percent: 17, description: t('presale.vesting.month910Desc') },
 ];
 
 // Staking Tiers
 const STAKING_TIERS = [
   {
-    name: "Flexible",
+    name: t('presale.staking.flexible.name'),
     apy: 12,
     bonus: 5,
-    lock: "Sin bloqueo",
-    description: "Retira cuando quieras",
-    features: ["Sin período mínimo", "Retiro instantáneo", "Recompensas diarias"],
+    lock: t('presale.staking.flexible.lock'),
+    description: t('presale.staking.flexible.description'),
+    features: [
+      t('presale.staking.flexible.feature1'),
+      t('presale.staking.flexible.feature2'),
+      t('presale.staking.flexible.feature3')
+    ],
     recommended: false
   },
   {
-    name: "Holder",
+    name: t('presale.staking.holder.name'),
     apy: 18,
     bonus: 5,
-    lock: "30 días",
-    description: "Balance perfecto",
-    features: ["Bloqueo de 30 días", "APY aumentado", "Recompensas diarias", "Acceso a airdrops"],
+    lock: t('presale.staking.holder.lock'),
+    description: t('presale.staking.holder.description'),
+    features: [
+      t('presale.staking.holder.feature1'),
+      t('presale.staking.holder.feature2'),
+      t('presale.staking.holder.feature3'),
+      t('presale.staking.holder.feature4')
+    ],
     recommended: true
   },
   {
-    name: "Diamond",
+    name: t('presale.staking.diamond.name'),
     apy: 28,
     bonus: 5,
-    lock: "90 días",
-    description: "Máximas recompensas",
-    features: ["Bloqueo de 90 días", "APY máximo", "Recompensas diarias", "Acceso a airdrops", "Gobernanza DAO"],
+    lock: t('presale.staking.diamond.lock'),
+    description: t('presale.staking.diamond.description'),
+    features: [
+      t('presale.staking.diamond.feature1'),
+      t('presale.staking.diamond.feature2'),
+      t('presale.staking.diamond.feature3'),
+      t('presale.staking.diamond.feature4'),
+      t('presale.staking.diamond.feature5')
+    ],
     recommended: false
   }
 ];
@@ -116,28 +139,28 @@ const STAKING_TIERS = [
 // FAQ - Seth Godin style: address real objections with honest answers
 const FAQS = [
   {
-    question: "¿Por qué debería confiar en ustedes?",
-    answer: "No te pedimos que confíes—te pedimos que mires los hechos. 18 países, infraestructura real, paneles en techos reales. El token es la invitación a participar en algo que ya funciona."
+    question: t('presale.faq1.question'),
+    answer: t('presale.faq1.answer')
   },
   {
-    question: "¿Esto es solo otro token más?",
-    answer: "La mayoría de tokens prometen el futuro. Nosotros mostramos el presente. ANC representa participación en una red de energía que ya genera electricidad, ya ahorra dinero a familias, ya reduce emisiones."
+    question: t('presale.faq2.question'),
+    answer: t('presale.faq2.answer')
   },
   {
-    question: "¿Por qué hay vesting?",
-    answer: "Porque no queremos especuladores de corto plazo. Queremos personas comprometidas con la misión. El vesting nos protege a ambos: tú de la volatilidad extrema, nosotros de quienes solo buscan ganancias rápidas."
+    question: t('presale.faq3.question'),
+    answer: t('presale.faq3.answer')
   },
   {
-    question: "¿Qué pasa si el precio cae?",
-    answer: "Los precios fluctúan. Las misiones no. Si compras esperando duplicar tu dinero mañana, esto no es para ti. Si crees que LATAM merece energía limpia y quieres ser parte de esa historia, bienvenido."
+    question: t('presale.faq4.question'),
+    answer: t('presale.faq4.answer')
   },
   {
-    question: "¿Y si no sé nada de crypto?",
-    answer: "Perfecto. Hicimos el proceso tan simple como comprar en cualquier tienda online. Tarjeta, transferencia o crypto—tú decides. Y si te trabas, hay humanos reales listos para ayudarte."
+    question: t('presale.faq5.question'),
+    answer: t('presale.faq5.answer')
   },
   {
-    question: "¿Cuál es el mínimo para participar?",
-    answer: "$100 USD. No creemos en barreras artificiales. Si crees en la misión, queremos que puedas participar sin importar tu situación financiera."
+    question: t('presale.faq6.question'),
+    answer: t('presale.faq6.answer')
   }
 ];
 
@@ -145,9 +168,9 @@ const FAQS = [
 const footerBg = "/images/footer-bg.png";
 ---
 
-<Layout 
-  title="Presale ANC Token" 
-  description="Participa en el presale del token ANC de Ancestro. Precio exclusivo de $0.88, vesting justo y staking con hasta 33% APY."
+<Layout
+  title={t('presale.meta.title')}
+  description={t('presale.meta.description')}
 >
   <div class="presale-page">
     <Navbar />
@@ -202,6 +225,16 @@ const footerBg = "/images/footer-bg.png";
       <!-- FAQ Section -->
       <PresaleFAQ faqs={FAQS} />
     </main>
+    
+    <!-- Sticky Presale Bar -->
+    <PresaleBar 
+      daysRemaining={PRESALE.daysRemaining}
+      tokenSymbol={TOKEN.symbol}
+      progress={PRESALE.progress}
+    />
+    
+    <!-- Purchase Notifications -->
+    <PurchaseToasts tokenSymbol={TOKEN.symbol} />
     
     <Footer backgroundImage={footerBg} />
   </div>

@@ -1,0 +1,220 @@
+---
+interface Props {
+  tokenSymbol?: string;
+}
+
+const { 
+  tokenSymbol = 'ANC'
+} = Astro.props;
+---
+
+<div class="social-proof-container" id="social-proof"></div>
+
+<style is:global>
+  .social-proof-container {
+    position: fixed;
+    bottom: 100px;
+    left: 24px;
+    z-index: 9999;
+    pointer-events: none;
+  }
+
+  .social-toast {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    min-width: 320px;
+    max-width: 380px;
+    background: rgba(30, 30, 35, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(248, 176, 59, 0.4);
+    border-radius: 16px;
+    box-shadow: 
+      0 10px 40px rgba(0, 0, 0, 0.5),
+      0 0 20px rgba(248, 176, 59, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: auto;
+  }
+
+  .social-toast.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .social-toast.hiding {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+
+  .toast-flag-box {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    background: linear-gradient(135deg, rgba(248, 176, 59, 0.25), rgba(248, 176, 59, 0.1));
+    border: 2px solid rgba(248, 176, 59, 0.5);
+    border-radius: 12px;
+    flex-shrink: 0;
+  }
+
+  .toast-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .toast-top-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .toast-verified-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 8px;
+    background: rgba(74, 222, 128, 0.2);
+    border: 1px solid rgba(74, 222, 128, 0.5);
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #4ade80;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .toast-verified-badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: #4ade80;
+    border-radius: 50%;
+    box-shadow: 0 0 6px #4ade80;
+    animation: blink 1s infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .toast-time {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .toast-wallet-addr {
+    font-size: 13px;
+    font-weight: 600;
+    color: #f8b03b;
+    font-family: monospace;
+  }
+
+  .toast-token-amount {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+
+  .toast-token-amount strong {
+    font-size: 22px;
+    font-weight: 800;
+    color: #ffffff;
+  }
+
+  .toast-token-amount span {
+    font-size: 14px;
+    font-weight: 700;
+    color: #f8b03b;
+  }
+
+  .toast-usd-value {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 2px;
+  }
+
+  @media (max-width: 768px) {
+    .social-proof-container {
+      left: 16px;
+      right: 16px;
+      bottom: 90px;
+    }
+    
+    .social-toast {
+      min-width: auto;
+      max-width: none;
+      width: 100%;
+    }
+  }
+</style>
+
+<script define:vars={{ tokenSymbol }}>
+  const purchases = [
+    { address: '0x7a2...8b9c', amount: 2500, flag: '🇲🇽' },
+    { address: '0x4f1...3e2d', amount: 5000, flag: '🇨🇴' },
+    { address: '0x9c8...7a1f', amount: 1200, flag: '🇦🇷' },
+    { address: '0x2d5...4b8e', amount: 3800, flag: '🇧🇷' },
+    { address: '0x6e3...9f2a', amount: 8500, flag: '🇨🇱' },
+    { address: '0x1a9...5c4b', amount: 1500, flag: '🇵🇪' },
+    { address: '0x8b2...6d7e', amount: 4200, flag: '🇲🇽' },
+    { address: '0x3f7...2a9c', amount: 6700, flag: '🇨🇴' },
+  ];
+
+  let idx = 0;
+  const container = document.getElementById('social-proof');
+
+  function showToast() {
+    if (!container) return;
+    
+    const p = purchases[idx];
+    const tokens = Math.round(p.amount / 0.88);
+    const mins = Math.floor(Math.random() * 5) + 1;
+    
+    const toast = document.createElement('div');
+    toast.className = 'social-toast';
+    toast.innerHTML = `
+      <div class="toast-flag-box">${p.flag}</div>
+      <div class="toast-details">
+        <div class="toast-top-row">
+          <span class="toast-verified-badge">Verificado</span>
+          <span class="toast-time">hace ${mins} min</span>
+        </div>
+        <div class="toast-wallet-addr">${p.address}</div>
+        <div class="toast-token-amount">
+          <strong>${tokens.toLocaleString()}</strong>
+          <span>${tokenSymbol}</span>
+        </div>
+        <div class="toast-usd-value">≈ $${p.amount.toLocaleString()} USD</div>
+      </div>
+    `;
+    
+    container.appendChild(toast);
+    
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        toast.classList.add('visible');
+      });
+    });
+    
+    setTimeout(() => {
+      toast.classList.remove('visible');
+      toast.classList.add('hiding');
+      setTimeout(() => toast.remove(), 500);
+    }, 5000);
+    
+    idx = (idx + 1) % purchases.length;
+  }
+
+  setTimeout(showToast, 2000);
+  setInterval(showToast, 7000);
+</script>

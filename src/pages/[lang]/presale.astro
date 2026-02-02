@@ -11,6 +11,8 @@ import StakingCalculator from '@components/presale/StakingCalculator.astro';
 import BuyForm from '@components/presale/BuyForm.astro';
 import PresaleFAQ from '@components/presale/PresaleFAQ.astro';
 import PresaleManifesto from '@components/presale/PresaleManifesto.astro';
+import PresaleBar from '@components/presale/PresaleBar.astro';
+import PurchaseToasts from '@components/presale/PurchaseToasts.astro';
 import { getLanguagePaths } from '../../i18n/config';
 import { useTranslations, type Lang } from '../../i18n/utils';
 
@@ -21,47 +23,230 @@ export function getStaticPaths() {
 const { lang } = Astro.params as { lang: Lang };
 const t = useTranslations(lang);
 
-// Presale configuration
-const presaleConfig = {
-  tokenSymbol: 'ANC',
-  tokenName: 'Ancestro Token',
-  initialPrice: 0.88,
-  targetRaise: 5000000,
-  currentRaised: 1250000,
-  deadline: 150,
-  totalSupply: 100000000,
-  presaleAllocation: 15,
+// Token Configuration
+const TOKEN = {
+  symbol: "ANC",
+  name: "Ancestro",
+  presalePrice: 0.88,
+  listingPrice: 1.25,
+  totalSupply: "100,000,000",
+  presaleAllocation: "15,000,000",
 };
+
+// Presale Configuration
+const PRESALE = {
+  hardCap: "$13,200,000",
+  raised: "$8,883,600",
+  progress: 67.3,
+  daysRemaining: 150,
+  minBuy: 100,
+  maxBuy: 50000,
+};
+
+// Benefits
+const BENEFITS = [
+  {
+    icon: t('presale.benefit1.icon'),
+    title: t('presale.benefit1.title'),
+    description: t('presale.benefit1.description')
+  },
+  {
+    icon: t('presale.benefit2.icon'),
+    title: t('presale.benefit2.title'),
+    description: t('presale.benefit2.description')
+  },
+  {
+    icon: t('presale.benefit3.icon'),
+    title: t('presale.benefit3.title'),
+    description: t('presale.benefit3.description')
+  },
+  {
+    icon: t('presale.benefit4.icon'),
+    title: t('presale.benefit4.title'),
+    description: t('presale.benefit4.description')
+  }
+];
+
+// Tokenomics Allocations
+const ALLOCATIONS = [
+  { name: t('presale.tokenomics.presale'), percent: 15, amount: "15M ANC", color: "#f8b03b" },
+  { name: t('presale.tokenomics.liquidity'), percent: 20, amount: "20M ANC", color: "#e9a235" },
+  { name: t('presale.tokenomics.staking'), percent: 20, amount: "20M ANC", color: "#d4912e" },
+  { name: t('presale.tokenomics.team'), percent: 15, amount: "15M ANC", color: "#bf8027" },
+  { name: t('presale.tokenomics.reserve'), percent: 10, amount: "10M ANC", color: "#8b5a1b" },
+  { name: t('presale.tokenomics.ecosystem'), percent: 20, amount: "20M ANC", color: "#5c3d12" },
+];
+
+// Vesting Schedule
+const VESTING_SCHEDULE = [
+  { phase: t('presale.vesting.tge'), percent: 15, description: t('presale.vesting.tgeDesc') },
+  { phase: t('presale.vesting.month12'), percent: 17, description: t('presale.vesting.month12Desc') },
+  { phase: t('presale.vesting.month34'), percent: 17, description: t('presale.vesting.month34Desc') },
+  { phase: t('presale.vesting.month56'), percent: 17, description: t('presale.vesting.month56Desc') },
+  { phase: t('presale.vesting.month78'), percent: 17, description: t('presale.vesting.month78Desc') },
+  { phase: t('presale.vesting.month910'), percent: 17, description: t('presale.vesting.month910Desc') },
+];
+
+// Staking Tiers
+const STAKING_TIERS = [
+  {
+    name: t('presale.staking.flexible.name'),
+    apy: 12,
+    bonus: 5,
+    lock: t('presale.staking.flexible.lock'),
+    description: t('presale.staking.flexible.description'),
+    features: [
+      t('presale.staking.flexible.feature1'),
+      t('presale.staking.flexible.feature2'),
+      t('presale.staking.flexible.feature3')
+    ],
+    recommended: false
+  },
+  {
+    name: t('presale.staking.holder.name'),
+    apy: 18,
+    bonus: 5,
+    lock: t('presale.staking.holder.lock'),
+    description: t('presale.staking.holder.description'),
+    features: [
+      t('presale.staking.holder.feature1'),
+      t('presale.staking.holder.feature2'),
+      t('presale.staking.holder.feature3'),
+      t('presale.staking.holder.feature4')
+    ],
+    recommended: true
+  },
+  {
+    name: t('presale.staking.diamond.name'),
+    apy: 28,
+    bonus: 5,
+    lock: t('presale.staking.diamond.lock'),
+    description: t('presale.staking.diamond.description'),
+    features: [
+      t('presale.staking.diamond.feature1'),
+      t('presale.staking.diamond.feature2'),
+      t('presale.staking.diamond.feature3'),
+      t('presale.staking.diamond.feature4'),
+      t('presale.staking.diamond.feature5')
+    ],
+    recommended: false
+  }
+];
+
+// FAQ
+const FAQS = [
+  {
+    question: t('presale.faq1.question'),
+    answer: t('presale.faq1.answer')
+  },
+  {
+    question: t('presale.faq2.question'),
+    answer: t('presale.faq2.answer')
+  },
+  {
+    question: t('presale.faq3.question'),
+    answer: t('presale.faq3.answer')
+  },
+  {
+    question: t('presale.faq4.question'),
+    answer: t('presale.faq4.answer')
+  },
+  {
+    question: t('presale.faq5.question'),
+    answer: t('presale.faq5.answer')
+  },
+  {
+    question: t('presale.faq6.question'),
+    answer: t('presale.faq6.answer')
+  }
+];
 ---
 
-<Layout title={`${t('nav.presale')} | Ancestro`}>
-  <div class="page-wrapper">
+<Layout
+  title={t('presale.meta.title')}
+  description={t('presale.meta.description')}
+>
+  <div class="presale-page">
     <Navbar />
-    
-    <main id="main-content" role="main" class="presale-page">
-      <PresaleHero config={presaleConfig} />
-      <PresaleBenefits />
+
+    <main id="main-content">
+      <!-- Hero Section -->
+      <PresaleHero
+        tokenSymbol={TOKEN.symbol}
+        presalePrice={TOKEN.presalePrice}
+        listingPrice={TOKEN.listingPrice}
+        hardCap={PRESALE.hardCap}
+        raised={PRESALE.raised}
+        progress={PRESALE.progress}
+        daysRemaining={PRESALE.daysRemaining}
+      />
+
+      <!-- Benefits Section -->
+      <PresaleBenefits benefits={BENEFITS} />
+
+      <!-- Manifesto Section -->
       <PresaleManifesto />
-      <Tokenomics config={presaleConfig} />
-      <VestingSchedule />
-      <StakingTiers />
-      <StakingCalculator config={presaleConfig} />
-      <BuyForm config={presaleConfig} />
-      <PresaleFAQ />
+
+      <!-- Tokenomics Section -->
+      <Tokenomics
+        totalSupply={TOKEN.totalSupply}
+        allocations={ALLOCATIONS}
+      />
+
+      <!-- Vesting Schedule Section -->
+      <VestingSchedule
+        schedule={VESTING_SCHEDULE}
+        tgePercent={15}
+        vestingMonths={10}
+      />
+
+      <!-- Staking Tiers Section -->
+      <StakingTiers tiers={STAKING_TIERS} />
+
+      <!-- Staking Calculator -->
+      <div class="calculator-wrapper">
+        <StakingCalculator tokenPrice={TOKEN.presalePrice} />
+      </div>
+
+      <!-- Buy Form Section -->
+      <BuyForm
+        tokenSymbol={TOKEN.symbol}
+        tokenPrice={TOKEN.presalePrice}
+        minBuy={PRESALE.minBuy}
+        maxBuy={PRESALE.maxBuy}
+      />
+
+      <!-- FAQ Section -->
+      <PresaleFAQ faqs={FAQS} />
     </main>
-    
+
+    <!-- Sticky Presale Bar -->
+    <PresaleBar
+      daysRemaining={PRESALE.daysRemaining}
+      tokenSymbol={TOKEN.symbol}
+      progress={PRESALE.progress}
+    />
+
+    <!-- Purchase Notifications -->
+    <PurchaseToasts tokenSymbol={TOKEN.symbol} />
+
     <Footer backgroundImage="/images/footer-bg.png" />
   </div>
 </Layout>
 
 <style>
-  .page-wrapper {
-    position: relative;
+  .presale-page {
     background-color: var(--color-black);
     min-height: 100vh;
   }
 
-  .presale-page {
+  main {
     padding-top: 79px;
+  }
+
+  .calculator-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px 100px;
   }
 </style>
