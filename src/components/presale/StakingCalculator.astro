@@ -1,0 +1,171 @@
+---
+interface Props {
+  tokenPrice: number;
+  defaultAmount?: number;
+}
+
+const { tokenPrice, defaultAmount = 10000 } = Astro.props;
+---
+
+<div class="staking-calculator">
+  <h4>Calculadora de Recompensas</h4>
+  <div class="calc-inputs">
+    <div class="calc-group">
+      <label for="stake-amount">Cantidad de ANC</label>
+      <input type="number" id="stake-amount" value={defaultAmount} min="100" />
+    </div>
+    <div class="calc-group">
+      <label for="stake-plan">Plan de Staking</label>
+      <select id="stake-plan">
+        <option value="17">Flexible (17% APY con bonus)</option>
+        <option value="23" selected>Holder (23% APY con bonus)</option>
+        <option value="33">Diamond (33% APY con bonus)</option>
+      </select>
+    </div>
+  </div>
+  <div class="calc-results">
+    <div class="calc-result">
+      <span class="result-label">Recompensa Mensual</span>
+      <span class="result-value" id="monthly-reward">191.67 ANC</span>
+    </div>
+    <div class="calc-result">
+      <span class="result-label">Recompensa Anual</span>
+      <span class="result-value" id="yearly-reward">2,300 ANC</span>
+    </div>
+    <div class="calc-result highlight">
+      <span class="result-label">Valor en USD (al precio actual)</span>
+      <span class="result-value" id="usd-value">$2,024</span>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ tokenPrice }}>
+  const stakeAmount = document.getElementById('stake-amount');
+  const stakePlan = document.getElementById('stake-plan');
+  const monthlyReward = document.getElementById('monthly-reward');
+  const yearlyReward = document.getElementById('yearly-reward');
+  const usdValue = document.getElementById('usd-value');
+  
+  function updateCalculator() {
+    const amount = parseFloat(stakeAmount?.value || '10000');
+    const apy = parseFloat(stakePlan?.value || '23');
+    
+    const yearly = amount * (apy / 100);
+    const monthly = yearly / 12;
+    const usd = yearly * tokenPrice;
+    
+    if (monthlyReward) monthlyReward.textContent = monthly.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' ANC';
+    if (yearlyReward) yearlyReward.textContent = yearly.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' ANC';
+    if (usdValue) usdValue.textContent = '$' + usd.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+  
+  stakeAmount?.addEventListener('input', updateCalculator);
+  stakePlan?.addEventListener('change', updateCalculator);
+  
+  // Initial calculation
+  updateCalculator();
+</script>
+
+<style>
+  .staking-calculator {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--color-white-10);
+    border-radius: 20px;
+    padding: 32px;
+    margin-top: 60px;
+  }
+
+  .staking-calculator h4 {
+    font-size: 20px;
+    color: var(--color-white);
+    margin-bottom: 24px;
+    text-align: center;
+  }
+
+  .calc-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+
+  .calc-group label {
+    display: block;
+    font-size: 14px;
+    color: var(--color-gray);
+    margin-bottom: 8px;
+  }
+
+  .calc-group input,
+  .calc-group select {
+    width: 100%;
+    padding: 14px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--color-white-10);
+    border-radius: 10px;
+    color: var(--color-white);
+    font-size: 16px;
+    font-family: inherit;
+    transition: all 0.3s ease;
+  }
+
+  .calc-group select {
+    cursor: pointer;
+  }
+
+  .calc-group input:focus,
+  .calc-group select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+  }
+
+  .calc-results {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .calc-result {
+    text-align: center;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+  }
+
+  .calc-result:hover {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .calc-result.highlight {
+    background: rgba(248, 176, 59, 0.1);
+    border: 1px solid rgba(248, 176, 59, 0.3);
+  }
+
+  .result-label {
+    display: block;
+    font-size: 13px;
+    color: var(--color-gray);
+    margin-bottom: 8px;
+  }
+
+  .result-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-white);
+  }
+
+  .calc-result.highlight .result-value {
+    color: var(--color-primary);
+  }
+
+  @media (max-width: 768px) {
+    .calc-inputs {
+      grid-template-columns: 1fr;
+    }
+
+    .calc-results {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

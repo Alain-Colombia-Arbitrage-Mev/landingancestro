@@ -1,0 +1,529 @@
+---
+interface Props {
+  tokenSymbol: string;
+  tokenPrice: number;
+  minBuy: number;
+  maxBuy: number;
+}
+
+const { tokenSymbol, tokenPrice, minBuy, maxBuy } = Astro.props;
+---
+
+<section class="buy-section" id="buy">
+  <div class="section-header">
+    <span class="section-badge">Comprar {tokenSymbol}</span>
+    <h2 class="section-title">Participa en el Presale</h2>
+    <p class="section-subtitle">Proceso simple y seguro</p>
+  </div>
+  
+  <div class="buy-container">
+    <div class="buy-card">
+      <div class="buy-header">
+        <div class="buy-price">
+          <span class="buy-price-label">Precio por token</span>
+          <span class="buy-price-value">${tokenPrice} USD</span>
+        </div>
+        <div class="buy-limits">
+          <span>Mín: ${minBuy} USD</span>
+          <span>Máx: ${maxBuy.toLocaleString()} USD</span>
+        </div>
+      </div>
+      
+      <form class="buy-form" id="buy-form">
+        <div class="form-group">
+          <label>Cantidad en USD</label>
+          <div class="input-with-max">
+            <input 
+              type="number" 
+              id="buy-amount" 
+              name="amount" 
+              min={minBuy} 
+              max={maxBuy} 
+              value="1000" 
+              required 
+            />
+            <button type="button" class="max-btn" id="max-btn">MAX</button>
+          </div>
+        </div>
+        
+        <div class="tokens-preview">
+          <span>Recibirás aproximadamente</span>
+          <span class="tokens-amount" id="tokens-preview">1,136.36 {tokenSymbol}</span>
+        </div>
+        
+        <div class="form-group">
+          <label>Wallet Address</label>
+          <input type="text" id="wallet" name="wallet" placeholder="0x..." required />
+        </div>
+        
+        <div class="form-group">
+          <label>Email (para notificaciones)</label>
+          <input type="email" id="email" name="email" placeholder="tu@email.com" required />
+        </div>
+        
+        <div class="payment-methods">
+          <span class="payment-label">Métodos de pago:</span>
+          <div class="payment-options">
+            <button type="button" class="payment-btn active" data-method="usdt">USDT</button>
+            <button type="button" class="payment-btn" data-method="usdc">USDC</button>
+            <button type="button" class="payment-btn" data-method="eth">ETH</button>
+            <button type="button" class="payment-btn" data-method="card">Card</button>
+          </div>
+        </div>
+        
+        <div class="form-group checkbox-group">
+          <input type="checkbox" id="terms" name="terms" required />
+          <label for="terms">Acepto los <a href="/terms">Términos</a> y <a href="/privacy">Política de Privacidad</a></label>
+        </div>
+        
+        <button type="submit" class="buy-submit">
+          Comprar {tokenSymbol}
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </form>
+      
+      <div class="buy-security">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2"/>
+        </svg>
+        <span>Transacción segura • Smart Contract auditado</span>
+      </div>
+    </div>
+    
+    <div class="buy-info">
+      <h3>¿Por qué comprar {tokenSymbol}?</h3>
+      
+      <div class="info-item">
+        <div class="info-icon">🌍</div>
+        <div class="info-content">
+          <h4>Utilidad Real</h4>
+          <p>{tokenSymbol} es el token de utilidad de la red Ancestro, usándose para pagos, recompensas y gobernanza en la plataforma de energía solar.</p>
+        </div>
+      </div>
+      
+      <div class="info-item">
+        <div class="info-icon">📈</div>
+        <div class="info-content">
+          <h4>Potencial de Crecimiento</h4>
+          <p>El mercado de energía solar en LATAM está proyectado a crecer 400% en los próximos 5 años. {tokenSymbol} está posicionado para capturar este crecimiento.</p>
+        </div>
+      </div>
+      
+      <div class="info-item">
+        <div class="info-icon">🔒</div>
+        <div class="info-content">
+          <h4>Seguridad</h4>
+          <p>Smart contract auditado por firmas líderes. Equipo doxxeado y comprometido con la transparencia total.</p>
+        </div>
+      </div>
+      
+      <div class="roadmap-preview">
+        <h4>Próximos Hitos</h4>
+        <div class="milestone">
+          <span class="milestone-date">Q2 2026</span>
+          <span class="milestone-text">Listado en DEX + CEX Tier 2</span>
+        </div>
+        <div class="milestone">
+          <span class="milestone-date">Q3 2026</span>
+          <span class="milestone-text">Lanzamiento App + Staking</span>
+        </div>
+        <div class="milestone">
+          <span class="milestone-date">Q4 2026</span>
+          <span class="milestone-text">Expansión a 5 países más</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ tokenPrice, tokenSymbol, maxBuy }}>
+  const buyAmount = document.getElementById('buy-amount');
+  const tokensPreview = document.getElementById('tokens-preview');
+  const maxBtn = document.getElementById('max-btn');
+  const buyForm = document.getElementById('buy-form');
+  const paymentBtns = document.querySelectorAll('.payment-btn');
+  
+  function updateTokensPreview() {
+    const amount = parseFloat(buyAmount?.value || '1000');
+    const tokens = amount / tokenPrice;
+    if (tokensPreview) {
+      tokensPreview.textContent = tokens.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' ' + tokenSymbol;
+    }
+  }
+  
+  buyAmount?.addEventListener('input', updateTokensPreview);
+  
+  maxBtn?.addEventListener('click', () => {
+    if (buyAmount) {
+      buyAmount.value = maxBuy.toString();
+      updateTokensPreview();
+    }
+  });
+  
+  paymentBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      paymentBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+  
+  buyForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    alert('¡Gracias por tu interés! La funcionalidad de compra se habilitará pronto.');
+  });
+  
+  // Initial calculation
+  updateTokensPreview();
+</script>
+
+<style>
+  .buy-section {
+    padding: 100px 20px;
+    background: rgba(248, 176, 59, 0.03);
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .section-badge {
+    display: inline-block;
+    padding: 8px 20px;
+    background: rgba(248, 176, 59, 0.15);
+    border: 1px solid rgba(248, 176, 59, 0.3);
+    border-radius: 50px;
+    color: var(--color-primary);
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+
+  .section-title {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 700;
+    color: var(--color-white);
+    margin-bottom: 16px;
+  }
+
+  .section-subtitle {
+    font-size: clamp(16px, 2vw, 18px);
+    color: var(--color-gray);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .buy-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .buy-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 2px solid var(--color-primary);
+    border-radius: 24px;
+    padding: 32px;
+  }
+
+  .buy-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--color-white-10);
+  }
+
+  .buy-price-label {
+    display: block;
+    font-size: 13px;
+    color: var(--color-gray);
+    margin-bottom: 4px;
+  }
+
+  .buy-price-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .buy-limits {
+    text-align: right;
+    font-size: 13px;
+    color: var(--color-gray);
+  }
+
+  .buy-limits span {
+    display: block;
+  }
+
+  .buy-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 14px;
+    color: var(--color-white);
+    margin-bottom: 8px;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 14px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--color-white-10);
+    border-radius: 10px;
+    color: var(--color-white);
+    font-size: 16px;
+    font-family: inherit;
+    transition: all 0.3s ease;
+  }
+
+  .form-group input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+  }
+
+  .form-group input::placeholder {
+    color: var(--color-gray);
+  }
+
+  .input-with-max {
+    position: relative;
+  }
+
+  .input-with-max input {
+    padding-right: 70px;
+  }
+
+  .max-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 6px 12px;
+    background: var(--color-primary);
+    border: none;
+    border-radius: 6px;
+    color: var(--color-black);
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .max-btn:hover {
+    background: #e9a235;
+  }
+
+  .tokens-preview {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background: rgba(248, 176, 59, 0.1);
+    border-radius: 10px;
+    font-size: 14px;
+    color: var(--color-gray);
+  }
+
+  .tokens-amount {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .payment-methods {
+    padding: 16px 0;
+  }
+
+  .payment-label {
+    display: block;
+    font-size: 14px;
+    color: var(--color-gray);
+    margin-bottom: 12px;
+  }
+
+  .payment-options {
+    display: flex;
+    gap: 10px;
+  }
+
+  .payment-btn {
+    flex: 1;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--color-white-10);
+    border-radius: 10px;
+    color: var(--color-gray);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .payment-btn:hover {
+    border-color: rgba(248, 176, 59, 0.5);
+  }
+
+  .payment-btn.active {
+    background: rgba(248, 176, 59, 0.2);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  .checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .checkbox-group input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--color-primary);
+    cursor: pointer;
+  }
+
+  .checkbox-group label {
+    font-size: 13px;
+    color: var(--color-gray);
+    margin-bottom: 0;
+  }
+
+  .checkbox-group a {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+
+  .buy-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 18px;
+    background: var(--color-primary);
+    border: none;
+    border-radius: 14px;
+    color: var(--color-black);
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .buy-submit:hover {
+    background: #e9a235;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(248, 176, 59, 0.3);
+  }
+
+  .buy-security {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--color-gray);
+  }
+
+  /* Buy Info */
+  .buy-info h3 {
+    font-size: 24px;
+    color: var(--color-white);
+    margin-bottom: 30px;
+  }
+
+  .info-item {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .info-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+  }
+
+  .info-content h4 {
+    font-size: 17px;
+    color: var(--color-white);
+    margin-bottom: 6px;
+  }
+
+  .info-content p {
+    font-size: 14px;
+    color: var(--color-gray);
+    line-height: 1.5;
+  }
+
+  .roadmap-preview {
+    margin-top: 40px;
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--color-white-10);
+    border-radius: 16px;
+  }
+
+  .roadmap-preview h4 {
+    font-size: 18px;
+    color: var(--color-white);
+    margin-bottom: 20px;
+  }
+
+  .milestone {
+    display: flex;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--color-white-10);
+  }
+
+  .milestone:last-child {
+    border-bottom: none;
+  }
+
+  .milestone-date {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-primary);
+    min-width: 80px;
+  }
+
+  .milestone-text {
+    font-size: 14px;
+    color: var(--color-white);
+  }
+
+  @media (max-width: 1024px) {
+    .buy-container {
+      grid-template-columns: 1fr;
+    }
+
+    .buy-info {
+      order: -1;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .payment-options {
+      flex-wrap: wrap;
+    }
+
+    .payment-btn {
+      flex: 1 1 calc(50% - 5px);
+    }
+  }
+</style>

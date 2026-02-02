@@ -1,0 +1,305 @@
+---
+interface StakingTier {
+  name: string;
+  apy: number;
+  bonus: number;
+  lock: string;
+  description: string;
+  features: string[];
+  recommended: boolean;
+}
+
+interface Props {
+  tiers: StakingTier[];
+}
+
+const { tiers } = Astro.props;
+---
+
+<section class="staking-section" id="staking">
+  <div class="section-header">
+    <span class="section-badge">Staking</span>
+    <h2 class="section-title">Gana Mientras Sostienes</h2>
+    <p class="section-subtitle">Planes de staking simples y recompensas alcanzables</p>
+  </div>
+  
+  <div class="staking-bonus-banner">
+    <span class="bonus-icon">🎁</span>
+    <span class="bonus-text">Participantes del presale reciben <strong>+5% APY bonus</strong> durante el primer año</span>
+  </div>
+  
+  <div class="staking-grid">
+    {tiers.map((tier) => (
+      <div class:list={["staking-card", { recommended: tier.recommended }]}>
+        {tier.recommended && <span class="recommended-badge">Más Popular</span>}
+        <div class="staking-header">
+          <h3 class="staking-name">{tier.name}</h3>
+          <p class="staking-desc">{tier.description}</p>
+        </div>
+        
+        <div class="staking-apy">
+          <span class="apy-value">{tier.apy}%</span>
+          <span class="apy-label">APY Base</span>
+        </div>
+        
+        <div class="staking-bonus">
+          <span class="bonus-badge">+{tier.bonus}% Presale Bonus</span>
+          <span class="total-apy">= {tier.apy + tier.bonus}% APY Total</span>
+        </div>
+        
+        <div class="staking-lock">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" stroke-width="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          <span>{tier.lock}</span>
+        </div>
+        
+        <ul class="staking-features">
+          {tier.features.map((feature) => (
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M20 6L9 17L4 12" stroke="#f8b03b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              {feature}
+            </li>
+          ))}
+        </ul>
+        
+        <button class="staking-cta">
+          Seleccionar Plan
+        </button>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .staking-section {
+    padding: 100px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .section-badge {
+    display: inline-block;
+    padding: 8px 20px;
+    background: rgba(248, 176, 59, 0.15);
+    border: 1px solid rgba(248, 176, 59, 0.3);
+    border-radius: 50px;
+    color: var(--color-primary);
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+
+  .section-title {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 700;
+    color: var(--color-white);
+    margin-bottom: 16px;
+  }
+
+  .section-subtitle {
+    font-size: clamp(16px, 2vw, 18px);
+    color: var(--color-gray);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .staking-bonus-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 16px 24px;
+    background: linear-gradient(90deg, rgba(248, 176, 59, 0.15), rgba(248, 176, 59, 0.05));
+    border: 1px solid rgba(248, 176, 59, 0.3);
+    border-radius: 12px;
+    margin-bottom: 40px;
+  }
+
+  .bonus-icon {
+    font-size: 24px;
+  }
+
+  .bonus-text {
+    font-size: 16px;
+    color: var(--color-white);
+  }
+
+  .staking-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .staking-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--color-white-10);
+    border-radius: 20px;
+    padding: 32px;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .staking-card:hover {
+    border-color: rgba(248, 176, 59, 0.3);
+    transform: translateY(-5px);
+  }
+
+  .staking-card.recommended {
+    border-color: var(--color-primary);
+    background: rgba(248, 176, 59, 0.05);
+  }
+
+  .recommended-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 6px 16px;
+    background: var(--color-primary);
+    color: var(--color-black);
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 20px;
+    text-transform: uppercase;
+  }
+
+  .staking-header {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .staking-name {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-white);
+    margin-bottom: 6px;
+  }
+
+  .staking-desc {
+    font-size: 14px;
+    color: var(--color-gray);
+  }
+
+  .staking-apy {
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  .apy-value {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .apy-label {
+    display: block;
+    font-size: 14px;
+    color: var(--color-gray);
+  }
+
+  .staking-bonus {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .bonus-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(74, 222, 128, 0.2);
+    color: #4ade80;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 20px;
+  }
+
+  .total-apy {
+    display: block;
+    margin-top: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-white);
+  }
+
+  .staking-lock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    color: var(--color-gray);
+    font-size: 14px;
+  }
+
+  .staking-features {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 24px;
+  }
+
+  .staking-features li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    font-size: 14px;
+    color: var(--color-white);
+    border-bottom: 1px solid var(--color-white-10);
+  }
+
+  .staking-features li:last-child {
+    border-bottom: none;
+  }
+
+  .staking-cta {
+    width: 100%;
+    padding: 14px;
+    background: var(--color-primary);
+    border: none;
+    border-radius: 12px;
+    color: var(--color-black);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .staking-cta:hover {
+    background: #e9a235;
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 1024px) {
+    .staking-grid {
+      grid-template-columns: 1fr;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .staking-bonus-banner {
+      flex-direction: column;
+      text-align: center;
+      gap: 8px;
+    }
+
+    .apy-value {
+      font-size: 40px;
+    }
+  }
+</style>

@@ -1,0 +1,475 @@
+---
+interface Props {
+  tokenSymbol: string;
+  presalePrice: number;
+  listingPrice: number;
+  hardCap: string;
+  raised: string;
+  progress: number;
+  daysRemaining: number;
+}
+
+const { 
+  tokenSymbol, 
+  presalePrice, 
+  listingPrice, 
+  hardCap, 
+  raised, 
+  progress,
+  daysRemaining 
+} = Astro.props;
+
+const savings = Math.round((1 - presalePrice / listingPrice) * 100);
+---
+
+<section class="presale-hero">
+  <div class="hero-bg">
+    <div class="hero-glow"></div>
+    <div class="hero-grid"></div>
+  </div>
+  
+  <div class="hero-content">
+    <div class="token-badge">
+      <span class="token-icon">◈</span>
+      <span class="token-symbol">{tokenSymbol}</span>
+      <span class="token-status">PRESALE ACTIVO</span>
+    </div>
+    
+    <h1 class="hero-title">
+      El Token que Impulsa la
+      <span class="highlight">Revolución Solar</span>
+    </h1>
+    
+    <p class="hero-subtitle">
+      Únete al presale de {tokenSymbol} y sé parte de la red de energía renovable más grande de Latinoamérica. 
+      Precio exclusivo, vesting transparente y staking con recompensas reales.
+    </p>
+    
+    <!-- Price Display -->
+    <div class="price-display">
+      <div class="current-price">
+        <span class="price-label">Precio Presale</span>
+        <span class="price-value">${presalePrice}</span>
+        <span class="price-unit">USD</span>
+      </div>
+      <div class="price-divider"></div>
+      <div class="listing-price">
+        <span class="price-label">Precio Listado</span>
+        <span class="price-value-striked">${listingPrice}</span>
+        <span class="price-savings">Ahorra {savings}%</span>
+      </div>
+    </div>
+    
+    <!-- Progress Bar -->
+    <div class="progress-section">
+      <div class="progress-header">
+        <span>Progreso del Presale</span>
+        <span class="progress-percent">{progress}%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" style={`width: ${progress}%`}></div>
+      </div>
+      <div class="progress-stats">
+        <span><strong>{raised}</strong> recaudados</span>
+        <span>Hard Cap: <strong>{hardCap}</strong></span>
+      </div>
+    </div>
+    
+    <!-- Countdown -->
+    <div class="countdown-wrapper">
+      <p class="countdown-label">El presale termina en:</p>
+      <div class="countdown">
+        <div class="countdown-item">
+          <span class="countdown-number" id="days">{daysRemaining}</span>
+          <span class="countdown-text">Días</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-number" id="hours">00</span>
+          <span class="countdown-text">Horas</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-number" id="minutes">00</span>
+          <span class="countdown-text">Min</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-number" id="seconds">00</span>
+          <span class="countdown-text">Seg</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="hero-ctas">
+      <a href="#buy" class="cta-primary">
+        Comprar {tokenSymbol}
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#tokenomics" class="cta-secondary">Ver Tokenomics</a>
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ daysRemaining }}>
+  const endDate = new Date();
+  endDate.setDate(endDate.getDate() + daysRemaining);
+  
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = endDate.getTime() - now;
+    
+    if (distance < 0) {
+      document.querySelectorAll('.countdown-number').forEach(el => el.textContent = '00');
+      return;
+    }
+    
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+    
+    if (daysEl) daysEl.textContent = days.toString().padStart(2, '0');
+    if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
+    if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
+    if (secondsEl) secondsEl.textContent = seconds.toString().padStart(2, '0');
+  }
+  
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
+
+<style>
+  .presale-hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, rgba(248, 176, 59, 0.15) 0%, transparent 50%);
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(248, 176, 59, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(248, 176, 59, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+  }
+
+  .hero-content {
+    max-width: 900px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .token-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 24px;
+    background: rgba(248, 176, 59, 0.1);
+    border: 1px solid rgba(248, 176, 59, 0.3);
+    border-radius: 50px;
+    margin-bottom: 30px;
+  }
+
+  .token-icon {
+    font-size: 20px;
+    color: var(--color-primary);
+  }
+
+  .token-symbol {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-white);
+  }
+
+  .token-status {
+    font-size: 12px;
+    font-weight: 600;
+    color: #4ade80;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .hero-title {
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 700;
+    color: var(--color-white);
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+
+  .hero-title .highlight {
+    display: block;
+    color: var(--color-primary);
+  }
+
+  .hero-subtitle {
+    font-size: clamp(16px, 2vw, 20px);
+    color: var(--color-gray);
+    line-height: 1.6;
+    max-width: 700px;
+    margin: 0 auto 40px;
+  }
+
+  .price-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+
+  .current-price, .listing-price {
+    text-align: center;
+  }
+
+  .price-label {
+    display: block;
+    font-size: 14px;
+    color: var(--color-gray);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .price-value {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .price-unit {
+    font-size: 18px;
+    color: var(--color-gray);
+    margin-left: 5px;
+  }
+
+  .price-divider {
+    width: 1px;
+    height: 60px;
+    background: var(--color-white-10);
+  }
+
+  .price-value-striked {
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--color-gray);
+    text-decoration: line-through;
+  }
+
+  .price-savings {
+    display: block;
+    margin-top: 8px;
+    padding: 4px 12px;
+    background: rgba(74, 222, 128, 0.2);
+    border-radius: 20px;
+    color: #4ade80;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .progress-section {
+    max-width: 500px;
+    margin: 0 auto 40px;
+  }
+
+  .progress-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: var(--color-gray);
+  }
+
+  .progress-percent {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  .progress-bar {
+    height: 12px;
+    background: var(--color-dark-gray);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-primary), #e9a235);
+    border-radius: 10px;
+    transition: width 0.5s ease;
+  }
+
+  .progress-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--color-gray);
+  }
+
+  .progress-stats strong {
+    color: var(--color-white);
+  }
+
+  .countdown-wrapper {
+    margin-bottom: 40px;
+  }
+
+  .countdown-label {
+    font-size: 14px;
+    color: var(--color-gray);
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .countdown {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--color-white-10);
+    border-radius: 12px;
+    padding: 20px;
+    min-width: 80px;
+  }
+
+  .countdown-number {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--color-white);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .countdown-text {
+    font-size: 12px;
+    color: var(--color-gray);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 5px;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .cta-primary, .cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 32px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .cta-primary {
+    background: var(--color-primary);
+    color: var(--color-black);
+  }
+
+  .cta-primary:hover {
+    background: #e9a235;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(248, 176, 59, 0.3);
+  }
+
+  .cta-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--color-white-20);
+    color: var(--color-white);
+  }
+
+  .cta-secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--color-primary);
+  }
+
+  @media (max-width: 768px) {
+    .price-display {
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .price-divider {
+      width: 60px;
+      height: 1px;
+    }
+
+    .countdown {
+      gap: 10px;
+    }
+
+    .countdown-item {
+      padding: 15px 12px;
+      min-width: 65px;
+    }
+
+    .countdown-number {
+      font-size: 28px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-ctas {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .cta-primary, .cta-secondary {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .countdown-item {
+      padding: 12px 8px;
+      min-width: 55px;
+    }
+
+    .countdown-number {
+      font-size: 24px;
+    }
+
+    .price-value {
+      font-size: 40px;
+    }
+  }
+</style>

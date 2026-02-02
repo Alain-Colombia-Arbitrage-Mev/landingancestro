@@ -1,0 +1,222 @@
+---
+interface VestingPhase {
+  phase: string;
+  percent: number;
+  description: string;
+}
+
+interface Props {
+  schedule: VestingPhase[];
+  tgePercent: number;
+  vestingMonths: number;
+}
+
+const { schedule, tgePercent, vestingMonths } = Astro.props;
+---
+
+<section class="vesting-section" id="vesting">
+  <div class="section-header">
+    <span class="section-badge">Vesting</span>
+    <h2 class="section-title">Calendario de Liberación</h2>
+    <p class="section-subtitle">Transparente, justo y sin sorpresas</p>
+  </div>
+  
+  <div class="vesting-container">
+    <div class="vesting-info">
+      <div class="vesting-highlight">
+        <div class="highlight-icon">🔓</div>
+        <div class="highlight-content">
+          <h3>{tgePercent}% Disponible al Listar</h3>
+          <p>Recibe tokens inmediatamente cuando ANC se liste en exchanges. Sin esperas iniciales.</p>
+        </div>
+      </div>
+      
+      <div class="vesting-highlight">
+        <div class="highlight-icon">📅</div>
+        <div class="highlight-content">
+          <h3>{vestingMonths} Meses de Liberación Lineal</h3>
+          <p>El {100 - tgePercent}% restante se libera gradualmente cada mes. Predecible y transparente.</p>
+        </div>
+      </div>
+      
+      <div class="vesting-highlight">
+        <div class="highlight-icon">✨</div>
+        <div class="highlight-content">
+          <h3>Sin Cliff Period</h3>
+          <p>No hay período de espera forzado. Comienza a recibir desde el día 1.</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="vesting-timeline">
+      <div class="timeline-header">
+        <span>Cronograma de Vesting</span>
+      </div>
+      {schedule.map((item) => (
+        <div class="timeline-item">
+          <div class="timeline-phase">{item.phase}</div>
+          <div class="timeline-bar">
+            <div class="timeline-fill" style={`width: ${item.percent}%`}></div>
+          </div>
+          <div class="timeline-percent">{item.percent}%</div>
+        </div>
+      ))}
+      <div class="timeline-total">
+        <span>Total liberado después de {vestingMonths} meses</span>
+        <span class="total-percent">100%</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .vesting-section {
+    padding: 100px 20px;
+    background: rgba(248, 176, 59, 0.03);
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .section-badge {
+    display: inline-block;
+    padding: 8px 20px;
+    background: rgba(248, 176, 59, 0.15);
+    border: 1px solid rgba(248, 176, 59, 0.3);
+    border-radius: 50px;
+    color: var(--color-primary);
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+
+  .section-title {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 700;
+    color: var(--color-white);
+    margin-bottom: 16px;
+  }
+
+  .section-subtitle {
+    font-size: clamp(16px, 2vw, 18px);
+    color: var(--color-gray);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .vesting-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .vesting-highlight {
+    display: flex;
+    gap: 20px;
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--color-white-10);
+    border-radius: 16px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+  }
+
+  .vesting-highlight:hover {
+    border-color: rgba(248, 176, 59, 0.3);
+  }
+
+  .highlight-icon {
+    font-size: 32px;
+    flex-shrink: 0;
+  }
+
+  .highlight-content h3 {
+    font-size: 18px;
+    color: var(--color-white);
+    margin-bottom: 8px;
+  }
+
+  .highlight-content p {
+    font-size: 14px;
+    color: var(--color-gray);
+    line-height: 1.5;
+  }
+
+  .vesting-timeline {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--color-white-10);
+    border-radius: 20px;
+    padding: 30px;
+  }
+
+  .timeline-header {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-white);
+    margin-bottom: 24px;
+  }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 80px 1fr 50px;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .timeline-phase {
+    font-size: 14px;
+    color: var(--color-gray);
+  }
+
+  .timeline-bar {
+    height: 24px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .timeline-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-primary), #e9a235);
+    border-radius: 12px;
+    transition: width 0.5s ease;
+  }
+
+  .timeline-percent {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-primary);
+    text-align: right;
+  }
+
+  .timeline-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--color-white-10);
+    font-size: 15px;
+    color: var(--color-white);
+  }
+
+  .total-percent {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  @media (max-width: 1024px) {
+    .vesting-container {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

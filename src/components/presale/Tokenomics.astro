@@ -1,0 +1,219 @@
+---
+interface Allocation {
+  name: string;
+  percent: number;
+  amount: string;
+  color: string;
+}
+
+interface Props {
+  totalSupply: string;
+  allocations: Allocation[];
+}
+
+const { totalSupply, allocations } = Astro.props;
+
+// Calculate stroke-dasharray for donut chart
+const circumference = 2 * Math.PI * 80; // r=80
+let offset = 0;
+const segments = allocations.map(alloc => {
+  const dashArray = (alloc.percent / 100) * circumference;
+  const segment = {
+    ...alloc,
+    dashArray,
+    dashOffset: -offset
+  };
+  offset += dashArray;
+  return segment;
+});
+---
+
+<section class="tokenomics-section" id="tokenomics">
+  <div class="section-header">
+    <span class="section-badge">Tokenomics</span>
+    <h2 class="section-title">Distribución del Token ANC</h2>
+    <p class="section-subtitle">Diseñado para el crecimiento sostenible y la comunidad</p>
+  </div>
+  
+  <div class="tokenomics-grid">
+    <div class="tokenomics-chart">
+      <div class="chart-visual">
+        <svg viewBox="0 0 200 200" class="donut-chart">
+          <circle cx="100" cy="100" r="80" fill="none" stroke="#1a1a1a" stroke-width="30"/>
+          {segments.map((segment) => (
+            <circle 
+              cx="100" 
+              cy="100" 
+              r="80" 
+              fill="none" 
+              stroke={segment.color} 
+              stroke-width="30"
+              stroke-dasharray={`${segment.dashArray} ${circumference - segment.dashArray}`}
+              stroke-dashoffset={segment.dashOffset}
+              class="chart-segment"
+            />
+          ))}
+        </svg>
+        <div class="chart-center">
+          <span class="chart-total">{totalSupply}</span>
+          <span class="chart-label">Total Supply</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="tokenomics-breakdown">
+      <div class="token-allocation">
+        {allocations.map((alloc) => (
+          <div class="allocation-item">
+            <div class="allocation-color" style={`background: ${alloc.color}`}></div>
+            <div class="allocation-info">
+              <span class="allocation-name">{alloc.name}</span>
+              <span class="allocation-percent">{alloc.percent}%</span>
+            </div>
+            <span class="allocation-amount">{alloc.amount}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .tokenomics-section {
+    padding: 100px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .section-badge {
+    display: inline-block;
+    padding: 8px 20px;
+    background: rgba(248, 176, 59, 0.15);
+    border: 1px solid rgba(248, 176, 59, 0.3);
+    border-radius: 50px;
+    color: var(--color-primary);
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+
+  .section-title {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 700;
+    color: var(--color-white);
+    margin-bottom: 16px;
+  }
+
+  .section-subtitle {
+    font-size: clamp(16px, 2vw, 18px);
+    color: var(--color-gray);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .tokenomics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .chart-visual {
+    position: relative;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .donut-chart {
+    width: 100%;
+    transform: rotate(-90deg);
+  }
+
+  .chart-segment {
+    transition: opacity 0.3s ease;
+  }
+
+  .chart-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  .chart-total {
+    display: block;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-white);
+  }
+
+  .chart-label {
+    font-size: 12px;
+    color: var(--color-gray);
+    text-transform: uppercase;
+  }
+
+  .token-allocation {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .allocation-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+  }
+
+  .allocation-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .allocation-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  .allocation-info {
+    flex: 1;
+  }
+
+  .allocation-name {
+    display: block;
+    font-size: 15px;
+    color: var(--color-white);
+    font-weight: 500;
+  }
+
+  .allocation-percent {
+    font-size: 13px;
+    color: var(--color-gray);
+  }
+
+  .allocation-amount {
+    font-size: 14px;
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  @media (max-width: 1024px) {
+    .tokenomics-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+</style>
