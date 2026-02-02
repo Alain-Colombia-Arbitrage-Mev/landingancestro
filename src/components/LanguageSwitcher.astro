@@ -219,7 +219,7 @@ const currentLanguage = languages[currentLang];
   /* Mobile styles */
   @media (max-width: 768px) {
     .lang-switcher {
-      z-index: 1001;
+      position: static;
     }
 
     .lang-trigger {
@@ -236,15 +236,15 @@ const currentLanguage = languages[currentLang];
 
     .lang-dropdown {
       position: fixed;
-      top: auto;
-      bottom: 20px;
-      left: 20px;
-      right: 20px;
-      min-width: auto;
-      width: auto;
-      max-height: 60vh;
+      top: 70px;
+      right: 16px;
+      left: auto;
+      bottom: auto;
+      min-width: 200px;
+      max-width: calc(100vw - 32px);
+      max-height: 70vh;
       overflow-y: auto;
-      transform: translateY(20px);
+      transform: translateY(-10px);
       z-index: 10000;
     }
 
@@ -253,8 +253,8 @@ const currentLanguage = languages[currentLang];
     }
 
     .lang-option {
-      padding: 16px 18px;
-      min-height: 56px;
+      padding: 14px 16px;
+      min-height: 52px;
       touch-action: manipulation;
       -webkit-tap-highlight-color: transparent;
     }
@@ -264,7 +264,7 @@ const currentLanguage = languages[currentLang];
     }
 
     .lang-name {
-      font-size: 16px;
+      font-size: 15px;
     }
   }
 </style>
