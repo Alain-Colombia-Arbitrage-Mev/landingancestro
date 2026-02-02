@@ -18,9 +18,11 @@ const questions = [
     
     <div class="questions-wrapper">
       <div class="questions-track">
-        {questions.map((question, index) => (
+        <!-- Duplicamos la primera pregunta al final para transición suave -->
+        {questions.map((question) => (
           <span class="question-item">"{question}"</span>
         ))}
+        <span class="question-item">"{questions[0]}"</span>
       </div>
     </div>
     
@@ -78,7 +80,7 @@ const questions = [
   .questions-track {
     display: flex;
     flex-direction: column;
-    animation: slideTrack 9s infinite;
+    animation: slideTrack 12s linear infinite;
   }
 
   .question-item {
@@ -92,17 +94,29 @@ const questions = [
   }
 
   @keyframes slideTrack {
-    0%, 30% {
+    0% {
       transform: translateY(0);
     }
-    33.33%, 63.33% {
+    22% {
+      transform: translateY(0);
+    }
+    25% {
       transform: translateY(-24px);
     }
-    66.66%, 96.66% {
+    47% {
+      transform: translateY(-24px);
+    }
+    50% {
       transform: translateY(-48px);
     }
+    72% {
+      transform: translateY(-48px);
+    }
+    75% {
+      transform: translateY(-72px);
+    }
     100% {
-      transform: translateY(0);
+      transform: translateY(-72px);
     }
   }
 
@@ -135,17 +149,29 @@ const questions = [
     }
 
     @keyframes slideTrack {
-      0%, 30% {
+      0% {
         transform: translateY(0);
       }
-      33.33%, 63.33% {
+      22% {
+        transform: translateY(0);
+      }
+      25% {
         transform: translateY(-20px);
       }
-      66.66%, 96.66% {
+      47% {
+        transform: translateY(-20px);
+      }
+      50% {
         transform: translateY(-40px);
       }
+      72% {
+        transform: translateY(-40px);
+      }
+      75% {
+        transform: translateY(-60px);
+      }
       100% {
-        transform: translateY(0);
+        transform: translateY(-60px);
       }
     }
   }
