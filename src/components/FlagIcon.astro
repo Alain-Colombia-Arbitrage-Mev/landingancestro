@@ -1,0 +1,37 @@
+---
+interface Props {
+  code: string;
+  size?: number;
+}
+
+const { code, size = 24 } = Astro.props;
+
+// SVG flags for each language
+const flags: Record<string, string> = {
+  es: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><mask id="es"><circle cx="256" cy="256" r="256" fill="#fff"/></mask><g mask="url(#es)"><path fill="#ffda44" d="M0 128h512v256H0z"/><path fill="#d80027" d="M0 0h512v128H0zm0 384h512v128H0z"/></g></svg>`,
+  en: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><mask id="us"><circle cx="256" cy="256" r="256" fill="#fff"/></mask><g mask="url(#us)"><path fill="#eee" d="M256 0h256v64l-32 32 32 32v64l-32 32 32 32v64l-32 32 32 32v64l-256 32L0 448v-64l32-32-32-32v-64z"/><path fill="#d80027" d="M224 64h288v64H224Zm0 128h288v64H256ZM0 320h512v64H0Zm0 128h512v64H0Z"/><path fill="#0052b4" d="M0 0h256v256H0Z"/><g fill="#eee"><path d="m187 243 57-41h-70l57 41-22-67zm-81 0 57-41H93l57 41-22-67zm-81 0 57-41H12l57 41-22-67zm162-81 57-41h-70l57 41-22-67zm-81 0 57-41H93l57 41-22-67zm-81 0 57-41H12l57 41-22-67Zm162-82 57-41h-70l57 41-22-67Zm-81 0 57-41H93l57 41-22-67Zm-81 0 57-41H12l57 41-22-67Z"/></g></g></svg>`,
+  pt: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><mask id="br"><circle cx="256" cy="256" r="256" fill="#fff"/></mask><g mask="url(#br)"><path fill="#6da544" d="M0 0h512v512H0z"/><path fill="#ffda44" d="M256 100.2 467.5 256 256 411.8 44.5 256z"/><circle cx="256" cy="256" r="89" fill="#eee"/><path fill="#0052b4" d="M211.5 250a89 89 0 0 0-44.5 6.3 89 89 0 0 0 178 0 89 89 0 0 0-133.5-6.3z"/></g></svg>`,
+  zh: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><mask id="cn"><circle cx="256" cy="256" r="256" fill="#fff"/></mask><g mask="url(#cn)"><path fill="#d80027" d="M0 0h512v512H0z"/><path fill="#ffda44" d="m140.1 155.8 22.1 68h71.5l-57.8 42.1 22.1 68-57.9-42-57.9 42 22.2-68-57.9-42.1H118zm163.4 240.7-16.9-20.8-25 9.7 14.5-22.5-16.9-20.9 25.9 6.9 14.6-22.5 1.4 26.8 26 6.9-25.1 9.6zm33.6-61 8-25.6-21.9-15.5 26.8-.4 7.9-25.6 8.7 25.4 26.8-.3-21.5 16 8.6 25.4-21.9-15.5zm45.3-147.6L370.6 212l19.2 18.7-26.5-3.8-11.8 24-4.6-26.4-26.6-3.8 23.8-12.5-4.6-26.5 19.2 18.7zm-78.2-73-2 26.7 24.9 10.1-26.1 6.4-1.9 26.8-14.1-22.8-26.1 6.4 17.3-20.5-14.2-22.7 24.9 10.1z"/></g></svg>`,
+  ar: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><mask id="sa"><circle cx="256" cy="256" r="256" fill="#fff"/></mask><g mask="url(#sa)"><path fill="#6da544" d="M0 0h512v512H0z"/><g fill="#eee"><path d="M144.7 306v-89h22.3v66.8h111.3V195h22.3v111zM367 306v-89h22.3v88.9zM166.8 239.1h111.5v22.3H166.8z"/><path d="M211.5 217h22.3v67h-22.3zm67 0h22.3v67h-22.3zm67 67h22.3v22h-22.3z"/><path d="M144.7 306h244.6v22.3H144.7z"/></g></g></svg>`,
+};
+
+const flagSvg = flags[code] || flags.es;
+---
+
+<span class="flag-icon" style={`width: ${size}px; height: ${size}px;`} set:html={flagSvg} />
+
+<style>
+  .flag-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .flag-icon :global(svg) {
+    width: 100%;
+    height: 100%;
+  }
+</style>

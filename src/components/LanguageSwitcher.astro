@@ -1,5 +1,6 @@
 ---
 import { languages, getLangFromUrl, useTranslatedPath, getRouteFromUrl } from '../i18n/utils';
+import FlagIcon from './FlagIcon.astro';
 
 const currentLang = getLangFromUrl(Astro.url);
 const currentRoute = getRouteFromUrl(Astro.url);
@@ -8,7 +9,7 @@ const currentLanguage = languages[currentLang];
 
 <div class="lang-switcher" id="lang-switcher">
   <button class="lang-trigger" id="lang-trigger" aria-expanded="false" aria-haspopup="listbox">
-    <span class="lang-flag">{currentLanguage.flag}</span>
+    <FlagIcon code={currentLang} size={20} />
     <span class="lang-code">{currentLang.toUpperCase()}</span>
     <svg class="lang-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none">
       <path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -28,7 +29,7 @@ const currentLanguage = languages[currentLang];
           role="option"
           aria-selected={isActive}
         >
-          <span class="lang-flag">{lang.flag}</span>
+          <FlagIcon code={code} size={24} />
           <span class="lang-name">{lang.name}</span>
           {isActive && (
             <svg class="lang-check" width="16" height="16" viewBox="0 0 24 24" fill="none">
@@ -115,11 +116,6 @@ const currentLanguage = languages[currentLang];
     border-color: rgba(248, 176, 59, 0.4);
   }
 
-  .lang-flag {
-    font-size: 18px;
-    line-height: 1;
-  }
-
   .lang-code {
     font-size: 13px;
     letter-spacing: 0.5px;
@@ -177,10 +173,6 @@ const currentLanguage = languages[currentLang];
 
   .lang-option.active {
     background: rgba(248, 176, 59, 0.15);
-  }
-
-  .lang-option .lang-flag {
-    font-size: 22px;
   }
 
   .lang-name {
