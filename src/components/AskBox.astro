@@ -41,25 +41,35 @@ const questions = [
   function rotateQuestion() {
     if (!display) return;
     
-    // Add exit animation class
-    display.classList.add('slide-out');
+    // Fade out slowly
+    display.style.opacity = '0';
+    display.style.transform = 'translateY(-8px)';
     
     setTimeout(() => {
       // Change question
       index = (index + 1) % questions.length;
       display.textContent = `"${questions[index]}"`;
       
-      // Switch to enter animation
-      display.classList.remove('slide-out');
-      display.classList.add('slide-in');
+      // Position below
+      display.style.transition = 'none';
+      display.style.transform = 'translateY(8px)';
       
-      setTimeout(() => {
-        display.classList.remove('slide-in');
-      }, 500);
-    }, 500);
+      // Force reflow
+      display.offsetHeight;
+      
+      // Fade in slowly
+      display.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
+      display.style.opacity = '1';
+      display.style.transform = 'translateY(0)';
+    }, 800);
   }
 
-  setInterval(rotateQuestion, 3500);
+  // Initial styles
+  if (display) {
+    display.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
+  }
+
+  setInterval(rotateQuestion, 4000);
 </script>
 
 <style>
@@ -79,7 +89,6 @@ const questions = [
     padding: 12px 20px;
     background-color: rgba(0, 0, 0, 0.9);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
-    overflow: hidden;
   }
 
   .ask-icon {
@@ -104,40 +113,6 @@ const questions = [
     color: rgba(255, 255, 255, 0.5);
     white-space: nowrap;
     display: inline-block;
-    transform: translateY(0);
-    opacity: 1;
-  }
-
-  /* Exit animation - slide up and fade out */
-  .question-display.slide-out {
-    animation: slideOut 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  }
-
-  /* Enter animation - slide up from below and fade in */
-  .question-display.slide-in {
-    animation: slideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  }
-
-  @keyframes slideOut {
-    0% {
-      transform: translateY(0);
-      opacity: 1;
-    }
-    100% {
-      transform: translateY(-20px);
-      opacity: 0;
-    }
-  }
-
-  @keyframes slideIn {
-    0% {
-      transform: translateY(20px);
-      opacity: 0;
-    }
-    100% {
-      transform: translateY(0);
-      opacity: 1;
-    }
   }
 
   .ask-icon-right {
