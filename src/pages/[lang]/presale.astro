@@ -10,6 +10,7 @@ import StakingTiers from '@components/presale/StakingTiers.astro';
 import StakingCalculator from '@components/presale/StakingCalculator.astro';
 import BuyForm from '@components/presale/BuyForm.astro';
 import PresaleFAQ from '@components/presale/PresaleFAQ.astro';
+import PresaleManifesto from '@components/presale/PresaleManifesto.astro';
 import { getLanguagePaths } from '../../i18n/config';
 import { useTranslations, type Lang } from '../../i18n/utils';
 
@@ -40,6 +41,7 @@ const presaleConfig = {
     <main id="main-content" role="main" class="presale-page">
       <PresaleHero config={presaleConfig} />
       <PresaleBenefits />
+      <PresaleManifesto />
       <Tokenomics config={presaleConfig} />
       <VestingSchedule />
       <StakingTiers />
