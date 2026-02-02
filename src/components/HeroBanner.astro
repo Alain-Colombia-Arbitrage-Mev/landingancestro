@@ -1,11 +1,14 @@
 ---
 import CTA from './CTA.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
 
 interface Props {
   backgroundImage: string;
 }
 
 const { backgroundImage } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <section class="hero">
@@ -17,16 +20,16 @@ const { backgroundImage } = Astro.props;
   <div class="hero-wrapper">
     <div class="hero-content">
       <div class="hero-text">
-        <p class="hero-subtitle">SOLAR SUBSCRIPTION</p>
+        <p class="hero-subtitle">{t('hero.badge')}</p>
         <h1 class="hero-title">
-          <span>Lower Your Electric Bill</span>
-          <span>With Clean Energy.</span>
+          <span>{t('hero.title')}</span>
+          <span>{t('hero.title2')}</span>
         </h1>
       </div>
 
       <div class="hero-actions">
-        <CTA variant="secondary" text="Learn More" href="#learn-more" />
-        <CTA variant="primary" text="Get Started" href="#get-started" />
+        <CTA variant="secondary" text={t('hero.cta2')} href="#learn-more" />
+        <CTA variant="primary" text={t('hero.cta')} href="#get-started" />
       </div>
     </div>
   </div>

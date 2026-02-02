@@ -1,5 +1,6 @@
 ---
 import Flags from './Flags.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
 
 interface FlagData {
   country: string;
@@ -12,6 +13,8 @@ interface Props {
 }
 
 const { mapImage, flags } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <section class="latam-section">
@@ -19,10 +22,10 @@ const { mapImage, flags } = Astro.props;
     <div class="latam-left">
       <div class="latam-content">
         <h2 class="latam-title">
-          Join LATAM's Fastest Growing Solar + Battery Subscription Network
+          {t('latam.title')} {t('latam.title2')}
         </h2>
         <p class="latam-subtitle">
-          $0 upfront. Day-one savings. Long-term stability. Available now in 18 countries.
+          {t('latam.subtitle')}
         </p>
         
         <div class="flags-grid">
@@ -31,7 +34,7 @@ const { mapImage, flags } = Astro.props;
           ))}
         </div>
         
-        <a href="#get-started" class="cta-button">Get Started</a>
+        <a href="#get-started" class="cta-button">{t('hero.cta')}</a>
       </div>
     </div>
 

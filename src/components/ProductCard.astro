@@ -1,5 +1,6 @@
 ---
 import CTA from './CTA.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
 
 interface Props {
   title: string;
@@ -8,6 +9,8 @@ interface Props {
 }
 
 const { title, description, backgroundImage } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <article class="product-card">
@@ -29,8 +32,8 @@ const { title, description, backgroundImage } = Astro.props;
           <p class="product-description">{description}</p>
         </div>
         <div class="product-actions">
-          <CTA variant="secondary" text="Order Now" ariaLabel={`Ordenar ${title}`} />
-          <CTA variant="primary" text="Learn More" ariaLabel={`Más información sobre ${title}`} />
+          <CTA variant="secondary" text={t('shop.order')} ariaLabel={`${t('shop.order')} ${title}`} />
+          <CTA variant="primary" text={t('shop.learn')} ariaLabel={`${t('shop.learn')} ${title}`} />
         </div>
       </div>
     </div>

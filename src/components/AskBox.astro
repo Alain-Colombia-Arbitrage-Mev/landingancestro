@@ -1,12 +1,18 @@
 ---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
 const questions = [
-  "What does Ancestro App do?",
-  "Compare BYD Dolphin with Nissan Leaf",
-  "Where can I take Test Drive?",
+  t('ask.q1'),
+  t('ask.q2'),
+  t('ask.q3'),
 ];
+const askLabel = t('ask.label');
 ---
 
-<div class="ask-box">
+<div class="ask-box" data-questions={JSON.stringify(questions)}>
   <div class="ask-box-inner">
     <!-- Desktop layout -->
     <div class="ask-row desktop-row">
@@ -16,7 +22,7 @@ const questions = [
         </svg>
       </div>
       
-      <span class="ask-label">Ask a Question</span>
+      <span class="ask-label">{askLabel}</span>
       
       <span class="question-display" id="question-display">"{questions[0]}"</span>
       
@@ -37,7 +43,7 @@ const questions = [
             <path d="M21 11.5C21.0034 12.8199 20.6951 14.1219 20.1 15.3C19.3944 16.7118 18.3098 17.8992 16.9674 18.7293C15.6251 19.5594 14.0782 19.9994 12.5 20C11.1801 20.0035 9.87812 19.6951 8.7 19.1L3 21L4.9 15.3C4.30493 14.1219 3.99656 12.8199 4 11.5C4.00061 9.92179 4.44061 8.37488 5.27072 7.03258C6.10083 5.69028 7.28825 4.6056 8.7 3.90003C9.87812 3.30496 11.1801 2.99659 12.5 3.00003H13C15.0843 3.11502 17.053 3.99479 18.5291 5.47089C20.0052 6.94699 20.885 8.91568 21 11V11.5Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <span class="ask-label">Ask a Question</span>
+        <span class="ask-label">{askLabel}</span>
         <div class="ask-icon-right">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="3" y="3" width="18" height="18" rx="3" stroke="white" stroke-width="2"/>
@@ -54,11 +60,9 @@ const questions = [
 </div>
 
 <script>
-  const questions = [
-    "What does Ancestro App do?",
-    "Compare BYD Dolphin with Nissan Leaf",
-    "Where can I take Test Drive?",
-  ];
+  const askBox = document.querySelector('.ask-box');
+  const questionsData = askBox?.getAttribute('data-questions');
+  const questions: string[] = questionsData ? JSON.parse(questionsData) : [];
   
   const displayDesktop = document.getElementById('question-display');
   const displayMobile = document.getElementById('question-display-mobile');
