@@ -10,6 +10,7 @@ import AccordionSection from '@components/invest/AccordionSection.astro';
 import InvestNumbers from '@components/invest/InvestNumbers.astro';
 import Team from '@components/invest/Team.astro';
 import FinalCTA from '@components/invest/FinalCTA.astro';
+import InvestToasts from '@components/invest/InvestToasts.astro';
 
 // i18n
 import { useTranslations } from '../i18n/utils';
@@ -110,6 +111,9 @@ const deepDivePanels = [
         valuation={INVESTMENT.valuation}
       />
     </main>
+
+    <!-- Investment Notifications -->
+    <InvestToasts sharePrice={INVESTMENT.sharePrice} />
 
     <Footer backgroundImage={footerBg} />
   </div>

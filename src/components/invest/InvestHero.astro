@@ -10,46 +10,62 @@ const { sharePrice, valuation } = Astro.props;
 <section class="invest-hero">
   <div class="hero-bg">
     <div class="hero-gradient"></div>
+    <div class="hero-grid-lines"></div>
   </div>
 
   <div class="hero-inner">
     <div class="hero-accent-line"></div>
 
     <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
       <span>Delaware C-Corp</span>
       <span class="badge-sep"></span>
       <span>SAFE Agreement</span>
+      <span class="badge-sep"></span>
+      <span>SEC Compliant</span>
     </div>
 
     <h1 class="hero-title">
-      Invest in the future<br />of renewable energy
+      Invest in the <span class="hero-title-gold">infrastructure</span><br />of energy independence
     </h1>
 
     <p class="hero-subtitle">
-      Ancestro is building the operating system for global energy independence
-      — starting with charging infrastructure across emerging markets.
+      Ancestro is building the operating system for renewable energy adoption
+      across 18 emerging markets. Capital-light. Platform-first. Inevitable.
     </p>
 
     <div class="hero-stats">
       <div class="stat">
         <span class="stat-value">{sharePrice}</span>
-        <span class="stat-label">Per Share</span>
+        <span class="stat-label">Share Price</span>
       </div>
       <div class="stat-divider"></div>
       <div class="stat">
         <span class="stat-value">{valuation}</span>
-        <span class="stat-label">Valuation</span>
+        <span class="stat-label">Pre-Money Valuation</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-value">18</span>
+        <span class="stat-label">Target Markets</span>
       </div>
     </div>
 
     <div class="hero-ctas">
-      <a href="#buy-stock" class="cta-primary">Buy Ancestro Stock</a>
-      <a href="#deck" class="cta-secondary">
-        <span>View Investor Deck</span>
+      <a href="#buy-stock" class="cta-primary">
+        <span>Invest Now</span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#deep-dive" class="cta-secondary">
+        <span>Read the Thesis</span>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M5 12h14M12 5l7 7-7 7"/>
         </svg>
       </a>
+    </div>
+
+    <div class="hero-proof">
+      <span class="hero-proof-text">Joined by investors from <strong>12 countries</strong></span>
     </div>
   </div>
 </section>
@@ -85,6 +101,18 @@ const { sharePrice, valuation } = Astro.props;
       rgba(248, 176, 59, 0.06) 0%,
       transparent 100%
     );
+    pointer-events: none;
+  }
+
+  .hero-grid-lines {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: radial-gradient(ellipse 60% 50% at 50% 30%, black 10%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse 60% 50% at 50% 30%, black 10%, transparent 70%);
     pointer-events: none;
   }
 
@@ -138,12 +166,26 @@ const { sharePrice, valuation } = Astro.props;
     margin-bottom: 40px;
   }
 
+  .hero-badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 8px rgba(74, 222, 128, 0.5);
+    animation: heroPulse 2s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
   .badge-sep {
     width: 3px;
     height: 3px;
     border-radius: 50%;
     background: var(--color-gray, rgba(255, 255, 255, 0.35));
     flex-shrink: 0;
+  }
+
+  .hero-title-gold {
+    color: var(--color-primary);
   }
 
   /* Heading */
@@ -219,28 +261,27 @@ const { sharePrice, valuation } = Astro.props;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 14px 36px;
+    gap: 8px;
+    padding: 16px 40px;
     background: var(--color-primary);
     color: var(--color-black);
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: -0.005em;
-    border-radius: 10px;
+    border-radius: 12px;
     text-decoration: none;
-    transition: background var(--transition-fast, 0.15s ease),
-                box-shadow var(--transition-fast, 0.15s ease),
-                transform var(--transition-fast, 0.15s ease);
+    box-shadow: 0 0 0 1px rgba(248, 176, 59, 0.3), 0 4px 16px rgba(248, 176, 59, 0.15);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .cta-primary:hover {
     background: #f9bc55;
-    box-shadow: 0 4px 24px rgba(248, 176, 59, 0.25);
-    transform: translateY(-1px);
+    box-shadow: 0 0 0 1px rgba(248, 176, 59, 0.5), 0 8px 32px rgba(248, 176, 59, 0.25);
+    transform: translateY(-2px);
   }
 
   .cta-primary:active {
     transform: translateY(0);
-    box-shadow: 0 2px 12px rgba(248, 176, 59, 0.2);
   }
 
   .cta-secondary {
@@ -283,14 +324,29 @@ const { sharePrice, valuation } = Astro.props;
   }
 
   @keyframes accentReveal {
-    0% {
-      opacity: 0;
-      width: 0;
-    }
-    100% {
-      opacity: 1;
-      width: 48px;
-    }
+    0% { opacity: 0; width: 0; }
+    100% { opacity: 1; width: 48px; }
+  }
+
+  @keyframes heroPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* Social proof */
+  .hero-proof {
+    margin-top: 48px;
+    text-align: center;
+  }
+
+  .hero-proof-text {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  .hero-proof-text strong {
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 600;
   }
 
   /* Mobile */

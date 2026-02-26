@@ -4,17 +4,31 @@
 <section class="invest-thesis">
   <div class="thesis-container">
     <span class="thesis-label">THE THESIS</span>
-    <h2 class="thesis-heading">Two crises. One platform.</h2>
+    <h2 class="thesis-heading">Two converging crises. One platform.</h2>
 
     <div class="thesis-grid">
       <div class="thesis-problem">
         <div class="thesis-card">
           <span class="card-tag">The Problem</span>
           <p class="card-text">
-            Energy adoption across LATAM is constrained by fragmented stakeholders,
-            poor coordination, and no scalable platforms. Meanwhile, modern lifestyles
-            drive chronic disease, environmental degradation, and loss of meaning.
+            Energy adoption across LATAM is constrained by fragmented supply chains,
+            zero coordination between stakeholders, and no scalable platforms. Meanwhile,
+            modern lifestyles drive chronic disease and environmental collapse.
           </p>
+          <div class="card-stats">
+            <div class="card-stat">
+              <span class="card-stat-val">650M</span>
+              <span class="card-stat-lbl">Underserved</span>
+            </div>
+            <div class="card-stat">
+              <span class="card-stat-val">$47B</span>
+              <span class="card-stat-lbl">Energy market</span>
+            </div>
+            <div class="card-stat">
+              <span class="card-stat-val">&lt;3%</span>
+              <span class="card-stat-lbl">Solar adoption</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -31,13 +45,13 @@
           <p class="card-text">
             Ancestro is a platform — not a contractor — connecting customers, installers,
             distributors, and investors through a fintech layer. Capital-light, infinitely
-            replicable, with defensible network effects.
+            replicable, with compounding network effects.
           </p>
           <div class="card-features">
             <span>Copy-paste market entry</span>
             <span>Multi-vertical expansion</span>
-            <span>First-mover in 18 countries</span>
-            <span>Mission-driven brand</span>
+            <span>First mover in 18 countries</span>
+            <span>Mission-driven brand moat</span>
           </div>
         </div>
       </div>
@@ -139,6 +153,36 @@
     border-radius: 100px;
     background: rgba(248, 176, 59, 0.06);
     white-space: nowrap;
+  }
+
+  .card-stats {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--color-white-10);
+  }
+
+  .card-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .card-stat-val {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-white);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+  }
+
+  .card-stat-lbl {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    color: var(--color-gray);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
   }
 
   @media (max-width: 768px) {

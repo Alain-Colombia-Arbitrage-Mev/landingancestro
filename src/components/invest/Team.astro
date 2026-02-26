@@ -117,6 +117,17 @@ function getInitials(name: string): string {
   .team-section {
     padding: 64px 24px;
     background: var(--color-black);
+    position: relative;
+  }
+
+  .team-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-white-10), transparent);
   }
 
   .team-container {
@@ -149,16 +160,17 @@ function getInitials(name: string): string {
   .team-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: var(--color-white-10);
+    gap: 16px;
   }
 
   .team-member {
-    padding: 32px 28px;
-    background: var(--color-black);
+    padding: 28px;
+    background: rgba(255, 255, 255, 0.015);
+    border: 1px solid var(--color-white-10);
+    border-radius: 16px;
     opacity: 0;
     transform: translateY(24px);
-    transition: opacity 0.5s ease, transform 0.5s ease, background 0.3s ease;
+    transition: opacity 0.5s ease, transform 0.5s ease, border-color 0.2s ease, background 0.2s ease;
   }
 
   .team-member.visible {
@@ -167,7 +179,8 @@ function getInitials(name: string): string {
   }
 
   .team-member:hover {
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.025);
+    border-color: rgba(248, 176, 59, 0.15);
   }
 
   .member-top {
@@ -178,12 +191,12 @@ function getInitials(name: string): string {
   }
 
   .member-avatar {
-    width: 64px;
-    height: 64px;
-    min-width: 64px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(248, 176, 59, 0.3);
+    width: 56px;
+    height: 56px;
+    min-width: 56px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(248, 176, 59, 0.1), rgba(248, 176, 59, 0.03));
+    border: 1px solid rgba(248, 176, 59, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -258,25 +271,22 @@ function getInitials(name: string): string {
   .advisors-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: var(--color-white-10);
+    gap: 16px;
   }
 
   .advisor-member {
-    padding: 24px 24px;
-    background: var(--color-black);
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.015);
+    border: 1px solid var(--color-white-10);
+    border-radius: 14px;
     opacity: 0;
     transform: translateY(24px);
-    transition: opacity 0.5s ease, transform 0.5s ease, background 0.3s ease;
+    transition: opacity 0.5s ease, transform 0.5s ease;
   }
 
   .advisor-member.visible {
     opacity: 1;
     transform: translateY(0);
-  }
-
-  .advisor-member:hover {
-    background: rgba(255, 255, 255, 0.03);
   }
 
   .advisor-top {

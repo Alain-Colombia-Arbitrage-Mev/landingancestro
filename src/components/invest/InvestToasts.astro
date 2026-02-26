@@ -1,0 +1,232 @@
+---
+interface Props {
+  sharePrice?: string;
+}
+
+const { sharePrice = '$1.00' } = Astro.props;
+---
+
+<div class="invest-proof-container" id="invest-proof"></div>
+
+<style is:global>
+  .invest-proof-container {
+    position: fixed;
+    bottom: 100px;
+    left: 24px;
+    z-index: 9999;
+    pointer-events: none;
+  }
+
+  .invest-toast {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    min-width: 320px;
+    max-width: 380px;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.12) 0%,
+      rgba(255, 255, 255, 0.06) 50%,
+      rgba(255, 255, 255, 0.04) 100%
+    );
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 16px;
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.4),
+      0 0 0 1px rgba(255, 255, 255, 0.06) inset,
+      0 1px 0 rgba(255, 255, 255, 0.15) inset;
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: auto;
+  }
+
+  .invest-toast.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .invest-toast.hiding {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+
+  .invest-toast-flag {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    background: linear-gradient(
+      135deg,
+      rgba(248, 176, 59, 0.2) 0%,
+      rgba(248, 176, 59, 0.06) 100%
+    );
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(248, 176, 59, 0.35);
+    border-radius: 12px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .invest-toast-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .invest-toast-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .invest-toast-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 8px;
+    background: rgba(74, 222, 128, 0.2);
+    border: 1px solid rgba(74, 222, 128, 0.5);
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #4ade80;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .invest-toast-badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: #4ade80;
+    border-radius: 50%;
+    box-shadow: 0 0 6px #4ade80;
+    animation: investBlink 1s infinite;
+  }
+
+  @keyframes investBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .invest-toast-time {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .invest-toast-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #f8b03b;
+    font-family: monospace;
+  }
+
+  .invest-toast-msg {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.3;
+  }
+
+  .invest-toast-msg .invest-toast-amount {
+    font-weight: 700;
+  }
+
+  .invest-toast-msg .invest-toast-amount strong {
+    font-size: 20px;
+    font-weight: 800;
+    color: #ffffff;
+  }
+
+  .invest-toast-msg .invest-toast-amount em {
+    font-style: normal;
+    font-size: 14px;
+    font-weight: 700;
+    color: #f8b03b;
+  }
+
+  .invest-toast-shares {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 2px;
+  }
+
+  @media (max-width: 768px) {
+    .invest-proof-container {
+      left: 16px;
+      right: 16px;
+      bottom: 80px;
+    }
+
+    .invest-toast {
+      min-width: auto;
+      max-width: none;
+      width: 100%;
+    }
+  }
+</style>
+
+<script define:vars={{ sharePrice }}>
+  const investors = [
+    { name: 'Michael R.', amount: 25000, flag: '🇺🇸' },
+    { name: 'Carlos M.', amount: 10000, flag: '🇲🇽' },
+    { name: 'Sarah L.', amount: 50000, flag: '🇬🇧' },
+    { name: 'Ana P.', amount: 15000, flag: '🇨🇴' },
+    { name: 'David K.', amount: 100000, flag: '🇩🇪' },
+    { name: 'Ricardo F.', amount: 8000, flag: '🇧🇷' },
+    { name: 'James W.', amount: 35000, flag: '🇨🇦' },
+    { name: 'Lucia H.', amount: 20000, flag: '🇪🇸' },
+  ];
+
+  let idx = 0;
+  const container = document.getElementById('invest-proof');
+
+  function showInvestToast() {
+    if (!container) return;
+
+    const inv = investors[idx];
+    const mins = Math.floor(Math.random() * 8) + 1;
+    const shares = inv.amount;
+
+    const toast = document.createElement('div');
+    toast.className = 'invest-toast';
+    toast.innerHTML = `
+      <div class="invest-toast-flag">${inv.flag}</div>
+      <div class="invest-toast-details">
+        <div class="invest-toast-top">
+          <span class="invest-toast-badge">Verified Investor</span>
+          <span class="invest-toast-time">${mins} min ago</span>
+        </div>
+        <div class="invest-toast-name">${inv.name}</div>
+        <div class="invest-toast-msg">Invested <span class="invest-toast-amount"><strong>$${inv.amount.toLocaleString()}</strong> <em>USD</em></span></div>
+        <div class="invest-toast-shares">${shares.toLocaleString()} shares via SAFE Agreement</div>
+      </div>
+    `;
+
+    container.appendChild(toast);
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        toast.classList.add('visible');
+      });
+    });
+
+    setTimeout(() => {
+      toast.classList.remove('visible');
+      toast.classList.add('hiding');
+      setTimeout(() => toast.remove(), 500);
+    }, 5000);
+
+    idx = (idx + 1) % investors.length;
+  }
+
+  setTimeout(showInvestToast, 3000);
+  setInterval(showInvestToast, 8000);
+</script>

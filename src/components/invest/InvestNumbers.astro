@@ -32,7 +32,13 @@ const terms = [
     <div class="numbers-grid">
       <!-- Left: Terms -->
       <div class="terms-block">
-        <h3 class="block-title">Structure</h3>
+        <div class="block-title-row">
+          <h3 class="block-title">Deal Terms</h3>
+          <span class="verified-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Verified
+          </span>
+        </div>
         <div class="terms-list">
           {terms.map((t) => (
             <div class="term-row">
@@ -87,6 +93,17 @@ const terms = [
 <style>
   .invest-numbers {
     padding: 64px 24px;
+    position: relative;
+  }
+
+  .invest-numbers::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-white-10), transparent);
   }
 
   .numbers-container {
@@ -120,13 +137,35 @@ const terms = [
     margin-bottom: 48px;
   }
 
+  .block-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
   .block-title {
     font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: var(--color-gray);
-    margin: 0 0 20px;
+    margin: 0;
+  }
+
+  .verified-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border-radius: 100px;
+    border: 1px solid rgba(74, 222, 128, 0.25);
+    background: rgba(74, 222, 128, 0.06);
+    color: #4ade80;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
 
   /* Terms */
