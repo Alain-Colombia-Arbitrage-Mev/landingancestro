@@ -6,6 +6,7 @@ export const translations = {
     'nav.vehicles': 'Vehículos',
     'nav.shop': 'Tienda',
     'nav.presale': 'Presale',
+    'nav.invest': 'Invertir',
     'nav.waitlist': 'Lista de Espera',
     'nav.login': 'Iniciar Sesión',
     
@@ -298,6 +299,7 @@ export const translations = {
     'nav.vehicles': 'Vehicles',
     'nav.shop': 'Shop',
     'nav.presale': 'Presale',
+    'nav.invest': 'Invest',
     'nav.waitlist': 'Waitlist',
     'nav.login': 'Login',
     
@@ -590,6 +592,7 @@ export const translations = {
     'nav.vehicles': 'Veículos',
     'nav.shop': 'Loja',
     'nav.presale': 'Pré-venda',
+    'nav.invest': 'Investir',
     'nav.waitlist': 'Lista de Espera',
     'nav.login': 'Entrar',
     
@@ -882,6 +885,7 @@ export const translations = {
     'nav.vehicles': '车辆',
     'nav.shop': '商店',
     'nav.presale': '预售',
+    'nav.invest': '投资',
     'nav.waitlist': '等候名单',
     'nav.login': '登录',
     
@@ -1174,6 +1178,7 @@ export const translations = {
     'nav.vehicles': 'المركبات',
     'nav.shop': 'المتجر',
     'nav.presale': 'البيع المسبق',
+    'nav.invest': 'استثمر',
     'nav.waitlist': 'قائمة الانتظار',
     'nav.login': 'تسجيل الدخول',
     

@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run validate-translations:*)",
+      "Bash(npm run build:*)",
+      "Bash(grep:*)"
+    ]
+  }
+}

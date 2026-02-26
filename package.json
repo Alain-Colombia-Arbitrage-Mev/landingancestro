@@ -6,12 +6,16 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "validate-translations": "tsx src/scripts/validate-translations.ts"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.0",
     "@nanostores/persistent": "^1.3.0",
     "astro": "^5.17.1",
     "nanostores": "^1.1.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.21.0"
   }
 }

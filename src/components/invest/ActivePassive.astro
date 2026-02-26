@@ -1,0 +1,209 @@
+---
+---
+
+<section class="active-passive">
+  <div class="container">
+    <h2 class="section-title">Passive Capital. <span class="highlight">Active Alignment Welcome.</span></h2>
+
+    <div class="options-grid">
+      <div class="option-card">
+        <div class="option-label">Passive</div>
+        <h3>Capital Allocation</h3>
+        <p>Invest and let the Ancestro team execute. Receive regular updates, reports, and participate in the upside as the platform scales globally.</p>
+        <ul class="option-features">
+          <li>Quarterly investor updates</li>
+          <li>Access to investor dashboard</li>
+          <li>SAFE agreement protection</li>
+        </ul>
+      </div>
+
+      <div class="option-card active">
+        <div class="option-label">Active</div>
+        <h3>Strategic Partnership</h3>
+        <p>Beyond capital — contribute your network, expertise, or distribution capabilities. Active investors receive deeper access and accelerated alignment.</p>
+        <ul class="option-features">
+          <li>Advisory opportunities</li>
+          <li>Network introductions</li>
+          <li>Co-development pathways</li>
+          <li>Early access to new verticals</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="final-cta">
+      <a href="#buy-stock" class="cta-primary">
+        Buy Ancestro Stock
+      </a>
+      <p class="contact-line">
+        Questions? Reach us at <a href="mailto:invest@ancestro.com" class="email-link">invest@ancestro.com</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .active-passive {
+    padding: 100px 24px 120px;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-size: clamp(24px, 3.5vw, 36px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-white);
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .highlight {
+    color: var(--color-primary);
+  }
+
+  .options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 60px;
+  }
+
+  .option-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 40px;
+    transition: all 0.3s ease;
+  }
+
+  .option-card:hover {
+    border-color: rgba(255,255,255,0.15);
+  }
+
+  .option-card.active {
+    border-color: rgba(248,176,59,0.25);
+    background: rgba(248,176,59,0.03);
+  }
+
+  .option-card.active:hover {
+    border-color: rgba(248,176,59,0.4);
+  }
+
+  .option-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 16px;
+  }
+
+  .option-card.active .option-label {
+    color: var(--color-primary);
+  }
+
+  .option-card h3 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--color-white);
+    margin-bottom: 12px;
+  }
+
+  .option-card p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+
+  .option-features {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .option-features li {
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .option-features li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 7px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+  }
+
+  .option-card.active .option-features li::before {
+    background: var(--color-primary);
+  }
+
+  .final-cta {
+    text-align: center;
+  }
+
+  .cta-primary {
+    display: inline-flex;
+    align-items: center;
+    padding: 16px 48px;
+    background: var(--color-primary);
+    color: var(--color-black);
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 14px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-bottom: 16px;
+  }
+
+  .cta-primary:hover {
+    background: #ffbe4d;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(248,176,59,0.35);
+  }
+
+  .contact-line {
+    font-size: 14px;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .email-link {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .email-link:hover {
+    color: #ffbe4d;
+  }
+
+  @media (max-width: 768px) {
+    .active-passive {
+      padding: 60px 20px 80px;
+    }
+
+    .options-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .option-card {
+      padding: 28px 24px;
+    }
+
+    .cta-primary {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>

@@ -1,0 +1,113 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Navbar from '@components/Navbar.astro';
+import Footer from '@components/Footer.astro';
+
+// Invest Components
+import InvestHero from '@components/invest/InvestHero.astro';
+import InvestorFilter from '@components/invest/InvestorFilter.astro';
+import CoreProblem from '@components/invest/CoreProblem.astro';
+import AncestroSolution from '@components/invest/AncestroSolution.astro';
+import WhyWeWin from '@components/invest/WhyWeWin.astro';
+import AncestroWorld from '@components/invest/AncestroWorld.astro';
+import AncestroCoin from '@components/invest/AncestroCoin.astro';
+import Philanthropy from '@components/invest/Philanthropy.astro';
+import UseOfFunds from '@components/invest/UseOfFunds.astro';
+import InvestmentTerms from '@components/invest/InvestmentTerms.astro';
+import ActivePassive from '@components/invest/ActivePassive.astro';
+import Team from '@components/invest/Team.astro';
+import InvestorDeck from '@components/invest/InvestorDeck.astro';
+import FinalCTA from '@components/invest/FinalCTA.astro';
+
+// i18n
+import { useTranslations } from '../i18n/utils';
+import { defaultLang } from '../i18n/languages';
+
+const t = useTranslations(defaultLang);
+
+// Investment Configuration
+const INVESTMENT = {
+  sharePrice: "$1.00",
+  valuation: "$25M",
+};
+
+const footerBg = "/images/footer-bg.png";
+---
+
+<Layout
+  title="Invest in Ancestro — Global Renewable Energy & Lifestyle Revolution"
+  description="Join the Ancestro revolution. $1.00 per share, $25M valuation, SAFE agreement. A private international platform pioneering energy independence across emerging markets."
+>
+  <div class="invest-page">
+    <Navbar />
+
+    <main id="main-content">
+      <!-- 1. Hero Section -->
+      <InvestHero
+        sharePrice={INVESTMENT.sharePrice}
+        valuation={INVESTMENT.valuation}
+      />
+
+      <!-- 13a. Interactive Investor Deck (after Hero) -->
+      <InvestorDeck variant="hero" />
+
+      <!-- 2. Investor Filter -->
+      <InvestorFilter />
+
+      <!-- 3. Core Problem -->
+      <CoreProblem />
+
+      <!-- 4. The Ancestro Solution -->
+      <AncestroSolution />
+
+      <!-- 5. Why We Win -->
+      <WhyWeWin />
+
+      <!-- 6. Beyond Energy: The Ancestro World -->
+      <AncestroWorld />
+
+      <!-- 7. Ancestro Coin & Carbon Strategy -->
+      <AncestroCoin />
+
+      <!-- 8. Philanthropy & Impact -->
+      <Philanthropy />
+
+      <!-- 9. Use of Funds -->
+      <UseOfFunds />
+
+      <!-- 10. Investment Terms -->
+      <InvestmentTerms
+        sharePrice={INVESTMENT.sharePrice}
+        valuation={INVESTMENT.valuation}
+      />
+
+      <!-- 11. Active & Passive Participation -->
+      <ActivePassive />
+
+      <!-- 12. Team -->
+      <Team />
+
+      <!-- 13b. Interactive Investor Deck (near bottom) -->
+      <InvestorDeck variant="bottom" />
+
+      <!-- 14. Final CTA -->
+      <FinalCTA
+        sharePrice={INVESTMENT.sharePrice}
+        valuation={INVESTMENT.valuation}
+      />
+    </main>
+
+    <Footer backgroundImage={footerBg} />
+  </div>
+</Layout>
+
+<style>
+  .invest-page {
+    background-color: var(--color-black);
+    min-height: 100vh;
+  }
+
+  main {
+    padding-top: 79px;
+  }
+</style>

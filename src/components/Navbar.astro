@@ -19,15 +19,16 @@ const navItems: NavItem[] = [
   { label: t('nav.vehicles'), href: '#vehicles', key: 'vehicles' },
   { label: t('nav.shop'), href: '#shop', key: 'shop' },
   { label: t('nav.presale'), href: translatePath('/presale'), key: 'presale' },
+  { label: t('nav.invest'), href: translatePath('/invest'), key: 'invest' },
   { label: t('nav.waitlist'), href: translatePath('/waitlist'), key: 'waitlist' },
 ];
 
 const homeHref = translatePath('/');
 ---
 
-<nav class="navbar" role="navigation" aria-label="Navegación principal">
+<nav class="navbar" role="navigation" aria-label={t('common.ariaNavigation')}>
   <div class="navbar-inner">
-    <a href={homeHref} class="logo" aria-label="Ancestro - Ir al inicio">
+    <a href={homeHref} class="logo" aria-label={t('common.ariaGoHome')}>
       <img src="/logo.svg" alt="Ancestro Logo" class="logo-img" width="200" height="40" />
     </a>
 
@@ -36,7 +37,7 @@ const homeHref = translatePath('/');
       {navItems.map((item) => (
         <a 
           href={item.href} 
-          class:list={['nav-link', { 'nav-link-highlight': item.key === 'presale' }]}
+          class:list={['nav-link', { 'nav-link-highlight': item.key === 'presale' || item.key === 'invest' }]}
         >
           {item.label}
         </a>
@@ -51,10 +52,10 @@ const homeHref = translatePath('/');
     <!-- Mobile Hamburger Button -->
     <div class="nav-right-mobile">
       <LanguageSwitcher />
-      <button 
-        class="hamburger" 
-        id="hamburger-btn" 
-        aria-label="Abrir menú"
+      <button
+        class="hamburger"
+        id="hamburger-btn"
+        aria-label={t('common.ariaOpenMenu')}
         aria-expanded="false"
       >
         <span class="hamburger-line"></span>
@@ -74,7 +75,7 @@ const homeHref = translatePath('/');
         {navItems.map((item) => (
           <a 
             href={item.href} 
-            class:list={['mobile-nav-link', { 'mobile-nav-link-highlight': item.key === 'presale' }]}
+            class:list={['mobile-nav-link', { 'mobile-nav-link-highlight': item.key === 'presale' || item.key === 'invest' }]}
           >
             {item.label}
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -89,7 +90,7 @@ const homeHref = translatePath('/');
       </div>
       
       <div class="mobile-footer">
-        <p>Únete a la revolución solar</p>
+        <p>{t('common.joinRevolution')}</p>
         <div class="mobile-socials">
           <a href="#" aria-label="Twitter">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -416,6 +417,7 @@ const homeHref = translatePath('/');
     .mobile-menu.active .mobile-nav-link:nth-child(4) { transition-delay: 0.2s; }
     .mobile-menu.active .mobile-nav-link:nth-child(5) { transition-delay: 0.25s; }
     .mobile-menu.active .mobile-nav-link:nth-child(6) { transition-delay: 0.3s; }
+    .mobile-menu.active .mobile-nav-link:nth-child(7) { transition-delay: 0.35s; }
 
     .mobile-nav-link:hover,
     .mobile-nav-link:active {

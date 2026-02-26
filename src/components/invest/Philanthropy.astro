@@ -1,0 +1,152 @@
+---
+---
+
+<section class="philanthropy">
+  <div class="container">
+    <h2 class="section-title">Profit With <span class="highlight">Purpose</span></h2>
+
+    <p class="section-intro">
+      Ancestro commits a minimum of <strong>5% of profits</strong> to regenerative initiatives, including:
+    </p>
+
+    <div class="impact-grid">
+      <div class="impact-card">
+        <div class="impact-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </div>
+        <h3>Free Solar for Communities</h3>
+        <p>Installations for underserved communities worldwide</p>
+      </div>
+      <div class="impact-card">
+        <div class="impact-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 22c-4 0-8-2-8-6s4-6 8-10c4 4 8 6 8 10s-4 6-8 6z"/>
+          </svg>
+        </div>
+        <h3>Amazon Reforestation</h3>
+        <p>Rainforest preservation and reforestation programs</p>
+      </div>
+      <div class="impact-card">
+        <div class="impact-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M2 12C2 6.48 6.48 2 12 2c2.76 0 5.26 1.12 7.07 2.93"/>
+            <path d="M22 12c0 5.52-4.48 10-10 10-2.76 0-5.26-1.12-7.07-2.93"/>
+            <path d="M12 8v8"/><path d="M8 12h8"/>
+          </svg>
+        </div>
+        <h3>Ocean Plastic Removal</h3>
+        <p>Active cleanup and prevention initiatives</p>
+      </div>
+    </div>
+
+    <p class="closing">Impact is not an afterthought. <span>It is embedded into the operating model.</span></p>
+  </div>
+</section>
+
+<style>
+  .philanthropy {
+    padding: 100px 24px;
+    background: linear-gradient(180deg, transparent 0%, rgba(248,176,59,0.02) 50%, transparent 100%);
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .section-title {
+    font-size: clamp(24px, 3.5vw, 36px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-white);
+    margin-bottom: 20px;
+  }
+
+  .highlight {
+    color: var(--color-primary);
+  }
+
+  .section-intro {
+    font-size: 17px;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 48px;
+    line-height: 1.7;
+  }
+
+  .section-intro strong {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  .impact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 48px;
+  }
+
+  .impact-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 36px 24px;
+    transition: all 0.3s ease;
+  }
+
+  .impact-card:hover {
+    border-color: rgba(248,176,59,0.2);
+    transform: translateY(-3px);
+  }
+
+  .impact-icon {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(248,176,59,0.1);
+    border-radius: 14px;
+    margin: 0 auto 20px;
+    color: var(--color-primary);
+  }
+
+  .impact-card h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-white);
+    margin-bottom: 8px;
+  }
+
+  .impact-card p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.5;
+  }
+
+  .closing {
+    font-size: 17px;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .closing span {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  @media (max-width: 768px) {
+    .philanthropy {
+      padding: 60px 20px;
+    }
+
+    .impact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

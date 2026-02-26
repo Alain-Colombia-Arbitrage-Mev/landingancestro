@@ -1,0 +1,133 @@
+---
+---
+
+<section class="use-of-funds">
+  <div class="container">
+    <h2 class="section-title">Seed Round <span class="highlight">Use of Funds</span></h2>
+
+    <div class="funds-list">
+      <div class="fund-item">
+        <div class="fund-bar" style="--width: 30%"></div>
+        <div class="fund-content">
+          <span class="fund-label">Platform Technology & Operations</span>
+          <span class="fund-desc">Completion of platform technology and operations</span>
+        </div>
+      </div>
+      <div class="fund-item">
+        <div class="fund-bar" style="--width: 25%"></div>
+        <div class="fund-content">
+          <span class="fund-label">Market Entry</span>
+          <span class="fund-desc">Market entry costs in initial countries</span>
+        </div>
+      </div>
+      <div class="fund-item">
+        <div class="fund-bar" style="--width: 20%"></div>
+        <div class="fund-content">
+          <span class="fund-label">Legal & Regulatory</span>
+          <span class="fund-desc">Legal, regulatory, and political groundwork</span>
+        </div>
+      </div>
+      <div class="fund-item">
+        <div class="fund-bar" style="--width: 15%"></div>
+        <div class="fund-content">
+          <span class="fund-label">Pre-Sales & Partners</span>
+          <span class="fund-desc">Pre-sales and partner onboarding</span>
+        </div>
+      </div>
+      <div class="fund-item">
+        <div class="fund-bar" style="--width: 10%"></div>
+        <div class="fund-content">
+          <span class="fund-label">Infrastructure</span>
+          <span class="fund-desc">Infrastructure to support scale</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="closing">Ancestro is approaching commercial launch and pre-sales across multiple verticals.</p>
+  </div>
+</section>
+
+<style>
+  .use-of-funds {
+    padding: 100px 24px;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-size: clamp(24px, 3.5vw, 36px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-white);
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .highlight {
+    color: var(--color-primary);
+  }
+
+  .funds-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  .fund-item {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 24px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .fund-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: var(--width);
+    background: rgba(248,176,59,0.06);
+    border-right: 2px solid rgba(248,176,59,0.2);
+  }
+
+  .fund-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .fund-label {
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-white);
+    margin-bottom: 4px;
+  }
+
+  .fund-desc {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .closing {
+    font-size: 15px;
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    font-style: italic;
+  }
+
+  @media (max-width: 768px) {
+    .use-of-funds {
+      padding: 60px 20px;
+    }
+
+    .fund-item {
+      padding: 20px;
+    }
+  }
+</style>

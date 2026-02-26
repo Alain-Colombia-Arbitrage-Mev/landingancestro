@@ -1,0 +1,191 @@
+---
+interface Props {
+  sharePrice: string;
+  valuation: string;
+}
+
+const { sharePrice, valuation } = Astro.props;
+---
+
+<section class="final-cta">
+  <div class="container">
+    <div class="final-glow"></div>
+
+    <h2 class="final-title">Ancestro Is Already <span class="highlight">Underway</span></h2>
+
+    <div class="final-statements">
+      <p>The platform is built.</p>
+      <p>The markets are opening.</p>
+      <p>The network is forming.</p>
+    </div>
+
+    <div class="final-declaration">
+      <p>Ancestro is not asking if the future is coming.</p>
+      <p class="accent">We are building it.</p>
+    </div>
+
+    <div class="final-actions">
+      <a href="#buy-stock" class="cta-stock">
+        <span class="cta-main">Buy Ancestro Stock</span>
+        <span class="cta-sub">{sharePrice} per share · {valuation} valuation</span>
+      </a>
+      <a href="https://calendly.com" target="_blank" rel="noopener noreferrer" class="cta-call">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/>
+          <line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        Schedule a Private Call
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .final-cta {
+    padding: 120px 24px 140px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .container {
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .final-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(248,176,59,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .final-title {
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-white);
+    margin-bottom: 40px;
+  }
+
+  .highlight {
+    color: var(--color-primary);
+  }
+
+  .final-statements {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 36px;
+  }
+
+  .final-statements p {
+    font-size: 18px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .final-declaration {
+    margin-bottom: 48px;
+  }
+
+  .final-declaration p {
+    font-size: 17px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 8px;
+  }
+
+  .final-declaration .accent {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 0;
+  }
+
+  .final-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .cta-stock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 18px 52px;
+    background: var(--color-primary);
+    color: var(--color-black);
+    border-radius: 16px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .cta-stock:hover {
+    background: #ffbe4d;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 40px rgba(248,176,59,0.35);
+  }
+
+  .cta-main {
+    font-size: 19px;
+    font-weight: 700;
+  }
+
+  .cta-sub {
+    font-size: 12px;
+    font-weight: 500;
+    opacity: 0.75;
+  }
+
+  .cta-call {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 14px;
+    color: rgba(255,255,255,0.8);
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .cta-call:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.25);
+    color: var(--color-white);
+    transform: translateY(-2px);
+  }
+
+  .cta-call svg {
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 768px) {
+    .final-cta {
+      padding: 80px 20px 100px;
+    }
+
+    .cta-stock {
+      width: 100%;
+      padding: 16px 32px;
+    }
+
+    .cta-call {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
