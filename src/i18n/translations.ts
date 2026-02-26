@@ -15,9 +15,14 @@ export const translations = {
     'hero.title': 'Reduce tu Factura Eléctrica',
     'hero.title2': 'Con Energía Limpia.',
     'hero.subtitle': 'Únete a la red de suscripción de energía solar y baterías de más rápido crecimiento en LATAM. $0 inicial, ahorro desde el día uno.',
-    'hero.cta': 'Comenzar',
+    'hero.cta': 'Solicitar Propuesta',
     'hero.cta2': 'Más Información',
-    
+    'hero.slide2.badge': 'SUSCRIPCIÓN DE BATERÍAS',
+    'hero.slide2.title': 'Almacena Energía.',
+    'hero.slide2.title2': 'Mantente Encendido.',
+    'hero.slide2.cta': 'Solicitar Propuesta',
+    'hero.slide2.cta2': 'Más Información',
+
     // AskBox
     'ask.label': 'Haz una Pregunta',
     'ask.q1': '¿Qué hace la App Ancestro?',
@@ -308,9 +313,14 @@ export const translations = {
     'hero.title': 'Lower Your Electric Bill',
     'hero.title2': 'With Clean Energy.',
     'hero.subtitle': 'Join LATAM\'s fastest growing solar + battery subscription network. $0 upfront, day-one savings.',
-    'hero.cta': 'Get Started',
+    'hero.cta': 'Get a Proposal',
     'hero.cta2': 'Learn More',
-    
+    'hero.slide2.badge': 'BATTERY SUBSCRIPTION',
+    'hero.slide2.title': 'Store Energy.',
+    'hero.slide2.title2': 'Stay Powered.',
+    'hero.slide2.cta': 'Get a Proposal',
+    'hero.slide2.cta2': 'Learn More',
+
     // AskBox
     'ask.label': 'Ask a Question',
     'ask.q1': 'What does Ancestro App do?',
@@ -601,9 +611,14 @@ export const translations = {
     'hero.title': 'Reduza sua Conta de Energia',
     'hero.title2': 'Com Energia Limpa.',
     'hero.subtitle': 'Junte-se à rede de assinatura de energia solar e baterias que mais cresce na América Latina. $0 inicial, economia desde o primeiro dia.',
-    'hero.cta': 'Começar',
+    'hero.cta': 'Solicitar Proposta',
     'hero.cta2': 'Saiba Mais',
-    
+    'hero.slide2.badge': 'ASSINATURA DE BATERIAS',
+    'hero.slide2.title': 'Armazene Energia.',
+    'hero.slide2.title2': 'Fique Conectado.',
+    'hero.slide2.cta': 'Solicitar Proposta',
+    'hero.slide2.cta2': 'Saiba Mais',
+
     // AskBox
     'ask.label': 'Faça uma Pergunta',
     'ask.q1': 'O que o App Ancestro faz?',
@@ -894,9 +909,14 @@ export const translations = {
     'hero.title': '用清洁能源',
     'hero.title2': '降低您的电费账单',
     'hero.subtitle': '加入拉丁美洲增长最快的太阳能+电池订阅网络。零首付，首日即省钱。',
-    'hero.cta': '开始使用',
+    'hero.cta': '获取方案',
     'hero.cta2': '了解更多',
-    
+    'hero.slide2.badge': '电池订阅',
+    'hero.slide2.title': '储存能源。',
+    'hero.slide2.title2': '持续供电。',
+    'hero.slide2.cta': '获取方案',
+    'hero.slide2.cta2': '了解更多',
+
     // AskBox
     'ask.label': '提问',
     'ask.q1': 'Ancestro应用是做什么的？',
@@ -1187,9 +1207,14 @@ export const translations = {
     'hero.title': 'خفض فاتورة الكهرباء',
     'hero.title2': 'بالطاقة النظيفة',
     'hero.subtitle': 'انضم إلى أسرع شبكة اشتراك للطاقة الشمسية والبطاريات نمواً في أمريكا اللاتينية. صفر مقدم، توفير من اليوم الأول.',
-    'hero.cta': 'ابدأ الآن',
+    'hero.cta': 'اطلب عرضاً',
     'hero.cta2': 'اعرف المزيد',
-    
+    'hero.slide2.badge': 'اشتراك البطاريات',
+    'hero.slide2.title': 'خزّن الطاقة.',
+    'hero.slide2.title2': 'ابقَ مشحوناً.',
+    'hero.slide2.cta': 'اطلب عرضاً',
+    'hero.slide2.cta2': 'اعرف المزيد',
+
     // AskBox
     'ask.label': 'اطرح سؤالاً',
     'ask.q1': 'ماذا يفعل تطبيق Ancestro؟',
