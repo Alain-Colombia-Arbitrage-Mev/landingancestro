@@ -1,0 +1,383 @@
+---
+interface Props {
+  sharePrice: string;
+  valuation: string;
+}
+
+const { sharePrice, valuation } = Astro.props;
+
+const funds = [
+  { pct: 30, label: "Platform Technology & Ops" },
+  { pct: 25, label: "Market Entry" },
+  { pct: 20, label: "Legal & Regulatory" },
+  { pct: 15, label: "Pre-Sales & Partners" },
+  { pct: 10, label: "Infrastructure" },
+];
+
+const terms = [
+  { key: "Entity", val: "Delaware C-Corp" },
+  { key: "Instrument", val: "SAFE agreement" },
+  { key: "Share Price", val: sharePrice, gold: true },
+  { key: "Valuation", val: valuation, gold: true },
+  { key: "Transfer", val: "Wire to U.S. account" },
+  { key: "Profile", val: "Early-stage, high-asymmetry" },
+];
+---
+
+<section class="invest-numbers" id="buy-stock">
+  <div class="numbers-container">
+    <span class="numbers-label">INVESTMENT DETAILS</span>
+    <h2 class="numbers-heading">The Opportunity</h2>
+
+    <div class="numbers-grid">
+      <!-- Left: Terms -->
+      <div class="terms-block">
+        <h3 class="block-title">Structure</h3>
+        <div class="terms-list">
+          {terms.map((t) => (
+            <div class="term-row">
+              <span class="term-key">{t.key}</span>
+              <span class:list={['term-val', { 'term-val--gold': t.gold }]}>{t.val}</span>
+            </div>
+          ))}
+        </div>
+
+        <div class="participation-row">
+          <div class="part-option">
+            <span class="part-type">Passive</span>
+            <span class="part-desc">Capital allocation, quarterly updates, dashboard access</span>
+          </div>
+          <div class="part-option part-option--active">
+            <span class="part-badge">Recommended</span>
+            <span class="part-type">Active</span>
+            <span class="part-desc">Strategic partnership, advisory, network, co-development</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Funds -->
+      <div class="funds-block">
+        <h3 class="block-title">Use of Funds</h3>
+        <div class="funds-bars" id="funds-bars">
+          {funds.map((f) => (
+            <div class="fund-row">
+              <div class="fund-info">
+                <span class="fund-pct">{f.pct}%</span>
+                <span class="fund-name">{f.label}</span>
+              </div>
+              <div class="fund-track">
+                <div class="fund-fill" style={`--w: ${f.pct}%`}></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <div class="numbers-cta">
+      <a href="#contact" class="cta-primary">Buy Ancestro Stock</a>
+      <a href="https://calendly.com" target="_blank" rel="noopener noreferrer" class="cta-secondary">Schedule a Call</a>
+    </div>
+    <p class="numbers-contact">
+      Questions? <a href="mailto:invest@ancestro.com">invest@ancestro.com</a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .invest-numbers {
+    padding: 64px 24px;
+  }
+
+  .numbers-container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .numbers-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    margin-bottom: 12px;
+  }
+
+  .numbers-heading {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--color-white);
+    letter-spacing: -0.02em;
+    margin: 0 0 40px;
+  }
+
+  /* Two-column grid */
+  .numbers-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-bottom: 48px;
+  }
+
+  .block-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-gray);
+    margin: 0 0 20px;
+  }
+
+  /* Terms */
+  .terms-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .term-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--color-white-10);
+  }
+
+  .term-row:last-child {
+    border-bottom: none;
+  }
+
+  .term-key {
+    font-size: 0.8125rem;
+    color: var(--color-gray);
+  }
+
+  .term-val {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-white);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .term-val--gold {
+    color: var(--color-primary);
+  }
+
+  /* Participation compact */
+  .participation-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .part-option {
+    flex: 1;
+    padding: 14px;
+    border: 1px solid var(--color-white-10);
+    border-radius: 10px;
+    position: relative;
+  }
+
+  .part-option--active {
+    border-color: rgba(248, 176, 59, 0.3);
+    background: rgba(248, 176, 59, 0.04);
+  }
+
+  .part-badge {
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-primary);
+    background: var(--color-black);
+    padding: 2px 8px;
+    border: 1px solid rgba(248, 176, 59, 0.3);
+    border-radius: 100px;
+  }
+
+  .part-type {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-white);
+    margin-bottom: 4px;
+  }
+
+  .part-desc {
+    font-size: 0.75rem;
+    color: var(--color-gray);
+    line-height: 1.5;
+  }
+
+  /* Funds */
+  .funds-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .fund-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .fund-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .fund-pct {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-white);
+    font-variant-numeric: tabular-nums;
+    min-width: 36px;
+  }
+
+  .fund-name {
+    font-size: 0.8125rem;
+    color: var(--color-gray);
+  }
+
+  .fund-track {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .fund-fill {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, var(--color-primary), rgba(248, 176, 59, 0.7));
+    border-radius: 4px;
+    transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .fund-fill.is-visible {
+    width: var(--w);
+  }
+
+  /* CTA */
+  .numbers-cta {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .cta-primary {
+    display: inline-flex;
+    align-items: center;
+    padding: 14px 40px;
+    background: var(--color-primary);
+    color: var(--color-black);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .cta-primary:hover {
+    background: #ffbe4d;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(248, 176, 59, 0.25);
+  }
+
+  .cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    padding: 14px 32px;
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    border: 1px solid var(--color-white-20);
+    border-radius: 12px;
+    text-decoration: none;
+    backdrop-filter: blur(8px);
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .cta-secondary:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+  }
+
+  .numbers-contact {
+    text-align: center;
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.35);
+    margin: 0;
+  }
+
+  .numbers-contact a {
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .numbers-contact a:hover {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .invest-numbers {
+      padding: 40px 20px;
+    }
+
+    .numbers-heading {
+      font-size: 1.5rem;
+    }
+
+    .numbers-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .participation-row {
+      flex-direction: column;
+    }
+
+    .numbers-cta {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .cta-primary,
+    .cta-secondary {
+      width: 100%;
+      max-width: 340px;
+      justify-content: center;
+    }
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function() {
+    var section = document.getElementById('funds-bars');
+    if (!section) return;
+    var fills = section.querySelectorAll('.fund-fill');
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          fills.forEach(function(fill, i) {
+            setTimeout(function() { fill.classList.add('is-visible'); }, i * 100);
+          });
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    observer.observe(section);
+  });
+</script>

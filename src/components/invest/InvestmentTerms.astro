@@ -8,182 +8,190 @@ const { sharePrice, valuation } = Astro.props;
 ---
 
 <section class="investment-terms" id="buy-stock">
-  <div class="container">
-    <h2 class="section-title">Investment <span class="highlight">Opportunity</span></h2>
+  <div class="terms-container">
+    <span class="terms-label">TERMS</span>
+    <h2 class="terms-heading">Investment Structure</h2>
 
-    <div class="terms-card">
-      <div class="terms-grid">
-        <div class="term">
-          <span class="term-label">Entity</span>
-          <span class="term-value">Delaware C-Corporation: Ancestro Inc.</span>
-        </div>
-        <div class="term">
-          <span class="term-label">Instrument</span>
-          <span class="term-value">SAFE agreement</span>
-        </div>
-        <div class="term">
-          <span class="term-label">Price</span>
-          <span class="term-value primary">{sharePrice} per share</span>
-        </div>
-        <div class="term">
-          <span class="term-label">Valuation</span>
-          <span class="term-value primary">{valuation}</span>
-        </div>
-        <div class="term">
-          <span class="term-label">Fund Transfer</span>
-          <span class="term-value">Wired to U.S. bank account</span>
-        </div>
-        <div class="term">
-          <span class="term-label">Profile</span>
-          <span class="term-value">Early-stage, high-asymmetry</span>
-        </div>
+    <div class="terms-grid">
+      <div class="term-box">
+        <span class="term-key">Entity</span>
+        <span class="term-val">Delaware C-Corporation</span>
       </div>
+      <div class="term-box">
+        <span class="term-key">Instrument</span>
+        <span class="term-val">SAFE agreement</span>
+      </div>
+      <div class="term-box">
+        <span class="term-key">Share Price</span>
+        <span class="term-val term-val--gold">{sharePrice}</span>
+      </div>
+      <div class="term-box">
+        <span class="term-key">Valuation</span>
+        <span class="term-val term-val--gold">{valuation}</span>
+      </div>
+      <div class="term-box">
+        <span class="term-key">Fund Transfer</span>
+        <span class="term-val">Wired to U.S. bank account</span>
+      </div>
+      <div class="term-box">
+        <span class="term-key">Profile</span>
+        <span class="term-val">Early-stage, high-asymmetry</span>
+      </div>
+    </div>
 
-      <div class="terms-cta">
-        <a href="#contact" class="cta-buy">
-          Buy Ancestro Stock
-        </a>
-        <p class="terms-note">{sharePrice} per share · {valuation} valuation · SAFE (Delaware C-Corp)</p>
-      </div>
+    <div class="terms-action">
+      <a href="#contact" class="terms-cta">Buy Ancestro Stock</a>
     </div>
   </div>
 </section>
 
 <style>
   .investment-terms {
-    padding: 100px 24px;
-    background: linear-gradient(180deg, transparent 0%, rgba(248,176,59,0.03) 50%, transparent 100%);
+    padding: 64px 24px;
   }
 
-  .container {
-    max-width: 800px;
+  .terms-container {
+    max-width: 900px;
     margin: 0 auto;
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .section-title {
-    font-size: clamp(24px, 3.5vw, 36px);
+  .terms-container.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .terms-label {
+    display: block;
+    font-size: 0.75rem;
     font-weight: 700;
-    letter-spacing: -0.02em;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  .terms-heading {
+    font-size: 2.25rem;
+    font-weight: 600;
     color: var(--color-white);
     text-align: center;
-    margin-bottom: 48px;
-  }
-
-  .highlight {
-    color: var(--color-primary);
-  }
-
-  .terms-card {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 24px;
-    overflow: hidden;
+    margin: 0 0 32px;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
   }
 
   .terms-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0;
+    gap: 1px;
+    background: var(--color-white-10);
   }
 
-  .term {
-    padding: 24px 32px;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    border-right: 1px solid rgba(255,255,255,0.06);
+  .term-box {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 24px;
+    background: var(--color-black);
   }
 
-  .term:nth-child(even) {
-    border-right: none;
-  }
-
-  .term:nth-last-child(-n+2) {
-    border-bottom: none;
-  }
-
-  .term-label {
-    display: block;
-    font-size: 12px;
+  .term-key {
+    font-size: 0.75rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: rgba(255,255,255,0.4);
-    margin-bottom: 8px;
+    color: var(--color-gray);
+    line-height: 1;
   }
 
-  .term-value {
-    font-size: 16px;
-    font-weight: 500;
-    color: rgba(255,255,255,0.85);
+  .term-val {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-white);
+    line-height: 1.3;
   }
 
-  .term-value.primary {
+  .term-val--gold {
     color: var(--color-primary);
-    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+
+  .terms-action {
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
   }
 
   .terms-cta {
-    padding: 32px;
-    text-align: center;
-    border-top: 1px solid rgba(255,255,255,0.06);
-    background: rgba(248,176,59,0.03);
-  }
-
-  .cta-buy {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     padding: 16px 48px;
     background: var(--color-primary);
     color: var(--color-black);
-    font-size: 18px;
+    font-size: 1rem;
     font-weight: 700;
-    border-radius: 14px;
+    letter-spacing: 0.01em;
+    border-radius: 12px;
     text-decoration: none;
-    transition: all 0.3s ease;
-    margin-bottom: 12px;
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
   }
 
-  .cta-buy:hover {
+  .terms-cta:hover {
     background: #ffbe4d;
     transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(248,176,59,0.35);
+    box-shadow: 0 8px 24px rgba(248, 176, 59, 0.3);
   }
 
-  .terms-note {
-    font-size: 13px;
-    color: rgba(255,255,255,0.4);
+  .terms-cta:active {
+    transform: translateY(0);
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 640px) {
     .investment-terms {
-      padding: 60px 20px;
+      padding: 40px 20px;
+    }
+
+    .terms-heading {
+      font-size: 1.75rem;
+      margin-bottom: 40px;
     }
 
     .terms-grid {
       grid-template-columns: 1fr;
     }
 
-    .term {
-      border-right: none !important;
-      padding: 20px 24px;
-    }
-
-    .term:nth-last-child(-n+2) {
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .term:last-child {
-      border-bottom: none;
+    .terms-action {
+      margin-top: 40px;
     }
 
     .terms-cta {
-      padding: 24px 20px;
-    }
-
-    .cta-buy {
       width: 100%;
-      justify-content: center;
-      font-size: 16px;
-      padding: 14px 32px;
+      padding: 16px 32px;
     }
   }
 </style>
+
+<script>
+  const container = document.querySelector('.terms-container');
+  if (container) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            container.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    observer.observe(container);
+  }
+</script>

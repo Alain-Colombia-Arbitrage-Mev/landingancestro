@@ -1,310 +1,345 @@
 ---
 interface Props {
-  variant?: 'hero' | 'bottom';
+  variant: 'hero' | 'bottom';
 }
 
-const { variant = 'hero' } = Astro.props;
-const isBottom = variant === 'bottom';
+const { variant } = Astro.props;
+const isHero = variant === 'hero';
+
+const heading = isHero
+  ? 'The Investor Deck'
+  : 'Ready to Explore Further?';
+
+const description = isHero
+  ? 'A comprehensive overview of the Ancestro platform — market thesis, product architecture, financial model, and the team building it.'
+  : 'Dive into the detailed analysis behind our strategy, unit economics, competitive landscape, and long-term roadmap.';
 ---
 
-<section class:list={['investor-deck', { 'investor-deck-bottom': isBottom }]} id={isBottom ? 'deck-bottom' : 'deck'}>
-  <div class="container">
-    {isBottom && (
-      <div class="deck-divider">
-        <span></span>
-      </div>
-    )}
+<section
+  class:list={['investor-deck', `investor-deck--${variant}`]}
+  id={isHero ? 'deck' : 'deck-bottom'}
+  data-animate
+>
+  <div class="investor-deck__container">
+    <div class="investor-deck__card">
 
-    <div class="deck-card">
-      <div class="deck-visual">
-        <div class="deck-preview">
-          <div class="preview-bar">
-            <div class="preview-dots">
-              <span></span><span></span><span></span>
-            </div>
-            <span class="preview-label">Ancestro Investor Deck</span>
-          </div>
-          <div class="preview-slides">
-            <div class="slide">
-              <div class="slide-logo">A</div>
-              <div class="slide-title">The Ancestro Vision</div>
-              <div class="slide-sub">Global Renewable Energy & Lifestyle Platform</div>
-            </div>
-            <div class="slide-nav">
-              <span class="dot active"></span>
-              <span class="dot"></span>
-              <span class="dot"></span>
-              <span class="dot"></span>
-              <span class="dot"></span>
+      <div class="investor-deck__visual">
+        <div class="investor-deck__mockup">
+          <div class="mockup__slide">
+            <div class="mockup__line mockup__line--title"></div>
+            <div class="mockup__line mockup__line--subtitle"></div>
+            <div class="mockup__spacer"></div>
+            <div class="mockup__line mockup__line--body"></div>
+            <div class="mockup__line mockup__line--body mockup__line--short"></div>
+            <div class="mockup__spacer"></div>
+            <div class="mockup__row">
+              <div class="mockup__block"></div>
+              <div class="mockup__block"></div>
+              <div class="mockup__block"></div>
             </div>
           </div>
+          <button class="mockup__play" aria-label="Play investor deck">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M8 5.14v13.72a1 1 0 0 0 1.5.86l11.04-6.86a1 1 0 0 0 0-1.72L9.5 4.28a1 1 0 0 0-1.5.86z" fill="currentColor"/>
+            </svg>
+          </button>
         </div>
       </div>
 
-      <div class="deck-content">
-        <div class="deck-badge">Interactive</div>
-        <h3 class="deck-title">
-          {isBottom ? 'See the Full Vision' : 'Explore the Ancestro Vision'}
-        </h3>
-        <p class="deck-description">
-          {isBottom
-            ? 'Our interactive deck covers the full thesis — market opportunity, platform architecture, financial projections, and team.'
-            : 'A comprehensive interactive presentation covering our platform, market opportunity, business model, and path to scale.'
-          }
-        </p>
-        <a href="#" class="deck-cta">
-          Explore the Ancestro Vision
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-            <polyline points="15 3 21 3 21 9"/>
-            <line x1="10" y1="14" x2="21" y2="3"/>
+      <div class="investor-deck__content">
+        <h3 class="investor-deck__heading">{heading}</h3>
+        <p class="investor-deck__description">{description}</p>
+        <a href="#deck" class="investor-deck__cta">
+          <span>Explore the Ancestro Vision</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
           </svg>
         </a>
       </div>
+
     </div>
   </div>
 </section>
 
 <style>
+  /* ── Layout ── */
   .investor-deck {
-    padding: 60px 24px;
+    padding: 48px 24px;
   }
 
-  .investor-deck-bottom {
-    padding: 40px 24px 80px;
+  .investor-deck--bottom {
+    padding: 32px 24px 48px;
   }
 
-  .container {
-    max-width: 900px;
+  .investor-deck__container {
+    max-width: 1100px;
     margin: 0 auto;
   }
 
-  .deck-divider {
-    text-align: center;
-    margin-bottom: 40px;
-  }
-
-  .deck-divider span {
-    display: inline-block;
-    width: 60px;
-    height: 2px;
-    background: rgba(248,176,59,0.3);
-    border-radius: 1px;
-  }
-
-  .deck-card {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 24px;
+  .investor-deck__card {
+    display: flex;
+    align-items: stretch;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--color-white-10);
+    border-radius: 16px;
     overflow: hidden;
-    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s ease;
   }
 
-  .deck-card:hover {
-    border-color: rgba(248,176,59,0.2);
+  .investor-deck__card:hover {
+    border-color: var(--color-white-20);
   }
 
-  /* Visual Side */
-  .deck-visual {
-    background: rgba(248,176,59,0.03);
-    padding: 32px;
+  [data-animate].is-visible .investor-deck__card {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Visual / Mockup Side ── */
+  .investor-deck__visual {
+    flex: 0 0 44%;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 48px 40px;
+    position: relative;
   }
 
-  .deck-preview {
+  .investor-deck__mockup {
+    position: relative;
     width: 100%;
-    max-width: 320px;
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.1);
-    background: rgba(0,0,0,0.4);
-  }
-
-  .preview-bar {
+    max-width: 340px;
+    aspect-ratio: 16 / 10;
+    border: 1px solid rgba(248, 176, 59, 0.12);
+    border-radius: 8px;
+    background: rgba(30, 22, 8, 0.45);
+    padding: 24px 28px;
     display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 14px;
-    background: rgba(255,255,255,0.04);
-    border-bottom: 1px solid rgba(255,255,255,0.06);
+    flex-direction: column;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 0 1px rgba(248, 176, 59, 0.05), 0 0 24px rgba(248, 176, 59, 0.04);
   }
 
-  .preview-dots {
+  .investor-deck__card:hover .investor-deck__mockup {
+    border-color: rgba(248, 176, 59, 0.25);
+    box-shadow: 0 0 0 1px rgba(248, 176, 59, 0.08), 0 0 32px rgba(248, 176, 59, 0.07);
+  }
+
+  .mockup__slide {
+    flex: 1;
     display: flex;
-    gap: 5px;
+    flex-direction: column;
   }
 
-  .preview-dots span {
-    width: 8px;
+  .mockup__line {
+    border-radius: 2px;
+    background: var(--color-white-10);
+  }
+
+  .mockup__line--title {
     height: 8px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.15);
+    width: 55%;
+    margin-bottom: 8px;
+    background: rgba(248, 176, 59, 0.25);
   }
 
-  .preview-dots span:first-child {
-    background: rgba(255,80,80,0.5);
+  .mockup__line--subtitle {
+    height: 5px;
+    width: 38%;
+    margin-bottom: 0;
   }
 
-  .preview-dots span:nth-child(2) {
-    background: rgba(255,200,50,0.5);
-  }
-
-  .preview-dots span:nth-child(3) {
-    background: rgba(80,200,80,0.5);
-  }
-
-  .preview-label {
-    font-size: 11px;
-    color: rgba(255,255,255,0.3);
-    font-weight: 500;
-  }
-
-  .preview-slides {
-    padding: 32px 24px 20px;
-  }
-
-  .slide {
-    text-align: center;
-    margin-bottom: 24px;
-  }
-
-  .slide-logo {
-    width: 44px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--color-primary);
-    color: var(--color-black);
-    font-size: 20px;
-    font-weight: 800;
-    border-radius: 10px;
-    margin: 0 auto 14px;
-  }
-
-  .slide-title {
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--color-white);
+  .mockup__line--body {
+    height: 4px;
+    width: 80%;
     margin-bottom: 6px;
   }
 
-  .slide-sub {
-    font-size: 11px;
-    color: rgba(255,255,255,0.4);
+  .mockup__line--short {
+    width: 52%;
   }
 
-  .slide-nav {
+  .mockup__spacer {
+    flex: 1;
+    min-height: 10px;
+  }
+
+  .mockup__row {
     display: flex;
-    justify-content: center;
-    gap: 6px;
+    gap: 8px;
   }
 
-  .dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.15);
-    transition: all 0.2s ease;
-  }
-
-  .dot.active {
-    width: 20px;
+  .mockup__block {
+    flex: 1;
+    height: 28px;
     border-radius: 3px;
-    background: var(--color-primary);
+    border: 1px solid var(--color-white-10);
+    background: rgba(255, 255, 255, 0.02);
   }
 
-  /* Content Side */
-  .deck-content {
-    padding: 40px;
+  /* Play overlay */
+  .mockup__play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--color-white);
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+  }
+
+  .mockup__play svg {
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+    border-radius: 50%;
+    background: rgba(248, 176, 59, 0.15);
+    border: 1px solid rgba(248, 176, 59, 0.3);
+    transition: background 0.25s ease, transform 0.25s ease;
+  }
+
+  .investor-deck__mockup:hover .mockup__play {
+    opacity: 1.0;
+  }
+
+  .mockup__play:hover svg {
+    background: rgba(248, 176, 59, 0.25);
+    transform: scale(1.08);
+  }
+
+  /* ── Content Side ── */
+  .investor-deck__content {
+    flex: 1;
+    padding: 48px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 12px;
+    gap: 16px;
   }
 
-  .deck-badge {
-    display: inline-flex;
-    align-self: flex-start;
-    padding: 4px 12px;
-    background: rgba(248,176,59,0.1);
-    border: 1px solid rgba(248,176,59,0.2);
-    border-radius: 100px;
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--color-primary);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-
-  .deck-title {
-    font-size: 22px;
+  .investor-deck__heading {
+    font-size: 28px;
     font-weight: 700;
     color: var(--color-white);
     line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin: 0;
   }
 
-  .deck-description {
-    font-size: 14px;
-    color: rgba(255,255,255,0.5);
-    line-height: 1.6;
+  .investor-deck__description {
+    font-size: 15px;
+    color: var(--color-gray);
+    line-height: 1.7;
+    margin: 0;
+    max-width: 440px;
   }
 
-  .deck-cta {
+  .investor-deck__cta {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 12px 24px;
-    background: var(--color-primary);
-    color: var(--color-black);
-    font-size: 14px;
-    font-weight: 700;
-    border-radius: 12px;
-    text-decoration: none;
-    transition: all 0.3s ease;
     margin-top: 8px;
+    color: var(--color-primary);
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: gap 0.25s ease;
     align-self: flex-start;
   }
 
-  .deck-cta:hover {
-    background: #ffbe4d;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(248,176,59,0.3);
+  .investor-deck__cta span {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+    transition: background-size 0.3s ease;
+    padding-bottom: 2px;
   }
 
-  .deck-cta svg {
-    transition: transform 0.2s ease;
+  .investor-deck__cta:hover span {
+    background-size: 100% 1px;
   }
 
-  .deck-cta:hover svg {
-    transform: translate(2px, -2px);
+  .investor-deck__cta:hover {
+    gap: 12px;
   }
 
+  .investor-deck__cta svg {
+    transition: transform 0.25s ease;
+  }
+
+  .investor-deck__cta:hover svg {
+    transform: translateX(2px);
+  }
+
+  /* ── Mobile ── */
   @media (max-width: 768px) {
     .investor-deck {
-      padding: 40px 20px;
+      padding: 32px 20px;
     }
 
-    .deck-card {
-      grid-template-columns: 1fr;
+    .investor-deck--bottom {
+      padding: 20px 20px 40px;
     }
 
-    .deck-visual {
-      padding: 24px;
+    .investor-deck__card {
+      flex-direction: column;
     }
 
-    .deck-content {
-      padding: 28px 24px 32px;
+    .investor-deck__visual {
+      flex: none;
+      padding: 32px 28px;
     }
 
-    .deck-cta {
-      width: 100%;
-      justify-content: center;
+    .investor-deck__mockup {
+      max-width: 280px;
+    }
+
+    .mockup__play {
+      opacity: 1;
+    }
+
+    .investor-deck__content {
+      padding: 32px 28px 40px;
+    }
+
+    .investor-deck__heading {
+      font-size: 22px;
+    }
+
+    .investor-deck__description {
+      font-size: 14px;
     }
   }
 </style>
+
+<script>
+  function initInvestorDeck() {
+    const sections = document.querySelectorAll<HTMLElement>('[data-animate]');
+    if (!sections.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    sections.forEach((el) => observer.observe(el));
+  }
+
+  document.addEventListener('astro:page-load', initInvestorDeck);
+  initInvestorDeck();
+</script>

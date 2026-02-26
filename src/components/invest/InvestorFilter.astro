@@ -1,138 +1,239 @@
 ---
 ---
 
-<section class="investor-filter">
-  <div class="container">
-    <h2 class="section-title">This Is Not a Conventional Investment</h2>
+<section class="investor-filter" id="investor-filter">
+  <div class="investor-filter__container">
 
-    <div class="filter-content">
-      <p class="intro">Ancestro is for long-term thinkers.</p>
-      <p class="label">Our investors are typically:</p>
+    <h2 class="investor-filter__heading">
+      This Is Not a Conventional Investment
+    </h2>
 
-      <ul class="investor-traits">
-        <li>
-          <span class="trait-icon"></span>
-          American and European capital allocators
+    <div class="investor-filter__intro">
+      <p>
+        Ancestro is designed for long-term thinkers — capital allocators who
+        understand that the most consequential systems in history were built
+        before the market recognized their value. We are looking for partners,
+        not speculators.
+      </p>
+    </div>
+
+    <div class="investor-filter__body">
+      <p class="investor-filter__label">Our investors are typically:</p>
+
+      <ul class="investor-filter__traits">
+        <li class="investor-filter__trait">
+          <span class="investor-filter__bullet" aria-hidden="true"></span>
+          American and European capital allocators with a global thesis
         </li>
-        <li>
-          <span class="trait-icon"></span>
+        <li class="investor-filter__trait">
+          <span class="investor-filter__bullet" aria-hidden="true"></span>
           Comfortable with early-stage, pre-revenue ventures
         </li>
-        <li>
-          <span class="trait-icon"></span>
-          Spiritually curious, health-conscious, globally minded
+        <li class="investor-filter__trait">
+          <span class="investor-filter__bullet" aria-hidden="true"></span>
+          Spiritually curious, health-conscious, and globally minded
         </li>
-        <li>
-          <span class="trait-icon"></span>
+        <li class="investor-filter__trait">
+          <span class="investor-filter__bullet" aria-hidden="true"></span>
           Interested in legacy, impact, and asymmetric upside
         </li>
-        <li>
-          <span class="trait-icon"></span>
+        <li class="investor-filter__trait">
+          <span class="investor-filter__bullet" aria-hidden="true"></span>
           Aligned with long-term value creation over short-term exits
         </li>
       </ul>
-
-      <div class="filter-footer">
-        <p class="bold-line">This is not a quick flip.</p>
-        <p class="bold-line accent">This is the construction of a global system.</p>
-      </div>
     </div>
+
+    <footer class="investor-filter__closing">
+      <p>
+        This is not a quick flip. This is the construction of a global system
+        — one that connects ancestral wisdom with modern technology at scale.
+      </p>
+    </footer>
+
   </div>
 </section>
 
 <style>
   .investor-filter {
-    padding: 100px 24px;
+    padding: 48px 24px;
     position: relative;
   }
 
-  .container {
-    max-width: 800px;
+  .investor-filter__container {
+    max-width: 900px;
     margin: 0 auto;
   }
 
-  .section-title {
-    font-size: clamp(24px, 3.5vw, 36px);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    color: var(--color-white);
-    margin-bottom: 40px;
-    text-align: center;
-  }
-
-  .filter-content {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 20px;
-    padding: 48px;
-  }
-
-  .intro {
-    font-size: 20px;
+  /* ---- Heading ---- */
+  .investor-filter__heading {
+    font-size: 2.25rem;
     font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
     color: var(--color-white);
-    margin-bottom: 24px;
+    margin: 0 0 28px;
   }
 
-  .label {
-    font-size: 15px;
-    color: rgba(255,255,255,0.5);
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+  /* ---- Intro blockquote-style paragraph ---- */
+  .investor-filter__intro {
+    border-left: 3px solid var(--color-primary);
+    padding-left: 24px;
+    margin-bottom: 28px;
+  }
+
+  .investor-filter__intro p {
+    font-size: 1.125rem;
+    font-weight: 400;
+    line-height: 1.75;
+    color: var(--color-gray);
+    margin: 0;
+  }
+
+  /* ---- Body / traits ---- */
+  .investor-filter__body {
+    margin-bottom: 32px;
+  }
+
+  .investor-filter__label {
+    font-size: 0.8125rem;
     font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-white-20);
+    margin: 0 0 28px;
   }
 
-  .investor-traits {
+  .investor-filter__traits {
     list-style: none;
     padding: 0;
+    margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    margin-bottom: 36px;
+    gap: 20px;
   }
 
-  .investor-traits li {
+  .investor-filter__trait {
     display: flex;
-    align-items: center;
-    gap: 14px;
-    font-size: 16px;
-    color: rgba(255,255,255,0.8);
-    line-height: 1.5;
+    align-items: baseline;
+    gap: 16px;
+    font-size: 1.125rem;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--color-gray);
   }
 
-  .trait-icon {
+  .investor-filter__bullet {
     flex-shrink: 0;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    width: 20px;
+    height: 2px;
     background: var(--color-primary);
+    border-radius: 1px;
   }
 
-  .filter-footer {
-    padding-top: 32px;
-    border-top: 1px solid rgba(255,255,255,0.08);
+  /* ---- Closing statement ---- */
+  .investor-filter__closing {
+    padding-top: 28px;
+    border-top: 1px solid var(--color-white-10);
   }
 
-  .bold-line {
-    font-size: 18px;
-    font-weight: 600;
-    color: rgba(255,255,255,0.6);
-    margin-bottom: 8px;
+  .investor-filter__closing p {
+    font-size: 1.25rem;
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.7;
+    color: var(--color-white);
+    margin: 0;
   }
 
-  .bold-line.accent {
-    color: var(--color-primary);
-    margin-bottom: 0;
+  /* ---- Fade-in animation ---- */
+  .investor-filter__heading,
+  .investor-filter__intro,
+  .investor-filter__body,
+  .investor-filter__closing {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
   }
 
+  .investor-filter__heading.visible,
+  .investor-filter__intro.visible,
+  .investor-filter__body.visible,
+  .investor-filter__closing.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ---- Responsive ---- */
   @media (max-width: 768px) {
     .investor-filter {
-      padding: 60px 20px;
+      padding: 32px 20px;
     }
 
-    .filter-content {
-      padding: 32px 24px;
+    .investor-filter__heading {
+      font-size: 1.75rem;
+      margin-bottom: 36px;
+    }
+
+    .investor-filter__intro {
+      padding-left: 20px;
+      margin-bottom: 36px;
+    }
+
+    .investor-filter__intro p {
+      font-size: 1rem;
+    }
+
+    .investor-filter__body {
+      margin-bottom: 24px;
+    }
+
+    .investor-filter__trait {
+      font-size: 1rem;
+      gap: 14px;
+    }
+
+    .investor-filter__bullet {
+      width: 16px;
+    }
+
+    .investor-filter__closing {
+      padding-top: 36px;
+    }
+
+    .investor-filter__closing p {
+      font-size: 1.125rem;
     }
   }
 </style>
+
+<script is:inline>
+  (function () {
+    const section = document.getElementById('investor-filter');
+    if (!section) return;
+
+    const targets = section.querySelectorAll(
+      '.investor-filter__heading, .investor-filter__intro, .investor-filter__body, .investor-filter__closing'
+    );
+
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    targets.forEach(function (el, i) {
+      el.style.transitionDelay = (i * 0.12) + 's';
+      observer.observe(el);
+    });
+  })();
+</script>

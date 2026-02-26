@@ -1,0 +1,163 @@
+---
+---
+
+<section class="invest-thesis">
+  <div class="thesis-container">
+    <span class="thesis-label">THE THESIS</span>
+    <h2 class="thesis-heading">Two crises. One platform.</h2>
+
+    <div class="thesis-grid">
+      <div class="thesis-problem">
+        <div class="thesis-card">
+          <span class="card-tag">The Problem</span>
+          <p class="card-text">
+            Energy adoption across LATAM is constrained by fragmented stakeholders,
+            poor coordination, and no scalable platforms. Meanwhile, modern lifestyles
+            drive chronic disease, environmental degradation, and loss of meaning.
+          </p>
+        </div>
+      </div>
+
+      <div class="thesis-arrow">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"/>
+          <polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </div>
+
+      <div class="thesis-solution">
+        <div class="thesis-card thesis-card--gold">
+          <span class="card-tag card-tag--gold">The Solution</span>
+          <p class="card-text">
+            Ancestro is a platform — not a contractor — connecting customers, installers,
+            distributors, and investors through a fintech layer. Capital-light, infinitely
+            replicable, with defensible network effects.
+          </p>
+          <div class="card-features">
+            <span>Copy-paste market entry</span>
+            <span>Multi-vertical expansion</span>
+            <span>First-mover in 18 countries</span>
+            <span>Mission-driven brand</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .invest-thesis {
+    padding: 64px 24px;
+  }
+
+  .thesis-container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .thesis-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    margin-bottom: 12px;
+  }
+
+  .thesis-heading {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--color-white);
+    letter-spacing: -0.02em;
+    margin: 0 0 40px;
+  }
+
+  .thesis-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 0;
+    align-items: stretch;
+  }
+
+  .thesis-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    color: var(--color-primary);
+    opacity: 0.4;
+  }
+
+  .thesis-card {
+    height: 100%;
+    padding: 28px;
+    border: 1px solid var(--color-white-10);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .thesis-card--gold {
+    border-color: rgba(248, 176, 59, 0.15);
+    background: rgba(248, 176, 59, 0.03);
+  }
+
+  .card-tag {
+    display: inline-block;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-gray);
+    margin-bottom: 12px;
+  }
+
+  .card-tag--gold {
+    color: var(--color-primary);
+  }
+
+  .card-text {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+  }
+
+  .card-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .card-features span {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    padding: 4px 12px;
+    border: 1px solid rgba(248, 176, 59, 0.2);
+    border-radius: 100px;
+    background: rgba(248, 176, 59, 0.06);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 768px) {
+    .invest-thesis {
+      padding: 40px 20px;
+    }
+
+    .thesis-heading {
+      font-size: 1.5rem;
+    }
+
+    .thesis-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .thesis-arrow {
+      transform: rotate(90deg);
+      padding: 4px 0;
+    }
+  }
+</style>

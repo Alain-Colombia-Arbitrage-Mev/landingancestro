@@ -1,132 +1,244 @@
 ---
+const advantages = [
+  {
+    number: "01",
+    title: "Platform Model vs. Asset-Heavy Competitors",
+    description: "We own the network, not the hardware. Our asset-light architecture scales faster and cheaper than vertically integrated incumbents locked into capex cycles."
+  },
+  {
+    number: "02",
+    title: "First-Mover in Emerging Renewable Markets",
+    description: "While competitors fight over saturated markets, we are planting flags across Latin America and the Global South before infrastructure pricing hardens."
+  },
+  {
+    number: "03",
+    title: "Multi-Vertical Expansion",
+    description: "Solar, wind, EV charging, carbon credits. Each vertical shares the same operational backbone, compounding margins with every new line of business."
+  },
+  {
+    number: "04",
+    title: "Global Replication with Localized Partners",
+    description: "One playbook, adapted locally. We partner with on-the-ground operators who understand regulation, culture, and distribution in each market."
+  },
+  {
+    number: "05",
+    title: "Mission-Driven Brand",
+    description: "Purpose attracts. Customers choose us, partners seek us out, and capital flows toward companies building something that matters beyond quarterly returns."
+  }
+];
 ---
 
-<section class="why-we-win">
+<section class="why-we-win" id="why-we-win">
   <div class="container">
-    <h2 class="section-title">Why Ancestro Is <span class="highlight">Inevitable</span></h2>
+    <span class="section-label">COMPETITIVE EDGE</span>
+    <h2 class="section-heading">Why Ancestro Is Inevitable</h2>
 
-    <div class="advantages">
-      <div class="advantage-item">
-        <div class="advantage-number">01</div>
-        <div class="advantage-text">
-          <h3>Platform model vs. asset-heavy competitors</h3>
+    <div class="advantages-list">
+      {advantages.map((item) => (
+        <div class="advantage-row" data-animate>
+          <div class="advantage-number-col">
+            <span class="advantage-number">{item.number}</span>
+          </div>
+          <div class="advantage-content">
+            <h3 class="advantage-title">{item.title}</h3>
+            <p class="advantage-desc">{item.description}</p>
+          </div>
         </div>
-      </div>
-      <div class="advantage-item">
-        <div class="advantage-number">02</div>
-        <div class="advantage-text">
-          <h3>First-mover advantage in emerging renewable markets</h3>
-        </div>
-      </div>
-      <div class="advantage-item">
-        <div class="advantage-number">03</div>
-        <div class="advantage-text">
-          <h3>Multi-vertical expansion (solar, wind, EV charging, carbon)</h3>
-        </div>
-      </div>
-      <div class="advantage-item">
-        <div class="advantage-number">04</div>
-        <div class="advantage-text">
-          <h3>Global replication with localized partners</h3>
-        </div>
-      </div>
-      <div class="advantage-item">
-        <div class="advantage-number">05</div>
-        <div class="advantage-text">
-          <h3>Mission-driven brand that attracts customers, partners, and capital</h3>
-        </div>
-      </div>
+      ))}
     </div>
 
-    <div class="conclusion">
-      <p>We are building infrastructure first.</p>
-      <p class="accent">Revenue follows infrastructure.</p>
-    </div>
+    <blockquote class="closing-quote" data-animate>
+      <p>We are building infrastructure first.<br/>Revenue follows infrastructure.</p>
+    </blockquote>
   </div>
 </section>
 
 <style>
   .why-we-win {
-    padding: 100px 24px;
+    padding: 64px 24px;
+    background: var(--color-black);
   }
 
   .container {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
   }
 
-  .section-title {
-    font-size: clamp(24px, 3.5vw, 36px);
+  /* Label */
+  .section-label {
+    display: block;
+    font-size: 0.75rem;
     font-weight: 700;
-    letter-spacing: -0.02em;
-    color: var(--color-white);
-    text-align: center;
-    margin-bottom: 60px;
-  }
-
-  .highlight {
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
     color: var(--color-primary);
+    margin-bottom: 16px;
   }
 
-  .advantages {
+  /* Heading */
+  .section-heading {
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    font-weight: 600;
+    color: var(--color-white);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin: 0 0 40px 0;
+  }
+
+  /* Advantages list */
+  .advantages-list {
     display: flex;
     flex-direction: column;
-    gap: 0;
-    margin-bottom: 60px;
+    margin-bottom: 72px;
   }
 
-  .advantage-item {
+  .advantage-row {
     display: flex;
-    align-items: center;
-    gap: 24px;
-    padding: 24px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    transition: all 0.2s ease;
+    align-items: flex-start;
+    gap: 32px;
+    padding: 32px 0;
+    border-bottom: 1px solid var(--color-white-10);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
   }
 
-  .advantage-item:first-child {
-    border-top: 1px solid rgba(255,255,255,0.06);
+  .advantage-row:first-child {
+    border-top: 1px solid var(--color-white-10);
   }
 
-  .advantage-item:hover {
-    padding-left: 12px;
+  .advantage-row.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Number column */
+  .advantage-number-col {
+    flex-shrink: 0;
+    width: 56px;
+    padding-top: 2px;
   }
 
   .advantage-number {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--color-primary);
-    font-variant-numeric: tabular-nums;
-    flex-shrink: 0;
-    width: 32px;
-  }
-
-  .advantage-text h3 {
-    font-size: 17px;
-    font-weight: 500;
-    color: rgba(255,255,255,0.85);
-    line-height: 1.5;
-  }
-
-  .conclusion {
-    text-align: center;
-  }
-
-  .conclusion p {
-    font-size: 18px;
+    font-size: 3rem;
     font-weight: 600;
-    color: rgba(255,255,255,0.6);
-    margin-bottom: 8px;
-  }
-
-  .conclusion .accent {
+    font-variant-numeric: tabular-nums;
     color: var(--color-primary);
-    font-size: 20px;
+    opacity: 0.25;
+    line-height: 1;
+    letter-spacing: -0.02em;
   }
 
-  @media (max-width: 768px) {
+  /* Content */
+  .advantage-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .advantage-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-white);
+    line-height: 1.4;
+    margin: 0 0 8px 0;
+  }
+
+  .advantage-desc {
+    font-size: 0.9375rem;
+    font-weight: 400;
+    color: var(--color-gray);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* Closing quote */
+  .closing-quote {
+    border-left: 3px solid var(--color-primary);
+    padding: 0 0 0 24px;
+    margin: 0;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease 0.15s, transform 0.7s ease 0.15s;
+  }
+
+  .closing-quote.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .closing-quote p {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--color-white);
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
     .why-we-win {
-      padding: 60px 20px;
+      padding: 40px 20px;
+    }
+
+    .section-heading {
+      margin-bottom: 28px;
+    }
+
+    .advantage-row {
+      gap: 20px;
+      padding: 24px 0;
+    }
+
+    .advantage-number-col {
+      width: 44px;
+    }
+
+    .advantage-number {
+      font-size: 2.25rem;
+    }
+
+    .advantage-title {
+      font-size: 1rem;
+    }
+
+    .advantage-desc {
+      font-size: 0.875rem;
+    }
+
+    .closing-quote p {
+      font-size: 1.25rem;
+    }
+
+    .advantages-list {
+      margin-bottom: 32px;
     }
   }
 </style>
+
+<script>
+  function initWhyWeWin() {
+    const elements = document.querySelectorAll('#why-we-win [data-animate]');
+    if (!elements.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    elements.forEach((el, i) => {
+      (el as HTMLElement).style.transitionDelay = `${i * 0.1}s`;
+      observer.observe(el);
+    });
+  }
+
+  document.addEventListener('astro:page-load', initWhyWeWin);
+  initWhyWeWin();
+</script>

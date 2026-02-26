@@ -1,224 +1,271 @@
 ---
+const offerings = [
+  {
+    title: "Internal Social Platform",
+    description: "Private network for learning, mentorship, and connection across the global community.",
+  },
+  {
+    title: "Ancestral Health Education",
+    description: "Longevity protocols and nutrition practices rooted in ancestral wisdom.",
+  },
+  {
+    title: "Consciousness Practices",
+    description: "Guided breathwork, meditation, and awareness-expanding frameworks.",
+  },
+  {
+    title: "Eco-Resorts Access",
+    description: "Regenerative retreat stays at Ancestro-owned and affiliate locations worldwide.",
+  },
+  {
+    title: "Rituals & Gatherings",
+    description: "Seasonal ceremonies and member-only events across continents.",
+  },
+  {
+    title: "Community Experiences",
+    description: "Immersive group journeys designed to deepen bonds and shared purpose.",
+  },
+];
 ---
 
-<section class="ancestro-world">
-  <div class="container">
-    <div class="section-label">Beyond Energy</div>
-    <h2 class="section-title">Ancestro Is a World — <span class="highlight">Not Just a Company</span></h2>
+<section class="aw" id="ancestro-world">
+  <div class="aw__inner">
 
-    <p class="section-intro">
-      Ancestro extends beyond energy. Every participant in the ecosystem — customer, partner, or investor — is invited into a broader regenerative lifestyle framework.
+    <span class="aw__label">Beyond Energy</span>
+
+    <h2 class="aw__heading">The Ancestro World</h2>
+
+    <p class="aw__subtitle">
+      Ancestro is more than a company. It is a modern tribe built on
+      <strong>Energy Independence</strong>, <strong>Personal Sovereignty</strong>,
+      <strong>Health</strong>, <strong>Purpose</strong> &amp; <strong>Awakening</strong>.
+      Every participant in the ecosystem — customer, partner, or investor — is
+      invited into a broader regenerative lifestyle framework.
     </p>
 
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-            <circle cx="9" cy="7" r="4"/>
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-          </svg>
+    <div class="aw__grid">
+      {offerings.map((item) => (
+        <div class="aw__card">
+          <h3 class="aw__card-title">{item.title}</h3>
+          <p class="aw__card-desc">{item.description}</p>
         </div>
-        <h3>Internal Social Platform</h3>
-        <p>For learning and connection across the global community</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-          </svg>
-        </div>
-        <h3>Ancestral Health Education</h3>
-        <p>Longevity practices rooted in ancestral wisdom</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-          </svg>
-        </div>
-        <h3>Consciousness Practices</h3>
-        <p>Spiritual and consciousness-expanding experiences</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-            <polyline points="9 22 9 12 15 12 15 22"/>
-          </svg>
-        </div>
-        <h3>Eco-Resorts Access</h3>
-        <p>Ancestro-owned and affiliate regenerative retreats</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-          </svg>
-        </div>
-        <h3>Rituals & Gatherings</h3>
-        <p>Community experiences and ceremonies worldwide</p>
-      </div>
+      ))}
     </div>
 
-    <div class="tribe-pillars">
-      <h3>Ancestro is a modern tribe built on:</h3>
-      <div class="pillars">
-        <span class="pillar">Energy Independence</span>
-        <span class="pillar-sep">&middot;</span>
-        <span class="pillar">Personal Sovereignty</span>
-        <span class="pillar-sep">&middot;</span>
-        <span class="pillar">Health, Purpose & Awakening</span>
-      </div>
-    </div>
+    <p class="aw__closing">Many who enter Ancestro do not leave unchanged.</p>
 
-    <p class="closing">Many who enter Ancestro do not leave unchanged.</p>
   </div>
 </section>
 
 <style>
-  .ancestro-world {
-    padding: 100px 24px;
-    background: linear-gradient(180deg, transparent 0%, rgba(248,176,59,0.03) 50%, transparent 100%);
+  /* ── Section ─────────────────────────────────────────────── */
+  .aw {
+    position: relative;
+    padding: 64px 24px;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(248, 176, 59, 0.025) 50%,
+      transparent 100%
+    );
   }
 
-  .container {
-    max-width: 1000px;
+  .aw__inner {
+    max-width: 1200px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
-  .section-label {
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--color-primary);
-    text-align: center;
-    margin-bottom: 12px;
-  }
-
-  .section-title {
-    font-size: clamp(24px, 3.5vw, 36px);
+  /* ── Label ───────────────────────────────────────────────── */
+  .aw__label {
+    display: inline-block;
+    font-size: 11px;
     font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-primary);
+    margin-bottom: 16px;
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  /* ── Heading ─────────────────────────────────────────────── */
+  .aw__heading {
+    font-size: 2.25rem;
+    font-weight: 600;
     letter-spacing: -0.02em;
     color: var(--color-white);
     text-align: center;
     margin-bottom: 20px;
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s ease 0.08s, transform 0.6s ease 0.08s;
   }
 
-  .highlight {
-    color: var(--color-primary);
-  }
-
-  .section-intro {
-    font-size: 17px;
-    color: rgba(255,255,255,0.65);
+  /* ── Subtitle ────────────────────────────────────────────── */
+  .aw__subtitle {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--color-gray);
     text-align: center;
-    max-width: 700px;
-    margin: 0 auto 60px;
-    line-height: 1.7;
+    max-width: 720px;
+    margin-bottom: 40px;
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s ease 0.16s, transform 0.6s ease 0.16s;
   }
 
-  .features-grid {
+  .aw__subtitle strong {
+    color: var(--color-white);
+    font-weight: 600;
+  }
+
+  /* ── Grid ────────────────────────────────────────────────── */
+  .aw__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-bottom: 60px;
+    gap: 18px;
+    width: 100%;
+    margin-bottom: 72px;
   }
 
-  .feature-card {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 16px;
-    padding: 32px 24px;
-    text-align: center;
-    transition: all 0.3s ease;
-  }
-
-  .feature-card:hover {
-    border-color: rgba(248,176,59,0.2);
-    transform: translateY(-3px);
-  }
-
-  .feature-icon {
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(248,176,59,0.1);
+  /* ── Card ────────────────────────────────────────────────── */
+  .aw__card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--color-white-10);
     border-radius: 12px;
-    margin: 0 auto 16px;
-    color: var(--color-primary);
+    padding: 28px;
+    opacity: 0;
+    transform: translateY(22px);
+    transition:
+      opacity 0.5s ease,
+      transform 0.5s ease,
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
   }
 
-  .feature-card h3 {
-    font-size: 15px;
-    font-weight: 600;
+  .aw__card:hover {
+    border-color: rgba(248, 176, 59, 0.22);
+    box-shadow: 0 0 0 1px rgba(248, 176, 59, 0.06);
+  }
+
+  .aw__card-title {
+    font-size: 0.95rem;
+    font-weight: 700;
     color: var(--color-white);
     margin-bottom: 8px;
+    line-height: 1.3;
   }
 
-  .feature-card p {
-    font-size: 13px;
-    color: rgba(255,255,255,0.5);
-    line-height: 1.5;
+  .aw__card-desc {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--color-gray);
   }
 
-  .tribe-pillars {
-    text-align: center;
-    margin-bottom: 32px;
-  }
-
-  .tribe-pillars h3 {
-    font-size: 15px;
-    font-weight: 500;
-    color: rgba(255,255,255,0.5);
-    margin-bottom: 16px;
-  }
-
-  .pillars {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-
-  .pillar {
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--color-primary);
-  }
-
-  .pillar-sep {
-    color: rgba(255,255,255,0.2);
-    font-size: 20px;
-  }
-
-  .closing {
-    font-size: 17px;
-    font-weight: 500;
-    color: rgba(255,255,255,0.5);
-    text-align: center;
+  /* ── Closing ─────────────────────────────────────────────── */
+  .aw__closing {
+    font-size: 1.25rem;
     font-style: italic;
+    font-weight: 500;
+    color: rgba(248, 176, 59, 0.55);
+    text-align: center;
+    max-width: 600px;
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
   }
 
+  /* ── Visible state (set by IntersectionObserver) ─────────── */
+  .aw.is-visible .aw__label,
+  .aw.is-visible .aw__heading,
+  .aw.is-visible .aw__subtitle,
+  .aw.is-visible .aw__closing {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .aw.is-visible .aw__card {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* stagger cards */
+  .aw.is-visible .aw__card:nth-child(1) { transition-delay: 0.20s; }
+  .aw.is-visible .aw__card:nth-child(2) { transition-delay: 0.28s; }
+  .aw.is-visible .aw__card:nth-child(3) { transition-delay: 0.36s; }
+  .aw.is-visible .aw__card:nth-child(4) { transition-delay: 0.44s; }
+  .aw.is-visible .aw__card:nth-child(5) { transition-delay: 0.52s; }
+  .aw.is-visible .aw__card:nth-child(6) { transition-delay: 0.60s; }
+
+  .aw.is-visible .aw__closing {
+    transition-delay: 0.75s;
+  }
+
+  /* ── Responsive ──────────────────────────────────────────── */
   @media (max-width: 768px) {
-    .ancestro-world {
-      padding: 60px 20px;
+    .aw {
+      padding: 40px 20px;
     }
 
-    .features-grid {
-      grid-template-columns: 1fr;
+    .aw__heading {
+      font-size: 1.75rem;
+    }
+
+    .aw__subtitle {
+      font-size: 0.95rem;
+      margin-bottom: 28px;
+    }
+
+    .aw__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .aw__card {
+      padding: 22px;
+    }
+
+    .aw__card-title {
+      font-size: 0.875rem;
+    }
+
+    .aw__card-desc {
+      font-size: 0.8125rem;
+    }
+
+    .aw__closing {
+      font-size: 1.1rem;
     }
   }
 
-  @media (min-width: 769px) and (max-width: 1024px) {
-    .features-grid {
-      grid-template-columns: repeat(2, 1fr);
+  @media (max-width: 420px) {
+    .aw__grid {
+      gap: 10px;
+    }
+
+    .aw__card {
+      padding: 18px;
     }
   }
 </style>
+
+<script>
+  const section = document.querySelector('.aw');
+  if (section) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    observer.observe(section);
+  }
+</script>

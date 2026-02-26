@@ -3,20 +3,12 @@ import Layout from '@layouts/Layout.astro';
 import Navbar from '@components/Navbar.astro';
 import Footer from '@components/Footer.astro';
 
-// Invest Components
+// Consolidated Invest Components
 import InvestHero from '@components/invest/InvestHero.astro';
-import InvestorFilter from '@components/invest/InvestorFilter.astro';
-import CoreProblem from '@components/invest/CoreProblem.astro';
-import AncestroSolution from '@components/invest/AncestroSolution.astro';
-import WhyWeWin from '@components/invest/WhyWeWin.astro';
-import AncestroWorld from '@components/invest/AncestroWorld.astro';
-import AncestroCoin from '@components/invest/AncestroCoin.astro';
-import Philanthropy from '@components/invest/Philanthropy.astro';
-import UseOfFunds from '@components/invest/UseOfFunds.astro';
-import InvestmentTerms from '@components/invest/InvestmentTerms.astro';
-import ActivePassive from '@components/invest/ActivePassive.astro';
+import InvestThesis from '@components/invest/InvestThesis.astro';
+import AccordionSection from '@components/invest/AccordionSection.astro';
+import InvestNumbers from '@components/invest/InvestNumbers.astro';
 import Team from '@components/invest/Team.astro';
-import InvestorDeck from '@components/invest/InvestorDeck.astro';
 import FinalCTA from '@components/invest/FinalCTA.astro';
 
 // i18n
@@ -25,72 +17,94 @@ import { defaultLang } from '../i18n/languages';
 
 const t = useTranslations(defaultLang);
 
-// Investment Configuration
 const INVESTMENT = {
   sharePrice: "$1.00",
   valuation: "$25M",
 };
 
 const footerBg = "/images/footer-bg.png";
+
+// Accordion panels — deep dive content collapsed by default
+const deepDivePanels = [
+  {
+    id: "why-we-win",
+    title: "Why Ancestro Is Inevitable",
+    content: "We are building infrastructure first. Revenue follows infrastructure. The platform model is capital-light and infinitely replicable.",
+    items: [
+      { label: "Platform Model", desc: "Asset-light vs. asset-heavy competitors" },
+      { label: "First Mover", desc: "First in emerging renewable markets across 18 countries" },
+      { label: "Multi-Vertical", desc: "Solar, batteries, charging, vehicles, lifestyle" },
+      { label: "Network Effects", desc: "Each new participant strengthens the whole ecosystem" },
+    ],
+  },
+  {
+    id: "ancestro-world",
+    title: "Beyond Energy: The Ancestro World",
+    content: "A modern tribe built on energy independence, personal sovereignty, health, purpose, and awakening. Those who enter Ancestro do not leave unchanged.",
+    items: [
+      { label: "Social Platform", desc: "Internal community for members" },
+      { label: "Ancestral Health", desc: "Education and wellness protocols" },
+      { label: "Eco-Resorts", desc: "Access to sustainable retreats" },
+      { label: "Rituals & Gatherings", desc: "Global community experiences" },
+    ],
+  },
+  {
+    id: "ancestro-coin",
+    title: "Ancestro Coin (ANC) & Carbon Strategy",
+    content: "A digital asset backed by verified carbon credits — designed for ecosystem infrastructure, not speculation. Currently available at 33% presale discount.",
+    items: [
+      { label: "Carbon Monetization", desc: "Tokenize verified credits into liquid assets" },
+      { label: "Ecosystem Incentives", desc: "Reward conservation and participation" },
+      { label: "Stakeholder Alignment", desc: "Shared value for all participants" },
+    ],
+  },
+  {
+    id: "philanthropy",
+    title: "Profit With Purpose",
+    content: "Minimum 5% of net profits committed to regenerative initiatives. Impact is not an afterthought — it is embedded into the operating model.",
+    items: [
+      { label: "Free Solar", desc: "Off-grid installations for underserved communities" },
+      { label: "Amazon Reforestation", desc: "Native species and rainforest preservation" },
+      { label: "Ocean Cleanup", desc: "Plastic removal partnerships" },
+    ],
+  },
+];
 ---
 
 <Layout
   title="Invest in Ancestro — Global Renewable Energy & Lifestyle Revolution"
-  description="Join the Ancestro revolution. $1.00 per share, $25M valuation, SAFE agreement. A private international platform pioneering energy independence across emerging markets."
+  description="Join the Ancestro revolution. $1.00 per share, $25M valuation, SAFE agreement."
 >
   <div class="invest-page">
     <Navbar />
 
     <main id="main-content">
-      <!-- 1. Hero Section -->
+      <!-- 1. Hero -->
       <InvestHero
         sharePrice={INVESTMENT.sharePrice}
         valuation={INVESTMENT.valuation}
       />
 
-      <!-- 13a. Interactive Investor Deck (after Hero) -->
-      <InvestorDeck variant="hero" />
+      <!-- 2. Thesis: Problem → Solution (compact) -->
+      <InvestThesis />
 
-      <!-- 2. Investor Filter -->
-      <InvestorFilter />
+      <!-- 3. Deep Dive: Accordion (collapsed by default) -->
+      <AccordionSection
+        label="DEEP DIVE"
+        heading="Explore the Details"
+        panels={deepDivePanels}
+      />
 
-      <!-- 3. Core Problem -->
-      <CoreProblem />
-
-      <!-- 4. The Ancestro Solution -->
-      <AncestroSolution />
-
-      <!-- 5. Why We Win -->
-      <WhyWeWin />
-
-      <!-- 6. Beyond Energy: The Ancestro World -->
-      <AncestroWorld />
-
-      <!-- 7. Ancestro Coin & Carbon Strategy -->
-      <AncestroCoin />
-
-      <!-- 8. Philanthropy & Impact -->
-      <Philanthropy />
-
-      <!-- 9. Use of Funds -->
-      <UseOfFunds />
-
-      <!-- 10. Investment Terms -->
-      <InvestmentTerms
+      <!-- 4. Investment Numbers: Terms + Funds + Participation (merged) -->
+      <InvestNumbers
         sharePrice={INVESTMENT.sharePrice}
         valuation={INVESTMENT.valuation}
       />
 
-      <!-- 11. Active & Passive Participation -->
-      <ActivePassive />
-
-      <!-- 12. Team -->
+      <!-- 5. Team (collapsible) -->
       <Team />
 
-      <!-- 13b. Interactive Investor Deck (near bottom) -->
-      <InvestorDeck variant="bottom" />
-
-      <!-- 14. Final CTA -->
+      <!-- 6. Final CTA -->
       <FinalCTA
         sharePrice={INVESTMENT.sharePrice}
         valuation={INVESTMENT.valuation}

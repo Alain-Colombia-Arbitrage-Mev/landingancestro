@@ -1,160 +1,219 @@
 ---
 ---
 
-<section class="core-problem">
+<section class="core-problem" id="core-problem">
   <div class="container">
-    <h2 class="section-title">
-      The World Is Fragmented. Energy Is Centralized.<br/>
-      <span class="highlight">People Are Disconnected.</span>
-    </h2>
+    <div class="section-label">The Problem</div>
+    <h2 class="section-heading">Two Converging Crises</h2>
 
     <div class="problems-grid">
-      <div class="problem-card">
-        <div class="card-label">Energy Infrastructure</div>
-        <p class="card-intro">Energy infrastructure is broken.</p>
-        <p class="card-text">Renewable energy adoption is constrained not by demand, but by:</p>
-        <ul class="problem-list">
-          <li>Fragmented stakeholders</li>
-          <li>Poor coordination between customers, installers, distributors, and capital</li>
-          <li>Lack of scalable platforms that unify the ecosystem</li>
-          <li>Centralized utilities that resist decentralization</li>
+      <div class="problem-card" data-animate>
+        <div class="card-number">01</div>
+        <h3 class="card-title">Energy Infrastructure</h3>
+        <p class="card-description">
+          Renewable energy adoption is constrained not by demand, but by systemic failures across the value chain.
+        </p>
+        <ul class="card-points">
+          <li>Fragmented stakeholders across generation, distribution, and consumption</li>
+          <li>Poor coordination between customers, installers, distributors, and capital providers</li>
+          <li>Lack of scalable platforms that unify the ecosystem end-to-end</li>
+          <li>Centralized utilities that actively resist decentralization</li>
         </ul>
       </div>
 
-      <div class="problem-card">
-        <div class="card-label">Human Crisis</div>
-        <p class="card-intro">Modern lifestyles are failing.</p>
-        <p class="card-text">At the same time, modern lifestyles are driving:</p>
-        <ul class="problem-list">
-          <li>Chronic disease</li>
-          <li>Environmental degradation</li>
-          <li>Loss of meaning, ritual, and community</li>
+      <div class="problem-card" data-animate>
+        <div class="card-number">02</div>
+        <h3 class="card-title">The Human Crisis</h3>
+        <p class="card-description">
+          Modern lifestyles are producing compounding failures in health, environment, and social cohesion.
+        </p>
+        <ul class="card-points">
+          <li>Chronic disease driven by disconnection from natural systems</li>
+          <li>Environmental degradation accelerating beyond recovery thresholds</li>
+          <li>Loss of meaning, ritual, and community at a civilizational scale</li>
         </ul>
       </div>
     </div>
 
-    <div class="conclusion">
-      <p>These are not separate problems.</p>
-      <p class="accent">They require a unified solution.</p>
+    <div class="bottom-statement" data-animate>
+      <p>These are not separate problems. They share a common root &mdash; and they demand a <span class="accent">unified solution</span>.</p>
     </div>
   </div>
 </section>
 
 <style>
   .core-problem {
-    padding: 100px 24px;
+    padding: 64px 24px;
+    background: var(--color-black);
+    position: relative;
   }
 
   .container {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
   }
 
-  .section-title {
-    font-size: clamp(24px, 3.5vw, 36px);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    color: var(--color-white);
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-primary);
     text-align: center;
-    margin-bottom: 60px;
-    line-height: 1.2;
+    margin-bottom: 16px;
   }
 
-  .highlight {
-    color: var(--color-primary);
+  .section-heading {
+    font-size: 2.25rem;
+    font-weight: 600;
+    color: var(--color-white);
+    text-align: center;
+    margin-bottom: 40px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
   }
 
   .problems-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    margin-bottom: 60px;
+    gap: 32px;
+    margin-bottom: 72px;
   }
 
   .problem-card {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 20px;
+    border: 1px solid var(--color-white-10);
+    border-radius: 12px;
     padding: 40px;
+    background: transparent;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .card-label {
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--color-primary);
-    margin-bottom: 20px;
+  .problem-card.visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 
-  .card-intro {
-    font-size: 20px;
+  .card-number {
+    font-size: 0.875rem;
     font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 0.05em;
+    margin-bottom: 20px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .card-title {
+    font-size: 1.375rem;
+    font-weight: 600;
     color: var(--color-white);
     margin-bottom: 12px;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
   }
 
-  .card-text {
-    font-size: 15px;
-    color: rgba(255,255,255,0.6);
-    margin-bottom: 20px;
-    line-height: 1.6;
+  .card-description {
+    font-size: 0.9375rem;
+    color: var(--color-gray);
+    line-height: 1.7;
+    margin-bottom: 28px;
   }
 
-  .problem-list {
+  .card-points {
     list-style: none;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+    margin: 0;
   }
 
-  .problem-list li {
-    font-size: 15px;
-    color: rgba(255,255,255,0.75);
-    padding-left: 20px;
-    position: relative;
-    line-height: 1.5;
+  .card-points li {
+    font-size: 0.9375rem;
+    color: rgba(255, 255, 255, 0.72);
+    line-height: 1.6;
+    padding: 14px 0;
+    border-top: 1px solid var(--color-white-10);
   }
 
-  .problem-list li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 8px;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.3);
+  .card-points li:last-child {
+    padding-bottom: 0;
   }
 
-  .conclusion {
+  .bottom-statement {
     text-align: center;
+    max-width: 640px;
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s,
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
   }
 
-  .conclusion p {
-    font-size: 18px;
-    font-weight: 600;
-    color: rgba(255,255,255,0.6);
-    margin-bottom: 8px;
+  .bottom-statement.visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 
-  .conclusion .accent {
+  .bottom-statement p {
+    font-size: 1.0625rem;
+    font-weight: 400;
+    color: var(--color-gray);
+    line-height: 1.7;
+  }
+
+  .bottom-statement .accent {
     color: var(--color-primary);
-    font-size: 20px;
+    font-weight: 600;
   }
 
   @media (max-width: 768px) {
     .core-problem {
-      padding: 60px 20px;
+      padding: 40px 20px;
+    }
+
+    .section-heading {
+      font-size: 1.75rem;
+      margin-bottom: 28px;
     }
 
     .problems-grid {
       grid-template-columns: 1fr;
+      gap: 24px;
+      margin-bottom: 32px;
     }
 
     .problem-card {
-      padding: 28px 24px;
+      padding: 32px 28px;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
     }
   }
 </style>
+
+<script>
+  function initCoreProblem() {
+    const elements = document.querySelectorAll('#core-problem [data-animate]');
+    if (!elements.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry, i) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add('visible');
+            }, i * 120);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+  }
+
+  document.addEventListener('astro:page-load', initCoreProblem);
+  initCoreProblem();
+</script>

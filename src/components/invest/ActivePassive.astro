@@ -1,41 +1,93 @@
 ---
 ---
 
-<section class="active-passive">
+<section class="active-passive" id="participation">
   <div class="container">
-    <h2 class="section-title">Passive Capital. <span class="highlight">Active Alignment Welcome.</span></h2>
+    <span class="section-label">PARTICIPATION</span>
+    <h2 class="section-heading">Choose Your Path</h2>
 
-    <div class="options-grid">
-      <div class="option-card">
-        <div class="option-label">Passive</div>
-        <h3>Capital Allocation</h3>
-        <p>Invest and let the Ancestro team execute. Receive regular updates, reports, and participate in the upside as the platform scales globally.</p>
-        <ul class="option-features">
-          <li>Quarterly investor updates</li>
-          <li>Access to investor dashboard</li>
-          <li>SAFE agreement protection</li>
+    <div class="cards-grid">
+      <!-- Passive Card -->
+      <div class="card card--passive" data-animate>
+        <div class="card__header">
+          <h3 class="card__title">Passive</h3>
+          <p class="card__subtitle">Capital Allocation</p>
+        </div>
+        <ul class="card__features">
+          <li>
+            <svg class="check-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 8.5L6.5 12L13 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Capital allocation</span>
+          </li>
+          <li>
+            <svg class="check-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 8.5L6.5 12L13 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Quarterly investor updates</span>
+          </li>
+          <li>
+            <svg class="check-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 8.5L6.5 12L13 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Investor dashboard access</span>
+          </li>
+          <li>
+            <svg class="check-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 8.5L6.5 12L13 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>SAFE agreement protection</span>
+          </li>
         </ul>
       </div>
 
-      <div class="option-card active">
-        <div class="option-label">Active</div>
-        <h3>Strategic Partnership</h3>
-        <p>Beyond capital — contribute your network, expertise, or distribution capabilities. Active investors receive deeper access and accelerated alignment.</p>
-        <ul class="option-features">
-          <li>Advisory opportunities</li>
-          <li>Network introductions</li>
-          <li>Co-development pathways</li>
-          <li>Early access to new verticals</li>
+      <!-- Active Card (Featured) -->
+      <div class="card card--active" data-animate>
+        <div class="card__badge">Recommended</div>
+        <div class="card__header">
+          <h3 class="card__title">Active</h3>
+          <p class="card__subtitle">Strategic Partnership</p>
+        </div>
+        <ul class="card__features">
+          <li>
+            <svg class="check-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 8.5L6.5 12L13 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Strategic partnership</span>
+          </li>
+          <li>
+            <svg class="check-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 8.5L6.5 12L13 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Advisory opportunities</span>
+          </li>
+          <li>
+            <svg class="check-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 8.5L6.5 12L13 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Network introductions</span>
+          </li>
+          <li>
+            <svg class="check-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 8.5L6.5 12L13 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Co-development pathways</span>
+          </li>
+          <li>
+            <svg class="check-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 8.5L6.5 12L13 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Early access to new verticals</span>
+          </li>
         </ul>
       </div>
     </div>
 
-    <div class="final-cta">
-      <a href="#buy-stock" class="cta-primary">
-        Buy Ancestro Stock
-      </a>
+    <div class="cta-area" data-animate>
+      <a href="#buy-stock" class="cta-button">Buy Ancestro Stock</a>
       <p class="contact-line">
-        Questions? Reach us at <a href="mailto:invest@ancestro.com" class="email-link">invest@ancestro.com</a>
+        Questions? Reach us at
+        <a href="mailto:invest@ancestro.com" class="email-link">invest@ancestro.com</a>
       </p>
     </div>
   </div>
@@ -43,167 +95,285 @@
 
 <style>
   .active-passive {
-    padding: 100px 24px 120px;
+    padding: 64px 24px;
   }
 
   .container {
-    max-width: 900px;
+    max-width: 1100px;
     margin: 0 auto;
   }
 
-  .section-title {
-    font-size: clamp(24px, 3.5vw, 36px);
+  .section-label {
+    display: block;
+    text-align: center;
+    font-size: 12px;
     font-weight: 700;
-    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-primary);
+    margin-bottom: 16px;
+  }
+
+  .section-heading {
+    font-size: 2.25rem;
+    font-weight: 600;
     color: var(--color-white);
     text-align: center;
-    margin-bottom: 48px;
+    letter-spacing: -0.02em;
+    margin-bottom: 32px;
   }
 
-  .highlight {
-    color: var(--color-primary);
-  }
-
-  .options-grid {
+  /* ---- Cards Grid ---- */
+  .cards-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    margin-bottom: 60px;
+    gap: 28px;
+    margin-bottom: 40px;
   }
 
-  .option-card {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 20px;
+  /* ---- Base Card ---- */
+  .card {
+    position: relative;
+    border-radius: 12px;
     padding: 40px;
-    transition: all 0.3s ease;
+    transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0;
+    transform: translateY(24px);
   }
 
-  .option-card:hover {
-    border-color: rgba(255,255,255,0.15);
+  .card.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
   }
 
-  .option-card.active {
-    border-color: rgba(248,176,59,0.25);
-    background: rgba(248,176,59,0.03);
+  /* ---- Passive Card ---- */
+  .card--passive {
+    background: transparent;
+    border: 1px solid var(--color-white-10);
   }
 
-  .option-card.active:hover {
-    border-color: rgba(248,176,59,0.4);
+  .card--passive:hover {
+    border-color: var(--color-white-20);
   }
 
-  .option-label {
+  /* ---- Active Card (Featured) ---- */
+  .card--active {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--color-white-10);
+    border-top: 3px solid var(--color-primary);
+    padding-top: 56px;
+  }
+
+  .card--active:hover {
+    border-color: var(--color-white-20);
+    border-top-color: var(--color-primary);
+    box-shadow: 0 8px 40px rgba(248, 176, 59, 0.06);
+  }
+
+  /* ---- Badge ---- */
+  .card__badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
     font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-primary);
+    background: rgba(248, 176, 59, 0.1);
+    border: 1px solid rgba(248, 176, 59, 0.2);
+    padding: 4px 12px;
+    border-radius: 100px;
+    line-height: 1.4;
+  }
+
+  /* ---- Card Header ---- */
+  .card__header {
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--color-white-10);
+  }
+
+  .card__title {
+    font-size: 12px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: rgba(255,255,255,0.4);
-    margin-bottom: 16px;
+    margin-bottom: 8px;
   }
 
-  .option-card.active .option-label {
+  .card--passive .card__title {
+    color: var(--color-gray);
+  }
+
+  .card--active .card__title {
     color: var(--color-primary);
   }
 
-  .option-card h3 {
+  .card__subtitle {
     font-size: 22px;
-    font-weight: 700;
+    font-weight: 600;
     color: var(--color-white);
-    margin-bottom: 12px;
+    letter-spacing: -0.01em;
   }
 
-  .option-card p {
-    font-size: 15px;
-    color: rgba(255,255,255,0.6);
-    line-height: 1.7;
-    margin-bottom: 24px;
-  }
-
-  .option-features {
+  /* ---- Feature List ---- */
+  .card__features {
     list-style: none;
     padding: 0;
+    margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 14px;
   }
 
-  .option-features li {
-    font-size: 14px;
-    color: rgba(255,255,255,0.7);
-    padding-left: 20px;
-    position: relative;
+  .card__features li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.5;
   }
 
-  .option-features li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 7px;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.25);
+  .check-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
   }
 
-  .option-card.active .option-features li::before {
-    background: var(--color-primary);
+  .card--passive .check-icon {
+    color: rgba(255, 255, 255, 0.5);
   }
 
-  .final-cta {
+  .card--active .check-icon {
+    color: var(--color-primary);
+  }
+
+  /* ---- CTA Area ---- */
+  .cta-area {
     text-align: center;
+    opacity: 0;
+    transform: translateY(24px);
   }
 
-  .cta-primary {
+  .cta-area.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s,
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+  }
+
+  .cta-button {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     padding: 16px 48px;
     background: var(--color-primary);
     color: var(--color-black);
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
-    border-radius: 14px;
+    letter-spacing: 0.01em;
+    border-radius: 12px;
     text-decoration: none;
-    transition: all 0.3s ease;
-    margin-bottom: 16px;
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    margin-bottom: 20px;
   }
 
-  .cta-primary:hover {
+  .cta-button:hover {
     background: #ffbe4d;
     transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(248,176,59,0.35);
+    box-shadow: 0 8px 32px rgba(248, 176, 59, 0.3);
+  }
+
+  .cta-button:active {
+    transform: translateY(0);
   }
 
   .contact-line {
     font-size: 14px;
-    color: rgba(255,255,255,0.4);
+    color: rgba(255, 255, 255, 0.35);
   }
 
   .email-link {
-    color: var(--color-primary);
-    text-decoration: underline;
-    text-underline-offset: 2px;
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    padding-bottom: 1px;
+    transition: color 0.2s ease, border-color 0.2s ease;
   }
 
   .email-link:hover {
-    color: #ffbe4d;
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
   }
 
+  /* ---- Stagger animation for cards ---- */
+  .card:nth-child(2).is-visible {
+    transition-delay: 0.1s;
+  }
+
+  /* ---- Responsive ---- */
   @media (max-width: 768px) {
     .active-passive {
-      padding: 60px 20px 80px;
+      padding: 40px 20px 60px;
     }
 
-    .options-grid {
+    .section-heading {
+      font-size: 1.75rem;
+      margin-bottom: 40px;
+    }
+
+    .cards-grid {
       grid-template-columns: 1fr;
+      gap: 20px;
+      margin-bottom: 28px;
     }
 
-    .option-card {
-      padding: 28px 24px;
+    .card {
+      padding: 32px 28px;
     }
 
-    .cta-primary {
+    .card__badge {
+      top: 16px;
+      right: 16px;
+    }
+
+    .cta-button {
       width: 100%;
-      justify-content: center;
+      padding: 16px 32px;
     }
   }
 </style>
+
+<script>
+  function initActivePassive() {
+    const section = document.querySelector('#participation');
+    if (!section) return;
+
+    const animatedEls = section.querySelectorAll('[data-animate]');
+    if (!animatedEls.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    animatedEls.forEach((el) => observer.observe(el));
+  }
+
+  document.addEventListener('DOMContentLoaded', initActivePassive);
+  document.addEventListener('astro:page-load', initActivePassive);
+  initActivePassive();
+</script>
