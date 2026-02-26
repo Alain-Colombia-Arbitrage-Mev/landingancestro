@@ -12,43 +12,43 @@ import { defaultLang } from '../i18n/languages';
 
 const t = useTranslations(defaultLang);
 
-// Figma asset URLs (valid for 7 days)
+// Local image assets (extracted from design files)
 const images = {
-  heroBg: "https://www.figma.com/api/mcp/asset/720f6d3b-590a-4890-ad47-24c68eb4aff7",
-  infoSection1: "https://www.figma.com/api/mcp/asset/dd11b56a-aa4a-4f12-8c1b-e4979d1042cc",
-  infoSection2: "https://www.figma.com/api/mcp/asset/2a107519-e0f5-4ecc-b01e-2ee2c45f22b5",
-  charger: "https://www.figma.com/api/mcp/asset/9f24de84-b48d-4243-959c-887f16556d0a",
-  vehicle: "https://www.figma.com/api/mcp/asset/c65b8911-1573-4bd8-b7bd-370de95644dd",
+  heroBg: "/images/hero-bg.jpg",
+  infoSection1: "/images/info-section-1.png",
+  infoSection2: "/images/info-section-2.jpg",
+  charger: "/images/charger-bg.png",
+  vehicle: "/images/vehicle.png",
   latamMap: "/MAPA.svg",
   footerBg: "/images/footer-bg.png",
-  backgroundSection: "https://www.figma.com/api/mcp/asset/a07cb751-d18b-4f3f-a054-6776ef642d2e",
+  backgroundSection: "/images/nature-bg.png",
   // Product images
-  solarPanels: "https://www.figma.com/api/mcp/asset/8165816a-67fe-4bc5-801b-c3aa6d55a820",
-  battery: "https://www.figma.com/api/mcp/asset/ff576da5-4b66-4cbf-beac-484817b01fc1",
-  charging: "https://www.figma.com/api/mcp/asset/b84c6feb-b277-4b88-ad28-cfe1eeb7c8db",
-  vehicles: "https://www.figma.com/api/mcp/asset/51091e6b-bbb3-46d4-a9ac-d14014f98fc1",
+  solarPanels: "/images/shop-solar.png",
+  battery: "/images/shop-battery.png",
+  charging: "/images/shop-charging.png",
+  vehicles: "/images/shop-vehicles.png",
 };
 
-// Flag images from Figma
+// Flag images (local assets)
 const flags = [
-  { country: "Colombia", imageUrl: "https://www.figma.com/api/mcp/asset/44f53409-6d11-4a7b-bd18-560b3a2e6b2f" },
-  { country: "Panama", imageUrl: "https://www.figma.com/api/mcp/asset/9191354e-b2ea-4064-affc-c016eb542549" },
-  { country: "Dominican Republic", imageUrl: "https://www.figma.com/api/mcp/asset/5bdac164-551b-4946-aef7-58a88b1e87cc" },
-  { country: "Mexico", imageUrl: "https://www.figma.com/api/mcp/asset/e63fe488-bf3d-41e5-b727-506aab77cb68" },
-  { country: "Peru", imageUrl: "https://www.figma.com/api/mcp/asset/9ed3bd9e-cfca-4e78-b3d3-578b768023f6" },
-  { country: "Guatemala", imageUrl: "https://www.figma.com/api/mcp/asset/953e4e76-2234-404d-b5f3-09f5ddaa689b" },
-  { country: "El Salvador", imageUrl: "https://www.figma.com/api/mcp/asset/97f6edbe-63f1-4265-83bd-2c59044e8d0c" },
-  { country: "Uruguay", imageUrl: "https://www.figma.com/api/mcp/asset/b915135a-a62c-4ec4-8c93-fee4ac56a502" },
-  { country: "Costa Rica", imageUrl: "https://www.figma.com/api/mcp/asset/770c85e1-80e6-41f2-813e-41c21c46c8c7" },
-  { country: "Brazil", imageUrl: "https://www.figma.com/api/mcp/asset/6d997df7-0680-4bf6-af2c-33e82077427b" },
-  { country: "Nicaragua", imageUrl: "https://www.figma.com/api/mcp/asset/abd87555-97a6-4c82-a82d-c1a1437a76c3" },
-  { country: "Honduras", imageUrl: "https://www.figma.com/api/mcp/asset/6d997df7-0680-4bf6-af2c-33e82077427b" },
-  { country: "Chile", imageUrl: "https://www.figma.com/api/mcp/asset/2cc5ba70-ebb0-429d-8abe-92b0de43f25c" },
-  { country: "Argentina", imageUrl: "https://www.figma.com/api/mcp/asset/3e2a8412-74f3-4354-9106-1fd7182d5a76" },
-  { country: "Bolivia", imageUrl: "https://www.figma.com/api/mcp/asset/29ddedaa-3fcb-4dc6-8c1a-c89211b8c7f7" },
-  { country: "Belize", imageUrl: "https://www.figma.com/api/mcp/asset/51e349b3-bb0d-40a3-8d7d-c4be091edf03" },
-  { country: "Ecuador", imageUrl: "https://www.figma.com/api/mcp/asset/122fb607-28a4-4d9f-adef-578e59a4a3a8" },
-  { country: "Paraguay", imageUrl: "https://www.figma.com/api/mcp/asset/5c3cd2a6-730c-4909-b4dc-52e42b07aa95" },
+  { country: "Colombia", imageUrl: "/images/flags/colombia.png" },
+  { country: "Panama", imageUrl: "/images/flags/panama.png" },
+  { country: "Dominican Republic", imageUrl: "/images/flags/dominican-republic.png" },
+  { country: "Mexico", imageUrl: "/images/flags/mexico.png" },
+  { country: "Peru", imageUrl: "/images/flags/peru.png" },
+  { country: "Guatemala", imageUrl: "/images/flags/guatemala.png" },
+  { country: "El Salvador", imageUrl: "/images/flags/el-salvador.png" },
+  { country: "Uruguay", imageUrl: "/images/flags/uruguay.png" },
+  { country: "Costa Rica", imageUrl: "/images/flags/costa-rica.png" },
+  { country: "Brazil", imageUrl: "/images/flags/brazil.png" },
+  { country: "Nicaragua", imageUrl: "/images/flags/nicaragua.png" },
+  { country: "Honduras", imageUrl: "/images/flags/honduras.png" },
+  { country: "Chile", imageUrl: "/images/flags/chile.png" },
+  { country: "Argentina", imageUrl: "/images/flags/argentina.png" },
+  { country: "Bolivia", imageUrl: "/images/flags/bolivia.png" },
+  { country: "Belize", imageUrl: "/images/flags/belize.png" },
+  { country: "Ecuador", imageUrl: "/images/flags/ecuador.png" },
+  { country: "Paraguay", imageUrl: "/images/flags/paraguay.png" },
 ];
 
 // Products for shop section
