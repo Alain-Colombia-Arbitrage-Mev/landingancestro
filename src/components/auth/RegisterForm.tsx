@@ -72,6 +72,7 @@ export default function RegisterForm({
   const [fieldErrors, setFieldErrors] = useState({
     name: false,
     email: false,
+    phone: false,
     password: false,
     confirmPassword: false,
   });
@@ -100,12 +101,13 @@ export default function RegisterForm({
     const errors = {
       name: !name.trim(),
       email: !email || !/\S+@\S+\.\S+/.test(email),
+      phone: !phone.trim() || phone.trim().length < 6,
       password: !password || password.length < 8,
       confirmPassword: !confirmPassword || confirmPassword !== password,
     };
     setFieldErrors(errors);
 
-    if (errors.name || errors.email || errors.password) return;
+    if (errors.name || errors.email || errors.phone || errors.password) return;
 
     if (errors.confirmPassword) {
       setError(labels.passwordsNoMatch);
@@ -115,7 +117,7 @@ export default function RegisterForm({
     setIsLoading(true);
     try {
       const { cognitoSignUp } = await import('../../lib/auth');
-      const fullPhone = phone.trim() ? `${phoneCode}${phone.trim()}` : undefined;
+      const fullPhone = `${phoneCode}${phone.trim()}`;
       await cognitoSignUp(email, password, name, fullPhone);
       window.location.href = `${verifyPath}?email=${encodeURIComponent(email)}`;
     } catch (err: any) {
@@ -227,9 +229,9 @@ export default function RegisterForm({
             </div>
           </div>
 
-          {/* Phone */}
-          <div className="rf-field">
-            <label className="rf-label" htmlFor="rf-phone">{labels.phone}</label>
+          {/* Phone (required - verification code sent via SMS) */}
+          <div className={`rf-field ${fieldErrors.phone ? 'rf-field--error' : ''}`}>
+            <label className="rf-label" htmlFor="rf-phone">{labels.phone} *</label>
             <div className="rf-phone-row">
               <select
                 className="rf-input rf-phone-code"
@@ -248,7 +250,7 @@ export default function RegisterForm({
                   type="tel"
                   className="rf-input"
                   value={phone}
-                  onChange={(e) => setPhone(e.target.value.replace(/[^0-9\s\-()]/g, ''))}
+                  onChange={(e) => { setPhone(e.target.value.replace(/[^0-9\s\-()]/g, '')); clearFieldError('phone'); }}
                   autoComplete="tel"
                   placeholder="300 000 0000"
                   disabled={isLoading}
@@ -304,6 +306,17 @@ export default function RegisterForm({
               </button>
             </div>
           </div>
+
+          <p className="rf-sms-note">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+            </svg>
+            {lang === 'es' ? 'El código de verificación se enviará por SMS a tu teléfono' :
+             lang === 'pt' ? 'O código de verificação será enviado por SMS' :
+             lang === 'zh' ? '验证码将通过短信发送到您的手机' :
+             lang === 'ar' ? 'سيتم إرسال رمز التحقق عبر رسالة نصية' :
+             'Verification code will be sent via SMS to your phone'}
+          </p>
 
           {/* Submit */}
           <button
@@ -649,6 +662,18 @@ export default function RegisterForm({
           margin-left: 4px;
           transition: opacity 0.2s;
         }
+
+        .rf-sms-note {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 12px;
+          color: rgba(248, 176, 59, 0.6);
+          margin: 0;
+          padding: 0 2px;
+        }
+
+        .rf-sms-note svg { flex-shrink: 0; color: rgba(248, 176, 59, 0.5); }
 
         .rf-link:hover { opacity: 0.8; text-decoration: underline; }
 

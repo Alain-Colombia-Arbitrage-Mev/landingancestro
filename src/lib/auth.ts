@@ -3,6 +3,7 @@ import {
   signIn,
   signOut,
   confirmSignUp,
+  confirmSignIn,
   resetPassword,
   confirmResetPassword,
   fetchAuthSession,
@@ -72,20 +73,38 @@ export function getAuthErrorMessage(error: any, lang: string = 'es'): string {
 }
 
 // ===== SIGN UP =====
+// User pool requires many attributes and verifies via SMS
 export async function cognitoSignUp(
   email: string,
   password: string,
   name: string,
-  phone?: string
+  phone: string
 ) {
+  const nameParts = name.trim().split(/\s+/);
+  const givenName = nameParts[0] || name;
+  const familyName = nameParts.slice(1).join(' ') || ' ';
+  const username = `user_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+
   const result = await signUp({
-    username: email,
+    username,
     password,
     options: {
       userAttributes: {
         email,
         name,
-        ...(phone ? { phone_number: phone } : {}),
+        given_name: givenName,
+        family_name: familyName,
+        middle_name: ' ',
+        nickname: givenName.toLowerCase(),
+        preferred_username: email.split('@')[0],
+        profile: ' ',
+        picture: ' ',
+        address: ' ',
+        birthdate: '1990-01-01',
+        gender: ' ',
+        locale: 'es',
+        phone_number: phone,
+        updated_at: String(Math.floor(Date.now() / 1000)),
       },
     },
   });
@@ -176,6 +195,30 @@ export async function cognitoChangePassword(oldPassword: string, newPassword: st
   await updatePassword({ previousPassword: oldPassword, proposedPassword: newPassword });
 }
 
+// ===== CONFIRM NEW PASSWORD (admin-created users) =====
+export async function cognitoConfirmNewPassword(newPassword: string, email?: string) {
+  const result = await confirmSignIn({
+    challengeResponse: newPassword,
+    options: {
+      userAttributes: {
+        address: ' ',
+        gender: ' ',
+        profile: ' ',
+        family_name: email?.split('@')[0] || ' ',
+        given_name: email?.split('@')[0] || ' ',
+        phone_number: '+10000000000',
+        preferred_username: email?.split('@')[0] || 'user',
+        locale: 'es',
+        picture: ' ',
+        nickname: email?.split('@')[0] || ' ',
+        name: email?.split('@')[0] || 'User',
+        middle_name: ' ',
+      },
+    },
+  });
+  return result;
+}
+
 // ===== UPDATE USER ATTRIBUTES =====
 export async function cognitoUpdateProfile(attributes: { name?: string; phone_number?: string }) {
   const userAttributes: Record<string, string> = {};
@@ -184,7 +227,7 @@ export async function cognitoUpdateProfile(attributes: { name?: string; phone_nu
   await updateUserAttributes({ userAttributes });
 }
 
-// ===== SYNC WITH BACKEND =====
+// ===== SYNC WITH BACKEND (NestJS) =====
 export async function syncWithBackend(cognitoToken: string): Promise<{ user: any; token: string } | null> {
   try {
     const response = await fetch(`${API_URL}/api/users/sync`, {

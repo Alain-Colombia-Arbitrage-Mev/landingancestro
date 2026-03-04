@@ -1,0 +1,32 @@
+---
+export const prerender = true;
+import Layout from '@layouts/Layout.astro';
+import Navbar from '@components/Navbar.astro';
+import Footer from '@components/Footer.astro';
+import Team from '@components/invest/Team.astro';
+import { languages } from '../../i18n/languages';
+import { useTranslations, getLangFromUrl } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  return Object.keys(languages).map((lang) => ({ params: { lang } }));
+}
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Layout title="Team - Ancestro" description="Meet the 24-person team building LATAM's energy future. Leadership, technology, infrastructure, and advisory professionals driving renewable innovation.">
+  <Navbar />
+  <main class="team-page">
+    <Team />
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .team-page {
+    padding-top: 79px;
+    min-height: 100vh;
+    background: var(--color-black);
+  }
+</style>

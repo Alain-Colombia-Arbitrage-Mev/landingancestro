@@ -4,9 +4,11 @@ import { persistentAtom } from '@nanostores/persistent';
 // ===== USER INTERFACE =====
 export interface User {
   id: string;
+  cognitoId?: string;
   email: string;
   name: string;
   phone?: string;
+  role?: string;
   country?: string;
   avatar?: string;
   isVerified: boolean;
@@ -39,7 +41,7 @@ export function clearAuth() {
   authToken.set(null);
 }
 
-export async function login(email: string, password: string): Promise<{ success: boolean; needsVerification?: boolean; error?: any }> {
+export async function login(email: string, password: string): Promise<{ success: boolean; needsVerification?: boolean; needsNewPassword?: boolean; error?: any }> {
   isAuthLoading.set(true);
 
   try {
@@ -52,6 +54,10 @@ export async function login(email: string, password: string): Promise<{ success:
 
     if (signInResult.nextStep?.signInStep === 'CONFIRM_SIGN_UP') {
       return { success: false, needsVerification: true };
+    }
+
+    if (signInResult.nextStep?.signInStep === 'CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED') {
+      return { success: false, needsNewPassword: true };
     }
 
     if (signInResult.isSignedIn) {

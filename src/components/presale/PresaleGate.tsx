@@ -288,6 +288,10 @@ export default function PresaleGate({ labels, lang }: PresaleGateProps) {
 
       if (result.success) {
         grantAccess(makePresaleToken(loginEmail.trim()));
+      } else if (result.needsNewPassword) {
+        const loginPath = lang === 'es' ? '/login' : `/${lang}/login`;
+        window.location.href = loginPath;
+        return;
       } else if (result.needsVerification) {
         setError(labels.loginError || 'Account not verified. Please check your email.');
         triggerShake();

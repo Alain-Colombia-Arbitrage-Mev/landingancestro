@@ -1,58 +1,108 @@
 ---
 const team = [
   {
-    name: "Alejandro Restrepo",
+    name: "Tarzán J. Owens",
     role: "Founder & CEO",
-    bio: "Serial entrepreneur with 15+ years in renewable energy and fintech across LATAM. Previously founded two clean energy startups with successful exits.",
+    bio: "American-Colombian renewable energy entrepreneur. After exiting a U.S.-based solar venture, he founded Ancestro to address structural inefficiencies in Latin America's energy markets. Leads capital formation, government partnerships, and regional expansion.",
     linkedin: "#",
+    dept: "c-suite",
   },
   {
-    name: "María del Carmen Vega",
-    role: "COO",
-    bio: "Former VP of Operations at a leading solar distributor in Latin America. Expert in supply chain and multi-country expansion.",
+    name: "Uwey D. Angarita",
+    role: "CCO & Vice President",
+    bio: "Leading the global evolution of renewable infrastructure and sustainable energy ecosystems. Experienced in marketing, AI, automation, and scalable enterprise infrastructure. Building global impact from purposeful roots.",
     linkedin: "#",
+    dept: "c-suite",
   },
   {
-    name: "Daniel Ochoa",
-    role: "CTO",
-    bio: "Full-stack architect with deep experience building fintech platforms. Previously led engineering at a Series B proptech startup.",
+    name: "Juan Sebastián Triviño",
+    role: "General Project Manager",
+    bio: "Industrial Engineer specialized in process optimization, control systems, and data-driven decision-making. Leading the structuring and execution of strategic projects focused on operational excellence and sustainable growth.",
     linkedin: "#",
+    dept: "c-suite",
   },
   {
-    name: "Sarah Mitchell",
-    role: "Head of Capital Markets",
-    bio: "10+ years in institutional finance and venture capital. Managed over $200M in clean energy investment vehicles.",
+    name: "Alain Herra",
+    role: "Fintech Developer & IT Leader",
+    bio: "Scrum master and Senior developer with 15 years of experience. Expert in Blockchain, Python, Rust, and Go. DevOps specialist leading the technology infrastructure at Ancestro.",
     linkedin: "#",
+    dept: "tech",
   },
   {
-    name: "Carlos Andrade",
-    role: "Head of LATAM Expansion",
-    bio: "Political strategist and regulatory expert. Built government partnerships in 12 countries for energy and infrastructure projects.",
+    name: "Umair Khan",
+    role: "Strategic Technology Partner",
+    bio: "Technology architect and engineering leader with deep experience building scalable digital platforms. Expert in backend architecture, distributed systems, AWS infrastructure, and secure authentication frameworks.",
     linkedin: "#",
+    dept: "tech",
   },
   {
-    name: "Valentina Torres",
-    role: "Head of Community & Brand",
-    bio: "Former creative director at a top-tier agency. Built purpose-driven brands with communities exceeding 500K members.",
+    name: "Muhammad Faisal Bin Saif",
+    role: "Strategic Technology Partner",
+    bio: "Technology entrepreneur who has built and scaled digital operations across the US, UK, Europe, and MENA regions. Focuses on aligning product strategy, AI-driven systems, and operational execution with long-term growth.",
     linkedin: "#",
+    dept: "tech",
+  },
+  {
+    name: "Franco Bonifaz",
+    role: "AI Automation Specialist",
+    bio: "Founder of PHNTM AI. Expert in multi-agent orchestration, complex API integrations, and designing end-to-end automation pipelines. Built AI-powered platforms for e-commerce and B2B SaaS companies at scale.",
+    linkedin: "#",
+    dept: "tech",
+  },
+  {
+    name: "Camilo Ortiz",
+    role: "Head of Construction & Development",
+    bio: "Civil engineer with 10+ years in infrastructure and sustainable urban development. CEO of Construteckcol, Skydeluxe, and Mantra Group. Integrates engineering, design, blockchain, and bioclimatic approaches.",
+    linkedin: "#",
+    dept: "buildings",
+  },
+  {
+    name: "Mateo Ramirez",
+    role: "PropTech & Operations Lead",
+    bio: "CEO of a real estate platform integrating design, remodeling, and property management. Specialist in financial flow analysis, event production, and value-oriented asset management.",
+    linkedin: "#",
+    dept: "buildings",
   },
 ];
 
 const advisors = [
   {
-    name: "James Whitfield",
-    role: "Energy Policy Advisor",
-    bio: "Former advisor to the U.S. Department of Energy. 25 years in renewable energy regulation.",
+    name: "Emil Åkesson",
+    role: "Strategic Advisor & Board Chairman",
+    bio: "Seasoned entrepreneur, investor, and board chairman. Founded, invested in, and supported hundreds of businesses across industries with ventures reaching $50M+ ARR. Strengthens Ancestro's strategic clarity and investor readiness.",
   },
   {
-    name: "Dr. Lucía Herrera",
-    role: "Health & Wellness Advisor",
-    bio: "Functional medicine physician and ancestral health researcher. Published author on longevity protocols.",
+    name: "Marlon",
+    role: "Capital Markets Advisor",
+    bio: "American-Jamaican investor and capital markets executive with extensive experience in fixed income, equity structuring, and cross-border transactions. Advises on institutional capital strategy including green bond issuance.",
   },
   {
-    name: "Ricardo Mendes",
-    role: "Carbon Markets Advisor",
-    bio: "Pioneered carbon credit verification frameworks across South America. Board member of two carbon registries.",
+    name: "Bentley G. Lamar",
+    role: "Executive Coach & Advisor",
+    bio: "American entrepreneur, advisor, investor, and executive coach with diverse background spanning construction, healthcare, and service industries. Expert in team leadership, operational systems, and scalable growth.",
+  },
+];
+
+const legalAndFinance = [
+  {
+    name: "Miguel Antonio Andrade",
+    role: "Legal – Digital Economy",
+    bio: "Attorney focused on legal and financial structuring for digital economy businesses. Specializes in tax optimization, digital assets, corporate design, and asset protection.",
+  },
+  {
+    name: "Leandro Buitrago",
+    role: "Legal – Private Law",
+    bio: "Attorney with emphasis in Private Law. Experience in auditing and government contracting, combining analytical focus, professional responsibility, and strategic legal solutions.",
+  },
+  {
+    name: "Willson Lopez",
+    role: "Legal Counsel",
+    bio: "Legal counsel supporting Ancestro's corporate governance and regulatory compliance across multiple jurisdictions.",
+  },
+  {
+    name: "Olga A. Villamil",
+    role: "Head of Accounting & Finance",
+    bio: "CPA specialized in Finance and IFRS. Expert in financial, tax, and internal control management. Experience in outsourced services and advisory for SMEs in Colombia.",
   },
 ];
 
@@ -65,12 +115,16 @@ function getInitials(name: string): string {
 
 <section class="team-section" id="team">
   <div class="team-container">
-    <span class="team-label">LEADERSHIP</span>
-    <h2 class="team-heading">The Team Behind Ancestro</h2>
+    <!-- Leadership -->
+    <div class="team-dept">
+      <span class="team-label">LEADERSHIP</span>
+      <h2 class="team-heading">The Team Behind Ancestro</h2>
+      <p class="team-subheading">24 professionals across 6 departments building LATAM's energy future</p>
+    </div>
 
     <div class="team-grid">
-      {team.map((member, i) => (
-        <div class="team-member" data-index={i}>
+      {team.filter(m => m.dept === 'c-suite').map((member, i) => (
+        <div class="team-member team-member--featured" data-index={i}>
           <div class="member-top">
             <div class="member-avatar">
               <span class="member-initials">{getInitials(member.name)}</span>
@@ -92,11 +146,104 @@ function getInitials(name: string): string {
       ))}
     </div>
 
-    <h3 class="advisors-heading">Advisors</h3>
+    <!-- Technology -->
+    <h3 class="section-dept-heading">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      Technology & Engineering
+    </h3>
+    <div class="team-grid">
+      {team.filter(m => m.dept === 'tech').map((member, i) => (
+        <div class="team-member" data-index={3 + i}>
+          <div class="member-top">
+            <div class="member-avatar">
+              <span class="member-initials">{getInitials(member.name)}</span>
+            </div>
+            <div class="member-identity">
+              <h3 class="member-name">{member.name}</h3>
+              <span class="member-role">{member.role}</span>
+            </div>
+            <a href={member.linkedin} class="member-linkedin" aria-label={`${member.name} LinkedIn`}>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                <rect x="2" y="9" width="4" height="12"/>
+                <circle cx="4" cy="4" r="2"/>
+              </svg>
+            </a>
+          </div>
+          <p class="member-bio">{member.bio}</p>
+        </div>
+      ))}
+    </div>
 
+    <!-- Infrastructure & Development -->
+    <div id="team-more" class="team-more-section" style="display:none;">
+      <h3 class="section-dept-heading">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Infrastructure & Development
+      </h3>
+      <div class="team-grid">
+        {team.filter(m => m.dept === 'buildings').map((member, i) => (
+          <div class="team-member" data-index={7 + i}>
+            <div class="member-top">
+              <div class="member-avatar">
+                <span class="member-initials">{getInitials(member.name)}</span>
+              </div>
+              <div class="member-identity">
+                <h3 class="member-name">{member.name}</h3>
+                <span class="member-role">{member.role}</span>
+              </div>
+              <a href={member.linkedin} class="member-linkedin" aria-label={`${member.name} LinkedIn`}>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                  <rect x="2" y="9" width="4" height="12"/>
+                  <circle cx="4" cy="4" r="2"/>
+                </svg>
+              </a>
+            </div>
+            <p class="member-bio">{member.bio}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- Legal & Finance -->
+      <h3 class="section-dept-heading">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        Legal & Finance
+      </h3>
+      <div class="advisors-grid">
+        {legalAndFinance.map((member, i) => (
+          <div class="advisor-member" data-index={9 + i}>
+            <div class="advisor-top">
+              <div class="advisor-avatar">
+                <span class="advisor-initials">{getInitials(member.name)}</span>
+              </div>
+              <div class="advisor-identity">
+                <h4 class="advisor-name">{member.name}</h4>
+                <span class="advisor-role">{member.role}</span>
+              </div>
+            </div>
+            <p class="advisor-bio">{member.bio}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Show More Button -->
+    <div class="team-show-more-wrap">
+      <button id="team-show-more-btn" class="team-show-more-btn">
+        <span>Show full team</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+    </div>
+
+    <!-- Advisors -->
+    <h3 class="advisors-heading">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      Advisory Board
+    </h3>
     <div class="advisors-grid">
       {advisors.map((advisor, i) => (
-        <div class="advisor-member" data-index={team.length + i}>
+        <div class="advisor-member" data-index={13 + i}>
           <div class="advisor-top">
             <div class="advisor-avatar">
               <span class="advisor-initials">{getInitials(advisor.name)}</span>
@@ -258,14 +405,102 @@ function getInitials(name: string): string {
     overflow: hidden;
   }
 
+  .team-subheading {
+    font-size: 1rem;
+    color: var(--color-gray);
+    margin: -28px 0 40px;
+    line-height: 1.5;
+  }
+
+  .team-member--featured {
+    border-color: rgba(248, 176, 59, 0.12);
+    background: rgba(248, 176, 59, 0.02);
+  }
+
+  .team-member--featured .member-avatar {
+    background: linear-gradient(135deg, rgba(248, 176, 59, 0.18), rgba(248, 176, 59, 0.06));
+    border-color: rgba(248, 176, 59, 0.35);
+  }
+
+  .section-dept-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-white);
+    letter-spacing: -0.01em;
+    margin-top: 48px;
+    margin-bottom: 24px;
+  }
+
+  .section-dept-heading svg {
+    color: var(--color-primary);
+    flex-shrink: 0;
+  }
+
+  .team-more-section {
+    animation: teamFadeIn 0.5s ease both;
+  }
+
+  @keyframes teamFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .team-show-more-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+  }
+
+  .team-show-more-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(248, 176, 59, 0.08);
+    border: 1px solid rgba(248, 176, 59, 0.2);
+    border-radius: 12px;
+    padding: 12px 28px;
+    color: var(--color-primary);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .team-show-more-btn:hover {
+    background: rgba(248, 176, 59, 0.14);
+    border-color: rgba(248, 176, 59, 0.35);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(248, 176, 59, 0.1);
+  }
+
+  .team-show-more-btn svg {
+    transition: transform 0.3s ease;
+  }
+
+  .team-show-more-btn.expanded svg {
+    transform: rotate(180deg);
+  }
+
   /* Advisors */
   .advisors-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     font-size: 1.5rem;
     font-weight: 600;
     color: var(--color-white);
     letter-spacing: -0.01em;
     margin-top: 48px;
     margin-bottom: 24px;
+  }
+
+  .advisors-heading svg {
+    color: var(--color-primary);
+    flex-shrink: 0;
   }
 
   .advisors-grid {
@@ -402,24 +637,36 @@ function getInitials(name: string): string {
 <script>
   function initTeamObserver() {
     const members = document.querySelectorAll('.team-member, .advisor-member');
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const el = entry.target as HTMLElement;
             const index = parseInt(el.dataset.index || '0', 10);
-            setTimeout(() => {
-              el.classList.add('visible');
-            }, index * 100);
+            setTimeout(() => el.classList.add('visible'), index * 80);
             observer.unobserve(el);
           }
         });
       },
       { threshold: 0.15 }
     );
-
     members.forEach((member) => observer.observe(member));
+
+    const btn = document.getElementById('team-show-more-btn');
+    const moreSection = document.getElementById('team-more');
+    if (btn && moreSection) {
+      btn.addEventListener('click', () => {
+        const isExpanded = moreSection.style.display !== 'none';
+        moreSection.style.display = isExpanded ? 'none' : 'block';
+        btn.classList.toggle('expanded', !isExpanded);
+        const label = btn.querySelector('span');
+        if (label) label.textContent = isExpanded ? 'Show full team' : 'Show less';
+        if (!isExpanded) {
+          const newMembers = moreSection.querySelectorAll('.team-member, .advisor-member');
+          newMembers.forEach((m) => observer.observe(m));
+        }
+      });
+    }
   }
 
   document.addEventListener('astro:page-load', initTeamObserver);

@@ -38,6 +38,9 @@ export default function LoginForm({
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const [error, setError] = useState('');
   const [fieldErrors, setFieldErrors] = useState({ email: false, password: false });
+  const [needsNewPassword, setNeedsNewPassword] = useState(false);
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmNewPwd, setConfirmNewPwd] = useState('');
   const emailRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -81,6 +84,10 @@ export default function LoginForm({
         window.location.href = `${dashboardPath.replace('/dashboard', '')}/verify?email=${encodeURIComponent(email)}`;
         return;
       }
+      if (result.needsNewPassword) {
+        setNeedsNewPassword(true);
+        return;
+      }
       if (result.success) {
         window.location.href = dashboardPath;
       }
@@ -107,6 +114,93 @@ export default function LoginForm({
       setError(getAuthErrorMessage(err, lang));
       setIsGoogleLoading(false);
     }
+  }
+
+  async function handleNewPasswordSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setError('');
+    if (newPassword.length < 8) {
+      setError(lang === 'es' ? 'La contraseña debe tener al menos 8 caracteres' : 'Password must be at least 8 characters');
+      return;
+    }
+    if (newPassword !== confirmNewPwd) {
+      setError(lang === 'es' ? 'Las contraseñas no coinciden' : 'Passwords do not match');
+      return;
+    }
+    setIsLoading(true);
+    try {
+      const { cognitoConfirmNewPassword, getCognitoToken, getCognitoUser } = await import('../../lib/auth');
+      const { setUser, setAuthToken } = await import('../../stores/user');
+      await cognitoConfirmNewPassword(newPassword, email);
+      const cognitoToken = await getCognitoToken();
+      const cognitoUser = await getCognitoUser();
+      setUser({
+        id: cognitoUser?.userId || 'cognito',
+        email,
+        name: cognitoUser?.name || email.split('@')[0],
+        phone: cognitoUser?.phone,
+        isVerified: true,
+        createdAt: new Date().toISOString(),
+      });
+      setAuthToken(cognitoToken || 'cognito-session');
+      window.location.href = dashboardPath;
+    } catch (err: any) {
+      const { getAuthErrorMessage } = await import('../../lib/auth');
+      setError(getAuthErrorMessage(err, lang));
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  if (needsNewPassword) {
+    return (
+      <div className="lf-wrapper">
+        <div className="lf-glow lf-glow-1" />
+        <div className="lf-glow lf-glow-2" />
+        <div className="lf-card">
+          <div className="lf-header">
+            <div className="lf-logo">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ color: '#f8b03b' }}>
+                <rect x="3" y="11" width="18" height="11" rx="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+              </svg>
+            </div>
+            <h1 className="lf-title">{lang === 'es' ? 'Crear nueva contraseña' : 'Create new password'}</h1>
+            <p className="lf-subtitle">{lang === 'es' ? 'Tu cuenta requiere que establezcas una nueva contraseña' : 'Your account requires you to set a new password'}</p>
+          </div>
+          <form onSubmit={handleNewPasswordSubmit} className="lf-form" noValidate>
+            <div className="lf-field">
+              <label className="lf-label">{lang === 'es' ? 'Nueva contraseña' : 'New password'}</label>
+              <div className="lf-input-wrap">
+                <svg className="lf-input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <rect x="3" y="11" width="18" height="11" rx="2" />
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                </svg>
+                <input type={showPassword ? 'text' : 'password'} className="lf-input" value={newPassword} onChange={e => setNewPassword(e.target.value)} placeholder="••••••••" required disabled={isLoading} />
+                <button type="button" className="lf-toggle-pw" onClick={() => setShowPassword(!showPassword)} tabIndex={-1}>
+                  {showPassword ? '🙈' : '👁️'}
+                </button>
+              </div>
+            </div>
+            <div className="lf-field">
+              <label className="lf-label">{lang === 'es' ? 'Confirmar contraseña' : 'Confirm password'}</label>
+              <div className="lf-input-wrap">
+                <svg className="lf-input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <rect x="3" y="11" width="18" height="11" rx="2" />
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                </svg>
+                <input type={showPassword ? 'text' : 'password'} className="lf-input" value={confirmNewPwd} onChange={e => setConfirmNewPwd(e.target.value)} placeholder="••••••••" required disabled={isLoading} />
+              </div>
+            </div>
+            {error && <div className="lf-error"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>{error}</div>}
+            <button type="submit" className="lf-submit" disabled={isLoading}>
+              {isLoading ? <span className="lf-spinner" /> : (lang === 'es' ? 'Establecer contraseña' : 'Set password')}
+            </button>
+          </form>
+        </div>
+        <style>{cssStyles}</style>
+      </div>
+    );
   }
 
   return (
