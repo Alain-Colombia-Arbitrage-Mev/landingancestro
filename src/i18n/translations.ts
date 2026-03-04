@@ -9,6 +9,7 @@ export const translations = {
     'nav.invest': 'Invertir',
     'nav.team': 'Equipo',
     'nav.waitlist': 'Lista de Espera',
+    'nav.contact': 'Contacto',
     'nav.login': 'Iniciar Sesión',
     
     // Hero
@@ -64,7 +65,32 @@ export const translations = {
     'shop.vehicles.desc': 'Vehículos eléctricos para un transporte limpio y eficiente.',
     'shop.order': 'Ordenar',
     'shop.learn': 'Más Info',
-    
+
+    // Contact Page
+    'contact.title': 'Contáctanos',
+    'contact.subtitle': 'Selecciona el motivo de tu consulta y te responderemos a la brevedad.',
+    'contact.type': 'Motivo de contacto',
+    'contact.type.order': 'Quiero ordenar un producto',
+    'contact.type.budget': 'Solicitar presupuesto',
+    'contact.type.info': 'Más información',
+    'contact.type.general': 'Contacto general',
+    'contact.type.charger': 'Cargadores / Infraestructura',
+    'contact.name': 'Nombre Completo',
+    'contact.email': 'Correo Electrónico',
+    'contact.phone': 'Teléfono',
+    'contact.message': 'Mensaje',
+    'contact.messagePlaceholder': 'Cuéntanos cómo podemos ayudarte...',
+    'contact.product': 'Producto de interés',
+    'contact.product.solar': 'Paneles Solares',
+    'contact.product.battery': 'Baterías',
+    'contact.product.charger': 'Cargadores',
+    'contact.product.vehicle': 'Vehículos Eléctricos',
+    'contact.product.other': 'Otro',
+    'contact.submit': 'Enviar Mensaje',
+    'contact.success': '¡Mensaje enviado! Te contactaremos pronto.',
+    'contact.terms': 'Acepto los',
+    'contact.termsLink': 'Términos y Política de Privacidad',
+
     // Footer
     'footer.tagline': 'Potenciando el futuro de la energía limpia en Latinoamérica',
     'footer.products': 'Productos',
@@ -423,6 +449,7 @@ export const translations = {
     'nav.invest': 'Invest',
     'nav.team': 'Team',
     'nav.waitlist': 'Waitlist',
+    'nav.contact': 'Contact',
     'nav.login': 'Login',
     
     // Hero
@@ -478,7 +505,32 @@ export const translations = {
     'shop.vehicles.desc': 'Electric vehicles for clean and efficient transportation.',
     'shop.order': 'Order Now',
     'shop.learn': 'Learn More',
-    
+
+    // Contact Page
+    'contact.title': 'Contact Us',
+    'contact.subtitle': 'Select the reason for your inquiry and we will get back to you shortly.',
+    'contact.type': 'Reason for contact',
+    'contact.type.order': 'I want to order a product',
+    'contact.type.budget': 'Request a quote',
+    'contact.type.info': 'More information',
+    'contact.type.general': 'General inquiry',
+    'contact.type.charger': 'Chargers / Infrastructure',
+    'contact.name': 'Full Name',
+    'contact.email': 'Email',
+    'contact.phone': 'Phone',
+    'contact.message': 'Message',
+    'contact.messagePlaceholder': 'Tell us how we can help you...',
+    'contact.product': 'Product of interest',
+    'contact.product.solar': 'Solar Panels',
+    'contact.product.battery': 'Batteries',
+    'contact.product.charger': 'Chargers',
+    'contact.product.vehicle': 'Electric Vehicles',
+    'contact.product.other': 'Other',
+    'contact.submit': 'Send Message',
+    'contact.success': 'Message sent! We will contact you soon.',
+    'contact.terms': 'I accept the',
+    'contact.termsLink': 'Terms and Privacy Policy',
+
     // Footer
     'footer.tagline': 'Powering the future of clean energy in Latin America',
     'footer.products': 'Products',
@@ -837,6 +889,7 @@ export const translations = {
     'nav.invest': 'Investir',
     'nav.team': 'Equipe',
     'nav.waitlist': 'Lista de Espera',
+    'nav.contact': 'Contato',
     'nav.login': 'Entrar',
     
     // Hero
@@ -892,7 +945,32 @@ export const translations = {
     'shop.vehicles.desc': 'Veículos elétricos para transporte limpo e eficiente.',
     'shop.order': 'Pedir Agora',
     'shop.learn': 'Saiba Mais',
-    
+
+    // Contact Page
+    'contact.title': 'Entre em Contato',
+    'contact.subtitle': 'Selecione o motivo da sua consulta e responderemos em breve.',
+    'contact.type': 'Motivo do contato',
+    'contact.type.order': 'Quero fazer um pedido',
+    'contact.type.budget': 'Solicitar orçamento',
+    'contact.type.info': 'Mais informações',
+    'contact.type.general': 'Contato geral',
+    'contact.type.charger': 'Carregadores / Infraestrutura',
+    'contact.name': 'Nome Completo',
+    'contact.email': 'E-mail',
+    'contact.phone': 'Telefone',
+    'contact.message': 'Mensagem',
+    'contact.messagePlaceholder': 'Conte-nos como podemos ajudá-lo...',
+    'contact.product': 'Produto de interesse',
+    'contact.product.solar': 'Painéis Solares',
+    'contact.product.battery': 'Baterias',
+    'contact.product.charger': 'Carregadores',
+    'contact.product.vehicle': 'Veículos Elétricos',
+    'contact.product.other': 'Outro',
+    'contact.submit': 'Enviar Mensagem',
+    'contact.success': 'Mensagem enviada! Entraremos em contato em breve.',
+    'contact.terms': 'Aceito os',
+    'contact.termsLink': 'Termos e Política de Privacidade',
+
     // Footer
     'footer.tagline': 'Impulsionando o futuro da energia limpa na América Latina',
     'footer.products': 'Produtos',
@@ -1251,6 +1329,7 @@ export const translations = {
     'nav.invest': '投资',
     'nav.team': '团队',
     'nav.waitlist': '等候名单',
+    'nav.contact': '联系我们',
     'nav.login': '登录',
     
     // Hero
@@ -1306,7 +1385,32 @@ export const translations = {
     'shop.vehicles.desc': '清洁高效的电动汽车。',
     'shop.order': '立即订购',
     'shop.learn': '了解更多',
-    
+
+    // Contact Page
+    'contact.title': '联系我们',
+    'contact.subtitle': '选择您的咨询原因，我们会尽快回复。',
+    'contact.type': '联系原因',
+    'contact.type.order': '我想订购产品',
+    'contact.type.budget': '请求报价',
+    'contact.type.info': '更多信息',
+    'contact.type.general': '一般咨询',
+    'contact.type.charger': '充电器/基础设施',
+    'contact.name': '全名',
+    'contact.email': '电子邮件',
+    'contact.phone': '电话',
+    'contact.message': '留言',
+    'contact.messagePlaceholder': '告诉我们如何帮助您...',
+    'contact.product': '感兴趣的产品',
+    'contact.product.solar': '太阳能板',
+    'contact.product.battery': '电池',
+    'contact.product.charger': '充电器',
+    'contact.product.vehicle': '电动汽车',
+    'contact.product.other': '其他',
+    'contact.submit': '发送消息',
+    'contact.success': '消息已发送！我们会尽快联系您。',
+    'contact.terms': '我接受',
+    'contact.termsLink': '条款和隐私政策',
+
     // Footer
     'footer.tagline': '推动拉丁美洲清洁能源的未来',
     'footer.products': '产品',
@@ -1665,6 +1769,7 @@ export const translations = {
     'nav.invest': 'استثمر',
     'nav.team': 'الفريق',
     'nav.waitlist': 'قائمة الانتظار',
+    'nav.contact': 'اتصل بنا',
     'nav.login': 'تسجيل الدخول',
     
     // Hero
@@ -1720,7 +1825,32 @@ export const translations = {
     'shop.vehicles.desc': 'مركبات كهربائية لنقل نظيف وفعال.',
     'shop.order': 'اطلب الآن',
     'shop.learn': 'اعرف المزيد',
-    
+
+    // Contact Page
+    'contact.title': 'اتصل بنا',
+    'contact.subtitle': 'اختر سبب استفسارك وسنعود إليك قريبًا.',
+    'contact.type': 'سبب الاتصال',
+    'contact.type.order': 'أريد طلب منتج',
+    'contact.type.budget': 'طلب عرض سعر',
+    'contact.type.info': 'مزيد من المعلومات',
+    'contact.type.general': 'استفسار عام',
+    'contact.type.charger': 'شواحن / بنية تحتية',
+    'contact.name': 'الاسم الكامل',
+    'contact.email': 'البريد الإلكتروني',
+    'contact.phone': 'الهاتف',
+    'contact.message': 'الرسالة',
+    'contact.messagePlaceholder': 'أخبرنا كيف يمكننا مساعدتك...',
+    'contact.product': 'المنتج المطلوب',
+    'contact.product.solar': 'ألواح شمسية',
+    'contact.product.battery': 'بطاريات',
+    'contact.product.charger': 'شواحن',
+    'contact.product.vehicle': 'سيارات كهربائية',
+    'contact.product.other': 'آخر',
+    'contact.submit': 'إرسال الرسالة',
+    'contact.success': 'تم إرسال الرسالة! سنتواصل معك قريبًا.',
+    'contact.terms': 'أوافق على',
+    'contact.termsLink': 'الشروط وسياسة الخصوصية',
+
     // Footer
     'footer.tagline': 'نقود مستقبل الطاقة النظيفة في أمريكا اللاتينية',
     'footer.products': 'المنتجات',

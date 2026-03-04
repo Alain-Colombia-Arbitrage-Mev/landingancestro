@@ -1,0 +1,775 @@
+---
+export const prerender = true;
+import Layout from '@layouts/Layout.astro';
+import Navbar from '@components/Navbar.astro';
+import Footer from '@components/Footer.astro';
+import { useTranslations } from '../i18n/utils';
+import { defaultLang } from '../i18n/languages';
+
+const t = useTranslations(defaultLang);
+const footerBg = "/images/footer-bg.png";
+
+const countries = [
+  { code: "CO", name: "Colombia", dial: "+57" },
+  { code: "MX", name: "México", dial: "+52" },
+  { code: "BR", name: "Brasil", dial: "+55" },
+  { code: "AR", name: "Argentina", dial: "+54" },
+  { code: "CL", name: "Chile", dial: "+56" },
+  { code: "PE", name: "Perú", dial: "+51" },
+  { code: "PA", name: "Panamá", dial: "+507" },
+  { code: "CR", name: "Costa Rica", dial: "+506" },
+  { code: "EC", name: "Ecuador", dial: "+593" },
+  { code: "UY", name: "Uruguay", dial: "+598" },
+  { code: "GT", name: "Guatemala", dial: "+502" },
+  { code: "SV", name: "El Salvador", dial: "+503" },
+  { code: "HN", name: "Honduras", dial: "+504" },
+  { code: "NI", name: "Nicaragua", dial: "+505" },
+  { code: "DO", name: "Rep. Dominicana", dial: "+1" },
+  { code: "BO", name: "Bolivia", dial: "+591" },
+  { code: "PY", name: "Paraguay", dial: "+595" },
+  { code: "VE", name: "Venezuela", dial: "+58" },
+  { code: "US", name: "Estados Unidos", dial: "+1" },
+  { code: "ES", name: "España", dial: "+34" },
+];
+
+const contactTypes = [
+  { value: 'order', label: t('contact.type.order') },
+  { value: 'budget', label: t('contact.type.budget') },
+  { value: 'info', label: t('contact.type.info') },
+  { value: 'charger', label: t('contact.type.charger') },
+  { value: 'general', label: t('contact.type.general') },
+];
+
+const products = [
+  { value: 'solar', label: t('contact.product.solar') },
+  { value: 'battery', label: t('contact.product.battery') },
+  { value: 'charger', label: t('contact.product.charger') },
+  { value: 'vehicle', label: t('contact.product.vehicle') },
+  { value: 'other', label: t('contact.product.other') },
+];
+---
+
+<Layout title={`${t('contact.title')} — Ancestro`} description={t('contact.subtitle')}>
+  <div class="contact-page">
+    <Navbar />
+
+    <main id="main-content">
+      <div class="bg-effects">
+        <div class="bg-gradient"></div>
+        <div class="bg-grid"></div>
+        <div class="floating-orbs">
+          <div class="orb orb-1"></div>
+          <div class="orb orb-2"></div>
+        </div>
+      </div>
+
+      <section class="contact-section">
+        <div class="contact-container">
+          <div class="contact-info">
+            <span class="contact-badge">
+              <span class="badge-dot"></span>
+              {t('contact.title')}
+            </span>
+
+            <h1 class="contact-title">{t('contact.title')}</h1>
+            <p class="contact-subtitle">{t('contact.subtitle')}</p>
+
+            <div class="contact-channels">
+              <div class="channel-item">
+                <div class="channel-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" stroke="currentColor" stroke-width="2"/></svg>
+                </div>
+                <div>
+                  <span class="channel-label">Email</span>
+                  <span class="channel-value">info@ancestro.co</span>
+                </div>
+              </div>
+              <div class="channel-item">
+                <div class="channel-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="currentColor" stroke-width="2"/></svg>
+                </div>
+                <div>
+                  <span class="channel-label">Web</span>
+                  <span class="channel-value">ancestro.co</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-form-container">
+            <div class="form-card" id="form-card">
+              <form class="contact-form" id="contact-form" action="https://formsubmit.co/info@ancestro.co" method="POST">
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="hidden" name="_next" value="" id="form-next" />
+                <input type="hidden" name="_subject" value="Nuevo contacto — Ancestro" id="form-subject" />
+
+                <div class="form-group">
+                  <label for="contact-type">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2" stroke="currentColor" stroke-width="2"/><rect x="9" y="3" width="6" height="4" rx="1" stroke="currentColor" stroke-width="2"/></svg>
+                    {t('contact.type')} *
+                  </label>
+                  <div class="select-wrapper">
+                    <select id="contact-type" name="contactType" required>
+                      <option value="">{t('contact.type')}</option>
+                      {contactTypes.map((ct) => (
+                        <option value={ct.value}>{ct.label}</option>
+                      ))}
+                    </select>
+                    <span class="select-arrow">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                    </span>
+                  </div>
+                </div>
+
+                <div class="form-group" id="product-group" style="display:none;">
+                  <label for="product">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" stroke="currentColor" stroke-width="2"/><polyline points="3.27,6.96 12,12.01 20.73,6.96" stroke="currentColor" stroke-width="2"/><line x1="12" y1="22.08" x2="12" y2="12" stroke="currentColor" stroke-width="2"/></svg>
+                    {t('contact.product')}
+                  </label>
+                  <div class="select-wrapper">
+                    <select id="product" name="product">
+                      <option value="">{t('contact.product')}</option>
+                      {products.map((p) => (
+                        <option value={p.value}>{p.label}</option>
+                      ))}
+                    </select>
+                    <span class="select-arrow">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                    </span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="fullName">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2"/></svg>
+                    {t('contact.name')} *
+                  </label>
+                  <input type="text" id="fullName" name="fullName" placeholder={t('contact.name')} required autocomplete="name" />
+                </div>
+
+                <div class="form-group">
+                  <label for="email">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" stroke="currentColor" stroke-width="2"/></svg>
+                    {t('contact.email')} *
+                  </label>
+                  <input type="email" id="email" name="email" placeholder="tu@correo.com" required autocomplete="email" />
+                </div>
+
+                <div class="form-group">
+                  <label for="phone">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2"/></svg>
+                    {t('contact.phone')}
+                  </label>
+                  <div class="phone-input-group">
+                    <div class="country-select-wrapper">
+                      <select id="countryCode" name="countryCode">
+                        {countries.map((country) => (
+                          <option value={country.dial}>{country.dial} {country.name}</option>
+                        ))}
+                      </select>
+                      <span class="select-arrow">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                      </span>
+                    </div>
+                    <input type="tel" id="phone" name="phone" placeholder="300 123 4567" autocomplete="tel-national" />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="message">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="currentColor" stroke-width="2"/></svg>
+                    {t('contact.message')} *
+                  </label>
+                  <textarea id="message" name="message" rows="4" placeholder={t('contact.messagePlaceholder')} required></textarea>
+                </div>
+
+                <div class="form-group checkbox-group">
+                  <input type="checkbox" id="terms" name="terms" required />
+                  <label for="terms">
+                    {t('contact.terms')}
+                    <a href="/pdf-viewer?file=Ancestro_Policy.pdf">{t('contact.termsLink')}</a>
+                  </label>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submit-btn">
+                  <span class="btn-text">{t('contact.submit')}</span>
+                  <span class="btn-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  <span class="btn-loader">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="spinner"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-dasharray="60" stroke-dashoffset="20"/></svg>
+                  </span>
+                  <span class="btn-success">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  <div class="btn-shine"></div>
+                </button>
+              </form>
+
+              <div class="form-footer">
+                <div class="security-note">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2"/></svg>
+                  <span>Tus datos están seguros y protegidos</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="success-message" id="success-message">
+              <div class="success-icon">
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M8 12l3 3 5-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <h3>{t('contact.success')}</h3>
+              <p>Te responderemos a la brevedad.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <Footer backgroundImage={footerBg} />
+  </div>
+</Layout>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const submitBtn = document.getElementById('submit-btn');
+  const formCard = document.getElementById('form-card');
+  const successMessage = document.getElementById('success-message');
+  const contactType = document.getElementById('contact-type') as HTMLSelectElement;
+  const productGroup = document.getElementById('product-group');
+  const formNext = document.getElementById('form-next') as HTMLInputElement;
+  const formSubject = document.getElementById('form-subject') as HTMLInputElement;
+
+  if (formNext) {
+    formNext.value = window.location.href;
+  }
+
+  const params = new URLSearchParams(window.location.search);
+  const typeParam = params.get('type');
+  if (typeParam && contactType) {
+    const validTypes = ['order', 'budget', 'info', 'charger', 'general'];
+    if (validTypes.includes(typeParam)) {
+      contactType.value = typeParam;
+      contactType.dispatchEvent(new Event('change'));
+    }
+  }
+
+  contactType?.addEventListener('change', () => {
+    const showProduct = ['order', 'budget', 'info'].includes(contactType.value);
+    if (productGroup) {
+      productGroup.style.display = showProduct ? 'block' : 'none';
+    }
+    const typeLabel = contactType.options[contactType.selectedIndex]?.text || '';
+    if (formSubject) {
+      formSubject.value = `Ancestro — ${typeLabel}`;
+    }
+  });
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!submitBtn) return;
+
+    submitBtn.classList.add('loading');
+
+    try {
+      const formData = new FormData(form);
+      await fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' },
+      });
+    } catch (_) {}
+
+    submitBtn.classList.remove('loading');
+    submitBtn.classList.add('success');
+
+    setTimeout(() => {
+      formCard?.classList.add('hidden');
+      successMessage?.classList.add('visible');
+    }, 800);
+  });
+
+  const inputs = document.querySelectorAll('.form-group input, .form-group select, .form-group textarea');
+  inputs.forEach(input => {
+    input.addEventListener('focus', () => input.closest('.form-group')?.classList.add('focused'));
+    input.addEventListener('blur', () => input.closest('.form-group')?.classList.remove('focused'));
+  });
+</script>
+
+<style>
+  .contact-page {
+    background-color: var(--color-black);
+    min-height: 100vh;
+  }
+
+  main {
+    padding-top: 79px;
+    position: relative;
+    min-height: calc(100vh - 79px);
+  }
+
+  .bg-effects {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .bg-gradient {
+    position: absolute;
+    top: -30%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150%;
+    height: 80%;
+    background: radial-gradient(ellipse at center, rgba(248, 176, 59, 0.10) 0%, transparent 60%);
+  }
+
+  .bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(248, 176, 59, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(248, 176, 59, 0.03) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: radial-gradient(ellipse at center top, black 20%, transparent 70%);
+  }
+
+  .floating-orbs {
+    position: absolute;
+    inset: 0;
+  }
+
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.35;
+    animation: float 20s ease-in-out infinite;
+  }
+
+  .orb-1 {
+    width: 350px;
+    height: 350px;
+    background: rgba(248, 176, 59, 0.3);
+    top: 15%;
+    left: 10%;
+  }
+
+  .orb-2 {
+    width: 250px;
+    height: 250px;
+    background: rgba(248, 176, 59, 0.2);
+    top: 55%;
+    right: 10%;
+    animation-delay: -7s;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(30px, -30px) scale(1.05); }
+    50% { transform: translate(-20px, 20px) scale(0.95); }
+    75% { transform: translate(20px, 30px) scale(1.02); }
+  }
+
+  .contact-section {
+    position: relative;
+    z-index: 1;
+    padding: 80px 20px;
+    min-height: calc(100vh - 79px);
+    display: flex;
+    align-items: center;
+  }
+
+  .contact-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .contact-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    background: rgba(248, 176, 59, 0.1);
+    border: 1px solid rgba(248, 176, 59, 0.3);
+    border-radius: 50px;
+    color: var(--color-primary);
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 30px;
+  }
+
+  .badge-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--color-primary);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.2); }
+  }
+
+  .contact-title {
+    font-size: clamp(36px, 5vw, 52px);
+    font-weight: 700;
+    color: var(--color-white);
+    line-height: 1.1;
+    margin-bottom: 18px;
+  }
+
+  .contact-subtitle {
+    font-size: clamp(16px, 1.8vw, 18px);
+    color: var(--color-gray);
+    line-height: 1.7;
+    margin-bottom: 40px;
+  }
+
+  .contact-channels {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .channel-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--color-white-10);
+    border-radius: 14px;
+    transition: all 0.3s ease;
+  }
+
+  .channel-item:hover {
+    border-color: rgba(248, 176, 59, 0.3);
+    background: rgba(248, 176, 59, 0.05);
+  }
+
+  .channel-icon {
+    color: var(--color-primary);
+    flex-shrink: 0;
+  }
+
+  .channel-label {
+    display: block;
+    font-size: 12px;
+    color: var(--color-gray);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .channel-value {
+    display: block;
+    font-size: 16px;
+    color: var(--color-white);
+    font-weight: 500;
+  }
+
+  .form-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--color-white-10);
+    border-radius: 24px;
+    padding: 40px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transition: all 0.5s ease;
+  }
+
+  .form-card.hidden {
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
+    position: absolute;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .form-group {
+    position: relative;
+  }
+
+  .form-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-white);
+    margin-bottom: 10px;
+  }
+
+  .form-group label svg {
+    color: var(--color-gray);
+    transition: color 0.3s ease;
+  }
+
+  .form-group.focused label svg {
+    color: var(--color-primary);
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 16px 18px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid var(--color-white-10);
+    border-radius: 14px;
+    color: var(--color-white);
+    font-size: 16px;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: var(--color-gray);
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    background: rgba(248, 176, 59, 0.05);
+    box-shadow: 0 0 0 4px rgba(248, 176, 59, 0.1);
+  }
+
+  .form-group select {
+    cursor: pointer;
+    appearance: none;
+  }
+
+  .select-wrapper,
+  .country-select-wrapper {
+    position: relative;
+  }
+
+  .select-arrow {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-gray);
+    pointer-events: none;
+  }
+
+  .phone-input-group {
+    display: flex;
+    gap: 12px;
+  }
+
+  .country-select-wrapper {
+    flex-shrink: 0;
+    width: 150px;
+  }
+
+  .country-select-wrapper select {
+    padding-right: 32px;
+  }
+
+  .phone-input-group input {
+    flex: 1;
+  }
+
+  .checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .checkbox-group input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    accent-color: var(--color-primary);
+    cursor: pointer;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  .checkbox-group label {
+    font-size: 13px;
+    color: var(--color-gray);
+    line-height: 1.5;
+    cursor: pointer;
+  }
+
+  .checkbox-group a {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+
+  .submit-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 18px 24px;
+    background: linear-gradient(135deg, var(--color-primary) 0%, #e9a235 100%);
+    border: none;
+    border-radius: 14px;
+    color: var(--color-black);
+    font-size: 17px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .submit-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 40px rgba(248, 176, 59, 0.4), 0 0 0 2px rgba(248, 176, 59, 0.2);
+  }
+
+  .btn-text, .btn-icon { transition: all 0.3s ease; }
+  .btn-loader, .btn-success {
+    position: absolute;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.3s ease;
+  }
+
+  .spinner { animation: spin 1s linear infinite; }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  .submit-btn.loading .btn-text,
+  .submit-btn.loading .btn-icon { opacity: 0; transform: translateY(10px); }
+  .submit-btn.loading .btn-loader { opacity: 1; transform: scale(1); }
+
+  .submit-btn.success { background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%); }
+  .submit-btn.success .btn-text,
+  .submit-btn.success .btn-icon,
+  .submit-btn.success .btn-loader { opacity: 0; transform: scale(0.5); }
+  .submit-btn.success .btn-success { opacity: 1; transform: scale(1); }
+
+  .btn-shine {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .submit-btn:hover .btn-shine { left: 100%; }
+
+  .form-footer {
+    margin-top: 18px;
+    text-align: center;
+  }
+
+  .security-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--color-gray);
+  }
+
+  .success-message {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--color-white-10);
+    border-radius: 24px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
+    transition: all 0.5s ease;
+  }
+
+  .success-message.visible {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+  }
+
+  .success-icon {
+    color: #4ade80;
+    margin-bottom: 24px;
+    animation: successPop 0.5s ease;
+  }
+
+  @keyframes successPop {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
+
+  .success-message h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-white);
+    margin-bottom: 12px;
+  }
+
+  .success-message p {
+    font-size: 15px;
+    color: var(--color-gray);
+  }
+
+  .contact-form-container {
+    position: relative;
+  }
+
+  @media (max-width: 1024px) {
+    .contact-container {
+      grid-template-columns: 1fr;
+      gap: 50px;
+    }
+    .contact-info {
+      text-align: center;
+    }
+    .contact-channels {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .contact-section {
+      padding: 40px 16px;
+    }
+    .form-card {
+      padding: 28px 20px;
+    }
+    .phone-input-group {
+      flex-direction: column;
+    }
+    .country-select-wrapper {
+      width: 100%;
+    }
+  }
+</style>

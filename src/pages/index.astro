@@ -8,10 +8,11 @@ import InfoSection from '@components/InfoSection.astro';
 import LATAMSection from '@components/LATAMSection.astro';
 import ShopSection from '@components/ShopSection.astro';
 import Footer from '@components/Footer.astro';
-import { useTranslations } from '../i18n/utils';
+import { useTranslations, useTranslatedPath } from '../i18n/utils';
 import { defaultLang } from '../i18n/languages';
 
 const t = useTranslations(defaultLang);
+const translatePath = useTranslatedPath(defaultLang);
 
 // Local image assets (extracted from design files)
 const images = {
@@ -125,6 +126,7 @@ const products = [
               subtitle={t('info.subtitle')}
               ctaVariant="secondary"
               ctaText={t('info.cta')}
+              ctaHref={`${translatePath('/contact')}?type=info`}
               imageUrl={images.infoSection1}
             />
             <div class="charger-card">
@@ -136,8 +138,8 @@ const products = [
                 <h3 class="charger-title">{t('charger.title')}</h3>
                 <p class="charger-subtitle">{t('charger.subtitle')}</p>
                 <div class="charger-actions">
-                  <a href="#" class="cta-btn secondary">{t('charger.hostBtn')}</a>
-                  <a href="#" class="cta-btn secondary">{t('charger.downloadBtn')}</a>
+                  <a href={`${translatePath('/contact')}?type=charger`} class="cta-btn secondary">{t('charger.hostBtn')}</a>
+                  <a href={`${translatePath('/contact')}?type=charger`} class="cta-btn secondary">{t('charger.downloadBtn')}</a>
                 </div>
               </div>
             </div>
@@ -150,6 +152,7 @@ const products = [
               subtitle={t('promo.subtitle')}
               ctaVariant="primary"
               ctaText={t('shop.order')}
+              ctaHref={`${translatePath('/contact')}?type=order`}
               imageUrl={images.infoSection2}
             />
             <div class="vehicle-card">
@@ -157,7 +160,7 @@ const products = [
               <div class="vehicle-image">
                 <img src={images.vehicle} alt={t('promo.vehicle')} />
               </div>
-              <a href="#" class="cta-btn primary vehicle-order-btn">{t('shop.order')}</a>
+              <a href={`${translatePath('/contact')}?type=order`} class="cta-btn primary vehicle-order-btn">{t('shop.order')}</a>
             </div>
           </div>
         </div>
