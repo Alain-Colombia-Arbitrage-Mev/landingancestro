@@ -9,7 +9,7 @@ interface Slide {
   title: string;
   title2: string;
   ctaLeft: { text: string; href: string };
-  ctaRight: { text: string; href: string };
+  ctaRight: { text: string; href: string; contactType?: string };
 }
 
 interface Props {
@@ -53,7 +53,7 @@ const t = useTranslations(lang);
           </div>
           <div class="hero-actions">
             <CTA variant="secondary" text={slide.ctaLeft.text} href={slide.ctaLeft.href} />
-            <CTA variant="primary" text={slide.ctaRight.text} href={slide.ctaRight.href} />
+            <CTA variant="primary" text={slide.ctaRight.text} href={slide.ctaRight.href} contactType={slide.ctaRight.contactType} />
           </div>
         </div>
       </div>

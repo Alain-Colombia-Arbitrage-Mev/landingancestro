@@ -9,6 +9,13 @@ import { defaultLang } from '../i18n/languages';
 const t = useTranslations(defaultLang);
 const footerBg = "/images/footer-bg.png";
 
+/** Genera emoji de bandera desde código ISO 3166-1 alpha-2 (ej: CO → 🇨🇴) */
+function getFlagEmoji(code: string): string {
+  const c = code.toUpperCase();
+  if (c.length !== 2) return "";
+  return String.fromCodePoint(...[...c].map((char) => 0x1f1e6 - 65 + char.charCodeAt(0)));
+}
+
 const countries = [
   { code: "CO", name: "Colombia", dial: "+57" },
   { code: "MX", name: "México", dial: "+52" },
@@ -28,7 +35,7 @@ const countries = [
   { code: "BO", name: "Bolivia", dial: "+591" },
   { code: "PY", name: "Paraguay", dial: "+595" },
   { code: "VE", name: "Venezuela", dial: "+58" },
-  { code: "US", name: "Estados Unidos", dial: "+1" },
+  { code: "US", name: "Estados Unidos (USD)", dial: "+1" },
   { code: "ES", name: "España", dial: "+34" },
 ];
 
@@ -162,9 +169,10 @@ const products = [
                   </label>
                   <div class="phone-input-group">
                     <div class="country-select-wrapper">
-                      <select id="countryCode" name="countryCode">
+                      <span class="country-flag" id="country-flag-display" aria-hidden="true">{getFlagEmoji("CO")}</span>
+                      <select id="countryCode" name="countryCode" aria-label={t('contact.phone')}>
                         {countries.map((country) => (
-                          <option value={country.dial}>{country.dial} {country.name}</option>
+                          <option value={country.dial} data-code={country.code}>{getFlagEmoji(country.code)} {country.dial} {country.name}</option>
                         ))}
                       </select>
                       <span class="select-arrow">
@@ -293,6 +301,19 @@ const products = [
   inputs.forEach(input => {
     input.addEventListener('focus', () => input.closest('.form-group')?.classList.add('focused'));
     input.addEventListener('blur', () => input.closest('.form-group')?.classList.remove('focused'));
+  });
+
+  function getFlagEmoji(code) {
+    const c = (code || '').toUpperCase();
+    if (c.length !== 2) return '';
+    return String.fromCodePoint(...[...c].map((char) => 0x1F1E6 - 65 + char.charCodeAt(0)));
+  }
+  const countryCodeSelect = document.getElementById('countryCode') as HTMLSelectElement;
+  const countryFlagDisplay = document.getElementById('country-flag-display');
+  countryCodeSelect?.addEventListener('change', () => {
+    const opt = countryCodeSelect.options[countryCodeSelect.selectedIndex];
+    const code = opt?.getAttribute('data-code') || 'CO';
+    if (countryFlagDisplay) countryFlagDisplay.textContent = getFlagEmoji(code);
   });
 </script>
 
@@ -581,10 +602,24 @@ const products = [
 
   .country-select-wrapper {
     flex-shrink: 0;
-    width: 150px;
+    min-width: 200px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .country-select-wrapper .country-flag {
+    font-size: 1.5rem;
+    line-height: 1;
+    flex-shrink: 0;
+    width: 32px;
+    text-align: center;
   }
 
   .country-select-wrapper select {
+    flex: 1;
+    min-width: 0;
+    padding-left: 10px;
     padding-right: 32px;
   }
 

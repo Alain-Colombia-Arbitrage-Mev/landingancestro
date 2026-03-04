@@ -49,6 +49,15 @@ const PRODUCT_LABEL_MAP: Record<string, keyof ContactPopupLabels> = {
   other: 'productOther',
 };
 
+/** Genera emoji de bandera a partir del código ISO 3166-1 alpha-2 (ej: CO → 🇨🇴) */
+function getFlagEmoji(code: string): string {
+  const c = code.toUpperCase();
+  if (c.length !== 2) return '';
+  return String.fromCodePoint(
+    ...[...c].map((char) => 0x1f1e6 - 65 + char.charCodeAt(0))
+  );
+}
+
 const COUNTRIES = [
   { code: 'CO', name: 'Colombia', dial: '+57' },
   { code: 'MX', name: 'México', dial: '+52' },
@@ -68,7 +77,7 @@ const COUNTRIES = [
   { code: 'BO', name: 'Bolivia', dial: '+591' },
   { code: 'PY', name: 'Paraguay', dial: '+595' },
   { code: 'VE', name: 'Venezuela', dial: '+58' },
-  { code: 'US', name: 'Estados Unidos', dial: '+1' },
+  { code: 'US', name: 'Estados Unidos (USD)', dial: '+1' },
   { code: 'ES', name: 'España', dial: '+34' },
 ];
 
@@ -278,17 +287,23 @@ export default function ContactPopup({ labels, contactPath }: ContactPopupProps)
                 <label style={s.label} htmlFor="cp-phone">{labels.phone}</label>
                 <div style={s.phoneRow} className="cp-phone-row">
                   <div style={s.phoneCodeWrap} className="cp-phone-code-wrap">
+                    <span className="cp-phone-flag" aria-hidden="true">
+                      {getFlagEmoji(COUNTRIES.find((c) => c.dial === countryCode)?.code ?? 'CO')}
+                    </span>
                     <select
                       value={countryCode}
                       onChange={(e) => setCountryCode(e.target.value)}
                       style={s.phoneCodeSelect}
                       className="cp-phone-code-select"
+                      title={labels.phone}
                     >
                       {COUNTRIES.map((c) => (
-                        <option key={`${c.code}-${c.dial}`} value={c.dial}>{c.dial} {c.name}</option>
+                        <option key={`${c.code}-${c.dial}`} value={c.dial}>
+                          {getFlagEmoji(c.code)} {c.dial} {c.name}
+                        </option>
                       ))}
                     </select>
-                    <span style={s.selectArrow}>
+                    <span style={s.selectArrow} className="cp-phone-arrow">
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
                     </span>
                   </div>
@@ -368,6 +383,23 @@ export default function ContactPopup({ labels, contactPath }: ContactPopupProps)
         .cp-phone-code-select option {
           background-color: #1c1a16 !important;
           color: #f5f0e6 !important;
+        }
+        .cp-phone-code-wrap {
+          display: flex !important;
+          align-items: center !important;
+          gap: 8px !important;
+        }
+        .cp-phone-flag {
+          font-size: 1.5rem !important;
+          line-height: 1 !important;
+          flex-shrink: 0 !important;
+          width: 32px !important;
+          text-align: center !important;
+        }
+        .cp-phone-code-select {
+          flex: 1 !important;
+          min-width: 0 !important;
+          padding-left: 10px !important;
         }
         .cp-input:focus {
           border-color: rgba(248,176,59,0.4) !important;
@@ -527,7 +559,7 @@ const s: Record<string, React.CSSProperties> = {
   phoneCodeWrap: {
     position: 'relative' as const,
     flexShrink: 0,
-    width: '160px',
+    minWidth: '200px',
   },
   phoneCodeSelect: {
     width: '100%',

@@ -14,6 +14,13 @@ const { lang } = Astro.params as { lang: Lang };
 const t = useTranslations(lang);
 const footerBg = "/images/footer-bg.png";
 
+/** Genera emoji de bandera desde código ISO 3166-1 alpha-2 (ej: CO → 🇨🇴) */
+function getFlagEmoji(code: string): string {
+  const c = code.toUpperCase();
+  if (c.length !== 2) return "";
+  return String.fromCodePoint(...[...c].map((char) => 0x1f1e6 - 65 + char.charCodeAt(0)));
+}
+
 const countries = [
   { code: "CO", name: "Colombia", dial: "+57" },
   { code: "MX", name: "México", dial: "+52" },
@@ -33,7 +40,7 @@ const countries = [
   { code: "BO", name: "Bolivia", dial: "+591" },
   { code: "PY", name: "Paraguay", dial: "+595" },
   { code: "VE", name: "Venezuela", dial: "+58" },
-  { code: "US", name: "Estados Unidos", dial: "+1" },
+  { code: "US", name: "Estados Unidos (USD)", dial: "+1" },
   { code: "ES", name: "España", dial: "+34" },
 ];
 
@@ -150,7 +157,12 @@ const products = [
                   <label for="phone"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="2"/></svg>{t('contact.phone')}</label>
                   <div class="phone-input-group">
                     <div class="country-select-wrapper">
-                      <select id="countryCode" name="countryCode">{countries.map((country) => (<option value={country.dial}>{country.dial} {country.name}</option>))}</select>
+                      <span class="country-flag" id="country-flag-display" aria-hidden="true">{getFlagEmoji("CO")}</span>
+                      <select id="countryCode" name="countryCode" aria-label={t('contact.phone')}>
+                        {countries.map((country) => (
+                          <option value={country.dial} data-code={country.code}>{getFlagEmoji(country.code)} {country.dial} {country.name}</option>
+                        ))}
+                      </select>
                       <span class="select-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
                     </div>
                     <input type="tel" id="phone" name="phone" placeholder="300 123 4567" autocomplete="tel-national" />
@@ -247,6 +259,19 @@ const products = [
     input.addEventListener('focus', () => input.closest('.form-group')?.classList.add('focused'));
     input.addEventListener('blur', () => input.closest('.form-group')?.classList.remove('focused'));
   });
+
+  function getFlagEmoji(code) {
+    const c = (code || '').toUpperCase();
+    if (c.length !== 2) return '';
+    return String.fromCodePoint(...[...c].map((char) => 0x1F1E6 - 65 + char.charCodeAt(0)));
+  }
+  const countryCodeSelect = document.getElementById('countryCode') as HTMLSelectElement;
+  const countryFlagDisplay = document.getElementById('country-flag-display');
+  countryCodeSelect?.addEventListener('change', () => {
+    const opt = countryCodeSelect.options[countryCodeSelect.selectedIndex];
+    const code = opt?.getAttribute('data-code') || 'CO';
+    if (countryFlagDisplay) countryFlagDisplay.textContent = getFlagEmoji(code);
+  });
 </script>
 
 <style>
@@ -288,8 +313,9 @@ const products = [
   .select-wrapper, .country-select-wrapper { position: relative; }
   .select-arrow { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: var(--color-gray); pointer-events: none; }
   .phone-input-group { display: flex; gap: 12px; }
-  .country-select-wrapper { flex-shrink: 0; width: 150px; }
-  .country-select-wrapper select { padding-right: 32px; }
+  .country-select-wrapper { flex-shrink: 0; min-width: 200px; display: flex; align-items: center; gap: 8px; }
+  .country-select-wrapper .country-flag { font-size: 1.5rem; line-height: 1; flex-shrink: 0; width: 32px; text-align: center; }
+  .country-select-wrapper select { flex: 1; min-width: 0; padding-left: 10px; padding-right: 32px; }
   .phone-input-group input { flex: 1; }
   .checkbox-group { display: flex; align-items: flex-start; gap: 12px; }
   .checkbox-group input[type="checkbox"] { width: 22px; height: 22px; accent-color: var(--color-primary); cursor: pointer; margin-top: 2px; flex-shrink: 0; }
@@ -316,5 +342,5 @@ const products = [
   .success-icon { color: #4ade80; margin-bottom: 24px; }
   .success-message h3 { font-size: 24px; font-weight: 700; color: var(--color-white); }
   @media (max-width: 1024px) { .contact-container { grid-template-columns: 1fr; gap: 50px; } .contact-info { text-align: center; } .contact-channels { max-width: 400px; margin: 0 auto; } }
-  @media (max-width: 600px) { .contact-section { padding: 40px 16px; } .form-card { padding: 28px 20px; } .phone-input-group { flex-direction: column; } .country-select-wrapper { width: 100%; } }
+  @media (max-width: 600px) { .contact-section { padding: 40px 16px; } .form-card { padding: 28px 20px; } .phone-input-group { flex-direction: column; } .country-select-wrapper { width: 100%; min-width: 0; } }
 </style>
