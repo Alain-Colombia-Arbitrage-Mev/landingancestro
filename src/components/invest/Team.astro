@@ -582,7 +582,7 @@ function getInitials(name: string): string {
     overflow: hidden;
   }
 
-  /* Responsive */
+  /* Responsive — tablet */
   @media (max-width: 900px) {
     .team-grid {
       grid-template-columns: repeat(2, 1fr);
@@ -597,39 +597,139 @@ function getInitials(name: string): string {
     }
   }
 
+  /* Responsive — mobile */
   @media (max-width: 600px) {
     .team-section {
-      padding: 40px 20px;
+      padding: 40px 16px;
+    }
+
+    .team-dept {
+      text-align: center;
+    }
+
+    .team-heading {
+      font-size: 1.375rem;
+      margin-bottom: 20px;
+    }
+
+    .team-subheading {
+      font-size: 0.875rem;
+      margin: -12px 0 28px;
     }
 
     .team-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .team-member {
-      padding: 24px 16px;
-    }
-
-    .member-top {
-      flex-wrap: wrap;
+      grid-template-columns: 1fr;
       gap: 12px;
     }
 
+    .team-member {
+      padding: 20px 16px;
+    }
+
+    .member-top {
+      gap: 12px;
+    }
+
+    .member-avatar {
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      border-radius: 12px;
+    }
+
+    .member-initials {
+      font-size: 0.9375rem;
+    }
+
+    .member-name {
+      font-size: 0.9375rem;
+    }
+
+    .member-role {
+      font-size: 0.75rem;
+    }
+
+    .member-bio {
+      font-size: 0.8125rem;
+      -webkit-line-clamp: 2;
+    }
+
     .member-linkedin {
-      margin-left: auto;
+      width: 28px;
+      height: 28px;
+      min-width: 28px;
+    }
+
+    .section-dept-heading {
+      font-size: 1.0625rem;
+      margin-top: 32px;
+      margin-bottom: 16px;
     }
 
     .advisors-grid {
       grid-template-columns: 1fr;
+      gap: 12px;
     }
 
-    .team-heading {
-      font-size: 1.5rem;
-      margin-bottom: 24px;
+    .advisor-member {
+      padding: 18px 16px;
+    }
+
+    .advisor-avatar {
+      width: 40px;
+      height: 40px;
+      min-width: 40px;
+    }
+
+    .advisor-initials {
+      font-size: 0.8125rem;
+    }
+
+    .advisor-name {
+      font-size: 0.9375rem;
+    }
+
+    .advisor-role {
+      font-size: 0.75rem;
+    }
+
+    .advisor-bio {
+      font-size: 0.8125rem;
+      -webkit-line-clamp: 2;
     }
 
     .advisors-heading {
-      margin-top: 32px;
+      font-size: 1.1875rem;
+      margin-top: 28px;
+      margin-bottom: 16px;
+    }
+
+    .team-show-more-btn {
+      padding: 10px 24px;
+      font-size: 0.875rem;
+    }
+  }
+
+  /* Responsive — very small */
+  @media (max-width: 380px) {
+    .team-section {
+      padding: 32px 12px;
+    }
+
+    .team-heading {
+      font-size: 1.25rem;
+    }
+
+    .team-member {
+      padding: 16px 12px;
+    }
+
+    .member-bio {
+      font-size: 0.75rem;
+    }
+
+    .advisor-member {
+      padding: 14px 12px;
     }
   }
 </style>

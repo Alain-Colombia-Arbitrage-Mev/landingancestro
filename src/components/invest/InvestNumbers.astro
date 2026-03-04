@@ -400,6 +400,46 @@ const terms = [
       justify-content: center;
     }
   }
+
+  @media (max-width: 480px) {
+    .invest-numbers {
+      padding: 32px 16px;
+    }
+
+    .numbers-heading {
+      font-size: 1.25rem;
+    }
+
+    .term-row {
+      flex-direction: column;
+      gap: 4px;
+      padding: 10px 0;
+    }
+
+    .term-key {
+      font-size: 0.75rem;
+    }
+
+    .fund-name {
+      font-size: 0.75rem;
+      word-break: break-word;
+    }
+
+    .fund-pct {
+      font-size: 0.8125rem;
+      min-width: 30px;
+    }
+
+    .numbers-contact {
+      font-size: 0.8125rem;
+    }
+
+    .cta-primary,
+    .cta-secondary {
+      font-size: 14px;
+      padding: 14px 20px;
+    }
+  }
 </style>
 
 <script is:inline>

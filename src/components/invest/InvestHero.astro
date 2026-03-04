@@ -387,13 +387,50 @@ const { sharePrice, valuation } = Astro.props;
   }
 
   @media (max-width: 480px) {
+    .invest-hero {
+      padding: 90px 16px 56px;
+    }
+
+    .hero-badge {
+      font-size: 11px;
+      padding: 6px 14px;
+      gap: 6px;
+      margin-bottom: 24px;
+    }
+
     .hero-stats {
-      gap: 20px;
-      padding: 18px 24px;
+      flex-direction: column;
+      gap: 0;
+      padding: 16px 20px;
+      width: 100%;
+      max-width: 320px;
+    }
+
+    .stat {
+      padding: 10px 0;
+      align-items: center;
+    }
+
+    .stat-divider {
+      width: 80%;
+      height: 1px;
+      align-self: center;
     }
 
     .stat-value {
       font-size: 22px;
+    }
+
+    .stat-label {
+      font-size: 11px;
+    }
+
+    .hero-proof {
+      gap: 6px;
+    }
+
+    .hero-proof-text {
+      font-size: 11px;
     }
   }
 </style>
