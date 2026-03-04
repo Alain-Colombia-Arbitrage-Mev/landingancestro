@@ -229,6 +229,9 @@ export async function cognitoUpdateProfile(attributes: { name?: string; phone_nu
 
 // ===== SYNC WITH BACKEND (NestJS) =====
 export async function syncWithBackend(cognitoToken: string): Promise<{ user: any; token: string } | null> {
+  if (!API_URL || API_URL.includes('localhost')) {
+    return null;
+  }
   try {
     const response = await fetch(`${API_URL}/api/users/sync`, {
       method: 'POST',
