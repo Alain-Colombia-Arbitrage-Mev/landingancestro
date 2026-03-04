@@ -21,7 +21,7 @@ export default function PdfViewer({ labels, termsLabel, privacyLabel }: PdfViewe
   const [hasError, setHasError] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
 
-  const pdfUrl = '/Ancestro_Policy.pdf';
+  const pdfUrl = 'https://pub-7c8a47a9e1194c8ab9dfd108d0ce6e39.r2.dev/ancestro/Ancestro_Policy.pdf';
 
   const open = useCallback((title: string) => {
     setDocTitle(title);
