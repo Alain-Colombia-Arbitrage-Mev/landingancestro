@@ -136,7 +136,7 @@ export async function cognitoSignInWithGoogle() {
 
 // ===== SIGN OUT =====
 export async function cognitoSignOut() {
-  await signOut();
+  await signOut({ global: true });
 }
 
 // ===== FORGOT PASSWORD =====
@@ -229,7 +229,7 @@ export async function cognitoUpdateProfile(attributes: { name?: string; phone_nu
 
 // ===== SYNC WITH BACKEND (NestJS) =====
 export async function syncWithBackend(cognitoToken: string): Promise<{ user: any; token: string } | null> {
-  if (!API_URL || API_URL.includes('localhost')) {
+  if (!API_URL) {
     return null;
   }
   try {

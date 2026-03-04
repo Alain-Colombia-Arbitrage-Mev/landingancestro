@@ -259,7 +259,7 @@ const homeHref = translatePath('/');
 
   async function handleLogout() {
     await logout();
-    window.location.href = '/login';
+    window.location.href = '/';
   }
 
   navLogoutBtn?.addEventListener('click', handleLogout);

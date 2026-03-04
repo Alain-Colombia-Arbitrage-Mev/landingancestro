@@ -39,6 +39,16 @@ export function setAuthToken(token: string) {
 export function clearAuth() {
   currentUser.set(null);
   authToken.set(null);
+  if (typeof window !== 'undefined') {
+    const keysToRemove: string[] = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key && (key.startsWith('CognitoIdentityServiceProvider') || key.startsWith('amplify'))) {
+        keysToRemove.push(key);
+      }
+    }
+    keysToRemove.forEach((key) => localStorage.removeItem(key));
+  }
 }
 
 export async function login(email: string, password: string): Promise<{ success: boolean; needsVerification?: boolean; needsNewPassword?: boolean; error?: any }> {
