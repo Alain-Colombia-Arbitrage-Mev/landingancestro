@@ -2,10 +2,12 @@
 import '@styles/global.css';
 import ToastContainer from '@components/ToastContainer.astro';
 import PdfViewer from '@components/PdfViewer';
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import ContactPopup from '@components/ContactPopup';
+import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
 
 const layoutLang = getLangFromUrl(Astro.url);
 const layoutT = useTranslations(layoutLang);
+const translatePath = useTranslatedPath(layoutLang);
 
 const pdfViewerLabels = {
   close: layoutT('pdf.close'),
@@ -13,6 +15,24 @@ const pdfViewerLabels = {
   download: layoutT('pdf.download'),
   openNewTab: layoutT('pdf.openNewTab'),
   errorLoading: layoutT('pdf.errorLoading'),
+};
+
+const popupLabels = {
+  title: layoutT('popup.title'),
+  subtitle: layoutT('popup.subtitle'),
+  name: layoutT('contact.name'),
+  email: layoutT('contact.email'),
+  message: layoutT('contact.message'),
+  messagePlaceholder: layoutT('contact.messagePlaceholder'),
+  submit: layoutT('contact.submit'),
+  success: layoutT('contact.success'),
+  fullForm: layoutT('popup.fullForm'),
+  close: layoutT('popup.close'),
+  typeOrder: layoutT('contact.type.order'),
+  typeBudget: layoutT('contact.type.budget'),
+  typeInfo: layoutT('contact.type.info'),
+  typeCharger: layoutT('contact.type.charger'),
+  typeGeneral: layoutT('contact.type.general'),
 };
 
 interface Props {
@@ -166,6 +186,13 @@ const serviceSchema = {
       labels={pdfViewerLabels}
       termsLabel={layoutT('footer.terms')}
       privacyLabel={layoutT('footer.privacy')}
+    />
+    
+    <!-- Contact Popup Modal -->
+    <ContactPopup
+      client:idle
+      labels={popupLabels}
+      contactPath={translatePath('/contact')}
     />
     
     <!-- Accessibility: Skip to main content link -->

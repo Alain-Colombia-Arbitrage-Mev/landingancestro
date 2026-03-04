@@ -91,6 +91,12 @@ export const translations = {
     'contact.terms': 'Acepto los',
     'contact.termsLink': 'Términos y Política de Privacidad',
 
+    // Contact Popup
+    'popup.title': 'Contáctanos',
+    'popup.subtitle': 'Te responderemos a la brevedad',
+    'popup.fullForm': 'Ir al formulario completo',
+    'popup.close': 'Cerrar',
+
     // Footer
     'footer.tagline': 'Potenciando el futuro de la energía limpia en Latinoamérica',
     'footer.products': 'Productos',
@@ -530,6 +536,12 @@ export const translations = {
     'contact.success': 'Message sent! We will contact you soon.',
     'contact.terms': 'I accept the',
     'contact.termsLink': 'Terms and Privacy Policy',
+
+    // Contact Popup
+    'popup.title': 'Contact Us',
+    'popup.subtitle': 'We will get back to you shortly',
+    'popup.fullForm': 'Go to full form',
+    'popup.close': 'Close',
 
     // Footer
     'footer.tagline': 'Powering the future of clean energy in Latin America',
@@ -971,6 +983,12 @@ export const translations = {
     'contact.terms': 'Aceito os',
     'contact.termsLink': 'Termos e Política de Privacidade',
 
+    // Contact Popup
+    'popup.title': 'Entre em Contato',
+    'popup.subtitle': 'Responderemos em breve',
+    'popup.fullForm': 'Ir ao formulário completo',
+    'popup.close': 'Fechar',
+
     // Footer
     'footer.tagline': 'Impulsionando o futuro da energia limpa na América Latina',
     'footer.products': 'Produtos',
@@ -1411,6 +1429,12 @@ export const translations = {
     'contact.terms': '我接受',
     'contact.termsLink': '条款和隐私政策',
 
+    // Contact Popup
+    'popup.title': '联系我们',
+    'popup.subtitle': '我们会尽快回复',
+    'popup.fullForm': '前往完整表单',
+    'popup.close': '关闭',
+
     // Footer
     'footer.tagline': '推动拉丁美洲清洁能源的未来',
     'footer.products': '产品',
@@ -1850,6 +1874,12 @@ export const translations = {
     'contact.success': 'تم إرسال الرسالة! سنتواصل معك قريبًا.',
     'contact.terms': 'أوافق على',
     'contact.termsLink': 'الشروط وسياسة الخصوصية',
+
+    // Contact Popup
+    'popup.title': 'اتصل بنا',
+    'popup.subtitle': 'سنرد عليك قريبًا',
+    'popup.fullForm': 'الذهاب إلى النموذج الكامل',
+    'popup.close': 'إغلاق',
 
     // Footer
     'footer.tagline': 'نقود مستقبل الطاقة النظيفة في أمريكا اللاتينية',

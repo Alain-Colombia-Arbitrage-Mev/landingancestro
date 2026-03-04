@@ -9,7 +9,7 @@ import LATAMSection from '@components/LATAMSection.astro';
 import ShopSection from '@components/ShopSection.astro';
 import Footer from '@components/Footer.astro';
 import { getLanguagePaths } from '../../i18n/config';
-import { useTranslations, useTranslatedPath, type Lang } from '../../i18n/utils';
+import { useTranslations, type Lang } from '../../i18n/utils';
 
 export function getStaticPaths() {
   return getLanguagePaths();
@@ -17,7 +17,6 @@ export function getStaticPaths() {
 
 const { lang } = Astro.params as { lang: Lang };
 const t = useTranslations(lang);
-const translatePath = useTranslatedPath(lang);
 
 // Local image assets (extracted from design files)
 const images = {
@@ -126,7 +125,7 @@ const products = [
               subtitle={t('info.subtitle')}
               ctaVariant="secondary"
               ctaText={t('info.cta')}
-              ctaHref={`${translatePath('/contact')}?type=info`}
+              contactType="info"
               imageUrl={images.infoSection1}
             />
             <div class="charger-card">
@@ -138,8 +137,8 @@ const products = [
                 <h3 class="charger-title">{t('charger.title')}</h3>
                 <p class="charger-subtitle">{t('charger.subtitle')}</p>
                 <div class="charger-actions">
-                  <a href={`${translatePath('/contact')}?type=charger`} class="cta-btn secondary">{t('charger.hostBtn')}</a>
-                  <a href={`${translatePath('/contact')}?type=charger`} class="cta-btn secondary">{t('charger.downloadBtn')}</a>
+                  <a href="#" data-contact-popup="charger" class="cta-btn secondary">{t('charger.hostBtn')}</a>
+                  <a href="#" data-contact-popup="charger" class="cta-btn secondary">{t('charger.downloadBtn')}</a>
                 </div>
               </div>
             </div>
@@ -151,7 +150,7 @@ const products = [
               subtitle={t('promo.subtitle')}
               ctaVariant="primary"
               ctaText={t('shop.order')}
-              ctaHref={`${translatePath('/contact')}?type=order`}
+              contactType="order"
               imageUrl={images.infoSection2}
             />
             <div class="vehicle-card">
@@ -159,7 +158,7 @@ const products = [
               <div class="vehicle-image">
                 <img src={images.vehicle} alt={t('promo.vehicle')} />
               </div>
-              <a href={`${translatePath('/contact')}?type=order`} class="cta-btn primary vehicle-order-btn">{t('shop.order')}</a>
+              <a href="#" data-contact-popup="order" class="cta-btn primary vehicle-order-btn">{t('shop.order')}</a>
             </div>
           </div>
         </div>

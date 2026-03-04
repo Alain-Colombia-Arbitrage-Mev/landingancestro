@@ -1,6 +1,6 @@
 ---
 import CTA from './CTA.astro';
-import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
 
 interface Props {
   chargerImage: string;
@@ -10,7 +10,6 @@ interface Props {
 const { chargerImage, vehicleImage } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-const translatePath = useTranslatedPath(lang);
 ---
 
 <section class="charger-section">
@@ -24,8 +23,8 @@ const translatePath = useTranslatedPath(lang);
         <h3 class="charger-title">Level 3 Fast Chargers</h3>
         <p class="charger-subtitle">Charge in 30-40 Minutes</p>
         <div class="charger-actions">
-          <CTA variant="secondary" text={t('charger.cta')} href={`${translatePath('/contact')}?type=charger`} />
-          <CTA variant="secondary" text={t('charger.downloadBtn')} href={`${translatePath('/contact')}?type=charger`} />
+          <CTA variant="secondary" text={t('charger.cta')} contactType="charger" />
+          <CTA variant="secondary" text={t('charger.downloadBtn')} contactType="charger" />
         </div>
       </div>
     </div>
@@ -37,7 +36,7 @@ const translatePath = useTranslatedPath(lang);
       <img src={vehicleImage} alt="Chevrolet Spark" loading="lazy" />
     </div>
     <div class="vehicle-cta">
-      <CTA variant="primary" text={t('shop.order')} href={`${translatePath('/contact')}?type=order`} />
+      <CTA variant="primary" text={t('shop.order')} contactType="order" />
     </div>
   </div>
 </section>

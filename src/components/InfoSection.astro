@@ -7,6 +7,7 @@ interface Props {
   ctaVariant?: 'primary' | 'secondary';
   ctaText: string;
   ctaHref?: string;
+  contactType?: string;
   imageUrl: string;
   imageAlt?: string;
 }
@@ -17,6 +18,7 @@ const {
   ctaVariant = 'secondary', 
   ctaText,
   ctaHref = '#',
+  contactType,
   imageUrl,
   imageAlt = ''
 } = Astro.props;
@@ -29,7 +31,7 @@ const {
       <p class="info-subtitle">{subtitle}</p>
     </div>
     <div class="info-cta">
-      <CTA variant={ctaVariant} text={ctaText} href={ctaHref} />
+      <CTA variant={ctaVariant} text={ctaText} href={ctaHref} contactType={contactType} />
     </div>
   </div>
   <div class="info-image">

@@ -5,6 +5,7 @@ interface Props {
   href?: string;
   size?: 'default' | 'large';
   ariaLabel?: string;
+  contactType?: string;
 }
 
 const { 
@@ -12,17 +13,18 @@ const {
   text, 
   href = '#',
   size = 'default',
-  ariaLabel
+  ariaLabel,
+  contactType
 } = Astro.props;
 
-const isPrimary = variant === 'primary';
-const isGhost = variant === 'ghost';
+const finalHref = contactType ? '#' : href;
 ---
 
 <a 
-  href={href} 
+  href={finalHref} 
   class:list={['cta', variant, size]}
   aria-label={ariaLabel || text}
+  {...(contactType ? { 'data-contact-popup': contactType } : {})}
 >
   <span class="cta-text">{text}</span>
 </a>
