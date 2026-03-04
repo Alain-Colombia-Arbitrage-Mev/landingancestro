@@ -17,7 +17,7 @@ const navItems: NavItem[] = [
   { label: t('nav.energy'), href: '#energy', key: 'energy' },
   { label: t('nav.charging'), href: '#charging', key: 'charging' },
   { label: t('nav.vehicles'), href: '#vehicles', key: 'vehicles' },
-  { label: t('nav.shop'), href: '#shop', key: 'shop' },
+  // { label: t('nav.shop'), href: '#shop', key: 'shop' },
   { label: t('nav.presale'), href: translatePath('/presale'), key: 'presale' },
   { label: t('nav.invest'), href: translatePath('/invest'), key: 'invest' },
   { label: t('nav.waitlist'), href: translatePath('/waitlist'), key: 'waitlist' },
@@ -46,8 +46,8 @@ const homeHref = translatePath('/');
 
     <div class="nav-right-desktop">
       <LanguageSwitcher />
-      <!-- Login button (shown when not authenticated) -->
-      <div id="nav-login-btn">
+      <!-- Login button (hidden for now) -->
+      <div id="nav-login-btn" style="display:none;">
         <CTA variant="secondary" text={t('nav.login')} href={translatePath('/login')} ariaLabel={t('nav.login')} />
       </div>
       <!-- User menu (shown when authenticated) -->
@@ -108,7 +108,7 @@ const homeHref = translatePath('/');
         ))}
       </div>
       
-      <div class="mobile-cta" id="mobile-login-cta">
+      <div class="mobile-cta" id="mobile-login-cta" style="display:none;">
         <CTA variant="primary" text={t('nav.login')} href={translatePath('/login')} ariaLabel={t('nav.login')} />
       </div>
       <div class="mobile-cta" id="mobile-user-cta" style="display:none;">
@@ -222,9 +222,9 @@ const homeHref = translatePath('/');
       if (avatarEl) avatarEl.textContent = (user.name || user.email)[0].toUpperCase();
       if (nameEl) nameEl.textContent = user.name || user.email.split('@')[0];
     } else {
-      loginBtn && (loginBtn.style.display = 'block');
+      loginBtn && (loginBtn.style.display = 'none');
       userMenu && (userMenu.style.display = 'none');
-      mobileLoginCta && (mobileLoginCta.style.display = 'block');
+      mobileLoginCta && (mobileLoginCta.style.display = 'none');
       mobileUserCta && (mobileUserCta.style.display = 'none');
     }
   }
