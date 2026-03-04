@@ -153,13 +153,11 @@ const products = [
               imageUrl={images.infoSection2}
             />
             <div class="vehicle-card">
-              <div class="vehicle-card-content">
-                <h3 class="vehicle-title">{t('promo.vehicle')}</h3>
-                <a href="#" class="cta-btn primary">{t('shop.order')}</a>
-              </div>
+              <h3 class="vehicle-title">{t('promo.vehicle')}</h3>
               <div class="vehicle-image">
                 <img src={images.vehicle} alt={t('promo.vehicle')} />
               </div>
+              <a href="#" class="cta-btn primary vehicle-order-btn">{t('shop.order')}</a>
             </div>
           </div>
         </div>
@@ -320,13 +318,6 @@ const products = [
     padding: 40px;
     display: flex;
     flex-direction: column;
-    height: 500px;
-  }
-
-  .vehicle-card-content {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
   }
 
   .vehicle-title {
@@ -334,12 +325,13 @@ const products = [
     font-weight: 600;
     text-transform: capitalize;
     color: var(--color-white);
+    margin: 0;
   }
 
   .vehicle-image {
     flex: 1;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
     margin-top: 20px;
   }
@@ -348,6 +340,11 @@ const products = [
     max-width: 100%;
     height: auto;
     object-fit: contain;
+  }
+
+  .vehicle-order-btn {
+    margin-top: 24px;
+    align-self: flex-start;
   }
 
   /* CTA Buttons */
@@ -419,9 +416,12 @@ const products = [
       padding: 0 var(--spacing-md);
     }
 
-    .charger-card,
-    .vehicle-card {
+    .charger-card {
       height: 400px;
+      padding: 30px;
+    }
+
+    .vehicle-card {
       padding: 30px;
     }
 

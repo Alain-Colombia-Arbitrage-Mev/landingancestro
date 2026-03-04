@@ -1,5 +1,6 @@
 ---
 import CTA from './CTA.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
 
 interface Props {
   chargerImage: string;
@@ -7,6 +8,8 @@ interface Props {
 }
 
 const { chargerImage, vehicleImage } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <section class="charger-section">
@@ -28,14 +31,12 @@ const { chargerImage, vehicleImage } = Astro.props;
   </div>
 
   <div class="charger-card vehicle-card">
-    <div class="vehicle-content">
-      <div class="vehicle-text">
-        <h3 class="vehicle-title">Chevrolet Spark</h3>
-        <CTA variant="primary" text="Shop Now" />
-      </div>
-    </div>
+    <h3 class="vehicle-title">Chevrolet Spark</h3>
     <div class="vehicle-image">
       <img src={vehicleImage} alt="Chevrolet Spark" loading="lazy" />
+    </div>
+    <div class="vehicle-cta">
+      <CTA variant="primary" text={t('shop.order')} />
     </div>
   </div>
 </section>
@@ -117,28 +118,11 @@ const { chargerImage, vehicleImage } = Astro.props;
 
   .vehicle-card {
     width: 687px;
-    height: 545px;
     background-color: var(--color-dark-gray);
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
     padding: 41px 50px;
     flex-shrink: 0;
-  }
-
-  .vehicle-content {
-    display: flex;
-    flex-direction: column;
-    gap: 37px;
-    align-items: flex-end;
-    width: 100%;
-  }
-
-  .vehicle-text {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 100%;
   }
 
   .vehicle-title {
@@ -146,19 +130,22 @@ const { chargerImage, vehicleImage } = Astro.props;
     font-weight: 600;
     text-transform: capitalize;
     color: var(--color-white);
+    margin: 0;
   }
 
   .vehicle-image {
-    width: 587px;
-    height: 314px;
-    align-self: flex-end;
+    width: 100%;
     margin-top: 20px;
   }
 
   .vehicle-image img {
     width: 100%;
-    height: 100%;
+    height: auto;
     object-fit: contain;
+  }
+
+  .vehicle-cta {
+    margin-top: 28px;
   }
 
   /* Responsive */
@@ -198,7 +185,7 @@ const { chargerImage, vehicleImage } = Astro.props;
     }
 
     .vehicle-image {
-      height: 200px;
+      width: 100%;
     }
   }
 </style>
