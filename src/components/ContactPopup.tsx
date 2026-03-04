@@ -244,7 +244,7 @@ export default function ContactPopup({ labels, contactPath }: ContactPopupProps)
               )}
 
               {/* Name + Email row */}
-              <div style={s.fieldRow}>
+              <div style={s.fieldRow} className="cp-field-row">
                 <div style={s.field}>
                   <label style={s.label} htmlFor="cp-name">{labels.name} *</label>
                   <input
@@ -276,12 +276,13 @@ export default function ContactPopup({ labels, contactPath }: ContactPopupProps)
               {/* Phone with country code */}
               <div style={s.field}>
                 <label style={s.label} htmlFor="cp-phone">{labels.phone}</label>
-                <div style={s.phoneRow}>
-                  <div style={s.phoneCodeWrap}>
+                <div style={s.phoneRow} className="cp-phone-row">
+                  <div style={s.phoneCodeWrap} className="cp-phone-code-wrap">
                     <select
                       value={countryCode}
                       onChange={(e) => setCountryCode(e.target.value)}
                       style={s.phoneCodeSelect}
+                      className="cp-phone-code-select"
                     >
                       {COUNTRIES.map((c) => (
                         <option key={`${c.code}-${c.dial}`} value={c.dial}>{c.dial} {c.name}</option>
@@ -347,10 +348,35 @@ export default function ContactPopup({ labels, contactPath }: ContactPopupProps)
         @keyframes cpSlideUp { from { opacity: 0; transform: translateY(24px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
         @keyframes cpSpin { to { transform: rotate(360deg); } }
         @keyframes cpPop { 0% { transform: scale(0); } 60% { transform: scale(1.15); } 100% { transform: scale(1); } }
+        #cp-type, #cp-product, [data-cp-phone-code] select {
+          background-color: #1c1a16 !important;
+          color: #f5f0e6 !important;
+        }
+        #cp-type option, #cp-product option, [data-cp-phone-code] select option {
+          background-color: #1c1a16 !important;
+          color: #f5f0e6 !important;
+          padding: 8px 12px;
+        }
+        #cp-type:focus, #cp-product:focus, [data-cp-phone-code] select:focus {
+          border-color: rgba(248,176,59,0.4) !important;
+          box-shadow: 0 0 0 2px rgba(248,176,59,0.1) !important;
+        }
+        .cp-phone-code-select {
+          background-color: #1c1a16 !important;
+          color: #f5f0e6 !important;
+        }
+        .cp-phone-code-select option {
+          background-color: #1c1a16 !important;
+          color: #f5f0e6 !important;
+        }
+        .cp-input:focus {
+          border-color: rgba(248,176,59,0.4) !important;
+          box-shadow: 0 0 0 2px rgba(248,176,59,0.1) !important;
+        }
         @media (max-width: 520px) {
-          [data-cp-field-row] { grid-template-columns: 1fr !important; }
-          [data-cp-phone-row] { flex-direction: column !important; }
-          [data-cp-phone-code] { width: 100% !important; }
+          .cp-field-row { grid-template-columns: 1fr !important; }
+          .cp-phone-row { flex-direction: column !important; }
+          .cp-phone-code-wrap { width: 100% !important; }
         }
       `}</style>
     </div>
@@ -459,7 +485,7 @@ const s: Record<string, React.CSSProperties> = {
   input: {
     width: '100%',
     padding: '11px 14px',
-    background: 'rgba(255,255,255,0.04)',
+    backgroundColor: 'rgba(255,255,255,0.04)',
     border: '1.5px solid rgba(255,255,255,0.08)',
     borderRadius: '12px',
     color: '#f5f0e6',
@@ -475,7 +501,7 @@ const s: Record<string, React.CSSProperties> = {
   select: {
     width: '100%',
     padding: '11px 36px 11px 14px',
-    background: 'rgba(255,255,255,0.04)',
+    backgroundColor: '#1c1a16',
     border: '1.5px solid rgba(255,255,255,0.08)',
     borderRadius: '12px',
     color: '#f5f0e6',
@@ -506,7 +532,7 @@ const s: Record<string, React.CSSProperties> = {
   phoneCodeSelect: {
     width: '100%',
     padding: '11px 28px 11px 12px',
-    background: 'rgba(255,255,255,0.04)',
+    backgroundColor: '#1c1a16',
     border: '1.5px solid rgba(255,255,255,0.08)',
     borderRadius: '12px',
     color: '#f5f0e6',
