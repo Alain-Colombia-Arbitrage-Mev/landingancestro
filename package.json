@@ -10,7 +10,7 @@
     "validate-translations": "tsx src/scripts/validate-translations.ts"
   },
   "dependencies": {
-    "@astrojs/node": "^9.5.4",
+    "@astrojs/cloudflare": "^12.6.12",
     "@astrojs/react": "^4.4.2",
     "@astrojs/sitemap": "^3.7.0",
     "@aws-sdk/client-cognito-identity-provider": "^3.1001.0",

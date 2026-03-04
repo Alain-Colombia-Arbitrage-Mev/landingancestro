@@ -2,12 +2,16 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import react from '@astrojs/react';
-import node from '@astrojs/node';
+import cloudflare from '@astrojs/cloudflare';
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'hybrid',
-  adapter: node({ mode: 'standalone' }),
+  output: 'server',
+  adapter: cloudflare({
+    platformProxy: {
+      enabled: true,
+    },
+  }),
   site: 'https://ancestro.com',
   
   i18n: {
