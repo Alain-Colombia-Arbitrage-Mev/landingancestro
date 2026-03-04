@@ -2,12 +2,16 @@
 export const prerender = true;
 import Layout from '@layouts/Layout.astro';
 import Navbar from '@components/Navbar.astro';
-import HeroBanner from '@components/HeroBanner.astro';
-import AskBox from '@components/AskBox.astro';
-import InfoSection from '@components/InfoSection.astro';
-import LATAMSection from '@components/LATAMSection.astro';
-import ShopSection from '@components/ShopSection.astro';
 import Footer from '@components/Footer.astro';
+
+import InvestHero from '@components/invest/InvestHero.astro';
+import InvestThesis from '@components/invest/InvestThesis.astro';
+import AccordionSection from '@components/invest/AccordionSection.astro';
+import InvestNumbers from '@components/invest/InvestNumbers.astro';
+import Team from '@components/invest/Team.astro';
+import FinalCTA from '@components/invest/FinalCTA.astro';
+import InvestToasts from '@components/invest/InvestToasts.astro';
+
 import { getLanguagePaths } from '../../i18n/config';
 import { useTranslations, type Lang } from '../../i18n/utils';
 
@@ -18,420 +22,106 @@ export function getStaticPaths() {
 const { lang } = Astro.params as { lang: Lang };
 const t = useTranslations(lang);
 
-// Local image assets (extracted from design files)
-const images = {
-  heroBg: "/1.png",
-  infoSection1: "/images/info-section-1.png",
-  infoSection2: "/images/info-section-2.jpg",
-  charger: "/images/charger-bg.png",
-  vehicle: "/images/vehicle.png",
-  latamMap: "/MAPA.svg",
-  footerBg: "/images/footer-bg.png",
-  backgroundSection: "/images/nature-bg.png",
-  solarPanels: "/images/shop-solar.png",
-  battery: "/images/shop-battery.png",
-  charging: "/images/shop-charging.png",
-  vehicles: "/images/shop-vehicles.png",
+const INVESTMENT = {
+  sharePrice: "$1.00",
+  valuation: "$25M",
 };
 
-// Flag images (local assets)
-const flags = [
-  { country: "Colombia", imageUrl: "/images/flags/colombia.png" },
-  { country: "Panama", imageUrl: "/images/flags/panama.png" },
-  { country: "Dominican Republic", imageUrl: "/images/flags/dominican-republic.png" },
-  { country: "Mexico", imageUrl: "/images/flags/mexico.png" },
-  { country: "Peru", imageUrl: "/images/flags/peru.png" },
-  { country: "Guatemala", imageUrl: "/images/flags/guatemala.png" },
-  { country: "El Salvador", imageUrl: "/images/flags/el-salvador.png" },
-  { country: "Uruguay", imageUrl: "/images/flags/uruguay.png" },
-  { country: "Costa Rica", imageUrl: "/images/flags/costa-rica.png" },
-  { country: "Brazil", imageUrl: "/images/flags/brazil.png" },
-  { country: "Nicaragua", imageUrl: "/images/flags/nicaragua.png" },
-  { country: "Honduras", imageUrl: "/images/flags/honduras.png" },
-  { country: "Chile", imageUrl: "/images/flags/chile.png" },
-  { country: "Argentina", imageUrl: "/images/flags/argentina.png" },
-  { country: "Bolivia", imageUrl: "/images/flags/bolivia.png" },
-  { country: "Belize", imageUrl: "/images/flags/belize.png" },
-  { country: "Ecuador", imageUrl: "/images/flags/ecuador.png" },
-  { country: "Paraguay", imageUrl: "/images/flags/paraguay.png" },
-];
+const footerBg = "/images/footer-bg.png";
 
-// Hero slides
-const heroSlides = [
+const deepDivePanels = [
   {
-    type: 'image' as const,
-    src: images.heroBg,
-    badge: t('hero.badge'),
-    title: t('hero.title'),
-    title2: t('hero.title2'),
-    ctaLeft: { text: t('hero.cta2'), href: '#learn-more' },
-    ctaRight: { text: t('hero.cta'), href: '#get-proposal' },
+    id: "why-we-win",
+    title: "Why Ancestro Is Inevitable",
+    content: "We are building infrastructure first. Revenue follows infrastructure. The platform model is capital-light and infinitely replicable.",
+    items: [
+      { label: "Platform Model", desc: "Asset-light vs. asset-heavy competitors" },
+      { label: "First Mover", desc: "First in emerging renewable markets across 18 countries" },
+      { label: "Multi-Vertical", desc: "Solar, batteries, charging, vehicles, lifestyle" },
+      { label: "Network Effects", desc: "Each new participant strengthens the whole ecosystem" },
+    ],
   },
   {
-    type: 'video' as const,
-    src: '/bg2.mp4',
-    badge: t('hero.slide2.badge'),
-    title: t('hero.slide2.title'),
-    title2: t('hero.slide2.title2'),
-    ctaLeft: { text: t('hero.slide2.cta2'), href: '#learn-more' },
-    ctaRight: { text: t('hero.slide2.cta'), href: '#get-proposal' },
-  },
-];
-
-const products = [
-  {
-    title: t('shop.solar.title'),
-    description: t('shop.solar.desc'),
-    backgroundImage: images.solarPanels,
+    id: "ancestro-world",
+    title: "Beyond Energy: The Ancestro World",
+    content: "A modern tribe built on energy independence, personal sovereignty, health, purpose, and awakening. Those who enter Ancestro do not leave unchanged.",
+    items: [
+      { label: "Social Platform", desc: "Internal community for members" },
+      { label: "Ancestral Health", desc: "Education and wellness protocols" },
+      { label: "Eco-Resorts", desc: "Access to sustainable retreats" },
+      { label: "Rituals & Gatherings", desc: "Global community experiences" },
+    ],
   },
   {
-    title: t('shop.battery.title'),
-    description: t('shop.battery.desc'),
-    backgroundImage: images.battery,
+    id: "ancestro-coin",
+    title: "Ancestro Coin (ANC) & Carbon Strategy",
+    content: "A digital asset backed by verified carbon credits — designed for ecosystem infrastructure, not speculation. Currently available at 33% presale discount.",
+    items: [
+      { label: "Carbon Monetization", desc: "Tokenize verified credits into liquid assets" },
+      { label: "Ecosystem Incentives", desc: "Reward conservation and participation" },
+      { label: "Stakeholder Alignment", desc: "Shared value for all participants" },
+    ],
   },
   {
-    title: t('shop.charging.title'),
-    description: t('shop.charging.desc'),
-    backgroundImage: images.charging,
-  },
-  {
-    title: t('shop.vehicles.title'),
-    description: t('shop.vehicles.desc'),
-    backgroundImage: images.vehicles,
+    id: "philanthropy",
+    title: "Profit With Purpose",
+    content: "Minimum 5% of net profits committed to regenerative initiatives. Impact is not an afterthought — it is embedded into the operating model.",
+    items: [
+      { label: "Free Solar", desc: "Off-grid installations for underserved communities" },
+      { label: "Amazon Reforestation", desc: "Native species and rainforest preservation" },
+      { label: "Ocean Cleanup", desc: "Plastic removal partnerships" },
+    ],
   },
 ];
 ---
 
-<Layout title={t('meta.home.title')} description={t('meta.home.description')}>
-  <div class="page-wrapper">
+<Layout
+  title="Invest in Ancestro — Global Renewable Energy & Lifestyle Revolution"
+  description="Join the Ancestro revolution. $1.00 per share, $25M valuation, SAFE agreement."
+>
+  <div class="invest-page">
     <Navbar />
-    
-    <main id="main-content" role="main">
-      <div class="hero-section">
-        <HeroBanner slides={heroSlides} />
-        <AskBox />
-      </div>
-      
-      <section class="main-content-section">
-        <div class="nature-bg">
-          <img src={images.backgroundSection} alt="" class="nature-bg-image" />
-          <div class="nature-bg-gradient"></div>
-        </div>
-        
-        <div class="content-grid">
-          <div class="content-column">
-            <InfoSection
-              title={t('info.title')}
-              subtitle={t('info.subtitle')}
-              ctaVariant="secondary"
-              ctaText={t('info.cta')}
-              imageUrl={images.infoSection1}
-            />
-            <div class="charger-card">
-              <div class="charger-card-bg">
-                <img src={images.charger} alt={t('charger.title')} />
-                <div class="charger-overlay"></div>
-              </div>
-              <div class="charger-card-content">
-                <h3 class="charger-title">{t('charger.title')}</h3>
-                <p class="charger-subtitle">{t('charger.subtitle')}</p>
-                <div class="charger-actions">
-                  <a href="#" class="cta-btn secondary">{t('charger.hostBtn')}</a>
-                  <a href="#" class="cta-btn secondary">{t('charger.downloadBtn')}</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="content-column">
-            <InfoSection
-              title={t('promo.title')}
-              subtitle={t('promo.subtitle')}
-              ctaVariant="primary"
-              ctaText={t('shop.order')}
-              imageUrl={images.infoSection2}
-            />
-            <div class="vehicle-card">
-              <h3 class="vehicle-title">{t('promo.vehicle')}</h3>
-              <div class="vehicle-image">
-                <img src={images.vehicle} alt={t('promo.vehicle')} />
-              </div>
-              <a href="#" class="cta-btn primary vehicle-order-btn">{t('shop.order')}</a>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      <section class="latam-wrapper">
-        <LATAMSection 
-          mapImage={images.latamMap}
-          flags={flags}
-        />
-      </section>
-      
-      <section class="shop-wrapper">
-        <ShopSection products={products} />
-      </section>
+
+    <main id="main-content">
+      <InvestHero
+        sharePrice={INVESTMENT.sharePrice}
+        valuation={INVESTMENT.valuation}
+      />
+
+      <InvestThesis />
+
+      <AccordionSection
+        label="DEEP DIVE"
+        heading="Explore the Details"
+        panels={deepDivePanels}
+      />
+
+      <InvestNumbers
+        sharePrice={INVESTMENT.sharePrice}
+        valuation={INVESTMENT.valuation}
+      />
+
+      <Team />
+
+      <FinalCTA
+        sharePrice={INVESTMENT.sharePrice}
+        valuation={INVESTMENT.valuation}
+      />
     </main>
-    
-    <Footer backgroundImage={images.footerBg} />
+
+    <InvestToasts sharePrice={INVESTMENT.sharePrice} />
+
+    <Footer backgroundImage={footerBg} />
   </div>
 </Layout>
 
 <style>
-  .page-wrapper {
-    position: relative;
+  .invest-page {
     background-color: var(--color-black);
     min-height: 100vh;
   }
 
   main {
-    position: relative;
-  }
-
-  .hero-section {
-    position: relative;
-    height: 100vh;
-    min-height: 600px;
-    max-height: 1080px;
-  }
-
-  .main-content-section {
-    position: relative;
-    padding: 60px 0 0;
-  }
-
-  .nature-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 70%;
-    pointer-events: none;
-    overflow: hidden;
-  }
-
-  .nature-bg-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .nature-bg-gradient {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      to bottom,
-      #000 0%,
-      rgba(0, 0, 0, 0.4) 20%,
-      rgba(0, 0, 0, 0.4) 80%,
-      #000 100%
-    );
-  }
-
-  .content-grid {
-    position: relative;
-    z-index: 10;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: clamp(20px, 3vw, 40px);
-    padding: 0 var(--spacing-2xl);
-    max-width: 1800px;
-    margin: 0 auto;
-  }
-
-  .content-column {
-    display: flex;
-    flex-direction: column;
-    gap: clamp(20px, 3vw, 40px);
-  }
-
-  .charger-card {
-    position: relative;
-    border-radius: 10px;
-    overflow: hidden;
-    height: 500px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 40px;
-    border: 1px solid var(--color-white-10);
-  }
-
-  .charger-card-bg {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-
-  .charger-card-bg img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .charger-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.8) 100%);
-  }
-
-  .charger-card-content {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .charger-title {
-    font-size: clamp(24px, 2.5vw, 34px);
-    font-weight: 600;
-    text-transform: capitalize;
-    color: var(--color-white);
-  }
-
-  .charger-subtitle {
-    font-size: clamp(16px, 1.5vw, 20px);
-    font-weight: 400;
-    color: var(--color-gray);
-  }
-
-  .charger-actions {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-    margin-top: 10px;
-  }
-
-  .vehicle-card {
-    background-color: var(--color-dark-gray);
-    border-radius: 10px;
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .vehicle-title {
-    font-size: clamp(24px, 2.5vw, 34px);
-    font-weight: 600;
-    text-transform: capitalize;
-    color: var(--color-white);
-    margin: 0;
-  }
-
-  .vehicle-image {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
-  }
-
-  .vehicle-image img {
-    max-width: 100%;
-    height: auto;
-    object-fit: contain;
-  }
-
-  .vehicle-order-btn {
-    margin-top: 24px;
-    align-self: flex-start;
-  }
-
-  .cta-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 12px 20px;
-    border-radius: 15px;
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all var(--transition-fast);
-    border: 1px solid var(--color-white-10);
-  }
-
-  .cta-btn.primary {
-    background-color: var(--color-primary);
-    color: var(--color-black);
-  }
-
-  .cta-btn.primary:hover {
-    background-color: #e9a235;
-    transform: translateY(-2px);
-  }
-
-  .cta-btn.secondary {
-    background-color: var(--color-white-10);
-    backdrop-filter: blur(15px);
-    color: var(--color-white);
-  }
-
-  .cta-btn.secondary:hover {
-    background-color: var(--color-white-20);
-    transform: translateY(-2px);
-  }
-
-  .latam-wrapper {
-    padding: 100px var(--spacing-2xl);
-  }
-
-  .shop-wrapper {
-    padding: 100px var(--spacing-2xl);
-  }
-
-  @media (max-width: 1100px) {
-    .content-grid {
-      grid-template-columns: 1fr;
-      max-width: 700px;
-    }
-
-    .nature-bg {
-      height: 50%;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .hero-section {
-      height: 100svh;
-      max-height: none;
-    }
-
-    .main-content-section {
-      padding: 40px 0 0;
-    }
-
-    .content-grid {
-      padding: 0 var(--spacing-md);
-    }
-
-    .charger-card {
-      height: 400px;
-      padding: 30px;
-    }
-
-    .vehicle-card {
-      padding: 30px;
-    }
-
-    .latam-wrapper {
-      padding: 50px var(--spacing-md);
-    }
-
-    .shop-wrapper {
-      padding: 50px var(--spacing-md);
-    }
-  }
-
-  @media (max-width: 480px) {
-    .charger-actions {
-      flex-direction: column;
-    }
-
-    .cta-btn {
-      width: 100%;
-      text-align: center;
-    }
+    padding-top: 79px;
   }
 </style>
