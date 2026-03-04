@@ -194,7 +194,7 @@ const homeHref = translatePath('/');
   });
 
   window.addEventListener('resize', () => {
-    if (window.innerWidth > 768 && isOpen) {
+    if (window.innerWidth > 1024 && isOpen) {
       closeMenu();
     }
   });
@@ -314,20 +314,21 @@ const homeHref = translatePath('/');
   .nav-links-desktop {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
   }
 
   .nav-link {
-    padding: 10px 12px;
-    font-size: 15px;
+    padding: 10px 10px;
+    font-size: 14px;
     font-weight: 600;
     color: var(--color-white);
     text-decoration: none;
     transition: opacity var(--transition-fast);
     border-radius: 8px;
+    white-space: nowrap;
   }
 
   .nav-link:hover {
@@ -451,8 +452,8 @@ const homeHref = translatePath('/');
     display: none;
   }
 
-  /* ===== RESPONSIVE - MOBILE ===== */
-  @media (max-width: 768px) {
+  /* ===== RESPONSIVE - TABLET/MOBILE ===== */
+  @media (max-width: 1024px) {
     .navbar-inner {
       padding: 0 16px;
     }
