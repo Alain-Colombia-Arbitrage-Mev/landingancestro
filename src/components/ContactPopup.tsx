@@ -5,6 +5,7 @@ interface ContactPopupLabels {
   subtitle: string;
   name: string;
   email: string;
+  phone: string;
   message: string;
   messagePlaceholder: string;
   submit: string;
@@ -16,6 +17,13 @@ interface ContactPopupLabels {
   typeInfo: string;
   typeCharger: string;
   typeGeneral: string;
+  product: string;
+  productSolar: string;
+  productBattery: string;
+  productCharger: string;
+  productVehicle: string;
+  productOther: string;
+  contactType: string;
 }
 
 interface ContactPopupProps {
@@ -23,7 +31,8 @@ interface ContactPopupProps {
   contactPath: string;
 }
 
-const TYPE_LABELS: Record<string, keyof ContactPopupLabels> = {
+const TYPE_OPTIONS = ['order', 'budget', 'info', 'charger', 'general'] as const;
+const TYPE_LABEL_MAP: Record<string, keyof ContactPopupLabels> = {
   order: 'typeOrder',
   budget: 'typeBudget',
   info: 'typeInfo',
@@ -31,11 +40,48 @@ const TYPE_LABELS: Record<string, keyof ContactPopupLabels> = {
   general: 'typeGeneral',
 };
 
+const PRODUCT_OPTIONS = ['solar', 'battery', 'charger', 'vehicle', 'other'] as const;
+const PRODUCT_LABEL_MAP: Record<string, keyof ContactPopupLabels> = {
+  solar: 'productSolar',
+  battery: 'productBattery',
+  charger: 'productCharger',
+  vehicle: 'productVehicle',
+  other: 'productOther',
+};
+
+const COUNTRIES = [
+  { code: 'CO', name: 'Colombia', dial: '+57' },
+  { code: 'MX', name: 'México', dial: '+52' },
+  { code: 'BR', name: 'Brasil', dial: '+55' },
+  { code: 'AR', name: 'Argentina', dial: '+54' },
+  { code: 'CL', name: 'Chile', dial: '+56' },
+  { code: 'PE', name: 'Perú', dial: '+51' },
+  { code: 'PA', name: 'Panamá', dial: '+507' },
+  { code: 'CR', name: 'Costa Rica', dial: '+506' },
+  { code: 'EC', name: 'Ecuador', dial: '+593' },
+  { code: 'UY', name: 'Uruguay', dial: '+598' },
+  { code: 'GT', name: 'Guatemala', dial: '+502' },
+  { code: 'SV', name: 'El Salvador', dial: '+503' },
+  { code: 'HN', name: 'Honduras', dial: '+504' },
+  { code: 'NI', name: 'Nicaragua', dial: '+505' },
+  { code: 'DO', name: 'Rep. Dominicana', dial: '+1' },
+  { code: 'BO', name: 'Bolivia', dial: '+591' },
+  { code: 'PY', name: 'Paraguay', dial: '+595' },
+  { code: 'VE', name: 'Venezuela', dial: '+58' },
+  { code: 'US', name: 'Estados Unidos', dial: '+1' },
+  { code: 'ES', name: 'España', dial: '+34' },
+];
+
+const SHOW_PRODUCT_FOR = ['order', 'budget', 'info'];
+
 export default function ContactPopup({ labels, contactPath }: ContactPopupProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [contactType, setContactType] = useState('general');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [countryCode, setCountryCode] = useState('+57');
+  const [phone, setPhone] = useState('');
+  const [product, setProduct] = useState('');
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success'>('idle');
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -45,7 +91,10 @@ export default function ContactPopup({ labels, contactPath }: ContactPopupProps)
     setStatus('idle');
     setName('');
     setEmail('');
+    setPhone('');
+    setProduct('');
     setMessage('');
+    setCountryCode('+57');
     setIsOpen(true);
     document.body.style.overflow = 'hidden';
   }, []);
@@ -85,14 +134,18 @@ export default function ContactPopup({ labels, contactPath }: ContactPopupProps)
     if (!name.trim() || !email.trim()) return;
     setStatus('loading');
 
-    const typeKey = TYPE_LABELS[contactType] || 'typeGeneral';
-    const typeLabel = labels[typeKey];
+    const typeLabelKey = TYPE_LABEL_MAP[contactType] || 'typeGeneral';
+    const typeLabel = labels[typeLabelKey];
+    const fullPhone = phone.trim() ? `${countryCode} ${phone.trim()}` : '';
+    const productLabel = product ? labels[PRODUCT_LABEL_MAP[product] || 'productOther'] : '';
 
     try {
       const formData = new FormData();
       formData.append('name', name);
       formData.append('email', email);
       formData.append('contactType', typeLabel);
+      if (fullPhone) formData.append('phone', fullPhone);
+      if (productLabel) formData.append('product', productLabel);
       formData.append('message', message);
       formData.append('_subject', `Ancestro — ${typeLabel}`);
       formData.append('_captcha', 'false');
@@ -109,8 +162,7 @@ export default function ContactPopup({ labels, contactPath }: ContactPopupProps)
 
   if (!isOpen) return null;
 
-  const typeKey = TYPE_LABELS[contactType] || 'typeGeneral';
-  const currentTypeLabel = labels[typeKey];
+  const showProduct = SHOW_PRODUCT_FOR.includes(contactType);
 
   return (
     <div ref={overlayRef} onClick={handleOverlayClick} style={s.overlay}>
@@ -147,15 +199,51 @@ export default function ContactPopup({ labels, contactPath }: ContactPopupProps)
               </div>
             </div>
 
-            <div style={s.typeBadge}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2" />
-                <rect x="9" y="3" width="6" height="4" rx="1" />
-              </svg>
-              <span>{currentTypeLabel}</span>
-            </div>
-
             <form onSubmit={handleSubmit} style={s.form}>
+              {/* Contact type selector */}
+              <div style={s.field}>
+                <label style={s.label} htmlFor="cp-type">{labels.contactType}</label>
+                <div style={s.selectWrap}>
+                  <select
+                    id="cp-type"
+                    value={contactType}
+                    onChange={(e) => { setContactType(e.target.value); setProduct(''); }}
+                    style={s.select}
+                  >
+                    {TYPE_OPTIONS.map((opt) => (
+                      <option key={opt} value={opt}>{labels[TYPE_LABEL_MAP[opt]]}</option>
+                    ))}
+                  </select>
+                  <span style={s.selectArrow}>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
+                  </span>
+                </div>
+              </div>
+
+              {/* Product (conditional) */}
+              {showProduct && (
+                <div style={s.field}>
+                  <label style={s.label} htmlFor="cp-product">{labels.product}</label>
+                  <div style={s.selectWrap}>
+                    <select
+                      id="cp-product"
+                      value={product}
+                      onChange={(e) => setProduct(e.target.value)}
+                      style={s.select}
+                    >
+                      <option value="">{labels.product}</option>
+                      {PRODUCT_OPTIONS.map((opt) => (
+                        <option key={opt} value={opt}>{labels[PRODUCT_LABEL_MAP[opt]]}</option>
+                      ))}
+                    </select>
+                    <span style={s.selectArrow}>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
+                    </span>
+                  </div>
+                </div>
+              )}
+
+              {/* Name + Email row */}
               <div style={s.fieldRow}>
                 <div style={s.field}>
                   <label style={s.label} htmlFor="cp-name">{labels.name} *</label>
@@ -185,6 +273,37 @@ export default function ContactPopup({ labels, contactPath }: ContactPopupProps)
                 </div>
               </div>
 
+              {/* Phone with country code */}
+              <div style={s.field}>
+                <label style={s.label} htmlFor="cp-phone">{labels.phone}</label>
+                <div style={s.phoneRow}>
+                  <div style={s.phoneCodeWrap}>
+                    <select
+                      value={countryCode}
+                      onChange={(e) => setCountryCode(e.target.value)}
+                      style={s.phoneCodeSelect}
+                    >
+                      {COUNTRIES.map((c) => (
+                        <option key={`${c.code}-${c.dial}`} value={c.dial}>{c.dial} {c.name}</option>
+                      ))}
+                    </select>
+                    <span style={s.selectArrow}>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
+                    </span>
+                  </div>
+                  <input
+                    id="cp-phone"
+                    type="tel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    autoComplete="tel-national"
+                    style={{ ...s.input, flex: 1 }}
+                    placeholder="300 123 4567"
+                  />
+                </div>
+              </div>
+
+              {/* Message */}
               <div style={s.field}>
                 <label style={s.label} htmlFor="cp-message">{labels.message}</label>
                 <textarea
@@ -228,6 +347,11 @@ export default function ContactPopup({ labels, contactPath }: ContactPopupProps)
         @keyframes cpSlideUp { from { opacity: 0; transform: translateY(24px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
         @keyframes cpSpin { to { transform: rotate(360deg); } }
         @keyframes cpPop { 0% { transform: scale(0); } 60% { transform: scale(1.15); } 100% { transform: scale(1); } }
+        @media (max-width: 520px) {
+          [data-cp-field-row] { grid-template-columns: 1fr !important; }
+          [data-cp-phone-row] { flex-direction: column !important; }
+          [data-cp-phone-code] { width: 100% !important; }
+        }
       `}</style>
     </div>
   );
@@ -250,7 +374,7 @@ const s: Record<string, React.CSSProperties> = {
   modal: {
     position: 'relative',
     width: '100%',
-    maxWidth: '520px',
+    maxWidth: '560px',
     background: 'linear-gradient(165deg, rgba(28,26,22,0.97) 0%, rgba(14,13,11,0.99) 100%)',
     border: '1px solid rgba(248,176,59,0.12)',
     borderRadius: '20px',
@@ -309,25 +433,10 @@ const s: Record<string, React.CSSProperties> = {
     margin: '4px 0 0',
     lineHeight: 1.4,
   },
-  typeBadge: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '8px',
-    padding: '7px 14px',
-    background: 'rgba(248,176,59,0.08)',
-    border: '1px solid rgba(248,176,59,0.18)',
-    borderRadius: '100px',
-    color: '#f8b03b',
-    fontSize: '12px',
-    fontWeight: 600,
-    fontFamily: "'DM Sans', -apple-system, sans-serif",
-    marginBottom: '20px',
-    letterSpacing: '0.02em',
-  },
   form: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '16px',
+    gap: '14px',
   },
   fieldRow: {
     display: 'grid',
@@ -341,23 +450,71 @@ const s: Record<string, React.CSSProperties> = {
   },
   label: {
     fontFamily: "'DM Sans', -apple-system, sans-serif",
-    fontSize: '12px',
+    fontSize: '11px',
     fontWeight: 600,
-    color: 'rgba(255,255,255,0.55)',
+    color: 'rgba(255,255,255,0.5)',
     textTransform: 'uppercase' as const,
     letterSpacing: '0.05em',
   },
   input: {
     width: '100%',
-    padding: '12px 14px',
+    padding: '11px 14px',
     background: 'rgba(255,255,255,0.04)',
     border: '1.5px solid rgba(255,255,255,0.08)',
     borderRadius: '12px',
     color: '#f5f0e6',
-    fontSize: '15px',
+    fontSize: '14px',
     fontFamily: "'DM Sans', -apple-system, sans-serif",
     outline: 'none',
     transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
+    boxSizing: 'border-box' as const,
+  },
+  selectWrap: {
+    position: 'relative' as const,
+  },
+  select: {
+    width: '100%',
+    padding: '11px 36px 11px 14px',
+    background: 'rgba(255,255,255,0.04)',
+    border: '1.5px solid rgba(255,255,255,0.08)',
+    borderRadius: '12px',
+    color: '#f5f0e6',
+    fontSize: '14px',
+    fontFamily: "'DM Sans', -apple-system, sans-serif",
+    outline: 'none',
+    cursor: 'pointer',
+    appearance: 'none' as const,
+    boxSizing: 'border-box' as const,
+  },
+  selectArrow: {
+    position: 'absolute' as const,
+    right: '14px',
+    top: '50%',
+    transform: 'translateY(-50%)',
+    color: 'rgba(255,255,255,0.35)',
+    pointerEvents: 'none' as const,
+  },
+  phoneRow: {
+    display: 'flex',
+    gap: '10px',
+  },
+  phoneCodeWrap: {
+    position: 'relative' as const,
+    flexShrink: 0,
+    width: '160px',
+  },
+  phoneCodeSelect: {
+    width: '100%',
+    padding: '11px 28px 11px 12px',
+    background: 'rgba(255,255,255,0.04)',
+    border: '1.5px solid rgba(255,255,255,0.08)',
+    borderRadius: '12px',
+    color: '#f5f0e6',
+    fontSize: '13px',
+    fontFamily: "'DM Sans', -apple-system, sans-serif",
+    outline: 'none',
+    cursor: 'pointer',
+    appearance: 'none' as const,
     boxSizing: 'border-box' as const,
   },
   submitBtn: {
@@ -392,7 +549,7 @@ const s: Record<string, React.CSSProperties> = {
     alignItems: 'center',
     justifyContent: 'center',
     gap: '6px',
-    marginTop: '16px',
+    marginTop: '14px',
     fontSize: '13px',
     fontWeight: 500,
     fontFamily: "'DM Sans', -apple-system, sans-serif",
