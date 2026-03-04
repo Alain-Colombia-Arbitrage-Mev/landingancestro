@@ -46,7 +46,30 @@ const homeHref = translatePath('/');
 
     <div class="nav-right-desktop">
       <LanguageSwitcher />
-      <CTA variant="secondary" text={t('nav.login')} href="/login" ariaLabel={t('nav.login')} />
+      <!-- Login button (shown when not authenticated) -->
+      <div id="nav-login-btn">
+        <CTA variant="secondary" text={t('nav.login')} href={translatePath('/login')} ariaLabel={t('nav.login')} />
+      </div>
+      <!-- User menu (shown when authenticated) -->
+      <div id="nav-user-menu" class="nav-user-menu" style="display:none;">
+        <button class="nav-user-trigger" id="user-menu-trigger" aria-expanded="false">
+          <span class="nav-user-avatar" id="nav-avatar-letter"></span>
+          <span class="nav-user-name" id="nav-user-name"></span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="nav-user-dropdown" id="user-dropdown">
+          <a href={translatePath('/dashboard')} class="nav-dropdown-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            {t('auth.dashboard')}
+          </a>
+          <button class="nav-dropdown-item nav-dropdown-logout" id="nav-logout-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            {t('auth.logout')}
+          </button>
+        </div>
+      </div>
     </div>
 
     <!-- Mobile Hamburger Button -->
@@ -85,8 +108,17 @@ const homeHref = translatePath('/');
         ))}
       </div>
       
-      <div class="mobile-cta">
-        <CTA variant="primary" text={t('nav.login')} href="/login" ariaLabel={t('nav.login')} />
+      <div class="mobile-cta" id="mobile-login-cta">
+        <CTA variant="primary" text={t('nav.login')} href={translatePath('/login')} ariaLabel={t('nav.login')} />
+      </div>
+      <div class="mobile-cta" id="mobile-user-cta" style="display:none;">
+        <a href={translatePath('/dashboard')} class="mobile-nav-link" style="opacity:1;transform:none;">
+          {t('auth.dashboard')}
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <button id="mobile-logout-btn" class="mobile-logout-btn">
+          {t('auth.logout')}
+        </button>
       </div>
       
       <div class="mobile-footer">
@@ -164,6 +196,72 @@ const homeHref = translatePath('/');
       closeMenu();
     }
   });
+
+  // ===== AUTH STATE =====
+  import { initAuth } from '../lib/auth-init';
+  import { currentUser, logout } from '../stores/user';
+
+  // Initialize auth on every page that has a Navbar
+  initAuth();
+
+  function updateNavAuth() {
+    const user = currentUser.get();
+    const loginBtn = document.getElementById('nav-login-btn');
+    const userMenu = document.getElementById('nav-user-menu');
+    const mobileLoginCta = document.getElementById('mobile-login-cta');
+    const mobileUserCta = document.getElementById('mobile-user-cta');
+
+    if (user) {
+      loginBtn && (loginBtn.style.display = 'none');
+      userMenu && (userMenu.style.display = 'block');
+      mobileLoginCta && (mobileLoginCta.style.display = 'none');
+      mobileUserCta && (mobileUserCta.style.display = 'block');
+
+      const avatarEl = document.getElementById('nav-avatar-letter');
+      const nameEl = document.getElementById('nav-user-name');
+      if (avatarEl) avatarEl.textContent = (user.name || user.email)[0].toUpperCase();
+      if (nameEl) nameEl.textContent = user.name || user.email.split('@')[0];
+    } else {
+      loginBtn && (loginBtn.style.display = 'block');
+      userMenu && (userMenu.style.display = 'none');
+      mobileLoginCta && (mobileLoginCta.style.display = 'block');
+      mobileUserCta && (mobileUserCta.style.display = 'none');
+    }
+  }
+
+  // Initial check
+  updateNavAuth();
+
+  // Listen for changes
+  currentUser.subscribe(updateNavAuth);
+
+  // Desktop user dropdown toggle
+  const userMenuTrigger = document.getElementById('user-menu-trigger');
+  const userDropdown = document.getElementById('user-dropdown');
+
+  userMenuTrigger?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isExpanded = userMenuTrigger.getAttribute('aria-expanded') === 'true';
+    userMenuTrigger.setAttribute('aria-expanded', (!isExpanded).toString());
+    userDropdown?.classList.toggle('active', !isExpanded);
+  });
+
+  document.addEventListener('click', () => {
+    userMenuTrigger?.setAttribute('aria-expanded', 'false');
+    userDropdown?.classList.remove('active');
+  });
+
+  // Logout handlers
+  const navLogoutBtn = document.getElementById('nav-logout-btn');
+  const mobileLogoutBtn = document.getElementById('mobile-logout-btn');
+
+  async function handleLogout() {
+    await logout();
+    window.location.href = '/login';
+  }
+
+  navLogoutBtn?.addEventListener('click', handleLogout);
+  mobileLogoutBtn?.addEventListener('click', handleLogout);
 </script>
 
 <style>
@@ -242,6 +340,94 @@ const homeHref = translatePath('/');
     display: flex;
     align-items: center;
     gap: 12px;
+  }
+
+  /* ===== USER MENU ===== */
+  .nav-user-menu {
+    position: relative;
+  }
+
+  .nav-user-trigger {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    cursor: pointer;
+    color: var(--color-white);
+    font-family: var(--font-family);
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+
+  .nav-user-trigger:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  .nav-user-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(248, 176, 59, 0.2);
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: 13px;
+  }
+
+  .nav-user-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 180px;
+    background: rgba(20, 20, 20, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 6px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: all 0.2s ease;
+    z-index: 1010;
+  }
+
+  .nav-user-dropdown.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .nav-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px 14px;
+    background: none;
+    border: none;
+    border-radius: 8px;
+    color: var(--color-white);
+    font-family: var(--font-family);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.15s ease;
+  }
+
+  .nav-dropdown-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .nav-dropdown-logout {
+    color: #ef4444;
   }
 
   .nav-right-mobile {
@@ -507,6 +693,25 @@ const homeHref = translatePath('/');
       border-color: rgba(248, 176, 59, 0.4);
       color: var(--color-primary);
       transform: translateY(-3px);
+    }
+
+    .mobile-logout-btn {
+      width: 100%;
+      margin-top: 12px;
+      padding: 16px;
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-radius: 14px;
+      color: #ef4444;
+      font-family: var(--font-family);
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .mobile-logout-btn:hover {
+      background: rgba(239, 68, 68, 0.2);
     }
   }
 

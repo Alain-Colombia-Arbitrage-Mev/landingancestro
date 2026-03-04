@@ -1,0 +1,41 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Navbar from '@components/Navbar.astro';
+import RegisterForm from '@components/auth/RegisterForm';
+import { useTranslations, useTranslatedPath } from '../i18n/utils';
+import { defaultLang } from '../i18n/languages';
+
+const t = useTranslations(defaultLang);
+const translatePath = useTranslatedPath(defaultLang);
+
+const labels = {
+  title: t('auth.register'),
+  subtitle: t('auth.registerSubtitle'),
+  name: t('auth.name'),
+  email: t('auth.email'),
+  phone: t('auth.phone'),
+  password: t('auth.password'),
+  confirmPassword: t('auth.confirmPassword'),
+  registerButton: t('auth.register'),
+  registering: t('auth.registering'),
+  orContinueWith: t('auth.orContinueWith'),
+  googleLogin: t('auth.googleLogin'),
+  hasAccount: t('auth.hasAccount'),
+  login: t('auth.login'),
+  passwordsNoMatch: t('auth.passwordsNoMatch'),
+  showPassword: 'Mostrar contraseña',
+  hidePassword: 'Ocultar contraseña',
+};
+---
+
+<Layout title={t('auth.register')}>
+  <Navbar />
+  <RegisterForm
+    client:load
+    labels={labels}
+    loginPath={translatePath('/login')}
+    verifyPath={translatePath('/verify')}
+    dashboardPath={translatePath('/dashboard')}
+    lang={defaultLang}
+  />
+</Layout>

@@ -1,0 +1,42 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Navbar from '@components/Navbar.astro';
+import Footer from '@components/Footer.astro';
+import AuthGuard from '@components/AuthGuard.astro';
+import DashboardPanel from '@components/auth/DashboardPanel';
+import { useTranslations, useTranslatedPath } from '../i18n/utils';
+import { defaultLang } from '../i18n/languages';
+
+const t = useTranslations(defaultLang);
+const translatePath = useTranslatedPath(defaultLang);
+
+const labels = {
+  welcome: t('auth.welcome'),
+  memberSince: t('auth.memberSince'),
+  editProfile: t('auth.editProfile'),
+  changePassword: t('auth.changePassword'),
+  logout: t('auth.logout'),
+  name: t('auth.name'),
+  phone: t('auth.phone'),
+  save: t('auth.save'),
+  saving: t('auth.saving'),
+  profileUpdated: t('auth.profileUpdated'),
+  currentPassword: t('auth.currentPassword'),
+  newPassword: t('auth.newPassword'),
+  confirmPassword: t('auth.confirmPassword'),
+  passwordsNoMatch: t('auth.passwordsNoMatch'),
+  passwordChanged: t('auth.passwordChanged'),
+};
+---
+
+<Layout title={t('auth.dashboard')}>
+  <AuthGuard loginPath="/login" />
+  <Navbar />
+  <DashboardPanel
+    client:load
+    labels={labels}
+    loginPath={translatePath('/login')}
+    lang={defaultLang}
+  />
+  <Footer />
+</Layout>

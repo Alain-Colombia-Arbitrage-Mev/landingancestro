@@ -60,7 +60,7 @@ const { sharePrice = '$1.00' } = Astro.props;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 28px;
+    overflow: hidden;
     background: linear-gradient(
       135deg,
       rgba(248, 176, 59, 0.2) 0%,
@@ -72,6 +72,13 @@ const { sharePrice = '$1.00' } = Astro.props;
     border-radius: 12px;
     flex-shrink: 0;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .invest-toast-flag-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   .invest-toast-details {
@@ -174,16 +181,41 @@ const { sharePrice = '$1.00' } = Astro.props;
 </style>
 
 <script define:vars={{ sharePrice }}>
-  const investors = [
-    { name: 'Michael R.', amount: 25000, flag: '🇺🇸' },
-    { name: 'Carlos M.', amount: 10000, flag: '🇲🇽' },
-    { name: 'Sarah L.', amount: 50000, flag: '🇬🇧' },
-    { name: 'Ana P.', amount: 15000, flag: '🇨🇴' },
-    { name: 'David K.', amount: 100000, flag: '🇩🇪' },
-    { name: 'Ricardo F.', amount: 8000, flag: '🇧🇷' },
-    { name: 'James W.', amount: 35000, flag: '🇨🇦' },
-    { name: 'Lucia H.', amount: 20000, flag: '🇪🇸' },
+  const investorPool = [
+    { name: 'Michael R.', country: 'us' },
+    { name: 'Carlos M.', country: 'mx' },
+    { name: 'Sarah L.', country: 'gb' },
+    { name: 'Ana P.', country: 'co' },
+    { name: 'David K.', country: 'de' },
+    { name: 'Ricardo F.', country: 'br' },
+    { name: 'James W.', country: 'ca' },
+    { name: 'Lucia H.', country: 'es' },
+    { name: 'Sofia T.', country: 'ar' },
+    { name: 'Pierre D.', country: 'fr' },
+    { name: 'Akira N.', country: 'jp' },
+    { name: 'Elena V.', country: 'it' },
+    { name: 'Omar B.', country: 'ae' },
+    { name: 'Camila R.', country: 'cl' },
+    { name: 'Henrik S.', country: 'se' },
   ];
+
+  function randomAmount() {
+    const tiers = [1000, 2000, 2500, 3000, 5000, 7500, 8000, 10000, 12000, 15000, 18000, 20000, 25000];
+    return tiers[Math.floor(Math.random() * tiers.length)];
+  }
+
+  function randomTimeLabel() {
+    const now = Date.now();
+    const threeDaysMs = 3 * 24 * 60 * 60 * 1000;
+    const randomMs = Math.floor(Math.random() * threeDaysMs);
+    const diffMins = Math.floor(randomMs / 60000);
+
+    if (diffMins < 60) return `${Math.max(1, diffMins)} min ago`;
+    const diffHours = Math.floor(diffMins / 60);
+    if (diffHours < 24) return `${diffHours}h ago`;
+    const diffDays = Math.floor(diffHours / 24);
+    return `${diffDays}d ago`;
+  }
 
   let idx = 0;
   const container = document.getElementById('invest-proof');
@@ -191,21 +223,22 @@ const { sharePrice = '$1.00' } = Astro.props;
   function showInvestToast() {
     if (!container) return;
 
-    const inv = investors[idx];
-    const mins = Math.floor(Math.random() * 8) + 1;
-    const shares = inv.amount;
+    const inv = investorPool[idx];
+    const amount = randomAmount();
+    const timeLabel = randomTimeLabel();
+    const shares = amount;
 
     const toast = document.createElement('div');
     toast.className = 'invest-toast';
     toast.innerHTML = `
-      <div class="invest-toast-flag">${inv.flag}</div>
+      <div class="invest-toast-flag"><img src="https://flagcdn.com/w80/${inv.country}.png" alt="" class="invest-toast-flag-img" /></div>
       <div class="invest-toast-details">
         <div class="invest-toast-top">
           <span class="invest-toast-badge">Verified Investor</span>
-          <span class="invest-toast-time">${mins} min ago</span>
+          <span class="invest-toast-time">${timeLabel}</span>
         </div>
         <div class="invest-toast-name">${inv.name}</div>
-        <div class="invest-toast-msg">Invested <span class="invest-toast-amount"><strong>$${inv.amount.toLocaleString()}</strong> <em>USD</em></span></div>
+        <div class="invest-toast-msg">Invested <span class="invest-toast-amount"><strong>$${amount.toLocaleString()}</strong> <em>USD</em></span></div>
         <div class="invest-toast-shares">${shares.toLocaleString()} shares via SAFE Agreement</div>
       </div>
     `;
@@ -222,11 +255,11 @@ const { sharePrice = '$1.00' } = Astro.props;
       toast.classList.remove('visible');
       toast.classList.add('hiding');
       setTimeout(() => toast.remove(), 500);
-    }, 5000);
+    }, 40000);
 
-    idx = (idx + 1) % investors.length;
+    idx = (idx + 1) % investorPool.length;
   }
 
   setTimeout(showInvestToast, 3000);
-  setInterval(showInvestToast, 8000);
+  setInterval(showInvestToast, 50000);
 </script>

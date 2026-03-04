@@ -34,42 +34,116 @@ export function setAuthToken(token: string) {
   authToken.set(token);
 }
 
-export function logout() {
+export function clearAuth() {
   currentUser.set(null);
   authToken.set(null);
 }
 
-export async function login(email: string, password: string): Promise<boolean> {
+export async function login(email: string, password: string): Promise<{ success: boolean; needsVerification?: boolean; error?: any }> {
   isAuthLoading.set(true);
-  
+
   try {
-    // TODO: Replace with actual API call
-    // const response = await fetch('/api/auth/login', {
-    //   method: 'POST',
-    //   body: JSON.stringify({ email, password }),
-    // });
-    // const data = await response.json();
-    
-    // Simulated login for development
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    const mockUser: User = {
-      id: '1',
-      email,
-      name: email.split('@')[0],
-      isVerified: true,
-      createdAt: new Date().toISOString(),
-    };
-    
-    setUser(mockUser);
-    setAuthToken('mock-token-' + Date.now());
-    
-    return true;
+    const { configureAmplify } = await import('../lib/amplify');
+    configureAmplify();
+
+    const { cognitoSignIn, getCognitoToken, getCognitoUser, syncWithBackend } = await import('../lib/auth');
+
+    const signInResult = await cognitoSignIn(email, password);
+
+    if (signInResult.nextStep?.signInStep === 'CONFIRM_SIGN_UP') {
+      return { success: false, needsVerification: true };
+    }
+
+    if (signInResult.isSignedIn) {
+      const cognitoToken = await getCognitoToken();
+      if (cognitoToken) {
+        const backendResult = await syncWithBackend(cognitoToken);
+        if (backendResult) {
+          setUser(backendResult.user);
+          setAuthToken(backendResult.token);
+          return { success: true };
+        }
+      }
+      // Fallback: set user from Cognito info
+      const cognitoUser = await getCognitoUser();
+      setUser({
+        id: cognitoUser?.userId || 'cognito',
+        email,
+        name: cognitoUser?.name || email.split('@')[0],
+        phone: cognitoUser?.phone,
+        isVerified: true,
+        createdAt: new Date().toISOString(),
+      });
+      setAuthToken(cognitoToken || 'cognito-session');
+      return { success: true };
+    }
+
+    return { success: false };
   } catch (error) {
     console.error('Login error:', error);
-    return false;
+    throw error;
   } finally {
     isAuthLoading.set(false);
+  }
+}
+
+export async function logout() {
+  try {
+    const { configureAmplify } = await import('../lib/amplify');
+    configureAmplify();
+    const { cognitoSignOut } = await import('../lib/auth');
+    await cognitoSignOut();
+  } catch (error) {
+    console.error('Logout error:', error);
+  } finally {
+    clearAuth();
+  }
+}
+
+export async function loginWithGoogle(): Promise<void> {
+  const { configureAmplify } = await import('../lib/amplify');
+  configureAmplify();
+  const { cognitoSignInWithGoogle } = await import('../lib/auth');
+  await cognitoSignInWithGoogle();
+}
+
+export async function checkSession(): Promise<boolean> {
+  try {
+    const { configureAmplify } = await import('../lib/amplify');
+    configureAmplify();
+    const { getCognitoToken, getCognitoUser, syncWithBackend } = await import('../lib/auth');
+
+    const cognitoToken = await getCognitoToken();
+    if (!cognitoToken) {
+      clearAuth();
+      return false;
+    }
+
+    // Try to sync with backend for fresh user data
+    const backendResult = await syncWithBackend(cognitoToken);
+    if (backendResult) {
+      setUser(backendResult.user);
+      setAuthToken(backendResult.token);
+    } else {
+      // Fallback: ensure user data from Cognito
+      const cognitoUser = await getCognitoUser();
+      if (cognitoUser && !currentUser.get()) {
+        setUser({
+          id: cognitoUser.userId,
+          email: cognitoUser.email,
+          name: cognitoUser.name || cognitoUser.email.split('@')[0],
+          phone: cognitoUser.phone,
+          isVerified: cognitoUser.emailVerified,
+          createdAt: new Date().toISOString(),
+        });
+        setAuthToken(cognitoToken);
+      }
+    }
+
+    return true;
+  } catch {
+    clearAuth();
+    return false;
   }
 }
 

@@ -1,0 +1,43 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Navbar from '@components/Navbar.astro';
+import LoginForm from '@components/auth/LoginForm';
+import { getLanguagePaths } from '../../i18n/config';
+import { useTranslations, useTranslatedPath, type Lang } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  return getLanguagePaths();
+}
+
+const { lang } = Astro.params as { lang: Lang };
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+
+const labels = {
+  title: t('auth.login'),
+  subtitle: t('auth.loginSubtitle'),
+  email: t('auth.email'),
+  password: t('auth.password'),
+  forgotPassword: t('auth.forgotPassword'),
+  loginButton: t('auth.login'),
+  loggingIn: t('auth.loggingIn'),
+  orContinueWith: t('auth.orContinueWith'),
+  googleLogin: t('auth.googleLogin'),
+  noAccount: t('auth.noAccount'),
+  register: t('auth.register'),
+  showPassword: 'Show password',
+  hidePassword: 'Hide password',
+};
+---
+
+<Layout title={t('auth.login')}>
+  <Navbar />
+  <LoginForm
+    client:load
+    labels={labels}
+    forgotPasswordPath={translatePath('/forgot-password')}
+    registerPath={translatePath('/register')}
+    dashboardPath={translatePath('/dashboard')}
+    lang={lang}
+  />
+</Layout>

@@ -5,9 +5,16 @@ interface Props {
 }
 
 const { sharePrice, valuation } = Astro.props;
+
+const investmentTiers = [
+  '$2,000 – $5,000',
+  '$5,000 – $20,000',
+  '$20,000 – $50,000',
+  '$50,000+',
+];
 ---
 
-<section class="final-cta">
+<section class="final-cta" id="contact">
   <div class="final-cta__glow"></div>
   <div class="final-cta__inner">
 
@@ -23,33 +30,158 @@ const { sharePrice, valuation } = Astro.props;
       We are not waiting for the future.<br /><span class="final-cta__declaration-gold">We are building it.</span>
     </p>
 
-    <div class="final-cta__actions" data-delay="4">
-      <a href="#buy-stock" class="final-cta__btn final-cta__btn--primary">
-        Buy Ancestro Stock
-      </a>
-      <a
-        href="https://calendly.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="final-cta__btn final-cta__btn--secondary"
-      >
-        Schedule a Private Call
-      </a>
-    </div>
+    <!-- Contact Form -->
+    <div class="invest-form-wrap" data-delay="4" id="invest-form-section">
+      <div class="invest-form-card">
+        <div class="invest-form-header">
+          <h3 class="invest-form-title">Request Access to Invest</h3>
+          <p class="invest-form-subtitle">Share your details and our team will reach out within 24 hours.</p>
+        </div>
 
-    <div class="final-cta__trust" data-delay="5">
-      <span class="final-cta__trust-item">{sharePrice} <em>per share</em></span>
-      <span class="final-cta__trust-sep"></span>
-      <span class="final-cta__trust-item">{valuation} <em>valuation</em></span>
-      <span class="final-cta__trust-sep"></span>
-      <span class="final-cta__trust-item">SAFE <em>agreement</em></span>
+        <form class="invest-form" id="invest-contact-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="invest-name" class="form-label">Full Name</label>
+              <input
+                type="text"
+                id="invest-name"
+                name="name"
+                required
+                autocomplete="name"
+                placeholder="John Doe"
+                class="form-input"
+              />
+            </div>
+            <div class="form-group">
+              <label for="invest-email" class="form-label">Email</label>
+              <input
+                type="email"
+                id="invest-email"
+                name="email"
+                required
+                autocomplete="email"
+                placeholder="john@company.com"
+                class="form-input"
+              />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="invest-phone" class="form-label">Phone <span class="form-optional">(optional)</span></label>
+              <div class="phone-intl-row">
+                <select id="invest-phone-code" class="form-input form-select phone-code-select">
+                  <option value="+1">🇺🇸 +1</option>
+                  <option value="+52">🇲🇽 +52</option>
+                  <option value="+57">🇨🇴 +57</option>
+                  <option value="+55">🇧🇷 +55</option>
+                  <option value="+54">🇦🇷 +54</option>
+                  <option value="+56">🇨🇱 +56</option>
+                  <option value="+51">🇵🇪 +51</option>
+                  <option value="+34">🇪🇸 +34</option>
+                  <option value="+49">🇩🇪 +49</option>
+                  <option value="+44">🇬🇧 +44</option>
+                  <option value="+33">🇫🇷 +33</option>
+                  <option value="+39">🇮🇹 +39</option>
+                  <option value="+81">🇯🇵 +81</option>
+                  <option value="+61">🇦🇺 +61</option>
+                  <option value="+91">🇮🇳 +91</option>
+                  <option value="+971">🇦🇪 +971</option>
+                  <option value="+65">🇸🇬 +65</option>
+                  <option value="+82">🇰🇷 +82</option>
+                  <option value="+506">🇨🇷 +506</option>
+                  <option value="+507">🇵🇦 +507</option>
+                  <option value="+593">🇪🇨 +593</option>
+                </select>
+                <input
+                  type="tel"
+                  id="invest-phone"
+                  name="phone_number"
+                  autocomplete="tel"
+                  placeholder="(555) 000-0000"
+                  class="form-input phone-number-input"
+                />
+              </div>
+              <input type="hidden" name="phone" id="invest-phone-full" />
+            </div>
+            <div class="form-group">
+              <label for="invest-amount" class="form-label">Investment Range</label>
+              <select id="invest-amount" name="amount" required class="form-input form-select">
+                <option value="" disabled selected>Select range</option>
+                {investmentTiers.map((tier) => (
+                  <option value={tier}>{tier}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group form-group--full">
+            <label for="invest-message" class="form-label">Message <span class="form-optional">(optional)</span></label>
+            <textarea
+              id="invest-message"
+              name="message"
+              rows="3"
+              placeholder="Tell us about yourself and your interest in Ancestro..."
+              class="form-input form-textarea"
+            ></textarea>
+          </div>
+
+          <button type="submit" class="form-submit" id="invest-submit-btn">
+            <span class="form-submit-text">Request Access</span>
+            <svg class="form-submit-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </button>
+
+          <div class="form-success" id="invest-form-success">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+              <polyline points="22 4 12 14.01 9 11.01" />
+            </svg>
+            <p>Thank you! We'll be in touch soon.</p>
+          </div>
+        </form>
+
+        <div class="form-footer">
+          <span class="form-footer-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+            100% Confidential
+          </span>
+          <span class="form-footer-sep"></span>
+          <span class="form-footer-item">{sharePrice} per share</span>
+          <span class="form-footer-sep"></span>
+          <span class="form-footer-item">{valuation} valuation</span>
+        </div>
+      </div>
+
+      <div class="form-alt-actions">
+        <span class="form-alt-text">Prefer a direct conversation?</span>
+        <a
+          href="https://calendly.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="form-alt-link"
+        >
+          Schedule a Private Call
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+            <polyline points="15 3 21 3 21 9" />
+            <line x1="10" y1="14" x2="21" y2="3" />
+          </svg>
+        </a>
+        <span class="form-alt-sep">·</span>
+        <a href="mailto:invest@ancestro.com" class="form-alt-link">
+          invest@ancestro.com
+        </a>
+      </div>
     </div>
 
   </div>
 </section>
 
 <style>
-  /* ─── Section ─── */
   .final-cta {
     position: relative;
     overflow: hidden;
@@ -57,7 +189,6 @@ const { sharePrice, valuation } = Astro.props;
     text-align: center;
   }
 
-  /* ─── Radial gold glow ─── */
   .final-cta__glow {
     position: absolute;
     top: 0;
@@ -74,7 +205,6 @@ const { sharePrice, valuation } = Astro.props;
     pointer-events: none;
   }
 
-  /* ─── Container ─── */
   .final-cta__inner {
     position: relative;
     z-index: 1;
@@ -82,7 +212,6 @@ const { sharePrice, valuation } = Astro.props;
     margin: 0 auto;
   }
 
-  /* ─── Stacked statements ─── */
   .final-cta__statements {
     display: flex;
     flex-direction: column;
@@ -108,7 +237,6 @@ const { sharePrice, valuation } = Astro.props;
     transform: translateY(0);
   }
 
-  /* ─── Gold divider line ─── */
   .final-cta__divider {
     width: 40px;
     height: 2px;
@@ -122,7 +250,6 @@ const { sharePrice, valuation } = Astro.props;
     opacity: 1;
   }
 
-  /* ─── Bold declaration ─── */
   .final-cta__declaration-gold {
     color: var(--color-primary);
   }
@@ -133,7 +260,7 @@ const { sharePrice, valuation } = Astro.props;
     color: var(--color-white);
     line-height: 1.3;
     letter-spacing: -0.025em;
-    margin: 0 0 40px;
+    margin: 0 0 48px;
     opacity: 0;
     transform: translateY(18px);
     transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
@@ -145,111 +272,285 @@ const { sharePrice, valuation } = Astro.props;
     transform: translateY(0);
   }
 
-  /* ─── CTA buttons row ─── */
-  .final-cta__actions {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    margin-bottom: 28px;
+  /* ─── Form Card ─── */
+  .invest-form-wrap {
+    text-align: left;
     opacity: 0;
     transform: translateY(18px);
     transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
                 transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .final-cta__actions.is-visible {
+  .invest-form-wrap.is-visible {
     opacity: 1;
     transform: translateY(0);
   }
 
-  /* Shared button base */
-  .final-cta__btn {
+  .invest-form-card {
+    background: linear-gradient(
+      165deg,
+      rgba(255, 255, 255, 0.06) 0%,
+      rgba(255, 255, 255, 0.02) 100%
+    );
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 16px 64px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  .invest-form-header {
+    margin-bottom: 32px;
+    text-align: center;
+  }
+
+  .invest-form-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-white);
+    margin: 0 0 8px;
+    letter-spacing: -0.02em;
+  }
+
+  .invest-form-subtitle {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.45);
+    margin: 0;
+  }
+
+  /* Form layout */
+  .invest-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .form-group--full {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .form-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .form-optional {
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+    color: rgba(255, 255, 255, 0.3);
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 13px 16px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: var(--color-white);
+    font-size: 0.9375rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+  }
+
+  .form-input::placeholder {
+    color: rgba(255, 255, 255, 0.2);
+  }
+
+  .form-input:focus {
+    border-color: rgba(248, 176, 59, 0.5);
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 0 0 3px rgba(248, 176, 59, 0.08);
+  }
+
+  .form-input.has-error {
+    border-color: rgba(248, 113, 113, 0.6);
+  }
+
+  .form-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.4)' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 40px;
+    cursor: pointer;
+  }
+
+  .form-select option {
+    background: #1a1a1a;
+    color: #fff;
+  }
+
+  .phone-intl-row {
+    display: flex;
+    gap: 8px;
+  }
+
+  .phone-code-select {
+    width: 120px;
+    flex-shrink: 0;
+    padding-right: 32px;
+  }
+
+  .phone-number-input {
+    flex: 1;
+  }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  .form-submit {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 16px 36px;
-    font-size: 1rem;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    border-radius: 14px;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background 0.25s ease,
-                border-color 0.25s ease,
-                box-shadow 0.25s ease,
-                transform 0.25s ease;
-  }
-
-  /* Primary - gold bg */
-  .final-cta__btn--primary {
+    gap: 8px;
+    width: 100%;
+    padding: 16px 32px;
     background: var(--color-primary);
     color: var(--color-black);
-    border: 2px solid var(--color-primary);
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: inherit;
+    letter-spacing: -0.01em;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    margin-top: 4px;
   }
 
-  .final-cta__btn--primary:hover {
+  .form-submit:hover {
     background: #ffbe4d;
-    border-color: #ffbe4d;
     transform: translateY(-2px);
     box-shadow: 0 8px 32px rgba(248, 176, 59, 0.3);
   }
 
-  /* Secondary - glass border */
-  .final-cta__btn--secondary {
-    background: rgba(255, 255, 255, 0.04);
-    color: rgba(255, 255, 255, 0.82);
-    border: 1.5px solid var(--color-white-20);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-  }
-
-  .final-cta__btn--secondary:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.32);
-    color: var(--color-white);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(255, 255, 255, 0.06);
-  }
-
-  /* ─── Trust metrics ─── */
-  .final-cta__trust {
-    display: inline-flex;
-    align-items: center;
-    gap: 16px;
-    padding: 14px 28px;
-    border: 1px solid var(--color-white-10);
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.02);
-    opacity: 0;
-    transform: translateY(12px);
-    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .final-cta__trust.is-visible {
-    opacity: 1;
+  .form-submit:active {
     transform: translateY(0);
   }
 
-  .final-cta__trust-item {
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: var(--color-white);
-    font-variant-numeric: tabular-nums;
+  .form-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
   }
 
-  .final-cta__trust-item em {
-    font-style: normal;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.4);
+  .form-submit-arrow {
+    transition: transform 0.3s ease;
+  }
+
+  .form-submit:hover .form-submit-arrow {
+    transform: translateX(4px);
+  }
+
+  .form-success {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 32px 20px;
+    text-align: center;
+  }
+
+  .form-success.is-active {
+    display: flex;
+  }
+
+  .form-success p {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+  }
+
+  /* Footer trust metrics */
+  .form-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding-top: 24px;
+    margin-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .form-footer-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
     font-size: 0.8rem;
-    margin-left: 3px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.4);
+    white-space: nowrap;
   }
 
-  .final-cta__trust-sep {
+  .form-footer-item svg {
+    color: #4ade80;
+  }
+
+  .form-footer-sep {
     width: 1px;
-    height: 18px;
-    background: var(--color-white-10);
+    height: 14px;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  /* Alt actions */
+  .form-alt-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+
+  .form-alt-text {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.35);
+  }
+
+  .form-alt-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .form-alt-link:hover {
+    color: var(--color-primary);
+  }
+
+  .form-alt-sep {
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 0.85rem;
   }
 
   /* ─── Responsive ─── */
@@ -267,25 +568,28 @@ const { sharePrice, valuation } = Astro.props;
       margin-bottom: 44px;
     }
 
-    .final-cta__actions {
-      flex-direction: column;
-      align-items: center;
+    .invest-form-card {
+      padding: 28px 20px;
+      border-radius: 16px;
     }
 
-    .final-cta__btn {
-      width: 100%;
-      max-width: 340px;
+    .form-row {
+      grid-template-columns: 1fr;
+      gap: 16px;
     }
 
-    .final-cta__trust {
+    .form-footer {
       flex-direction: column;
       gap: 8px;
-      padding: 14px 24px;
     }
 
-    .final-cta__trust-sep {
-      width: 40px;
-      height: 1px;
+    .form-footer-sep {
+      display: none;
+    }
+
+    .form-alt-actions {
+      flex-direction: column;
+      gap: 8px;
     }
   }
 </style>
@@ -317,9 +621,67 @@ const { sharePrice, valuation } = Astro.props;
     );
 
     observer.observe(section);
+
+    const form = document.getElementById('invest-contact-form') as HTMLFormElement | null;
+    const submitBtn = document.getElementById('invest-submit-btn') as HTMLButtonElement | null;
+    const successEl = document.getElementById('invest-form-success');
+
+    if (form && submitBtn && successEl) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        form.querySelectorAll('.has-error').forEach(el => el.classList.remove('has-error'));
+
+        const name = (form.querySelector('#invest-name') as HTMLInputElement).value.trim();
+        const email = (form.querySelector('#invest-email') as HTMLInputElement).value.trim();
+        const amount = (form.querySelector('#invest-amount') as HTMLSelectElement).value;
+
+        let valid = true;
+        if (!name) {
+          form.querySelector('#invest-name')?.classList.add('has-error');
+          valid = false;
+        }
+        if (!email || !email.includes('@')) {
+          form.querySelector('#invest-email')?.classList.add('has-error');
+          valid = false;
+        }
+        if (!amount) {
+          form.querySelector('#invest-amount')?.classList.add('has-error');
+          valid = false;
+        }
+
+        if (!valid) return;
+
+        const phoneCodeEl = form.querySelector('#invest-phone-code') as HTMLSelectElement;
+        const phoneNumEl = form.querySelector('#invest-phone') as HTMLInputElement;
+        const phoneFullEl = form.querySelector('#invest-phone-full') as HTMLInputElement;
+        const phoneNum = phoneNumEl?.value.trim();
+        if (phoneFullEl) {
+          phoneFullEl.value = phoneNum ? `${phoneCodeEl?.value || '+1'} ${phoneNum}` : '';
+        }
+
+        submitBtn.disabled = true;
+        const origText = submitBtn.querySelector('.form-submit-text');
+        if (origText) origText.textContent = 'Sending...';
+
+        try {
+          const formData = new FormData(form);
+
+          await fetch('https://formsubmit.co/ajax/invest@ancestro.com', {
+            method: 'POST',
+            body: formData,
+          });
+
+          form.style.display = 'none';
+          successEl.classList.add('is-active');
+        } catch {
+          if (origText) origText.textContent = 'Request Access';
+          submitBtn.disabled = false;
+        }
+      });
+    }
   }
 
-  // Run on initial load and on Astro page transitions
   document.addEventListener('astro:page-load', initFinalCTA);
   initFinalCTA();
 </script>

@@ -62,7 +62,7 @@ const {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 28px;
+    overflow: hidden;
     background: linear-gradient(
       135deg,
       rgba(248, 176, 59, 0.2) 0%,
@@ -74,6 +74,13 @@ const {
     border-radius: 12px;
     flex-shrink: 0;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .toast-flag-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   .toast-details {
@@ -177,14 +184,16 @@ const {
 
 <script define:vars={{ tokenSymbol }}>
   const purchases = [
-    { address: '0x7a2...8b9c', amount: 2500, flag: '🇲🇽' },
-    { address: '0x4f1...3e2d', amount: 5000, flag: '🇨🇴' },
-    { address: '0x9c8...7a1f', amount: 1200, flag: '🇦🇷' },
-    { address: '0x2d5...4b8e', amount: 3800, flag: '🇧🇷' },
-    { address: '0x6e3...9f2a', amount: 8500, flag: '🇨🇱' },
-    { address: '0x1a9...5c4b', amount: 1500, flag: '🇵🇪' },
-    { address: '0x8b2...6d7e', amount: 4200, flag: '🇲🇽' },
-    { address: '0x3f7...2a9c', amount: 6700, flag: '🇨🇴' },
+    { address: '0x7a2...8b9c', amount: 2500, country: 'mx' },
+    { address: '0x4f1...3e2d', amount: 5000, country: 'co' },
+    { address: '0x9c8...7a1f', amount: 1200, country: 'ar' },
+    { address: '0x2d5...4b8e', amount: 3800, country: 'br' },
+    { address: '0x6e3...9f2a', amount: 8500, country: 'cl' },
+    { address: '0x1a9...5c4b', amount: 1500, country: 'pe' },
+    { address: '0x8b2...6d7e', amount: 4200, country: 'us' },
+    { address: '0x3f7...2a9c', amount: 6700, country: 'es' },
+    { address: '0xd4e...1b3a', amount: 3200, country: 'de' },
+    { address: '0xa1c...8f5d', amount: 9100, country: 'gb' },
   ];
 
   let idx = 0;
@@ -200,7 +209,7 @@ const {
     const toast = document.createElement('div');
     toast.className = 'social-toast';
     toast.innerHTML = `
-      <div class="toast-flag-box">${p.flag}</div>
+      <div class="toast-flag-box"><img src="https://flagcdn.com/w80/${p.country}.png" alt="" class="toast-flag-img" /></div>
       <div class="toast-details">
         <div class="toast-top-row">
           <span class="toast-verified-badge">Compra verificada</span>

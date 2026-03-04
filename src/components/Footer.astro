@@ -31,8 +31,8 @@ const supportLinks = [
 ];
 
 const legalLinks = [
-  { label: t('footer.terms'), href: translatePath('/terms') },
-  { label: t('footer.privacy'), href: translatePath('/privacy') },
+  { label: t('footer.terms'), pdfType: 'terms' },
+  { label: t('footer.privacy'), pdfType: 'privacy' },
 ];
 
 const socialLinks = [
@@ -119,7 +119,7 @@ const homeHref = translatePath('/');
         <p class="copyright">© 2026 Ancestro. {t('footer.rights')}</p>
         <div class="legal-links">
           {legalLinks.map((link) => (
-            <a href={link.href} class="legal-link">{link.label}</a>
+            <a href="#" data-pdf-viewer={link.pdfType} class="legal-link">{link.label}</a>
           ))}
         </div>
       </div>

@@ -10,12 +10,27 @@
     "validate-translations": "tsx src/scripts/validate-translations.ts"
   },
   "dependencies": {
+    "@astrojs/node": "^9.5.4",
+    "@astrojs/react": "^4.4.2",
     "@astrojs/sitemap": "^3.7.0",
+    "@aws-sdk/client-cognito-identity-provider": "^3.1001.0",
     "@nanostores/persistent": "^1.3.0",
+    "@tanstack/react-query": "^5.90.21",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
     "astro": "^5.17.1",
-    "nanostores": "^1.1.0"
+    "aws-amplify": "^6.16.2",
+    "jsonwebtoken": "^9.0.3",
+    "nanostores": "^1.1.0",
+    "pg": "^8.19.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "viem": "^2.46.3",
+    "wagmi": "^3.5.0"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/pg": "^8.18.0",
     "tsx": "^4.21.0"
   }
 }

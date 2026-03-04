@@ -1,0 +1,102 @@
+---
+// AuthGuard: client-side protection that validates Cognito session
+// Include this component on any protected page
+interface Props {
+  loginPath?: string;
+}
+
+const { loginPath = '/login' } = Astro.props;
+---
+
+<div id="auth-guard-loader" class="auth-guard-loader">
+  <div class="auth-guard-spinner"></div>
+</div>
+
+<script define:vars={{ loginPath }}>
+  // Immediate localStorage check to avoid flash
+  (function() {
+    try {
+      const stored = localStorage.getItem('ancestro:user');
+      if (!stored || stored === 'null') {
+        window.location.replace(loginPath);
+        return;
+      }
+      // Show content immediately if localStorage has user
+      // The async validation below will clear if session is invalid
+      const mainContent = document.getElementById('main-content');
+      if (mainContent) mainContent.style.visibility = 'visible';
+    } catch {
+      window.location.replace(loginPath);
+    }
+  })();
+</script>
+
+<script>
+  import { initAuth } from '../lib/auth-init';
+  import { getCognitoToken } from '../lib/auth';
+  import { currentUser, clearAuth } from '../stores/user';
+
+  // Validate actual Cognito session in background
+  (async () => {
+    await initAuth();
+
+    try {
+      const token = await getCognitoToken();
+      if (!token) {
+        // Cognito session invalid - clear and redirect
+        clearAuth();
+        window.location.replace('/login');
+        return;
+      }
+    } catch {
+      clearAuth();
+      window.location.replace('/login');
+      return;
+    }
+
+    // Hide loader
+    const loader = document.getElementById('auth-guard-loader');
+    if (loader) loader.style.display = 'none';
+  })();
+</script>
+
+<style>
+  .auth-guard-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--color-black, #000);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Only show loader if validation takes more than 500ms */
+  .auth-guard-loader {
+    animation: showLoader 0.5s ease forwards;
+  }
+
+  @keyframes showLoader {
+    0%, 99% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  .auth-guard-spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid rgba(248, 176, 59, 0.2);
+    border-top-color: rgba(248, 176, 59, 0.8);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+</style>

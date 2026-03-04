@@ -2,6 +2,8 @@
 import Layout from '@layouts/Layout.astro';
 import Navbar from '@components/Navbar.astro';
 import Footer from '@components/Footer.astro';
+import PresaleGate from '@components/presale/PresaleGate';
+import ConnectWallet from '@components/web3/ConnectWallet';
 
 // Presale Components
 import PresaleHero from '@components/presale/PresaleHero.astro';
@@ -166,6 +168,67 @@ const FAQS = [
 
 // Footer background
 const footerBg = "/images/footer-bg.png";
+
+// Gate labels
+const gateLabels = {
+  title: t('presale.gate.title'),
+  subtitle: t('presale.gate.subtitle'),
+  tabCode: t('presale.gate.tabCode'),
+  tabWhitelist: t('presale.gate.tabWhitelist'),
+  codePlaceholder: t('presale.gate.codePlaceholder'),
+  verifyCode: t('presale.gate.verifyCode'),
+  verifying: t('presale.gate.verifying'),
+  emailPlaceholder: t('presale.gate.emailPlaceholder'),
+  sendOtp: t('presale.gate.sendOtp'),
+  sending: t('presale.gate.sending'),
+  otpSent: t('presale.gate.otpSent'),
+  verifyOtp: t('presale.gate.verifyOtp'),
+  invalidCode: t('presale.gate.invalidCode'),
+  notWhitelisted: t('presale.gate.notWhitelisted'),
+  invalidOtp: t('presale.gate.invalidOtp'),
+  expiredOtp: t('presale.gate.expiredOtp'),
+  accessGranted: t('presale.gate.accessGranted'),
+  alreadyVerified: t('presale.gate.alreadyVerified'),
+  serverError: t('presale.gate.serverError'),
+  headline: t('presale.gate.headline'),
+  spotsLabel: t('presale.gate.spotsLabel'),
+  spotsOf: t('presale.gate.spotsOf'),
+  membersJoined: t('presale.gate.membersJoined'),
+  countriesLabel: t('presale.gate.countriesLabel'),
+  benefit1: t('presale.gate.benefit1'),
+  benefit2: t('presale.gate.benefit2'),
+  benefit3: t('presale.gate.benefit3'),
+  benefit4: t('presale.gate.benefit4'),
+  formName: t('presale.gate.formName'),
+  formEmail: t('presale.gate.formEmail'),
+  formPhone: t('presale.gate.formPhone'),
+  formAmount: t('presale.gate.formAmount'),
+  formCountry: t('presale.gate.formCountry'),
+  formSubmit: t('presale.gate.formSubmit'),
+  formSubmitting: t('presale.gate.formSubmitting'),
+  formDisclaimer: t('presale.gate.formDisclaimer'),
+  successTitle: t('presale.gate.successTitle'),
+  successMsg: t('presale.gate.successMsg'),
+  orUseCode: t('presale.gate.orUseCode'),
+  orLogin: t('presale.gate.orLogin'),
+  loginEmail: t('presale.gate.loginEmail'),
+  loginPassword: t('presale.gate.loginPassword'),
+  loginButton: t('presale.gate.loginButton'),
+  loginLoading: t('presale.gate.loginLoading'),
+  loginError: t('presale.gate.loginError'),
+  loginWithGoogle: t('presale.gate.loginWithGoogle'),
+  backToMain: t('presale.gate.backToMain'),
+};
+
+// Web3 labels
+const walletLabels = {
+  connect: t('web3.connectWallet'),
+  disconnect: t('web3.disconnect'),
+  connected: t('web3.connected'),
+  connecting: t('web3.connecting'),
+  noWallet: t('web3.noWallet'),
+  balance: t('web3.balance'),
+};
 ---
 
 <Layout
@@ -175,6 +238,11 @@ const footerBg = "/images/footer-bg.png";
   <div class="presale-page">
     <Navbar />
     
+    <div id="presale-gate-section">
+      <PresaleGate client:load labels={gateLabels} lang={defaultLang} />
+    </div>
+
+    <div id="presale-content" style="display:none">
     <main id="main-content">
       <!-- Hero Section -->
       <PresaleHero 
@@ -186,6 +254,11 @@ const footerBg = "/images/footer-bg.png";
         progress={PRESALE.progress}
         daysRemaining={PRESALE.daysRemaining}
       />
+
+      <!-- Web3 Wallet Connection -->
+      <div class="wallet-section">
+        <ConnectWallet client:load labels={walletLabels} />
+      </div>
       
       <!-- Benefits Section -->
       <PresaleBenefits benefits={BENEFITS} />
@@ -233,10 +306,11 @@ const footerBg = "/images/footer-bg.png";
       progress={PRESALE.progress}
     />
     
-    <!-- Purchase Notifications -->
-    <PurchaseToasts tokenSymbol={TOKEN.symbol} />
-    
     <Footer backgroundImage={footerBg} />
+    </div>
+
+    <!-- Purchase Notifications (always visible for social proof) -->
+    <PurchaseToasts tokenSymbol={TOKEN.symbol} />
   </div>
 </Layout>
 
@@ -244,6 +318,10 @@ const footerBg = "/images/footer-bg.png";
   .presale-page {
     background-color: var(--color-black);
     min-height: 100vh;
+  }
+
+  #presale-gate-section {
+    padding-top: 79px;
   }
 
   main {
@@ -254,5 +332,11 @@ const footerBg = "/images/footer-bg.png";
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px 100px;
+  }
+
+  .wallet-section {
+    display: flex;
+    justify-content: center;
+    padding: 24px 20px 0;
   }
 </style>

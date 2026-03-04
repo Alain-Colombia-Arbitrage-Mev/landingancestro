@@ -1,0 +1,36 @@
+---
+import Layout from '@layouts/Layout.astro';
+import Navbar from '@components/Navbar.astro';
+import VerifyForm from '@components/auth/VerifyForm';
+import { getLanguagePaths } from '../../i18n/config';
+import { useTranslations, useTranslatedPath, type Lang } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  return getLanguagePaths();
+}
+
+const { lang } = Astro.params as { lang: Lang };
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+
+const labels = {
+  title: t('auth.verifyTitle'),
+  subtitle: t('auth.verifySubtitle'),
+  verifyButton: t('auth.verify'),
+  verifying: t('auth.verifying'),
+  resendCode: t('auth.resendCode'),
+  codeSent: t('auth.codeSent'),
+  verified: t('auth.verified'),
+};
+---
+
+<Layout title={t('auth.verifyTitle')}>
+  <Navbar />
+  <VerifyForm
+    client:load
+    labels={labels}
+    registerPath={translatePath('/register')}
+    loginPath={translatePath('/login')}
+    lang={lang}
+  />
+</Layout>

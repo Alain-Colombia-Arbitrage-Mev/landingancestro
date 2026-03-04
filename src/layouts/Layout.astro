@@ -1,6 +1,19 @@
 ---
 import '@styles/global.css';
 import ToastContainer from '@components/ToastContainer.astro';
+import PdfViewer from '@components/PdfViewer';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const layoutLang = getLangFromUrl(Astro.url);
+const layoutT = useTranslations(layoutLang);
+
+const pdfViewerLabels = {
+  close: layoutT('pdf.close'),
+  loading: layoutT('pdf.loading'),
+  download: layoutT('pdf.download'),
+  openNewTab: layoutT('pdf.openNewTab'),
+  errorLoading: layoutT('pdf.errorLoading'),
+};
 
 interface Props {
   title: string;
@@ -146,6 +159,14 @@ const serviceSchema = {
     
     <!-- Toast Notifications -->
     <ToastContainer />
+    
+    <!-- PDF Viewer Modal -->
+    <PdfViewer
+      client:idle
+      labels={pdfViewerLabels}
+      termsLabel={layoutT('footer.terms')}
+      privacyLabel={layoutT('footer.privacy')}
+    />
     
     <!-- Accessibility: Skip to main content link -->
     <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
