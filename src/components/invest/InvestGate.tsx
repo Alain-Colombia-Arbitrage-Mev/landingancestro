@@ -1,13 +1,9 @@
-import { useState, useEffect, useRef, type ReactNode } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const ACCESS_KEY = 'invest:access';
 const VALID_PASSWORD = 'Ancestro.2026#';
 
-interface InvestGateProps {
-  children: ReactNode;
-}
-
-export default function InvestGate({ children }: InvestGateProps) {
+export default function InvestGate() {
   const [unlocked, setUnlocked] = useState(false);
   const [checking, setChecking] = useState(true);
   const [password, setPassword] = useState('');
@@ -46,13 +42,14 @@ export default function InvestGate({ children }: InvestGateProps) {
 
   if (checking) {
     return (
-      <div style={s.loadingWrap}>
+      <div style={s.overlay}>
         <div style={s.spinner} />
+        <style>{keyframes}</style>
       </div>
     );
   }
 
-  if (unlocked) return <>{children}</>;
+  if (unlocked) return null;
 
   return (
     <div style={s.overlay}>
@@ -102,22 +99,24 @@ export default function InvestGate({ children }: InvestGateProps) {
         </p>
       </div>
 
-      <style>{`
-        @keyframes gateFadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes gateSlideUp { from { opacity: 0; transform: translateY(20px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
-        @keyframes gateSpin { to { transform: rotate(360deg); } }
-        @keyframes gateShake {
-          0%, 100% { transform: translateX(0); }
-          20% { transform: translateX(-8px); }
-          40% { transform: translateX(8px); }
-          60% { transform: translateX(-6px); }
-          80% { transform: translateX(6px); }
-        }
-        .gate-shake { animation: gateShake 0.5s ease both !important; }
-      `}</style>
+      <style>{keyframes}</style>
     </div>
   );
 }
+
+const keyframes = `
+  @keyframes gateFadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes gateSlideUp { from { opacity: 0; transform: translateY(20px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+  @keyframes gateSpin { to { transform: rotate(360deg); } }
+  @keyframes gateShake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-6px); }
+    80% { transform: translateX(6px); }
+  }
+  .gate-shake { animation: gateShake 0.5s ease both !important; }
+`;
 
 const s: Record<string, React.CSSProperties> = {
   overlay: {
@@ -223,15 +222,6 @@ const s: Record<string, React.CSSProperties> = {
   link: {
     color: '#f8b03b',
     textDecoration: 'none',
-  },
-  loadingWrap: {
-    position: 'fixed',
-    inset: 0,
-    zIndex: 50000,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    background: '#0e0d09',
   },
   spinner: {
     width: '32px',
