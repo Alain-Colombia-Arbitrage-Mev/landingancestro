@@ -12,6 +12,7 @@ import InvestNumbers from '@components/invest/InvestNumbers.astro';
 import Team from '@components/invest/Team.astro';
 import FinalCTA from '@components/invest/FinalCTA.astro';
 import InvestToasts from '@components/invest/InvestToasts.astro';
+import InvestGate from '@components/invest/InvestGate';
 
 // i18n
 import { useTranslations } from '../i18n/utils';
@@ -77,47 +78,42 @@ const deepDivePanels = [
   title="Invest in Ancestro — Global Renewable Energy & Lifestyle Revolution"
   description="Join the Ancestro revolution. $1.00 per share, $25M valuation, SAFE agreement."
 >
-  <div class="invest-page">
-    <Navbar />
+  <InvestGate client:load>
+    <div class="invest-page">
+      <Navbar />
 
-    <main id="main-content">
-      <!-- 1. Hero -->
-      <InvestHero
-        sharePrice={INVESTMENT.sharePrice}
-        valuation={INVESTMENT.valuation}
-      />
+      <main id="main-content">
+        <InvestHero
+          sharePrice={INVESTMENT.sharePrice}
+          valuation={INVESTMENT.valuation}
+        />
 
-      <!-- 2. Thesis: Problem → Solution (compact) -->
-      <InvestThesis />
+        <InvestThesis />
 
-      <!-- 3. Deep Dive: Accordion (collapsed by default) -->
-      <AccordionSection
-        label="DEEP DIVE"
-        heading="Explore the Details"
-        panels={deepDivePanels}
-      />
+        <AccordionSection
+          label="DEEP DIVE"
+          heading="Explore the Details"
+          panels={deepDivePanels}
+        />
 
-      <!-- 4. Investment Numbers: Terms + Funds + Participation (merged) -->
-      <InvestNumbers
-        sharePrice={INVESTMENT.sharePrice}
-        valuation={INVESTMENT.valuation}
-      />
+        <InvestNumbers
+          sharePrice={INVESTMENT.sharePrice}
+          valuation={INVESTMENT.valuation}
+        />
 
-      <!-- 5. Team (collapsible) -->
-      <Team />
+        <Team />
 
-      <!-- 6. Final CTA -->
-      <FinalCTA
-        sharePrice={INVESTMENT.sharePrice}
-        valuation={INVESTMENT.valuation}
-      />
-    </main>
+        <FinalCTA
+          sharePrice={INVESTMENT.sharePrice}
+          valuation={INVESTMENT.valuation}
+        />
+      </main>
 
-    <!-- Investment Notifications -->
-    <InvestToasts sharePrice={INVESTMENT.sharePrice} />
+      <InvestToasts sharePrice={INVESTMENT.sharePrice} />
 
-    <Footer backgroundImage={footerBg} />
-  </div>
+      <Footer backgroundImage={footerBg} />
+    </div>
+  </InvestGate>
 </Layout>
 
 <style>
