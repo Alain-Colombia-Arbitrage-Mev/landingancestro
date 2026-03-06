@@ -35,7 +35,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     if (phone?.trim()) fields['Phone'] = phone.trim();
 
     const config = getAirtableEnv(locals);
-    const tableId = getTableId(locals, 'AIRTABLE_CONTACT_FORM');
+    const tableId = getTableId(locals, 'AIRTABLE_CONTACT_FORM') || getTableId(locals, 'AIRTABLE_CONTACT');
     const result = await createRecord(config, tableId, fields);
 
     if (!result.success) {
