@@ -1,11 +1,9 @@
 export const prerender = false;
 
 import type { APIRoute } from 'astro';
-import { createRecord } from '../../lib/airtable';
+import { createRecord, getAirtableEnv, getTableId } from '../../lib/airtable';
 
-const TABLE_ID = import.meta.env.AIRTABLE_INVEST_FORM;
-
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
   try {
     const body = await request.json();
     const { name, email, phone, amount, message } = body as Record<string, string>;
@@ -26,7 +24,9 @@ export const POST: APIRoute = async ({ request }) => {
 
     if (phone?.trim()) fields['Phone'] = phone.trim();
 
-    const result = await createRecord(TABLE_ID, fields);
+    const config = getAirtableEnv(locals);
+    const tableId = getTableId(locals, 'AIRTABLE_INVEST_FORM');
+    const result = await createRecord(config, tableId, fields);
 
     if (!result.success) {
       return new Response(JSON.stringify({ error: result.error }), {

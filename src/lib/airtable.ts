@@ -6,31 +6,46 @@ export interface AirtableResult {
   error?: string;
 }
 
+export interface AirtableConfig {
+  token: string;
+  baseId: string;
+}
+
+export function getAirtableEnv(locals: App.Locals): AirtableConfig {
+  const runtime = (locals as any).runtime;
+  const env = runtime?.env ?? {};
+
+  return {
+    token: env.AIRTABLE_TOKEN ?? import.meta.env.AIRTABLE_TOKEN ?? '',
+    baseId: env.AIRTABLE_BASE_ID ?? import.meta.env.AIRTABLE_BASE_ID ?? '',
+  };
+}
+
+export function getTableId(locals: App.Locals, key: string): string {
+  const runtime = (locals as any).runtime;
+  const env = runtime?.env ?? {};
+  return env[key] ?? import.meta.env[key] ?? '';
+}
+
 export async function createRecord(
+  config: AirtableConfig,
   tableId: string,
   fields: Record<string, unknown>,
 ): Promise<AirtableResult> {
-  const token = import.meta.env.AIRTABLE_TOKEN;
-  const baseId = import.meta.env.AIRTABLE_BASE_ID;
-
-  console.log('[Airtable] token exists:', !!token, '| baseId:', baseId, '| tableId:', tableId);
-  console.log('[Airtable] fields:', JSON.stringify(fields));
-
-  if (!token || !baseId) {
-    return { success: false, error: `Missing Airtable configuration (token: ${!!token}, baseId: ${!!baseId})` };
+  if (!config.token || !config.baseId) {
+    return { success: false, error: 'Missing Airtable configuration' };
   }
 
   if (!tableId) {
     return { success: false, error: 'Missing table ID' };
   }
 
-  const url = `${AIRTABLE_API}/${baseId}/${tableId}`;
-  console.log('[Airtable] POST', url);
+  const url = `${AIRTABLE_API}/${config.baseId}/${tableId}`;
 
   const res = await fetch(url, {
     method: 'POST',
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${config.token}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ fields }),
@@ -38,11 +53,9 @@ export async function createRecord(
 
   if (!res.ok) {
     const body = await res.text();
-    console.error('[Airtable] Error:', res.status, body);
     return { success: false, error: `Airtable ${res.status}: ${body}` };
   }
 
   const data = (await res.json()) as { id: string };
-  console.log('[Airtable] Created record:', data.id);
   return { success: true, id: data.id };
 }
