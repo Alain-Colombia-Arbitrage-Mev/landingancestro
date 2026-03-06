@@ -261,7 +261,7 @@ const footerBg = "/images/footer-bg.png";
               <p>Te hemos enviado un correo de confirmación. Mantente atento a las novedades.</p>
               <div class="success-position">
                 <span>Tu posición:</span>
-                <span class="position-number" id="position-number">#12,848</span>
+                <span class="position-number" id="position-number"></span>
               </div>
               <button class="share-btn" id="share-btn">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
@@ -313,11 +313,13 @@ const footerBg = "/images/footer-bg.png";
   }
   
   // Animate waitlist count on page load
+  const baseCount = 8500 + Math.floor(Math.random() * 4000);
+
   if (waitlistCount) {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          animateCounter(waitlistCount, 12847);
+          animateCounter(waitlistCount, baseCount);
           observer.disconnect();
         }
       });
@@ -325,30 +327,43 @@ const footerBg = "/images/footer-bg.png";
     observer.observe(waitlistCount);
   }
   
-  // Form submission
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     
     if (!submitBtn) return;
     
-    // Add loading state
     submitBtn.classList.add('loading');
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    // Success state
+    try {
+      const countryCodeEl = document.getElementById('countryCode') as HTMLSelectElement;
+      const phoneEl = document.getElementById('phone') as HTMLInputElement;
+      const phoneNum = phoneEl?.value.trim();
+      const fullPhone = phoneNum ? `${countryCodeEl?.value || '+57'} ${phoneNum}` : '';
+
+      const countryEl = document.getElementById('country') as HTMLSelectElement;
+      const countryName = countryEl?.options[countryEl.selectedIndex]?.text || '';
+
+      await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: (document.getElementById('fullName') as HTMLInputElement)?.value || '',
+          email: (document.getElementById('email') as HTMLInputElement)?.value || '',
+          phone: fullPhone,
+          country: countryName,
+        }),
+      });
+    } catch (_) {}
+
     submitBtn.classList.remove('loading');
     submitBtn.classList.add('success');
     
-    // Show success message after animation
     setTimeout(() => {
       formCard?.classList.add('hidden');
       successMessage?.classList.add('visible');
       
-      // Update position number
       if (positionNumber) {
-        const newPosition = 12848;
+        const newPosition = baseCount + 1;
         positionNumber.textContent = `#${newPosition.toLocaleString()}`;
       }
     }, 800);
@@ -706,6 +721,11 @@ const footerBg = "/images/footer-bg.png";
   .form-group select {
     cursor: pointer;
     appearance: none;
+  }
+
+  .form-group select option {
+    background: #1a1a1a;
+    color: #f5f0e6;
   }
 
   .select-wrapper,

@@ -143,26 +143,19 @@ export default function ContactPopup({ labels, contactPath }: ContactPopupProps)
     if (!name.trim() || !email.trim()) return;
     setStatus('loading');
 
-    const typeLabelKey = TYPE_LABEL_MAP[contactType] || 'typeGeneral';
-    const typeLabel = labels[typeLabelKey];
     const fullPhone = phone.trim() ? `${countryCode} ${phone.trim()}` : '';
-    const productLabel = product ? labels[PRODUCT_LABEL_MAP[product] || 'productOther'] : '';
 
     try {
-      const formData = new FormData();
-      formData.append('name', name);
-      formData.append('email', email);
-      formData.append('contactType', typeLabel);
-      if (fullPhone) formData.append('phone', fullPhone);
-      if (productLabel) formData.append('product', productLabel);
-      formData.append('message', message);
-      formData.append('_subject', `Ancestro — ${typeLabel}`);
-      formData.append('_captcha', 'false');
-
-      await fetch('https://formsubmit.co/ajax/info@ancestro.co', {
+      await fetch('/api/contact', {
         method: 'POST',
-        body: formData,
-        headers: { Accept: 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          email,
+          phone: fullPhone,
+          contactType,
+          message,
+        }),
       });
     } catch (_) {}
 

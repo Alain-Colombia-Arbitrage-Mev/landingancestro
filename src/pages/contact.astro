@@ -105,10 +105,7 @@ const products = [
 
           <div class="contact-form-container">
             <div class="form-card" id="form-card">
-              <form class="contact-form" id="contact-form" action="https://formsubmit.co/info@ancestro.co" method="POST">
-                <input type="hidden" name="_captcha" value="false" />
-                <input type="hidden" name="_next" value="" id="form-next" />
-                <input type="hidden" name="_subject" value="Nuevo contacto — Ancestro" id="form-subject" />
+              <form class="contact-form" id="contact-form">
 
                 <div class="form-group">
                   <label for="contact-type">
@@ -128,23 +125,6 @@ const products = [
                   </div>
                 </div>
 
-                <div class="form-group" id="product-group" style="display:none;">
-                  <label for="product">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" stroke="currentColor" stroke-width="2"/><polyline points="3.27,6.96 12,12.01 20.73,6.96" stroke="currentColor" stroke-width="2"/><line x1="12" y1="22.08" x2="12" y2="12" stroke="currentColor" stroke-width="2"/></svg>
-                    {t('contact.product')}
-                  </label>
-                  <div class="select-wrapper">
-                    <select id="product" name="product">
-                      <option value="">{t('contact.product')}</option>
-                      {products.map((p) => (
-                        <option value={p.value}>{p.label}</option>
-                      ))}
-                    </select>
-                    <span class="select-arrow">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-                    </span>
-                  </div>
-                </div>
 
                 <div class="form-group">
                   <label for="fullName">
@@ -244,13 +224,6 @@ const products = [
   const formCard = document.getElementById('form-card');
   const successMessage = document.getElementById('success-message');
   const contactType = document.getElementById('contact-type') as HTMLSelectElement;
-  const productGroup = document.getElementById('product-group');
-  const formNext = document.getElementById('form-next') as HTMLInputElement;
-  const formSubject = document.getElementById('form-subject') as HTMLInputElement;
-
-  if (formNext) {
-    formNext.value = window.location.href;
-  }
 
   const params = new URLSearchParams(window.location.search);
   const typeParam = params.get('type');
@@ -258,20 +231,8 @@ const products = [
     const validTypes = ['order', 'budget', 'info', 'charger', 'general'];
     if (validTypes.includes(typeParam)) {
       contactType.value = typeParam;
-      contactType.dispatchEvent(new Event('change'));
     }
   }
-
-  contactType?.addEventListener('change', () => {
-    const showProduct = ['order', 'budget', 'info'].includes(contactType.value);
-    if (productGroup) {
-      productGroup.style.display = showProduct ? 'block' : 'none';
-    }
-    const typeLabel = contactType.options[contactType.selectedIndex]?.text || '';
-    if (formSubject) {
-      formSubject.value = `Ancestro — ${typeLabel}`;
-    }
-  });
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -280,11 +241,23 @@ const products = [
     submitBtn.classList.add('loading');
 
     try {
-      const formData = new FormData(form);
-      await fetch(form.action, {
+      const countryCodeEl = document.getElementById('countryCode') as HTMLSelectElement;
+      const phoneEl = document.getElementById('phone') as HTMLInputElement;
+      const phoneNum = phoneEl?.value.trim();
+      const fullPhone = phoneNum ? `${countryCodeEl?.value || '+57'} ${phoneNum}` : '';
+
+      const typeValue = contactType?.value || '';
+
+      await fetch('/api/contact', {
         method: 'POST',
-        body: formData,
-        headers: { 'Accept': 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: (document.getElementById('fullName') as HTMLInputElement)?.value || '',
+          email: (document.getElementById('email') as HTMLInputElement)?.value || '',
+          phone: fullPhone,
+          contactType: typeValue,
+          message: (document.getElementById('message') as HTMLTextAreaElement)?.value || '',
+        }),
       });
     } catch (_) {}
 
@@ -579,6 +552,11 @@ const products = [
   .form-group select {
     cursor: pointer;
     appearance: none;
+  }
+
+  .form-group select option {
+    background: #1a1a1a;
+    color: #f5f0e6;
   }
 
   .select-wrapper,

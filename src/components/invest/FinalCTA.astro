@@ -7,10 +7,10 @@ interface Props {
 const { sharePrice, valuation } = Astro.props;
 
 const investmentTiers = [
-  '$2,000 – $5,000',
-  '$5,000 – $20,000',
-  '$20,000 – $50,000',
-  '$50,000+',
+  { value: '2,000-5,000', label: '$2,000 – $5,000' },
+  { value: '5,000-20,000', label: '$5,000 – $20,000' },
+  { value: '20,000-50,000', label: '$20,000 – $50,000' },
+  { value: '50,000+', label: '$50,000+' },
 ];
 ---
 
@@ -69,47 +69,20 @@ const investmentTiers = [
           <div class="form-row">
             <div class="form-group">
               <label for="invest-phone" class="form-label">Phone <span class="form-optional">(optional)</span></label>
-              <div class="phone-intl-row">
-                <select id="invest-phone-code" class="form-input form-select phone-code-select">
-                  <option value="+1">🇺🇸 +1</option>
-                  <option value="+52">🇲🇽 +52</option>
-                  <option value="+57">🇨🇴 +57</option>
-                  <option value="+55">🇧🇷 +55</option>
-                  <option value="+54">🇦🇷 +54</option>
-                  <option value="+56">🇨🇱 +56</option>
-                  <option value="+51">🇵🇪 +51</option>
-                  <option value="+34">🇪🇸 +34</option>
-                  <option value="+49">🇩🇪 +49</option>
-                  <option value="+44">🇬🇧 +44</option>
-                  <option value="+33">🇫🇷 +33</option>
-                  <option value="+39">🇮🇹 +39</option>
-                  <option value="+81">🇯🇵 +81</option>
-                  <option value="+61">🇦🇺 +61</option>
-                  <option value="+91">🇮🇳 +91</option>
-                  <option value="+971">🇦🇪 +971</option>
-                  <option value="+65">🇸🇬 +65</option>
-                  <option value="+82">🇰🇷 +82</option>
-                  <option value="+506">🇨🇷 +506</option>
-                  <option value="+507">🇵🇦 +507</option>
-                  <option value="+593">🇪🇨 +593</option>
-                </select>
-                <input
-                  type="tel"
-                  id="invest-phone"
-                  name="phone_number"
-                  autocomplete="tel"
-                  placeholder="(555) 000-0000"
-                  class="form-input phone-number-input"
-                />
-              </div>
-              <input type="hidden" name="phone" id="invest-phone-full" />
+              <input
+                type="tel"
+                id="invest-phone"
+                autocomplete="tel"
+                placeholder="+1 (555) 000-0000"
+                class="form-input"
+              />
             </div>
             <div class="form-group">
               <label for="invest-amount" class="form-label">Investment Range</label>
               <select id="invest-amount" name="amount" required class="form-input form-select">
                 <option value="" disabled selected>Select range</option>
                 {investmentTiers.map((tier) => (
-                  <option value={tier}>{tier}</option>
+                  <option value={tier.value}>{tier.label}</option>
                 ))}
               </select>
             </div>
@@ -403,16 +376,6 @@ const investmentTiers = [
     color: #fff;
   }
 
-  .phone-intl-row {
-    display: flex;
-    gap: 8px;
-  }
-
-  .phone-code-select {
-    width: 120px;
-    flex-shrink: 0;
-    padding-right: 32px;
-  }
 
   .phone-number-input {
     flex: 1;
@@ -611,13 +574,6 @@ const investmentTiers = [
       padding: 22px 14px;
     }
 
-    .phone-intl-row {
-      flex-direction: column;
-    }
-
-    .phone-code-select {
-      width: 100%;
-    }
 
     .form-submit {
       padding: 14px 20px;
@@ -689,24 +645,29 @@ const investmentTiers = [
 
         if (!valid) return;
 
-        const phoneCodeEl = form.querySelector('#invest-phone-code') as HTMLSelectElement;
-        const phoneNumEl = form.querySelector('#invest-phone') as HTMLInputElement;
-        const phoneFullEl = form.querySelector('#invest-phone-full') as HTMLInputElement;
-        const phoneNum = phoneNumEl?.value.trim();
-        if (phoneFullEl) {
-          phoneFullEl.value = phoneNum ? `${phoneCodeEl?.value || '+1'} ${phoneNum}` : '';
-        }
+        const phoneEl = form.querySelector('#invest-phone') as HTMLInputElement;
+        const phoneValue = phoneEl?.value.trim() || '';
 
         submitBtn.disabled = true;
         const origText = submitBtn.querySelector('.form-submit-text');
         if (origText) origText.textContent = 'Sending...';
 
         try {
-          const formData = new FormData(form);
+          const phoneCodeEl = form.querySelector('#invest-phone-code') as HTMLSelectElement;
+          const phoneNumEl = form.querySelector('#invest-phone') as HTMLInputElement;
+          const phoneNum = phoneNumEl?.value.trim();
+          const fullPhone = phoneNum ? `${phoneCodeEl?.value || '+1'} ${phoneNum}` : '';
 
-          await fetch('https://formsubmit.co/ajax/invest@ancestro.com', {
+          await fetch('/api/invest', {
             method: 'POST',
-            body: formData,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name,
+              email,
+              phone: phoneValue,
+              amount,
+              message: (form.querySelector('#invest-message') as HTMLTextAreaElement)?.value || '',
+            }),
           });
 
           form.style.display = 'none';
