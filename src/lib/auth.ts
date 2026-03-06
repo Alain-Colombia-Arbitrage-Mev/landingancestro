@@ -161,7 +161,7 @@ export async function cognitoConfirmResetPassword(
 // ===== GET COGNITO TOKEN =====
 export async function getCognitoToken(): Promise<string | null> {
   try {
-    const session = await fetchAuthSession();
+    const session = await fetchAuthSession({ forceRefresh: true });
     return session.tokens?.idToken?.toString() ?? null;
   } catch {
     return null;
