@@ -12,7 +12,7 @@ export default defineConfig({
       enabled: true,
     },
   }),
-  site: 'https://ancestro.com',
+  site: 'https://ancestro.ai',
   
   i18n: {
     defaultLocale: 'es',
@@ -26,6 +26,15 @@ export default defineConfig({
     changefreq: 'weekly',
     priority: 0.7,
     lastmod: new Date(),
+    filter: (page) =>
+      !page.includes('/api/') &&
+      !page.includes('/login') &&
+      !page.includes('/register') &&
+      !page.includes('/verify') &&
+      !page.includes('/forgot-password') &&
+      !page.includes('/reset-password') &&
+      !page.includes('/dashboard') &&
+      !page.includes('/invest'),
     i18n: {
       defaultLocale: 'es',
       locales: {

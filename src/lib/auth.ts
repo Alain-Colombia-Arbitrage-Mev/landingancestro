@@ -85,6 +85,9 @@ export async function cognitoSignUp(
   const familyName = nameParts.slice(1).join(' ') || ' ';
   const username = `user_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
 
+  // Cognito requires E.164 format: +15550000000
+  const e164Phone = phone.replace(/[^0-9+]/g, '');
+
   const result = await signUp({
     username,
     password,
@@ -103,7 +106,7 @@ export async function cognitoSignUp(
         birthdate: '1990-01-01',
         gender: ' ',
         locale: 'es',
-        phone_number: phone,
+        phone_number: e164Phone,
         updated_at: String(Math.floor(Date.now() / 1000)),
       },
     },
@@ -161,7 +164,7 @@ export async function cognitoConfirmResetPassword(
 // ===== GET COGNITO TOKEN =====
 export async function getCognitoToken(): Promise<string | null> {
   try {
-    const session = await fetchAuthSession({ forceRefresh: true });
+    const session = await fetchAuthSession();
     return session.tokens?.idToken?.toString() ?? null;
   } catch {
     return null;

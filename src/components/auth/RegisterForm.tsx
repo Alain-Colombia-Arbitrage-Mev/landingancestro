@@ -1,28 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 
-const PHONE_CODES = [
-  { code: '+1', label: '🇺🇸 +1' },
-  { code: '+52', label: '🇲🇽 +52' },
-  { code: '+57', label: '🇨🇴 +57' },
-  { code: '+55', label: '🇧🇷 +55' },
-  { code: '+54', label: '🇦🇷 +54' },
-  { code: '+56', label: '🇨🇱 +56' },
-  { code: '+51', label: '🇵🇪 +51' },
-  { code: '+34', label: '🇪🇸 +34' },
-  { code: '+49', label: '🇩🇪 +49' },
-  { code: '+44', label: '🇬🇧 +44' },
-  { code: '+33', label: '🇫🇷 +33' },
-  { code: '+39', label: '🇮🇹 +39' },
-  { code: '+81', label: '🇯🇵 +81' },
-  { code: '+61', label: '🇦🇺 +61' },
-  { code: '+91', label: '🇮🇳 +91' },
-  { code: '+971', label: '🇦🇪 +971' },
-  { code: '+65', label: '🇸🇬 +65' },
-  { code: '+82', label: '🇰🇷 +82' },
-  { code: '+506', label: '🇨🇷 +506' },
-  { code: '+507', label: '🇵🇦 +507' },
-  { code: '+593', label: '🇪🇨 +593' },
-];
 
 interface RegisterLabels {
   title: string;
@@ -60,7 +37,6 @@ export default function RegisterForm({
 }: RegisterFormProps) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [phoneCode, setPhoneCode] = useState('+1');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -117,7 +93,7 @@ export default function RegisterForm({
     setIsLoading(true);
     try {
       const { cognitoSignUp } = await import('../../lib/auth');
-      const fullPhone = `${phoneCode}${phone.trim()}`;
+      const fullPhone = phone.trim();
       await cognitoSignUp(email, password, name, fullPhone);
       window.location.href = `${verifyPath}?email=${encodeURIComponent(email)}`;
     } catch (err: any) {
@@ -232,30 +208,20 @@ export default function RegisterForm({
           {/* Phone (required - verification code sent via SMS) */}
           <div className={`rf-field ${fieldErrors.phone ? 'rf-field--error' : ''}`}>
             <label className="rf-label" htmlFor="rf-phone">{labels.phone} *</label>
-            <div className="rf-phone-row">
-              <select
-                className="rf-input rf-phone-code"
-                value={phoneCode}
-                onChange={(e) => setPhoneCode(e.target.value)}
+            <div className="rf-input-wrap">
+              <svg className="rf-input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+              </svg>
+              <input
+                id="rf-phone"
+                type="tel"
+                className="rf-input"
+                value={phone}
+                onChange={(e) => { setPhone(e.target.value.replace(/[^0-9+\s\-()]/g, '')); clearFieldError('phone'); }}
+                autoComplete="tel"
+                placeholder="+1 (555) 000-0000"
                 disabled={isLoading}
-              >
-                {PHONE_CODES.map(p => <option key={p.code} value={p.code}>{p.label}</option>)}
-              </select>
-              <div className="rf-input-wrap" style={{ flex: 1 }}>
-                <svg className="rf-input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
-                </svg>
-                <input
-                  id="rf-phone"
-                  type="tel"
-                  className="rf-input"
-                  value={phone}
-                  onChange={(e) => { setPhone(e.target.value.replace(/[^0-9\s\-()]/g, '')); clearFieldError('phone'); }}
-                  autoComplete="tel"
-                  placeholder="300 000 0000"
-                  disabled={isLoading}
-                />
-              </div>
+              />
             </div>
           </div>
 
@@ -488,18 +454,6 @@ export default function RegisterForm({
         }
 
         .rf-input-wrap { position: relative; }
-
-        .rf-phone-row {
-          display: flex;
-          gap: 8px;
-        }
-
-        .rf-phone-code {
-          width: 115px;
-          flex-shrink: 0;
-          padding: 12px 8px 12px 12px;
-          cursor: pointer;
-        }
 
         .rf-input-icon {
           position: absolute;
