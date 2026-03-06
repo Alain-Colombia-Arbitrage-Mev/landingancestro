@@ -29,7 +29,7 @@ export async function initAuth(): Promise<void> {
         await handlePostOAuth();
         break;
       case 'signInWithRedirect_failure':
-        console.error('OAuth redirect failed:', payload.data);
+        // OAuth redirect failed - silent
         break;
       case 'signedOut':
         clearAuth();
@@ -39,7 +39,7 @@ export async function initAuth(): Promise<void> {
         await refreshBackendToken();
         break;
       case 'tokenRefresh_failure':
-        console.warn('Token refresh failed - clearing session');
+        // Token refresh failed
         clearAuth();
         break;
     }
@@ -71,7 +71,7 @@ async function handlePostOAuth(): Promise<void> {
       }
     }
   } catch (error) {
-    console.error('Post-OAuth handling failed:', error);
+    // Post-OAuth handling failed - silent
   }
 }
 

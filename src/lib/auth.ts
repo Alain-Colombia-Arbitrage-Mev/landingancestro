@@ -247,7 +247,6 @@ export async function syncWithBackend(cognitoToken: string): Promise<{ user: any
 
     return await response.json();
   } catch (error) {
-    console.error('Backend sync error:', error);
     return null;
   }
 }

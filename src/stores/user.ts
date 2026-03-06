@@ -96,7 +96,6 @@ export async function login(email: string, password: string): Promise<{ success:
 
     return { success: false };
   } catch (error) {
-    console.error('Login error:', error);
     throw error;
   } finally {
     isAuthLoading.set(false);
@@ -110,7 +109,7 @@ export async function logout() {
     const { cognitoSignOut } = await import('../lib/auth');
     await cognitoSignOut();
   } catch (error) {
-    console.error('Logout error:', error);
+    // Logout error - silent
   } finally {
     clearAuth();
   }
