@@ -146,7 +146,7 @@ export default function ContactPopup({ labels, contactPath }: ContactPopupProps)
     const fullPhone = phone.trim() ? `${countryCode} ${phone.trim()}` : '';
 
     try {
-      await fetch('/api/contact', {
+      const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -157,9 +157,13 @@ export default function ContactPopup({ labels, contactPath }: ContactPopupProps)
           message,
         }),
       });
-    } catch (_) {}
 
-    setStatus('success');
+      if (!res.ok) throw new Error('Server error');
+      setStatus('success');
+    } catch (_) {
+      setStatus('idle');
+      alert('Error al enviar el formulario. Intenta de nuevo.');
+    }
   }
 
   if (!isOpen) return null;

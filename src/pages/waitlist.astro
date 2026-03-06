@@ -343,7 +343,7 @@ const footerBg = "/images/footer-bg.png";
       const countryEl = document.getElementById('country') as HTMLSelectElement;
       const countryName = countryEl?.options[countryEl.selectedIndex]?.text || '';
 
-      await fetch('/api/waitlist', {
+      const res = await fetch('/api/waitlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -353,20 +353,25 @@ const footerBg = "/images/footer-bg.png";
           country: countryName,
         }),
       });
-    } catch (_) {}
 
-    submitBtn.classList.remove('loading');
-    submitBtn.classList.add('success');
-    
-    setTimeout(() => {
-      formCard?.classList.add('hidden');
-      successMessage?.classList.add('visible');
-      
-      if (positionNumber) {
-        const newPosition = baseCount + 1;
-        positionNumber.textContent = `#${newPosition.toLocaleString()}`;
-      }
-    }, 800);
+      if (!res.ok) throw new Error('Server error');
+
+      submitBtn.classList.remove('loading');
+      submitBtn.classList.add('success');
+
+      setTimeout(() => {
+        formCard?.classList.add('hidden');
+        successMessage?.classList.add('visible');
+
+        if (positionNumber) {
+          const newPosition = baseCount + 1;
+          positionNumber.textContent = `#${newPosition.toLocaleString()}`;
+        }
+      }, 800);
+    } catch (_) {
+      submitBtn.classList.remove('loading');
+      alert('Error al enviar el formulario. Intenta de nuevo.');
+    }
   });
   
   // Share functionality

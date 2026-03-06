@@ -658,7 +658,7 @@ const investmentTiers = [
           const phoneNum = phoneNumEl?.value.trim();
           const fullPhone = phoneNum ? `${phoneCodeEl?.value || '+1'} ${phoneNum}` : '';
 
-          await fetch('/api/invest', {
+          const res = await fetch('/api/invest', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -670,11 +670,14 @@ const investmentTiers = [
             }),
           });
 
+          if (!res.ok) throw new Error('Server error');
+
           form.style.display = 'none';
           successEl.classList.add('is-active');
         } catch {
           if (origText) origText.textContent = 'Request Access';
           submitBtn.disabled = false;
+          alert('Error submitting form. Please try again.');
         }
       });
     }

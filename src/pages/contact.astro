@@ -248,7 +248,7 @@ const products = [
 
       const typeValue = contactType?.value || '';
 
-      await fetch('/api/contact', {
+      const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -259,15 +259,20 @@ const products = [
           message: (document.getElementById('message') as HTMLTextAreaElement)?.value || '',
         }),
       });
-    } catch (_) {}
 
-    submitBtn.classList.remove('loading');
-    submitBtn.classList.add('success');
+      if (!res.ok) throw new Error('Server error');
 
-    setTimeout(() => {
-      formCard?.classList.add('hidden');
-      successMessage?.classList.add('visible');
-    }, 800);
+      submitBtn.classList.remove('loading');
+      submitBtn.classList.add('success');
+
+      setTimeout(() => {
+        formCard?.classList.add('hidden');
+        successMessage?.classList.add('visible');
+      }, 800);
+    } catch (_) {
+      submitBtn.classList.remove('loading');
+      alert('Error al enviar el formulario. Intenta de nuevo.');
+    }
   });
 
   const inputs = document.querySelectorAll('.form-group input, .form-group select, .form-group textarea');
